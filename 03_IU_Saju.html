@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B1422">
+<title>2026 병오년 · 公人 創作者 운영노트</title>
+<style>
+  /* ========== TOKENS ========== */
+  :root{
+    --bg:#0B1422; --bg-2:#070D17;
+    --surface:#121E33; --surface-2:#182742;
+    --line:rgba(236,230,215,0.07);
+    --line-strong:rgba(236,230,215,0.14);
+    --ivory:#EFE9DA; --ivory-dim:#C9C3B4;
+    --muted:#7E8699; --muted-2:#525B70;
+    --gold:#CDA969; --gold-dim:#A6884A;
+    --gold-soft:rgba(205,169,105,0.10);
+    --gold-line:rgba(205,169,105,0.32);
+    --ok:#7FB28B; --warn:#D6B85A; --danger:#D98E6B;
+    --sans:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Segoe UI',sans-serif;
+    --serif:'Noto Serif KR','Songti SC','SimSun','Apple SD Gothic Neo',serif;
+    --mono:'JetBrains Mono','SF Mono',ui-monospace,'Menlo',monospace;
+    --pad:22px; --radius:18px; --radius-lg:26px;
+    --safe-top:env(safe-area-inset-top,0px);
+    --safe-bot:env(safe-area-inset-bottom,0px);
+  }
+
+  /* ========== BASE ========== */
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;background:var(--bg);}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans); color:var(--ivory);
+    font-size:16px; line-height:1.7; font-weight:400;
+    letter-spacing:-0.005em; word-break:keep-all; overflow-wrap:break-word;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    padding:0 0 calc(120px + var(--safe-bot)) 0;
+    min-height:100vh; max-width:480px; margin:0 auto; position:relative;
+    background:
+      radial-gradient(120% 50% at 80% -5%, rgba(205,169,105,0.07), transparent 60%),
+      radial-gradient(140% 60% at -10% 105%, rgba(127,178,139,0.035), transparent 60%),
+      var(--bg);
+  }
+  @media (min-width:481px){ body{ box-shadow:0 0 80px rgba(0,0,0,0.6); } }
+  h1,h2,h3,h4{margin:0;font-weight:600;letter-spacing:-0.015em;}
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  ::selection{background:var(--gold);color:var(--bg);}
+
+  /* ========== HEADER ========== */
+  .header{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:saturate(160%) blur(20px);
+    -webkit-backdrop-filter:saturate(160%) blur(20px);
+    background:rgba(11,20,34,0.78);
+    border-bottom:1px solid var(--line);
+    padding:max(var(--safe-top),12px) var(--pad) 14px var(--pad);
+  }
+  .header .top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .h-title{font-family:var(--serif);font-weight:600;font-size:15px;color:var(--ivory);
+    letter-spacing:-0.01em;line-height:1.2;}
+  .h-title small{display:block;font-family:var(--mono);font-weight:400;
+    font-size:9.5px;letter-spacing:0.22em;color:var(--muted);margin-top:3px;text-transform:uppercase;}
+  .h-meta{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;color:var(--gold);
+    text-align:right;line-height:1.5;text-transform:uppercase;}
+
+  /* ========== SECTION ========== */
+  section{ padding:48px var(--pad) 32px; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .sec-head{ margin-bottom:26px; }
+  .sec-eyebrow{ font-family:var(--mono); font-size:11px; letter-spacing:0.26em;
+    color:var(--gold); font-weight:500; text-transform:uppercase;
+    margin-bottom:14px; display:flex; align-items:center; gap:12px; }
+  .sec-eyebrow::after{ content:''; flex:1; height:1px; background:var(--gold-line); }
+  .sec-title{ font-family:var(--serif); font-weight:600; font-size:26px;
+    line-height:1.3; color:var(--ivory); letter-spacing:-0.015em; margin-bottom:10px; }
+  .sec-desc{ font-size:14px; color:var(--ivory-dim); line-height:1.65; }
+
+  /* ========== HERO ========== */
+  .hero{ padding:48px var(--pad) 36px; border-bottom:1px solid var(--line); }
+  .hero-eyebrow{ font-family:var(--mono); font-size:11px; letter-spacing:0.28em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px; }
+  .moon{ width:10px; height:10px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, var(--gold), var(--gold-dim) 70%, transparent 71%);
+    box-shadow: inset -2px -2px 0 var(--bg); }
+  .hero-quote{ margin:0 0 24px 0; padding:0; }
+  .hero-quote em{ display:block; font-style:normal; font-family:var(--serif);
+    font-size:30px; line-height:1.3; font-weight:600; color:var(--ivory);
+    letter-spacing:-0.02em; margin-bottom:14px; }
+  .hero-quote-body{ font-size:15.5px; line-height:1.7; color:var(--ivory-dim); }
+  .hero-meta{ display:flex; flex-wrap:wrap; gap:7px; margin:24px 0 28px 0; }
+  .pill{ display:inline-flex; align-items:center; height:28px; padding:0 12px;
+    border-radius:999px; border:1px solid var(--line-strong);
+    background:rgba(18,30,51,0.4); font-size:12px; color:var(--ivory-dim); letter-spacing:0.02em; }
+  .pill.gold{ color:var(--gold); border-color:var(--gold-line); background:var(--gold-soft); }
+  .pill.muted{ color:var(--muted); }
+
+  .hero-hex{ display:grid; grid-template-columns:auto 1fr; gap:20px; align-items:center;
+    padding:22px; border:1px solid var(--gold-line); border-radius:var(--radius-lg);
+    background:linear-gradient(180deg, rgba(205,169,105,0.06) 0%, rgba(18,30,51,0.5) 100%); }
+  .hex-seal{ font-family:var(--serif); font-size:46px; line-height:1; font-weight:600;
+    color:var(--gold); letter-spacing:0.04em; white-space:nowrap; }
+  .hex-seal small{ display:block; font-family:var(--mono); font-size:9px; letter-spacing:0.26em;
+    color:var(--muted); text-transform:uppercase; margin-top:6px; font-weight:400; }
+  .hex-name{ font-family:var(--serif); font-size:22px; font-weight:600; line-height:1.3;
+    color:var(--ivory); letter-spacing:0.02em; margin-bottom:8px; }
+  .hex-trans{ font-size:13px; color:var(--ivory-dim); line-height:1.55; }
+
+  /* ========== TODAY ========== */
+  .today{ padding:44px var(--pad) 30px; border-bottom:1px solid var(--line); }
+  .today-eyebrow{ font-family:var(--mono); font-size:11px; letter-spacing:0.26em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:14px; }
+  .today-h{ font-family:var(--serif); font-size:24px; line-height:1.3; color:var(--ivory);
+    margin-bottom:8px; }
+  .today-sub{ font-size:13.5px; color:var(--ivory-dim); margin-bottom:22px; }
+  .daily-list{ display:flex; flex-direction:column; gap:10px; }
+  .daily-item{ display:grid; grid-template-columns:32px 1fr 26px; align-items:center; gap:14px;
+    padding:14px 16px; background:var(--surface-2); border:1px solid var(--line);
+    border-radius:var(--radius); cursor:pointer; user-select:none; }
+  .daily-item .num{ font-family:var(--mono); font-size:18px; color:var(--gold); font-weight:500; }
+  .daily-item .title{ font-size:15px; color:var(--ivory); line-height:1.4; font-weight:500; }
+  .daily-item .sub{ font-size:12.5px; color:var(--muted); line-height:1.5; margin-top:3px; }
+  .daily-item .ck{ width:22px; height:22px; border-radius:50%;
+    border:1.5px solid var(--line-strong); display:flex; align-items:center; justify-content:center; }
+  .daily-item .ck svg{ width:12px; height:12px; display:none; }
+  .daily-item input[type=checkbox]{ display:none; }
+  .daily-item:has(input:checked){ background:rgba(205,169,105,0.08); border-color:var(--gold-line); }
+  .daily-item:has(input:checked) .ck{ background:var(--gold); border-color:var(--gold); }
+  .daily-item:has(input:checked) .ck svg{ display:block; }
+
+  /* ========== EXECUTIVE ========== */
+  .exec-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+  .exec-cell{ padding:18px 16px; border-radius:var(--radius); border:1px solid var(--line);
+    background:rgba(18,30,51,0.55); border-left:3px solid var(--muted-2); }
+  .exec-cell.up{ border-left-color:var(--ok); }
+  .exec-cell.down{ border-left-color:var(--danger); }
+  .ec-l{ font-family:var(--mono); font-size:9.5px; letter-spacing:0.22em; color:var(--muted);
+    text-transform:uppercase; margin-bottom:8px; }
+  .ec-v{ font-size:15px; color:var(--ivory); line-height:1.45; font-weight:500; }
+  .exec-row{ padding:16px 18px; border-radius:var(--radius); background:rgba(18,30,51,0.4);
+    border:1px solid var(--line); margin-bottom:14px; }
+  .pillars{ display:flex; flex-wrap:wrap; gap:6px; align-items:center;
+    font-family:var(--serif); font-size:17px; color:var(--ivory); font-weight:600; }
+  .pillars .sep{ color:var(--gold); margin:0 2px; }
+  .qrt{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .qrt-cell{ padding:14px 14px; border-radius:14px; background:rgba(18,30,51,0.4);
+    border:1px solid var(--line); }
+  .qrt-cell.good{ border-left:3px solid var(--ok); }
+  .qrt-cell.bad{ border-left:3px solid var(--danger); }
+  .ec-period{ font-family:var(--serif); font-size:17px; color:var(--ivory);
+    margin:4px 0 6px; font-weight:600; }
+  .ec-d{ font-size:13px; color:var(--ivory-dim); line-height:1.5; }
+
+  /* ========== SYMBOL ========== */
+  .symbol-card{ background:linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+    border:1px solid var(--gold-line); border-radius:var(--radius-lg);
+    padding:32px 24px; text-align:center; position:relative; overflow:hidden; }
+  .symbol-moon{ position:absolute; top:22px; right:22px; width:32px; height:32px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, var(--gold), var(--gold-dim) 70%, transparent 71%);
+    box-shadow: inset -7px -7px 0 var(--bg); opacity:0.85; }
+  .symbol-num{ font-family:var(--serif); font-size:64px; font-weight:600;
+    color:var(--gold); line-height:1; letter-spacing:0.04em; }
+  .symbol-label{ font-family:var(--mono); font-size:9.5px; letter-spacing:0.28em;
+    color:var(--muted); text-transform:uppercase; margin-top:10px; }
+  .symbol-hanja{ font-family:var(--serif); font-size:30px; line-height:1.3; font-weight:600;
+    color:var(--ivory); letter-spacing:0.02em; margin-top:22px; }
+  .symbol-trans{ font-size:14.5px; color:var(--ivory-dim); line-height:1.6; margin-top:14px; }
+  .symbol-meaning{ font-size:14px; color:var(--ivory-dim); line-height:1.7;
+    margin-top:20px; padding-top:20px; border-top:1px solid var(--line); text-align:left; }
+  .symbol-meaning strong{ color:var(--ivory); font-weight:500; }
+  .symbol-caveat{ margin-top:18px; padding:14px 16px; border-radius:14px;
+    background:rgba(217,142,107,0.06); border:1px solid rgba(217,142,107,0.18);
+    font-family:var(--mono); font-size:10.5px; letter-spacing:0.18em;
+    color:var(--danger); text-transform:uppercase; text-align:left; line-height:1.7; }
+
+  /* ========== ANNUAL FLOW ========== */
+  .flow-list{ display:flex; flex-direction:column; gap:10px; }
+  .flow-row{ display:grid; grid-template-columns:54px 1fr; gap:14px; align-items:flex-start;
+    padding:16px 18px; border-radius:var(--radius); background:rgba(18,30,51,0.4);
+    border:1px solid var(--line); }
+  .flow-num{ font-family:var(--mono); font-size:11px; letter-spacing:0.22em;
+    color:var(--gold); text-transform:uppercase; padding-top:4px; }
+  .flow-keyword{ font-family:var(--serif); font-size:18px; color:var(--ivory);
+    font-weight:600; margin-bottom:4px; }
+  .flow-desc{ font-size:13.5px; color:var(--ivory-dim); line-height:1.6; }
+
+  /* ========== MONTHLY ========== */
+  details.month{ background:var(--surface-2); border:1px solid var(--line);
+    border-radius:var(--radius); margin-bottom:10px; overflow:hidden; }
+  details.month[open]{ border-color:rgba(205,169,105,0.22); }
+  details.month summary{ list-style:none; cursor:pointer;
+    display:grid; grid-template-columns:64px 1fr auto; align-items:center;
+    padding:16px 18px; gap:14px; }
+  details.month summary::-webkit-details-marker{ display:none; }
+  .month-num{ font-family:var(--mono); font-size:24px; color:var(--ivory); font-weight:500; line-height:1; }
+  .month-num small{ display:block; font-size:9px; color:var(--muted);
+    letter-spacing:0.18em; text-transform:uppercase; margin-top:5px; }
+  .month-tag{ font-family:var(--mono); font-size:9.5px; color:var(--muted);
+    letter-spacing:0.2em; text-transform:uppercase; }
+  .month-keyword{ font-family:var(--serif); font-size:17px; color:var(--ivory);
+    font-weight:600; margin-top:5px; }
+  .month-end{ display:flex; align-items:center; gap:10px; color:var(--muted); }
+  .risk-dot{ width:8px; height:8px; border-radius:50%; background:var(--muted-2); flex-shrink:0; }
+  .risk-dot.warn{ background:var(--warn); }
+  .risk-dot.danger{ background:var(--danger); }
+  .risk-dot.ok{ background:var(--ok); }
+  .chev{ width:16px; height:16px; transition:transform 0.2s ease; }
+  details[open] .chev{ transform:rotate(180deg); }
+  .month-body{ padding:0 18px 18px; }
+  .month-row{ display:grid; grid-template-columns:80px 1fr; gap:14px; padding-top:14px;
+    border-top:1px solid var(--line); }
+  .month-row .k{ font-family:var(--mono); font-size:9.5px; color:var(--gold);
+    letter-spacing:0.22em; text-transform:uppercase; padding-top:2px; }
+  .month-row .v{ font-size:14px; color:var(--ivory-dim); line-height:1.6; }
+  .month-row.do .k{ color:var(--ok); }
+  .month-row.no .k{ color:var(--danger); }
+  .month-divider{ display:flex; align-items:center; gap:12px; margin:18px 0 12px;
+    font-family:var(--mono); font-size:10px; letter-spacing:0.24em;
+    color:var(--gold); text-transform:uppercase; }
+  .month-divider::before, .month-divider::after{
+    content:''; flex:1; height:1px; background:var(--gold-line); }
+
+  /* ========== RISK CARDS ========== */
+  .risk-card{ border-left:3px solid var(--muted-2); background:rgba(18,30,51,0.55);
+    border-radius:14px; padding:16px 18px; margin-bottom:10px; }
+  .risk-card.warn{ border-left-color:var(--warn); }
+  .risk-card.danger{ border-left-color:var(--danger); }
+  .risk-num{ display:flex; justify-content:space-between; align-items:center; gap:12px;
+    font-family:var(--mono); font-size:10px; letter-spacing:0.24em;
+    color:var(--muted); text-transform:uppercase; margin-bottom:6px; }
+  .level{ color:var(--gold); }
+  .risk-card.danger .level{ color:var(--danger); }
+  .risk-card.warn .level{ color:var(--warn); }
+  .risk-title{ font-family:var(--serif); font-size:18px; font-weight:600;
+    line-height:1.35; margin-bottom:6px; color:var(--ivory); }
+  .risk-desc{ font-size:13.5px; line-height:1.6; color:var(--ivory-dim); }
+  .risk-foot{ display:grid; grid-template-columns:54px 1fr; gap:12px; margin-top:12px;
+    padding-top:12px; border-top:1px solid var(--line); }
+  .risk-foot .k{ font-family:var(--mono); font-size:9.5px; color:var(--gold);
+    letter-spacing:0.2em; text-transform:uppercase; padding-top:2px; }
+  .risk-foot .v{ font-size:13px; color:var(--ivory-dim); line-height:1.5; }
+
+  /* ========== RULE CARD ========== */
+  .rule-card{ padding:22px 20px; border:1px solid var(--line); border-radius:var(--radius);
+    background:rgba(18,30,51,0.4); margin-bottom:14px; }
+  .rule-tag{ font-family:var(--mono); font-size:10px; letter-spacing:0.28em;
+    color:var(--gold); font-weight:500; text-transform:uppercase; }
+  .rule-title{ font-family:var(--serif); font-size:22px; font-weight:600; line-height:1.3;
+    color:var(--ivory); margin-top:8px; }
+  .rule-desc{ font-size:13.5px; line-height:1.65; color:var(--ivory-dim); margin-top:8px; }
+  .rule-72{ text-align:center; padding:20px 0 16px; margin-top:18px;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .rule-72 .h{ font-family:var(--mono); font-weight:400; font-size:80px; line-height:0.9;
+    color:var(--gold); letter-spacing:-0.05em; }
+  .rule-72 .h .u{ font-size:28px; vertical-align:top; margin-left:4px; color:var(--gold-dim); }
+  .rule-72 .sub{ font-family:var(--mono); font-size:10px; letter-spacing:0.28em;
+    color:var(--muted); text-transform:uppercase; margin-top:6px; }
+  .gate{ display:flex; flex-direction:column; gap:8px; margin-top:18px; }
+  .gate-row{ display:grid; grid-template-columns:84px 1fr auto; align-items:center; gap:14px;
+    padding:12px 14px; border-radius:14px; background:rgba(18,30,51,0.55);
+    border-left:3px solid var(--warn); }
+  .gate-row.danger{ border-left-color:var(--danger); }
+  .gate-row.critical{ border-left-color:var(--danger); background:rgba(217,142,107,0.10); }
+  .gh{ font-family:var(--mono); font-size:18px; color:var(--ivory); letter-spacing:-0.02em; }
+  .gtk{ font-size:13.5px; color:var(--ivory); font-weight:500; }
+  .gts{ font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .ga{ font-family:var(--mono); font-size:10px; letter-spacing:0.18em;
+    color:var(--warn); text-transform:uppercase; text-align:right; }
+  .gate-row.danger .ga{ color:var(--danger); }
+  .gate-row.critical .ga{ color:var(--danger); font-weight:600; }
+
+  /* ========== OS CARDS ========== */
+  .os-card{ padding:20px; border:1px solid var(--line); border-radius:var(--radius);
+    background:rgba(18,30,51,0.4); margin-bottom:12px; }
+  .os-head{ display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+  .os-num{ font-family:var(--mono); font-size:11px; letter-spacing:0.24em;
+    color:var(--gold); text-transform:uppercase; min-width:24px; padding-top:2px; }
+  .os-title{ font-family:var(--serif); font-size:19px; color:var(--ivory);
+    font-weight:600; line-height:1.3; }
+  .os-sub{ font-size:12.5px; color:var(--muted); margin-top:3px; }
+  .os-card ul{ padding-left:0; }
+  .os-card li{ position:relative; padding-left:18px; font-size:14px;
+    color:var(--ivory-dim); line-height:1.65; margin-bottom:6px; }
+  .os-card li::before{ content:''; position:absolute; left:0; top:11px;
+    width:6px; height:1px; background:var(--gold); }
+
+  /* ========== AXES ========== */
+  .axes{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .axis{ padding:18px 16px; border-radius:var(--radius); border:1px solid var(--line);
+    background:rgba(18,30,51,0.4); }
+  .axis-num{ font-family:var(--mono); font-size:9.5px; letter-spacing:0.24em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:8px; }
+  .axis-hanja{ font-family:var(--serif); font-size:24px; color:var(--ivory);
+    font-weight:600; letter-spacing:0.02em; line-height:1.2; }
+  .axis-name{ font-family:var(--serif); font-size:15px; color:var(--ivory-dim);
+    margin-top:4px; font-weight:500; }
+  .axis-desc{ font-size:12.5px; color:var(--muted); line-height:1.55; margin-top:10px; }
+
+  /* ========== STOP / CONTINUE / START ========== */
+  .scs{ display:grid; grid-template-columns:1fr; gap:10px; }
+  .scs-col{ padding:18px 18px; border-radius:var(--radius);
+    background:rgba(18,30,51,0.5); border-top:2px solid var(--muted-2); }
+  .scs-col.stop{ border-top-color:var(--danger); }
+  .scs-col.cont{ border-top-color:var(--gold); }
+  .scs-col.start{ border-top-color:var(--ok); }
+  .scs-head{ font-family:var(--mono); font-size:11px; letter-spacing:0.26em;
+    text-transform:uppercase; margin-bottom:12px; }
+  .scs-col.stop .scs-head{ color:var(--danger); }
+  .scs-col.cont .scs-head{ color:var(--gold); }
+  .scs-col.start .scs-head{ color:var(--ok); }
+  .scs-col li{ padding-left:14px; position:relative; font-size:14px;
+    color:var(--ivory); line-height:1.6; margin-bottom:6px; }
+  .scs-col li::before{ content:'·'; position:absolute; left:2px; color:var(--gold); top:-2px; }
+
+  /* ========== FINAL PRINCIPLES ========== */
+  .prin-list{ display:flex; flex-direction:column; gap:14px; }
+  .prin{ display:grid; grid-template-columns:36px 1fr; gap:14px; align-items:flex-start;
+    padding:18px 0; border-bottom:1px solid var(--line); }
+  .prin:last-child{ border-bottom:none; }
+  .prin-num{ font-family:var(--mono); font-size:18px; color:var(--gold);
+    letter-spacing:-0.02em; padding-top:2px; }
+  .prin-text{ font-family:var(--serif); font-size:19px; line-height:1.4;
+    color:var(--ivory); font-weight:600; letter-spacing:-0.01em; }
+
+  /* ========== APPENDIX ========== */
+  details.appx{ background:rgba(18,30,51,0.4); border:1px solid var(--line);
+    border-radius:var(--radius); margin-bottom:10px; overflow:hidden; }
+  details.appx summary{ list-style:none; cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 18px; gap:14px; }
+  details.appx summary::-webkit-details-marker{ display:none; }
+  .appx-l{ font-family:var(--mono); font-size:10px; letter-spacing:0.24em;
+    color:var(--gold); text-transform:uppercase; }
+  .appx-t{ font-family:var(--serif); font-size:16px; color:var(--ivory);
+    font-weight:600; margin-top:4px; }
+  .appx-body{ padding:0 18px 18px; }
+  .appx-row{ display:grid; grid-template-columns:130px 1fr 90px; gap:12px;
+    padding:10px 0; border-top:1px solid var(--line);
+    font-size:12.5px; color:var(--ivory-dim); line-height:1.55; }
+  .appx-row .k{ font-family:var(--mono); font-size:10px; letter-spacing:0.18em;
+    color:var(--muted); text-transform:uppercase; padding-top:2px; }
+  .appx-row .q{ font-family:var(--mono); font-size:10px; letter-spacing:0.18em;
+    color:var(--warn); text-transform:uppercase; text-align:right; padding-top:2px; }
+  .appx-row .q.hi{ color:var(--danger); }
+  .appx-row .q.lo{ color:var(--ok); }
+
+  /* ========== TAB BAR ========== */
+  .tabbar{ position:fixed; bottom:max(16px,calc(var(--safe-bot) + 8px));
+    left:50%; transform:translateX(-50%); width:min(440px, calc(100% - 24px));
+    background:rgba(11,20,34,0.92);
+    backdrop-filter:saturate(160%) blur(20px); -webkit-backdrop-filter:saturate(160%) blur(20px);
+    border:1px solid var(--line-strong); border-radius:22px; padding:8px;
+    display:flex; gap:4px; z-index:60;
+    box-shadow:0 16px 40px -16px rgba(0,0,0,0.7); }
+  .tab{ flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;
+    padding:8px 4px; border-radius:14px;
+    color:var(--muted); font-family:var(--mono); font-size:9.5px;
+    letter-spacing:0.18em; text-transform:uppercase; }
+  .tab:hover{ color:var(--ivory-dim); }
+  .tab svg{ width:18px; height:18px; }
+
+  /* ========== FOOTER ========== */
+  .footer{ padding:48px var(--pad) 32px; text-align:center; }
+  .footer-seal{ font-family:var(--serif); font-size:48px; color:var(--gold);
+    letter-spacing:0.04em; margin-bottom:14px; opacity:0.9; }
+  .footer-title{ font-family:var(--serif); font-size:18px; color:var(--ivory);
+    font-weight:600; letter-spacing:0.02em; }
+  .footer-meta{ font-family:var(--mono); font-size:10px; letter-spacing:0.24em;
+    color:var(--muted); text-transform:uppercase; margin-top:8px; }
+  .footer-note{ margin-top:32px; padding:18px 20px; border:1px solid var(--line);
+    border-radius:16px; font-size:13px; color:var(--ivory-dim); line-height:1.7;
+    text-align:left; }
+  .footer-note .l{ font-family:var(--mono); font-size:10px; letter-spacing:0.24em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:6px; }
+  .footer-note strong{ color:var(--ivory); font-weight:500; }
+
+  .disclaimer{ margin-top:24px; padding:18px 20px; border:1px solid var(--line);
+    border-radius:16px; background:rgba(18,30,51,0.3);
+    font-size:11.5px; color:var(--muted); line-height:1.7; text-align:left; }
+
+  .end-mark{ margin-top:30px; font-family:var(--mono); font-size:10px;
+    letter-spacing:0.28em; color:var(--muted-2); text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<!-- ============== HEADER ============== -->
+<header class="header">
+  <div class="top">
+    <div class="h-title">
+      병오년 · 공인 창작자 운영노트
+      <small>2026 · 丙午 · Stage 2</small>
+    </div>
+    <div class="h-meta">v1.0<br>Personal OS</div>
+  </div>
+</header>
+
+<!-- ============== HERO ============== -->
+<section class="hero" id="s-home">
+  <div class="hero-eyebrow"><span class="moon"></span>火當其位 · 持節爲先</div>
+  <blockquote class="hero-quote">
+    <em>강한 불의 해, 조율이 곧 추진력이다.</em>
+    <div class="hero-quote-body">에너지는 오르되 통제되지 않으면 과열로 전환된다.<br>
+    선택과 집중의 구조, 일관된 메시지,<br>
+    의도된 회복이 한 해를 지탱한다.</div>
+  </blockquote>
+  <div class="hero-meta">
+    <span class="pill gold">2026 · 丙午</span>
+    <span class="pill">三柱 기준 · 時柱 未詳</span>
+    <span class="pill">상징 해석 · 참고용</span>
+    <span class="pill muted">예언 아님</span>
+  </div>
+  <div class="hero-hex">
+    <div class="hex-seal">丙午<small>Annual Seal</small></div>
+    <div>
+      <div class="hex-name">火盛而調<br>動止有節</div>
+      <div class="hex-trans">불이 성하니 다스리고,<br>움직임과 멈춤에 절도를 둔다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== TODAY ============== -->
+<section class="today" id="s-today">
+  <div class="today-eyebrow">TODAY</div>
+  <h2 class="today-h">오늘 확인할 5가지</h2>
+  <p class="today-sub">과열은 사건이 아니라 누적이다. 매일 한 번 식힌다.</p>
+
+  <ul class="daily-list">
+    <li class="daily-item"><label style="display:contents;">
+      <input type="checkbox">
+      <div class="num">1</div>
+      <div>
+        <div class="title">오늘 한 일정을 비웠다</div>
+        <div class="sub">미팅 · 약속 · 공개일정 — 무엇이든 하나만</div>
+      </div>
+      <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1422" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    </label></li>
+    <li class="daily-item"><label style="display:contents;">
+      <input type="checkbox">
+      <div class="num">2</div>
+      <div>
+        <div class="title">공식 발신 전 한 사람의 검수를 거쳤다</div>
+        <div class="sub">즉답·즉발신은 본인 불안 신호. 한 단계 게이트가 곧 안전망</div>
+      </div>
+      <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1422" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    </label></li>
+    <li class="daily-item"><label style="display:contents;">
+      <input type="checkbox">
+      <div class="num">3</div>
+      <div>
+        <div class="title">활동 후 회복 한 칸을 지켰다</div>
+        <div class="sub">촬영·무대·인터뷰 다음 날은 비워 둔다 — 양이 아니라 간격</div>
+      </div>
+      <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1422" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    </label></li>
+    <li class="daily-item"><label style="display:contents;">
+      <input type="checkbox">
+      <div class="num">4</div>
+      <div>
+        <div class="title">팬·대중과의 거리를 한 번 의식했다</div>
+        <div class="sub">짧은 발언일수록 확대 해석된다. 공·사를 가르는 줄을 본다</div>
+      </div>
+      <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1422" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    </label></li>
+    <li class="daily-item"><label style="display:contents;">
+      <input type="checkbox">
+      <div class="num">5</div>
+      <div>
+        <div class="title">오늘의 결정 하나를 명문화했다</div>
+        <div class="sub">기억이 아니라 문서. 다음 사람이 같은 결정을 다시 하지 않도록</div>
+      </div>
+      <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1422" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    </label></li>
+  </ul>
+</section>
+
+<!-- ============== EXECUTIVE ============== -->
+<section id="s-exec">
+  <div class="sec-head">
+    <div class="sec-eyebrow">01 · Executive</div>
+    <h2 class="sec-title">2026 한눈에</h2>
+    <p class="sec-desc">한 해를 여섯 칸으로 압축한 운영 요약. 운세 해석이 아니라 강도 관리의 해.</p>
+  </div>
+
+  <div class="exec-grid">
+    <div class="exec-cell up">
+      <div class="ec-l">Opportunity</div>
+      <div class="ec-v">자기주도형 프로젝트<br>구조 정비의 적기</div>
+    </div>
+    <div class="exec-cell down">
+      <div class="ec-l">Risk</div>
+      <div class="ec-v">일정 과밀과<br>이미지 피로 누적</div>
+    </div>
+  </div>
+  <div class="exec-row">
+    <div class="ec-l">반드시 관리할 세 가지</div>
+    <div class="pillars">
+      <span>일정 밀도</span><span class="sep">·</span>
+      <span>메시지 검수</span><span class="sep">·</span>
+      <span>선택 기준</span>
+    </div>
+  </div>
+  <div class="qrt">
+    <div class="qrt-cell bad">
+      <div class="ec-l">Caution</div>
+      <div class="ec-period">음력 4~6월</div>
+      <div class="ec-d">중반 과열 · 피로 누적 · 외부 노출 가속</div>
+    </div>
+    <div class="qrt-cell good">
+      <div class="ec-l">Opportunity</div>
+      <div class="ec-period">음력 8~10월</div>
+      <div class="ec-d">균형 회복 · 집중력 회복 · 구조 안착</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SYMBOL ============== -->
+<section id="s-symbol">
+  <div class="sec-head">
+    <div class="sec-eyebrow">02 · Symbol</div>
+    <h2 class="sec-title">올해의 상징</h2>
+    <p class="sec-desc">병오 — 강한 화의 해. 추진력은 절제와 함께만 자산이 된다.</p>
+  </div>
+
+  <div class="symbol-card">
+    <div class="symbol-moon"></div>
+    <div class="symbol-num">丙午</div>
+    <div class="symbol-label">2026 Annual Stem · Branch</div>
+    <div class="symbol-hanja">火盛而調<br>動止有節</div>
+    <div class="symbol-trans">불이 성하니 다스리고,<br>움직임과 멈춤에 절도를 둔다.</div>
+    <div class="symbol-meaning">
+      병오는 전통적으로 <strong>화(火) 기운이 강한 해</strong>다.
+      표현 · 명성 · 노출 · 활동성이 함께 오르되,
+      통제되지 않으면 같은 강도로 <strong>피로 · 오해 · 과열</strong>이 누적된다.
+      한 해의 자산은 새로 늘린 양이 아니라
+      <strong>다듬은 일관성</strong>으로 측정된다.
+    </div>
+    <div class="symbol-caveat">
+      傳統式 卦 番號 未確定 · 出生時刻 未詳<br>
+      구체 괘 해석 없음 · 병오 태세 상징 기반
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOUR AXES ============== -->
+<section id="s-axes">
+  <div class="sec-head">
+    <div class="sec-eyebrow">03 · Four Axes</div>
+    <h2 class="sec-title">올해의 4대 축</h2>
+    <p class="sec-desc">창작 · 휴식 · 커뮤니케이션 · 팀 운영. 한 해의 강도는 이 네 축으로만 본다.</p>
+  </div>
+  <div class="axes">
+    <div class="axis">
+      <div class="axis-num">Axis 01</div>
+      <div class="axis-hanja">創</div>
+      <div class="axis-name">창작</div>
+      <div class="axis-desc">프로젝트 수 제한 · 완성도 우선 · 자기주도 비중 상향</div>
+    </div>
+    <div class="axis">
+      <div class="axis-num">Axis 02</div>
+      <div class="axis-hanja">息</div>
+      <div class="axis-name">휴식</div>
+      <div class="axis-desc">의도된 회복일 확보 · 무대·촬영 후 간격 고정</div>
+    </div>
+    <div class="axis">
+      <div class="axis-num">Axis 03</div>
+      <div class="axis-hanja">言</div>
+      <div class="axis-name">커뮤니케이션</div>
+      <div class="axis-desc">공식 메시지 검수 체계 · 발언 확대 해석 대비</div>
+    </div>
+    <div class="axis">
+      <div class="axis-num">Axis 04</div>
+      <div class="axis-hanja">營</div>
+      <div class="axis-name">팀 운영</div>
+      <div class="axis-desc">의사결정 승인 체계 · 문서화 우선 · 속도보다 정합성</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== ANNUAL FLOW ============== -->
+<section id="s-flow">
+  <div class="sec-head">
+    <div class="sec-eyebrow">04 · Annual Flow</div>
+    <h2 class="sec-title">연간 4단계</h2>
+    <p class="sec-desc">개시 → 과열 → 재정비 → 정착. 순서를 건너뛰면 후반이 흔들린다.</p>
+  </div>
+  <div class="flow-list">
+    <div class="flow-row">
+      <div class="flow-num">Q1 · 개시</div>
+      <div>
+        <div class="flow-keyword">구조 점검</div>
+        <div class="flow-desc">기획·계약·일정 구조를 먼저 본다. 새 약속은 분량을 정한 뒤에만 추가한다.</div>
+      </div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-num">Q2 · 과열</div>
+      <div>
+        <div class="flow-keyword">축소 전략</div>
+        <div class="flow-desc">중반 외부 노출 가속 구간. 새 계약을 늘리지 말고 진행 중인 것의 완성도에 자원을 모은다.</div>
+      </div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-num">Q3 · 재정비</div>
+      <div>
+        <div class="flow-keyword">내실 강화</div>
+        <div class="flow-desc">콘셉트·역할·계약을 선별한다. 외부보다 팀 안쪽을 다듬는 구간.</div>
+      </div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-num">Q4 · 정착</div>
+      <div>
+        <div class="flow-keyword">로드맵 재설계</div>
+        <div class="flow-desc">차기 작품·계약·5년 로드맵을 적는다. 실행은 다음 봄으로 미루고 기록만 남긴다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== MONTHLY ============== -->
+<section id="s-month">
+  <div class="sec-head">
+    <div class="sec-eyebrow">05 · Monthly</div>
+    <h2 class="sec-title">월별 카드</h2>
+    <p class="sec-desc">판본 차이 가능 · 상징적 참고용 · 12개월 모두 펼쳐 보지 않는다.</p>
+  </div>
+
+  <details class="month">
+    <summary>
+      <div class="month-num">01<small>음력 1월</small></div>
+      <div>
+        <div class="month-tag">2/17 — 3/18 · 보통</div>
+        <div class="month-keyword">속도 상승</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">새해 의욕이 바로 새 계약·새 노출로 흐른다. 일정 구조를 먼저 정리한다.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">기획 점검 · 대본 검토 · 노출 일정 정리 · 회복일 사전 확보</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">즉흥 출연 · 미확정 일정 공개</div></div>
+    </div>
+  </details>
+
+  <details class="month">
+    <summary>
+      <div class="month-num">02<small>음력 2월</small></div>
+      <div>
+        <div class="month-tag">3/19 — 4/16 · 주의</div>
+        <div class="month-keyword">확장 유혹</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot warn"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">광고·작품 제안이 가장 빨리 들어오는 구간. 양이 아니라 일관성으로 본다.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">작업 집중 · 계약 선별 기준 명문화 · 메시지 검수 1단계 강화</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">즉답 계약 · 즉흥 공개 입장</div></div>
+    </div>
+  </details>
+
+  <details class="month">
+    <summary>
+      <div class="month-num">03<small>음력 3월</small></div>
+      <div>
+        <div class="month-tag">4/17 — 5/16 · 보통</div>
+        <div class="month-keyword">에너지 상승</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">창작 에너지가 모이는 구간. 자기주도 작업에 비중을 둔다.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">창작 집중 · 캐릭터 분석 · 이미지 일관성 점검 · 회의 정리</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">새 외부 합류 · 잦은 컨셉 변경</div></div>
+    </div>
+  </details>
+
+  <details class="month">
+    <summary>
+      <div class="month-num">04<small>음력 4월</small></div>
+      <div>
+        <div class="month-tag">5/17 — 6/14 · 주의</div>
+        <div class="month-keyword">외부 노출 가속</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot warn"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">SNS·인터뷰·광고 노출이 동시에 늘어난다. 완성도와 일관성을 분리해 본다.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">완성도 점검 · 촬영 조율 · 광고 메시지 통합 · 문서화</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">SNS 실시간 입장 · 사적 메시지의 공식화</div></div>
+    </div>
+  </details>
+
+  <div class="month-divider"><span>음력 5~6월 · 중반 과열 구간</span></div>
+
+  <details class="month" open>
+    <summary>
+      <div class="month-num">05<small>음력 5월</small></div>
+      <div>
+        <div class="month-tag">6/15 — 7/14 · 강한 주의</div>
+        <div class="month-keyword">중반 과열</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot danger"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">한 해에서 가장 강하게 과열되는 구간. 노출 축소 · 일정 조정이 곧 성과.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">무리 금지 · 일정 조정 · 노출 제한 · 오해 관리 · 회복 우선</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">신규 계약 체결 · 즉흥 발언 · 연속 무대</div></div>
+    </div>
+  </details>
+
+  <details class="month">
+    <summary>
+      <div class="month-num">06<small>음력 6월</small></div>
+      <div>
+        <div class="month-tag">7/15 — 8/12 · 주의</div>
+        <div class="month-keyword">피로 누적</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot warn"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">5월 과열의 여진. 협업 갈등·오해가 가장 자주 발생한다.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">협업 관리 · 대본 재검토 · 브랜드 정렬 · 공식 입장 사전 정리</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">감정적 대응 · 비공식 채널 발언</div></div>
+    </div>
+  </details>
+
+  <div class="month-divider"><span>음력 7~8월 · 재정비</span></div>
+
+  <details class="month">
+    <summary>
+      <div class="month-num">07<small>음력 7월</small></div>
+      <div>
+        <div class="month-tag">8/13 — 9/10 · 보통</div>
+        <div class="month-keyword">재정비</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">콘셉트·역할·계약을 다시 본다. 외부보다 안쪽을 다듬는 구간.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">콘셉트 정리 · 역할 검토 · 계약 선별 · 팀워크 재정비</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">새 프로젝트 다수 시작</div></div>
+    </div>
+  </details>
+
+  <details class="month">
+    <summary>
+      <div class="month-num">08<small>음력 8월</small></div>
+      <div>
+        <div class="month-tag">9/11 — 10/9 · 길</div>
+        <div class="month-keyword">균형 회복</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot ok"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">올해 가장 균형 잡힌 구간. 재배치된 구조가 처음으로 손에 익는다.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">정제 · 캐릭터 선택 · 브랜드 통합 · 프로세스 안정화</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">루틴 변경 · 잦은 콘셉트 수정</div></div>
+    </div>
+  </details>
+
+  <details class="month">
+    <summary>
+      <div class="month-num">09<small>음력 9월</small></div>
+      <div>
+        <div class="month-tag">10/10 — 11/8 · 주의</div>
+        <div class="month-keyword">외부 요청</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot warn"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">시상식·연말 프로모션·광고 요청이 다시 늘어난다. 선택 기준 재적용.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">선택 집중 · 촬영 관리 · 광고 검토 · 일정 사전 분배</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">새 외부 합류 · 연속 출연</div></div>
+    </div>
+  </details>
+
+  <details class="month">
+    <summary>
+      <div class="month-num">10<small>음력 10월</small></div>
+      <div>
+        <div class="month-tag">11/9 — 12/7 · 길</div>
+        <div class="month-keyword">집중력</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot ok"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">한 해 가장 차분한 집중 구간. 작품·앨범 완성도에 자원을 모은다.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">완성도 · 작품 정리 · 메시지 일관 · 신뢰 강화 · 협업 안정</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">즉흥 노출 · 외부 의견 과수용</div></div>
+    </div>
+  </details>
+
+  <details class="month">
+    <summary>
+      <div class="month-num">11<small>음력 11월</small></div>
+      <div>
+        <div class="month-tag">12/8 — 1/6 · 보통</div>
+        <div class="month-keyword">마무리</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">출시·홍보가 가장 많은 구간. 노출 양보다 메시지 통제가 우선.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">출시 관리 · 홍보 관리 · 노출 관리 · 오해 방지 · 팀 정비</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">감정적 SNS · 미정 일정 공개</div></div>
+    </div>
+  </details>
+
+  <details class="month">
+    <summary>
+      <div class="month-num">12<small>음력 12월</small></div>
+      <div>
+        <div class="month-tag">1/7 — 2/4 · 보통</div>
+        <div class="month-keyword">재설계</div>
+      </div>
+      <div class="month-end">
+        <span class="risk-dot"></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="month-body">
+      <div class="month-row"><div class="k">핵심</div><div class="v">다음 해의 큰 결정을 미리 적어 둔다. 실행은 다음 봄으로 미룬다.</div></div>
+      <div class="month-row do"><div class="k">DO</div><div class="v">다음 기획 · 차기 검토 · 계약 전략 · 소통 기준 · 5년 로드맵</div></div>
+      <div class="month-row no"><div class="k">AVOID</div><div class="v">조급한 발표 · 즉시 시행 약속</div></div>
+    </div>
+  </details>
+</section>
+
+<!-- ============== TOP RISKS ============== -->
+<section id="s-risk">
+  <div class="sec-head">
+    <div class="sec-eyebrow">06 · Top Risks</div>
+    <h2 class="sec-title">올해의 8대 리스크</h2>
+    <p class="sec-desc">월별이 아니라 1년 내내 켜져 있어야 할 알람.</p>
+  </div>
+
+  <div class="risk-card danger">
+    <div class="risk-num"><span>RISK 01</span><span class="level">CRITICAL</span></div>
+    <div class="risk-title">일정 과밀</div>
+    <div class="risk-desc">활동 밀도가 한계를 넘으면 같은 강도로 이미지 피로가 누적된다. 가장 비싼 손실.</div>
+    <div class="risk-foot"><div class="k">대응</div><div class="v">분기별 회복일 사전 차단 · 무대/촬영 후 간격 고정</div></div>
+  </div>
+
+  <div class="risk-card danger">
+    <div class="risk-num"><span>RISK 02</span><span class="level">CRITICAL</span></div>
+    <div class="risk-title">과잉 노출</div>
+    <div class="risk-desc">노출 양이 인지보다 빨리 늘면 다음 작품의 자리가 좁아진다. 노출은 양이 아니라 간격으로 본다.</div>
+    <div class="risk-foot"><div class="k">대응</div><div class="v">월별 공개 활동 상한 설정 · 광고 동시 노출 제한</div></div>
+  </div>
+
+  <div class="risk-card warn">
+    <div class="risk-num"><span>RISK 03</span><span class="level">HIGH</span></div>
+    <div class="risk-title">즉흥적 계약</div>
+    <div class="risk-desc">제안 속도에 끌려가는 의사결정. 화 기운이 강할수록 72시간 게이트가 필요하다.</div>
+    <div class="risk-foot"><div class="k">대응</div><div class="v">신규 계약 72h 보류 · 선택 기준 문서 우선 적용</div></div>
+  </div>
+
+  <div class="risk-card warn">
+    <div class="risk-num"><span>RISK 04</span><span class="level">HIGH</span></div>
+    <div class="risk-title">감정적 대응</div>
+    <div class="risk-desc">짧은 발언이 가장 크게 확대된다. 감정 상태에서의 즉답은 본인 불안 신호.</div>
+    <div class="risk-foot"><div class="k">대응</div><div class="v">공식 발신 1단 검수 의무화 · 10분 보류 · 비공식 채널 차단</div></div>
+  </div>
+
+  <div class="risk-card warn">
+    <div class="risk-num"><span>RISK 05</span><span class="level">HIGH</span></div>
+    <div class="risk-title">팀 내부 엇박자</div>
+    <div class="risk-desc">결정 속도가 빨라질수록 승인 체계가 느슨해진다. 작은 누락이 메시지 불일치로 번진다.</div>
+    <div class="risk-foot"><div class="k">대응</div><div class="v">의사결정 승인 체계 강화 · 회의 후 문서화 30분</div></div>
+  </div>
+
+  <div class="risk-card warn">
+    <div class="risk-num"><span>RISK 06</span><span class="level">HIGH</span></div>
+    <div class="risk-title">이중 커리어 충돌</div>
+    <div class="risk-desc">가수·배우 양쪽 일정이 같은 분기에 겹치면 두 쪽 모두 완성도가 깎인다.</div>
+    <div class="risk-foot"><div class="k">대응</div><div class="v">분기별 주력 영역 1개 선언 · 보조 영역은 보류·축소</div></div>
+  </div>
+
+  <div class="risk-card">
+    <div class="risk-num"><span>RISK 07</span><span class="level">MEDIUM</span></div>
+    <div class="risk-title">팬덤 해석 과열</div>
+    <div class="risk-desc">작은 신호가 큰 해석으로 번지는 해. 공식 채널 기준이 흐려질수록 위험이 커진다.</div>
+    <div class="risk-foot"><div class="k">대응</div><div class="v">공식 채널 기준 문서화 · 사적 발언과 공식 발신 분리</div></div>
+  </div>
+
+  <div class="risk-card">
+    <div class="risk-num"><span>RISK 08</span><span class="level">MEDIUM</span></div>
+    <div class="risk-title">상징 과몰입</div>
+    <div class="risk-desc">운세를 의사결정 도구로 쓰면 현실 데이터가 보이지 않는다. 보조 자료의 자리에 둔다.</div>
+    <div class="risk-foot"><div class="k">대응</div><div class="v">계약·건강·재무는 전문가 상담 우선 · 본 리포트는 점검용에 한정</div></div>
+  </div>
+</section>
+
+<!-- ============== DECISION RULES ============== -->
+<section id="s-rules">
+  <div class="sec-head">
+    <div class="sec-eyebrow">07 · Decision Rules</div>
+    <h2 class="sec-title">결정 룰</h2>
+    <p class="sec-desc">의지가 아니라 룰로 막는다.</p>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-tag">RULE 01 · 72-HOUR</div>
+    <div class="rule-title">큰 결정은 72시간 후에 다시 본다</div>
+    <div class="rule-desc">신규 광고·작품·콘텐츠·공식 입장은 72시간 보류 후 재판단. 화 기운이 강한 해의 기본 안전망.</div>
+    <div class="rule-72">
+      <div class="h">72<span class="u">h</span></div>
+      <div class="sub">Hold · Reflect · Decide</div>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-tag">RULE 02 · MESSAGE GATE</div>
+    <div class="rule-title">즉답 욕구가 강할수록 한 단계 게이트</div>
+    <div class="rule-desc">공식 발신은 무조건 1단 검수. 감정 상태일수록 게이트가 두텁다.</div>
+    <div class="gate">
+      <div class="gate-row">
+        <div class="gh">기본</div>
+        <div><div class="gtk">정기 공지 · 일정 알림</div><div class="gts">담당자 1단 검수</div></div>
+        <div class="ga">의도적 보류</div>
+      </div>
+      <div class="gate-row danger">
+        <div class="gh">즉답</div>
+        <div><div class="gtk">즉답 욕구가 솟는 경우</div><div class="gts">대개 본인 불안 신호</div></div>
+        <div class="ga">10분 보류</div>
+      </div>
+      <div class="gate-row critical">
+        <div class="gh">입장문</div>
+        <div><div class="gtk">공식 입장 · 해명 · 사과</div><div class="gts">메시지 통제 핵심</div></div>
+        <div class="ga">72h 보류</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-tag">RULE 03 · EXPAND OR STOP</div>
+    <div class="rule-title">하나 받으면 하나 닫는다</div>
+    <div class="rule-desc">신규 계약·새 광고·새 출연이 들어오면 같은 카테고리에서 하나를 종료한다. 양이 아니라 일관성으로 결정한다.</div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-tag">RULE 04 · RECOVERY GATE</div>
+    <div class="rule-title">무대·촬영 다음 날은 비운다</div>
+    <div class="rule-desc">강도가 가장 높은 활동 직후 24시간은 공개 일정·인터뷰·SNS 없음. 회복 간격은 운영의 일부.</div>
+  </div>
+</section>
+
+<!-- ============== OS CARDS ============== -->
+<section id="s-os">
+  <div class="sec-head">
+    <div class="sec-eyebrow">08 · Operating Systems</div>
+    <h2 class="sec-title">8대 운영 시스템</h2>
+    <p class="sec-desc">매일이 아니라 매주 작동하는 구조.</p>
+  </div>
+
+  <div class="os-card">
+    <div class="os-head">
+      <div class="os-num">01</div>
+      <div>
+        <div class="os-title">창작 OS</div>
+        <div class="os-sub">프로젝트 수 제한 · 완성도 중심</div>
+      </div>
+    </div>
+    <ul>
+      <li>분기당 자기주도 프로젝트 1개 고정</li>
+      <li>보조 프로젝트는 같은 분기에 최대 2개</li>
+      <li>완성도 미달은 양으로 채우지 않는다</li>
+    </ul>
+  </div>
+
+  <div class="os-card">
+    <div class="os-head">
+      <div class="os-num">02</div>
+      <div>
+        <div class="os-title">연기 OS</div>
+        <div class="os-sub">장기 브랜드 충돌 사전 검토</div>
+      </div>
+    </div>
+    <ul>
+      <li>역할 검토는 캐릭터·이미지·일정 3축으로</li>
+      <li>강한 캐릭터일수록 다음 작품 간격 확보</li>
+      <li>음악 활동과 같은 분기 중복 금지</li>
+    </ul>
+  </div>
+
+  <div class="os-card">
+    <div class="os-head">
+      <div class="os-num">03</div>
+      <div>
+        <div class="os-title">브랜드 OS</div>
+        <div class="os-sub">계약 수보다 일관성</div>
+      </div>
+    </div>
+    <ul>
+      <li>광고 동시 노출 상한 설정</li>
+      <li>카테고리 중복은 6개월 간격</li>
+      <li>브랜드 메시지 통합 시트 유지</li>
+    </ul>
+  </div>
+
+  <div class="os-card">
+    <div class="os-head">
+      <div class="os-num">04</div>
+      <div>
+        <div class="os-title">팬덤 OS</div>
+        <div class="os-sub">공식 채널 기준 문서화</div>
+      </div>
+    </div>
+    <ul>
+      <li>공식 발신 채널·톤·서명 규약 1장</li>
+      <li>사적 발언과 공식 발신을 절대 합치지 않는다</li>
+      <li>해석 과열 신호는 침묵으로 응한다</li>
+    </ul>
+  </div>
+
+  <div class="os-card">
+    <div class="os-head">
+      <div class="os-num">05</div>
+      <div>
+        <div class="os-title">팀 OS</div>
+        <div class="os-sub">의사결정 승인 체계</div>
+      </div>
+    </div>
+    <ul>
+      <li>결정 단계별 승인자·기록자 명시</li>
+      <li>회의 후 30분 안에 문서화</li>
+      <li>속도는 결정의 정합성을 깎지 않는다</li>
+    </ul>
+  </div>
+
+  <div class="os-card">
+    <div class="os-head">
+      <div class="os-num">06</div>
+      <div>
+        <div class="os-title">휴식 OS</div>
+        <div class="os-sub">의도된 회복일 확보</div>
+      </div>
+    </div>
+    <ul>
+      <li>분기당 최소 7일 비공식·완전 비공개</li>
+      <li>촬영·무대 다음 날 24시간 비움</li>
+      <li>휴식일은 일정의 일부 — 보류가 아니다</li>
+    </ul>
+  </div>
+
+  <div class="os-card">
+    <div class="os-head">
+      <div class="os-num">07</div>
+      <div>
+        <div class="os-title">장기 커리어 OS</div>
+        <div class="os-sub">5년 로드맵 재설계</div>
+      </div>
+    </div>
+    <ul>
+      <li>5년 단위 음악·연기·브랜드 축 분리 기록</li>
+      <li>매 분기 1회 5년 로드맵 점검</li>
+      <li>이번 해는 정렬 — 확장이 아니라 정합성</li>
+    </ul>
+  </div>
+
+  <div class="os-card">
+    <div class="os-head">
+      <div class="os-num">08</div>
+      <div>
+        <div class="os-title">과몰입 방지 OS</div>
+        <div class="os-sub">상징은 보조 자료에 한정</div>
+      </div>
+    </div>
+    <ul>
+      <li>운세를 예언 도구로 사용하지 않는다</li>
+      <li>건강·법률·재무 결정은 전문가 우선</li>
+      <li>본 리포트는 자기점검용 · 의사결정 단독 도구 아님</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============== STOP / CONTINUE / START ============== -->
+<section id="s-scs">
+  <div class="sec-head">
+    <div class="sec-eyebrow">09 · Stop · Continue · Start</div>
+    <h2 class="sec-title">올해의 3분면</h2>
+    <p class="sec-desc">목록은 짧을수록 좋다.</p>
+  </div>
+  <div class="scs">
+    <div class="scs-col stop">
+      <div class="scs-head">Stop</div>
+      <ul>
+        <li>제안 속도에 끌려간 즉흥적 계약</li>
+        <li>감정 상태에서의 공식 발신</li>
+        <li>같은 분기에 음악·연기 메인을 겹치게 두기</li>
+        <li>회복일 없이 연속 무대·촬영</li>
+      </ul>
+    </div>
+    <div class="scs-col cont">
+      <div class="scs-head">Continue</div>
+      <ul>
+        <li>자기주도 프로젝트 1개 유지</li>
+        <li>분기별 5년 로드맵 점검</li>
+        <li>공식 메시지 검수 1단</li>
+        <li>72시간 보류 룰</li>
+      </ul>
+    </div>
+    <div class="scs-col start">
+      <div class="scs-head">Start</div>
+      <ul>
+        <li>월별 공개 활동 상한 명문화</li>
+        <li>회복일 분기 사전 차단</li>
+        <li>브랜드 메시지 통합 시트</li>
+        <li>의사결정 승인 체계 문서화</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FINAL PRINCIPLES ============== -->
+<section id="s-prin">
+  <div class="sec-head">
+    <div class="sec-eyebrow">10 · Final Principles</div>
+    <h2 class="sec-title">올해의 원칙</h2>
+    <p class="sec-desc">한 줄씩, 매일 다시 읽는다.</p>
+  </div>
+  <div class="prin-list">
+    <div class="prin"><div class="prin-num">01</div><div class="prin-text">에너지가 오를수록 절제가 추진력이다.</div></div>
+    <div class="prin"><div class="prin-num">02</div><div class="prin-text">노출은 양이 아니라 간격으로 본다.</div></div>
+    <div class="prin"><div class="prin-num">03</div><div class="prin-text">즉답은 본인 불안의 신호다.</div></div>
+    <div class="prin"><div class="prin-num">04</div><div class="prin-text">하나 받으면 하나 닫는다.</div></div>
+    <div class="prin"><div class="prin-num">05</div><div class="prin-text">메시지 일관성이 장기 자산을 좌우한다.</div></div>
+    <div class="prin"><div class="prin-num">06</div><div class="prin-text">회복은 일정의 일부다 — 보류가 아니다.</div></div>
+  </div>
+</section>
+
+<!-- ============== APPENDIX · STAGE 1 LIMITATIONS ============== -->
+<section id="s-appx">
+  <div class="sec-head">
+    <div class="sec-eyebrow">11 · Appendix</div>
+    <h2 class="sec-title">전제 · 한계</h2>
+    <p class="sec-desc">Stage 1 검증값 요약. 해석 신뢰도를 결정하는 전제들.</p>
+  </div>
+
+  <details class="appx" open>
+    <summary>
+      <div>
+        <div class="appx-l">A · 명식 전제</div>
+        <div class="appx-t">三柱 기준 · 時柱 未詳</div>
+      </div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="appx-body">
+      <div class="appx-row"><div class="k">연주 (일반)</div><div>癸酉</div><div class="q">B급</div></div>
+      <div class="appx-row"><div class="k">입춘 기준 연주</div><div>미확정</div><div class="q hi">매우 높음</div></div>
+      <div class="appx-row"><div class="k">월주 (절기)</div><div>미확정 · 격국 판단 불가</div><div class="q hi">매우 높음</div></div>
+      <div class="appx-row"><div class="k">일진 · 일간</div><div>미확정 · 기질 단정 불가</div><div class="q hi">매우 높음</div></div>
+      <div class="appx-row"><div class="k">시주</div><div>출생시간 공식 확인 없음</div><div class="q hi">매우 높음</div></div>
+      <div class="appx-row"><div class="k">현재 대운</div><div>미확정</div><div class="q hi">매우 높음</div></div>
+      <div class="appx-row"><div class="k">2026 세운</div><div>丙午 · 화 기운 상승</div><div class="q lo">B급</div></div>
+    </div>
+  </details>
+
+  <details class="appx">
+    <summary>
+      <div>
+        <div class="appx-l">B · 토정비결 전제</div>
+        <div class="appx-t">傳統式 卦 未確定 · 卦 番號 보류</div>
+      </div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="appx-body">
+      <div class="appx-row"><div class="k">전통식 괘</div><div>미확정 · 구체 괘 해석 보류</div><div class="q hi">매우 높음</div></div>
+      <div class="appx-row"><div class="k">온라인 간소식</div><div>미확정 · 보조 해석 불가 · 혼합 금지</div><div class="q hi">매우 높음</div></div>
+      <div class="appx-row"><div class="k">최종 채택 괘</div><div>병오 태세 상징 기반으로만 한정</div><div class="q hi">매우 높음</div></div>
+      <div class="appx-row"><div class="k">월괘</div><div>미확정 · 월별은 상징적 참고</div><div class="q">중간</div></div>
+    </div>
+  </details>
+
+  <details class="appx">
+    <summary>
+      <div>
+        <div class="appx-l">C · 해석 범위</div>
+        <div class="appx-t">전략 프레임 수준에 한정</div>
+      </div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="appx-body">
+      <div class="appx-row"><div class="k">사용 가능</div><div>활동 강도 관리 · 메시지 일관성 · 선택 기준</div><div class="q lo">OK</div></div>
+      <div class="appx-row"><div class="k">사용 불가</div><div>흥행·계약·건강·재산 예언</div><div class="q hi">제외</div></div>
+      <div class="appx-row"><div class="k">위치</div><div>리스크 관리 보조자료 · 결정 도구 아님</div><div class="q">참고</div></div>
+    </div>
+  </details>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="footer-seal">丙午</div>
+  <div class="footer-title">火盛而調 · 動止有節</div>
+  <div class="footer-meta">2026 Personal OS · v1.0</div>
+
+  <div class="footer-note">
+    <div class="l">사용법</div>
+    <strong>매일 아침</strong> "오늘 확인할 5가지"부터 본다.
+    <strong>주말</strong>에 결정 룰과 8대 리스크를 다시 본다.
+    <strong>월 1회</strong> 해당 월 카드만 펼쳐 점검한다.
+    iPhone Safari → 공유 → 홈 화면에 추가.
+  </div>
+
+  <div class="disclaimer">
+    토정비결과 사주명리는 과학적 예측 도구가 아니라 전통 상징 체계다.
+    이 리포트는 출생시간 미상 · 전통식 괘 미확정의 전제 위에서
+    삼주 기반 상징을 현대 운영 언어로 번역한 자기점검 도구이며,
+    객관적 예언을 선언하는 문서가 아니다. 실제 의사결정은
+    일정 · 계약 · 건강 · 팀 운영 · 시장 환경을 기준으로 한다.
+    투자 · 건강 · 법률 · 세무 · 노무 문제는 전문가 상담과 현실 데이터를 우선한다.
+    A급 자료 미확보 항목은 상징 해석에 한정했다.
+  </div>
+
+  <div class="end-mark">End · Save to Home Screen</div>
+</footer>
+
+<!-- ============== TAB BAR ============== -->
+<nav class="tabbar">
+  <a class="tab" href="#s-home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>
+    Today
+  </a>
+  <a class="tab" href="#s-month">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+    Month
+  </a>
+  <a class="tab" href="#s-risk">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+    Risk
+  </a>
+  <a class="tab" href="#s-rules">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+    Rule
+  </a>
+  <a class="tab" href="#s-prin">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    Final
+  </a>
+</nav>
+
+</body>
+</html>
