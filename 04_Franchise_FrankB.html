@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>경주역세권 프랜차이즈 창업 사업성 분석</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+:root{
+  --paper:#faf9f6; --paper2:#f3f1ea; --char:#2c343c; --char2:#39434d;
+  --white:#fff; --lime:#7fc241; --lime-dk:#5d9a2c; --lime-soft:#eef6e4;
+  --warn:#d98a1f; --danger:#d84a3a; --blue:#3d7fb8;
+  --ink:#23292f; --muted:#737d86; --muted2:#9aa3ab; --line:#e7e3d9; --line-dk:#454f59;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.6; overflow-x:hidden;
+}
+.tnum{font-variant-numeric:tabular-nums; font-feature-settings:"tnum";}
+.anton{font-family:'Anton',sans-serif; font-weight:400; letter-spacing:.005em;}
+.grotesk{font-family:'Space Grotesk',sans-serif;}
+.archivo{font-family:'Archivo',sans-serif;}
+
+/* layout */
+section{position:relative; padding:88px 0;}
+.wrap{max-width:780px; margin:0 auto; padding:0 24px;}
+.wrap-wide{max-width:1080px; margin:0 auto; padding:0 24px;}
+.dark{background:var(--char); color:#e9edf0;}
+.dark .muted, .dark .sub{color:#9aa6b1;}
+
+/* kicker / labels */
+.kicker{font-family:'Space Grotesk',sans-serif; text-transform:uppercase; letter-spacing:.22em;
+  font-size:12px; font-weight:600; color:var(--lime-dk);}
+.dark .kicker{color:var(--lime);}
+.eyebrow{font-family:'Space Grotesk',sans-serif; text-transform:uppercase; letter-spacing:.16em;
+  font-size:11px; font-weight:600; color:var(--muted);}
+
+/* headings */
+h2.sec-h{font-size:clamp(28px,5vw,44px); font-weight:800; line-height:1.12; letter-spacing:-.02em; margin:14px 0 0;}
+.lede{font-size:clamp(15px,2.4vw,18px); color:#4a535b; line-height:1.7; margin-top:18px;}
+.dark .lede{color:#c2cad1;}
+.note{font-size:13.5px; color:var(--muted); line-height:1.65; margin-top:16px;}
+.dark .note{color:#94a0ab;}
+
+/* section number badge */
+.secnum{display:inline-flex; align-items:center; gap:14px;}
+.secnum .badge{width:46px; height:46px; border-radius:50%; border:2px solid var(--char);
+  display:flex; align-items:center; justify-content:center; font-family:'Anton'; font-size:22px; flex-shrink:0;}
+.dark .secnum .badge{border-color:var(--lime); color:var(--lime);}
+.secnum .badge.lime{background:var(--lime); border-color:var(--lime); color:#fff;}
+
+/* big numbers */
+.bignum{font-family:'Anton'; line-height:.86; letter-spacing:0; display:inline-flex; align-items:flex-end; gap:.06em;}
+.bignum .unit{font-size:.26em; font-family:'Pretendard'; font-weight:700; align-self:flex-end; margin-bottom:.18em; color:inherit; opacity:.75;}
+.bignum .minus{font-family:'Anton';}
+
+/* signal pill */
+.pill{display:inline-flex; align-items:center; gap:7px; padding:6px 13px; border-radius:999px;
+  font-size:12.5px; font-weight:700; letter-spacing:.01em;}
+.dot{width:9px; height:9px; border-radius:50%; flex-shrink:0;}
+.s-good{background:var(--lime-soft); color:var(--lime-dk);} .s-good .dot{background:var(--lime);}
+.s-warn{background:#fbeed7; color:#a9690f;} .s-warn .dot{background:var(--warn);}
+.s-bad{background:#fbe2de; color:#b23527;} .s-bad .dot{background:var(--danger);}
+.dark .s-good{background:rgba(127,194,65,.16); color:#a4dd6f;}
+.dark .s-warn{background:rgba(217,138,31,.16); color:#e7ab55;}
+.dark .s-bad{background:rgba(216,74,58,.18); color:#ef8073;}
+
+/* chips */
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:22px;}
+.chip{font-size:12.5px; font-weight:600; padding:7px 13px; border-radius:9px; white-space:nowrap;
+  background:var(--white); border:1px solid var(--line); color:#444c54;}
+.dark .chip{background:rgba(255,255,255,.06); border-color:var(--line-dk); color:#cdd4da;}
+
+/* cards / grid */
+.grid{display:grid; gap:18px;}
+.g2{grid-template-columns:repeat(2,1fr);}
+.g4{grid-template-columns:repeat(4,1fr);}
+.card{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:26px;}
+.dark .card{background:var(--char2); border-color:var(--line-dk);}
+
+/* bars */
+.barrow{margin:18px 0;}
+.barrow .bl{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; gap:12px;}
+.barrow .bname{font-size:14px; font-weight:600;}
+.barrow .bsub{font-size:11.5px; color:var(--muted); font-weight:500;}
+.barrow .bval{font-family:'Space Grotesk'; font-weight:700; font-size:16px;}
+.track{position:relative; height:13px; border-radius:7px; background:var(--paper2); overflow:hidden;}
+.dark .track{background:rgba(255,255,255,.08);}
+.fill{position:absolute; left:0; top:0; height:100%; width:0; border-radius:7px;
+  transition:width 1.2s cubic-bezier(.2,1,.3,1);}
+.reveal.in .fill{width:var(--w);}
+
+/* divider line */
+.rule{height:1px; background:var(--line); border:0; margin:0;}
+.dark .rule{background:var(--line-dk);}
+
+/* reveal animation */
+.reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal.in{opacity:1; transform:none;}
+
+/* table */
+.tbl{width:100%; border-collapse:collapse; font-size:14px; margin-top:24px;}
+.tbl th{font-family:'Space Grotesk'; font-size:11px; text-transform:uppercase; letter-spacing:.08em;
+  color:var(--muted); text-align:left; padding:12px 14px; border-bottom:2px solid var(--line);}
+.tbl td{padding:15px 14px; border-bottom:1px solid var(--line); vertical-align:middle;}
+.tbl tr.hl td{background:var(--lime-soft);}
+.tbl tr.hl td:first-child{box-shadow:inset 4px 0 0 var(--lime);}
+.tbl .tnum{font-family:'Space Grotesk'; font-weight:600;}
+
+/* numbered list */
+.steps{counter-reset:s; margin-top:30px;}
+.step{display:flex; gap:20px; padding:22px 0; border-top:1px solid var(--line);}
+.step .n{font-family:'Anton'; font-size:34px; color:var(--lime-dk); line-height:1; flex-shrink:0; width:48px;}
+.dark .step{border-color:var(--line-dk);} .dark .step .n{color:var(--lime);}
+.step h4{margin:0 0 6px; font-size:17px; font-weight:700;}
+.step p{margin:0; font-size:14px; color:#525a62; line-height:1.6;}
+.dark .step p{color:#aeb8c0;}
+
+/* check list */
+.checks{margin-top:26px; display:flex; flex-direction:column; gap:2px;}
+.checkitem{display:flex; gap:16px; padding:18px 0; border-top:1px solid rgba(127,194,65,.25); align-items:flex-start;}
+.checkitem .ck{width:26px; height:26px; border-radius:50%; background:var(--lime); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; flex-shrink:0; margin-top:1px;}
+.checkitem p{margin:0; font-size:14.5px; line-height:1.6;}
+
+/* warn box */
+.warnbox{border:1.5px solid var(--danger); border-radius:18px; padding:30px; background:#fff;}
+.dark .warnbox{background:rgba(216,74,58,.07); border-color:rgba(216,74,58,.5);}
+.warnbox .wh{font-size:clamp(19px,3.2vw,26px); font-weight:800; color:var(--danger); line-height:1.25;}
+.warnlist{list-style:none; padding:0; margin:20px 0 0;}
+.warnlist li{position:relative; padding:9px 0 9px 26px; font-size:14px; line-height:1.6; border-bottom:1px solid var(--line);}
+.dark .warnlist li{border-color:var(--line-dk);}
+.warnlist li:before{content:'→'; position:absolute; left:0; color:var(--danger); font-weight:700;}
+
+/* arrow / vs */
+.vs{font-family:'Anton'; font-size:30px; color:var(--muted2); text-align:center;}
+
+/* metric line in scenario */
+.mline{display:flex; justify-content:space-between; align-items:baseline; padding:11px 0; border-top:1px solid var(--line); font-size:14px;}
+.dark .mline{border-color:var(--line-dk);}
+.mline .mv{font-family:'Space Grotesk'; font-weight:700; font-size:16px;}
+.pos{color:var(--lime-dk);} .dark .pos{color:#9ad868;}
+.neg{color:var(--danger);}
+
+/* responsive */
+@media (max-width:760px){
+  section{padding:60px 0;}
+  .g4{grid-template-columns:repeat(2,1fr);}
+  .g2{grid-template-columns:1fr;}
+  .hide-sm{display:none;}
+  .tbl{font-size:12.5px;} .tbl th,.tbl td{padding:11px 9px;}
+}
+@media (max-width:430px){
+  .g4{grid-template-columns:1fr 1fr;}
+  .card{padding:20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ HERO / COVER ════════ -->
+<section style="padding:64px 0 72px;">
+  <div class="wrap">
+    <div class="reveal kicker">창업 타당성 검토 · 정보공개서 실측 기반</div>
+
+    <div class="reveal anton" style="margin:26px 0 8px; line-height:.92;">
+      <div style="font-size:clamp(40px,11vw,86px); color:var(--char); letter-spacing:.01em;">FRANK<span style="color:var(--lime);">BURGER</span></div>
+    </div>
+
+    <h1 class="reveal" style="font-size:clamp(30px,6.2vw,58px); font-weight:800; line-height:1.08; letter-spacing:-.025em; margin:18px 0 0;">
+      경주역세권 프랜차이즈<br/>창업 <span style="color:var(--lime-dk);">사업성 분석</span>
+    </h1>
+
+    <p class="reveal lede" style="max-width:680px;">
+      ‘좋은 브랜드인가’가 아니라 <b>‘신경주역 점포에서 월 고정비를 버티고 24~36개월 안에 투자금을 회수할 수 있는가’</b>를 검증한 결과.
+      매출은 2024년 공정거래위원회 정보공개서의 경상북도 24개 점포 실측(면적당 월 141만/평)에 고정.
+    </p>
+
+    <div class="reveal chips">
+      <span class="chip">전용 15평</span>
+      <span class="chip">월세 평당 10만</span>
+      <span class="chip">관리비 25만</span>
+      <span class="chip">보증금 2,500만</span>
+      <span class="chip">권리금 0</span>
+      <span class="chip">배달 40%</span>
+      <span class="chip">대출 50%</span>
+      <span class="chip">점주 직접운영</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ VERDICT (full-bleed dark cover) ════════ -->
+<section class="dark" style="padding:96px 0 104px;">
+  <div class="wrap">
+    <div class="reveal eyebrow" style="color:#9aa6b1;">종합 판정 · GO / NO-GO</div>
+    <div class="reveal" style="margin-top:18px;">
+      <div class="anton" style="font-size:clamp(46px,12vw,128px); color:var(--danger); line-height:.9; letter-spacing:0;">보류</div>
+      <div class="archivo" style="font-size:clamp(16px,3vw,24px); font-weight:700; color:#e9edf0; margin-top:6px; letter-spacing:.02em;">계약 진행 금지 — HOLD</div>
+    </div>
+
+    <p class="reveal" style="font-size:clamp(15px,2.5vw,19px); color:#cbd3da; line-height:1.7; margin-top:26px; max-width:680px;">
+      경북 점포 평균은 월 <b style="color:#fff;">2,113만</b>인데, 점주 인건비·대출을 갚고 본전이 되는 손익분기는 월
+      <b style="color:var(--lime);">3,074만</b>. 즉 신경주가 경북 평균보다 <b style="color:#fff;">1.5배 이상</b> 잘 팔려야 적자를 면한다.
+    </p>
+
+    <div class="reveal grid g4" style="margin-top:36px;">
+      <div class="card" style="text-align:center;"><div class="eyebrow" style="margin-bottom:10px;">월세비율</div><span class="pill s-warn"><span class="dot"></span>주의</span></div>
+      <div class="card" style="text-align:center;"><div class="eyebrow" style="margin-bottom:10px;">투자금</div><span class="pill s-bad"><span class="dot"></span>위험</span></div>
+      <div class="card" style="text-align:center;"><div class="eyebrow" style="margin-bottom:10px;">매출여유</div><span class="pill s-bad"><span class="dot"></span>위험</span></div>
+      <div class="card" style="text-align:center;"><div class="eyebrow" style="margin-bottom:10px;">회수기간</div><span class="pill s-bad"><span class="dot"></span>위험</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 1. 매출 벤치마크 ════════ -->
+<section>
+  <div class="wrap">
+    <div class="reveal secnum"><span class="badge">1</span><span class="kicker">정보공개서 매출 벤치마크</span></div>
+    <h2 class="reveal sec-h">경북은 전국 하위권,<br/>천장이 낮은 상권</h2>
+
+    <div class="reveal" style="margin-top:40px;">
+      <div class="eyebrow" style="margin-bottom:18px;">월환산 평균 매출 (점포당)</div>
+      <div class="barrow">
+        <div class="bl"><span><span class="bname">경상북도 평균</span> <span class="bsub">24개점</span></span>
+          <span class="bval" style="color:var(--danger);"><span class="tnum" data-count="2113"></span>만</span></div>
+        <div class="track"><div class="fill" style="--w:58%; background:var(--danger);"></div></div>
+      </div>
+      <div class="barrow">
+        <div class="bl"><span><span class="bname">전국 평균</span></span>
+          <span class="bval" style="color:var(--warn);"><span class="tnum" data-count="3076"></span>만</span></div>
+        <div class="track"><div class="fill" style="--w:84%; background:var(--warn);"></div></div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:40px;">
+      <div class="eyebrow" style="margin-bottom:18px;">면적당 매출 (3.3㎡ / 평당 · 월)</div>
+      <div class="barrow">
+        <div class="bl"><span><span class="bname">충남</span> <span class="bsub">지방 최상위</span></span>
+          <span class="bval" style="color:var(--lime-dk);"><span class="tnum" data-count="213"></span>만</span></div>
+        <div class="track"><div class="fill" style="--w:100%; background:var(--lime);"></div></div>
+      </div>
+      <div class="barrow">
+        <div class="bl"><span><span class="bname">경북</span> <span class="bsub">하위권</span></span>
+          <span class="bval" style="color:var(--danger);"><span class="tnum" data-count="141"></span>만</span></div>
+        <div class="track"><div class="fill" style="--w:66%; background:var(--danger);"></div></div>
+      </div>
+    </div>
+
+    <p class="reveal note">
+      경북은 17개 광역 중 하위권(전북 다음). 본사 광고 ‘Top10 평균 1.28억’은 상위점만 골라낸 수치라 일반 점포 기대값으로 쓸 수 없음.
+    </p>
+  </div>
+</section>
+
+<!-- ════════ 2. 두 시나리오 ════════ -->
+<section class="dark">
+  <div class="wrap-wide">
+    <div class="reveal secnum"><span class="badge">2</span><span class="kicker">두 시나리오 비교</span></div>
+    <h2 class="reveal sec-h" style="color:#fff;">평균이냐, 1.5배냐</h2>
+    <p class="reveal lede">전용 15평 · 배달 40% 기준. 같은 점포라도 매출 수준에 따라 결과가 갈린다.</p>
+
+    <div class="grid" style="grid-template-columns:1fr auto 1fr; align-items:center; margin-top:40px; gap:14px;">
+      <div class="reveal card">
+        <div class="s-bad pill" style="margin-bottom:16px;"><span class="dot"></span>경북 평균 수준 · 1.0배</div>
+        <div class="bignum" style="font-size:clamp(40px,7vw,64px); color:#fff;"><span class="tnum" data-count="2110"></span><span class="unit">만 / 월</span></div>
+        <div style="margin-top:18px;">
+          <div class="mline"><span>영업이익</span><span class="mv pos">+157만</span></div>
+          <div class="mline"><span>현금흐름</span><span class="mv neg">−62만</span></div>
+          <div class="mline"><span>경제이익</span><span class="mv neg">−193만</span></div>
+          <div class="mline"><span>IC이익</span><span class="mv neg">−412만</span></div>
+          <div class="mline"><span>투자 회수</span><span class="mv neg">사실상 불가</span></div>
+        </div>
+      </div>
+
+      <div class="reveal vs hide-sm">VS</div>
+
+      <div class="reveal card" style="border-color:var(--lime); box-shadow:0 0 0 1px var(--lime);">
+        <div class="s-good pill" style="margin-bottom:16px;"><span class="dot"></span>손익분기 돌파 · 1.5배</div>
+        <div class="bignum" style="font-size:clamp(40px,7vw,64px); color:var(--lime);"><span class="tnum" data-count="3170"></span><span class="unit">만 / 월</span></div>
+        <div style="margin-top:18px;">
+          <div class="mline"><span>영업이익</span><span class="mv pos">+609만</span></div>
+          <div class="mline"><span>현금흐름</span><span class="mv pos">+391만</span></div>
+          <div class="mline"><span>경제이익</span><span class="mv pos">+259만</span></div>
+          <div class="mline"><span>IC이익</span><span class="mv pos">+41만</span></div>
+          <div class="mline"><span>투자 회수</span><span class="mv" style="color:#cbd3da;">약 38개월*</span></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="reveal note">
+      * 영업이익 기준. 점주 노동가치·대출상환 반영 시 회수는 수백 개월로 늘어 사실상 불가. 1.5배는 ‘회수선’이 아니라 ‘겨우 본전선’.
+      회수까지 보려면 경북 평균의 <b style="color:#fff;">2배</b> 필요.
+    </p>
+  </div>
+</section>
+
+<!-- ════════ 3. 손익분기 4종 ════════ -->
+<section>
+  <div class="wrap">
+    <div class="reveal secnum"><span class="badge">3</span><span class="kicker">손익분기 4종</span></div>
+    <h2 class="reveal sec-h">본전이 되는 매출선</h2>
+
+    <div class="reveal" style="margin-top:40px; position:relative;">
+      <!-- 경북 평균 기준선 -->
+      <div style="position:relative;">
+        <div class="barrow">
+          <div class="bl"><span><span class="bname">영업 손익분기</span> <span class="bsub">점주노동·대출 제외</span></span><span class="bval" style="color:var(--muted);"><span class="tnum" data-count="1743"></span>만</span></div>
+          <div class="track"><div class="fill" style="--w:48%; background:#aeb6bd;"></div></div>
+        </div>
+        <div class="barrow">
+          <div class="bl"><span><span class="bname">현금 손익분기</span> <span class="bsub">대출상환 반영</span></span><span class="bval" style="color:var(--blue);"><span class="tnum" data-count="2254"></span>만</span></div>
+          <div class="track"><div class="fill" style="--w:62%; background:var(--blue);"></div></div>
+        </div>
+        <div class="barrow">
+          <div class="bl"><span><span class="bname">경제 손익분기</span> <span class="bsub">점주노동 반영</span></span><span class="bval" style="color:var(--warn);"><span class="tnum" data-count="2563"></span>만</span></div>
+          <div class="track"><div class="fill" style="--w:71%; background:var(--warn);"></div></div>
+        </div>
+        <div class="barrow">
+          <div class="bl"><span><span class="bname" style="color:var(--lime-dk);">IC 손익분기</span> <span class="bsub">둘 다 반영 · 기준선</span></span><span class="bval" style="color:var(--lime-dk);"><span class="tnum" data-count="3074"></span>만</span></div>
+          <div class="track" style="height:16px;"><div class="fill" style="--w:85%; background:var(--lime);"></div></div>
+        </div>
+        <div class="barrow">
+          <div class="bl"><span><span class="bname">IC 목표</span> <span class="bsub">+18% 안전마진</span></span><span class="bval" style="color:#c8782b;"><span class="tnum" data-count="3627"></span>만</span></div>
+          <div class="track"><div class="fill" style="--w:100%; background:#e0913a;"></div></div>
+        </div>
+        <!-- 경북평균 vertical marker at 2113/3627 ≈ 58.3% -->
+        <div style="position:absolute; left:58.3%; top:-6px; bottom:22px; width:0; pointer-events:none;">
+          <div style="position:absolute; top:0; bottom:0; width:2px; margin-left:-1px; background:var(--danger); border-radius:2px; opacity:.85;"></div>
+          <div class="tnum" style="position:absolute; top:-2px; left:50%; transform:translateX(-50%); background:var(--danger); color:#fff; font-size:10.5px; font-weight:700; padding:2px 7px; border-radius:5px; white-space:nowrap;">경북 평균 2,113</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="reveal note">
+      경북 평균(2,113만)은 영업 손익분기는 겨우 넘지만 IC 손익분기엔 한참 미달. 차이 약 <b style="color:var(--danger);">960만</b>이 매달 비는 돈.
+    </p>
+  </div>
+</section>
+
+<!-- ════════ 4. 경쟁 현황 ════════ -->
+<section style="background:var(--paper2);">
+  <div class="wrap">
+    <div class="reveal secnum"><span class="badge">4</span><span class="kicker">신경주역 경쟁 현황</span></div>
+    <h2 class="reveal sec-h">버거 공백 상권</h2>
+
+    <div class="reveal grid g2" style="margin-top:36px;">
+      <div class="card">
+        <span class="pill s-bad" style="margin-bottom:14px;"><span class="dot"></span>직접경쟁</span>
+        <h4 style="margin:0 0 6px; font-size:18px; font-weight:700;">롯데리아 신경주역사점</h4>
+        <p style="margin:0; font-size:14px; color:#586068;">역사 내부, 즉시 식사 수요. 역 밖 반복구매 전환 약함.</p>
+      </div>
+      <div class="card">
+        <span class="pill s-bad" style="margin-bottom:14px;"><span class="dot"></span>직접경쟁</span>
+        <h4 style="margin:0 0 6px; font-size:18px; font-weight:700;">맘스터치 신경주역점</h4>
+        <p style="margin:0; font-size:14px; color:#586068;">역세권 핵심 자리 선점. 포지션은 다소 다름.</p>
+      </div>
+      <div class="card">
+        <span class="pill s-warn" style="margin-bottom:14px;"><span class="dot"></span>간접경쟁</span>
+        <h4 style="margin:0 0 6px; font-size:18px; font-weight:700;">피자 1곳</h4>
+        <p style="margin:0; font-size:14px; color:#586068;">패스트푸드 대체재는 사실상 이게 전부.</p>
+      </div>
+      <div class="card" style="border-color:var(--lime); background:var(--lime-soft);">
+        <span class="pill s-good" style="margin-bottom:14px; background:#fff;"><span class="dot"></span>공백</span>
+        <h4 style="margin:0 0 6px; font-size:18px; font-weight:700;">프리미엄 수제버거 + 가족 포장·배달</h4>
+        <p style="margin:0; font-size:14px; color:#4c5b39;">비어 있는 포지션, 프랭크버거가 노릴 자리.</p>
+      </div>
+    </div>
+
+    <p class="reveal note">
+      시내에 프랭크버거 용강점 존재 → 영업지역·배달권역 충돌 여부 본사 문서 확인 필요.
+    </p>
+  </div>
+</section>
+
+<!-- ════════ 5. 배후 세대 ════════ -->
+<section>
+  <div class="wrap">
+    <div class="reveal secnum"><span class="badge">5</span><span class="kicker">배후 세대</span></div>
+    <h2 class="reveal sec-h">배달권역 기준선은<br/>이미 넘었다</h2>
+
+    <div class="reveal grid g4" style="margin-top:36px;">
+      <div class="card">
+        <div class="bignum" style="font-size:clamp(34px,6vw,50px); color:var(--char);"><span class="tnum" data-count="1490"></span></div>
+        <div style="font-size:13px; color:#586068; margin-top:10px; line-height:1.45;">반도유보라 1·2차<br/><span style="color:var(--muted2);">입주 거의 완료</span></div>
+      </div>
+      <div class="card">
+        <div class="bignum" style="font-size:clamp(34px,6vw,50px); color:var(--char);"><span class="tnum" data-count="945"></span></div>
+        <div style="font-size:13px; color:#586068; margin-top:10px; line-height:1.45;">더퍼스트 데시앙<br/><span style="color:var(--muted2);">입주 거의 완료</span></div>
+      </div>
+      <div class="card">
+        <div class="bignum" style="font-size:clamp(34px,6vw,50px); color:var(--char);"><span class="tnum" data-count="522"></span></div>
+        <div style="font-size:13px; color:#586068; margin-top:10px; line-height:1.45;">새천년 천년가 임대<br/><span style="color:var(--muted2);">입주</span></div>
+      </div>
+      <div class="card">
+        <div class="bignum" style="font-size:clamp(34px,6vw,50px); color:var(--char);"><span class="tnum" data-count="549"></span></div>
+        <div style="font-size:13px; color:#586068; margin-top:10px; line-height:1.45;">해링턴플레이스<br/><span style="color:var(--muted2);">일부 재분양</span></div>
+      </div>
+    </div>
+
+    <p class="reveal note">
+      분양 총 <b>3,506세대</b>. 실거주 75~85% 가정 시 현재 약 <b>2,800~3,100세대</b>. 버거 매장 배달권역 기준선(약 2,000세대)은 이미 넘음. 입주 완료 시 수요 더 증가.
+    </p>
+  </div>
+</section>
+
+<!-- ════════ 6. 투자금 ════════ -->
+<section class="dark">
+  <div class="wrap">
+    <div class="reveal secnum"><span class="badge">6</span><span class="kicker">투자금 · 정보공개서 기준 15평</span></div>
+    <h2 class="reveal sec-h" style="color:#fff;">묶이는 돈,<br/><span style="color:var(--lime);">2억 5천만원대</span></h2>
+
+    <div class="reveal" style="margin-top:36px;">
+      <div class="mline" style="border-top:none;"><span>인테리어 <span class="bsub">평당 209만</span></span><span class="mv" style="color:#fff;">3,135만</span></div>
+      <div class="mline"><span>가맹비·교육비·기타 부담금</span><span class="mv" style="color:#fff;">9,135만</span></div>
+      <div class="mline"><span>월 대출상환 <span class="bsub">연 5.5% · 60개월</span></span><span class="mv" style="color:#fff;">218만</span></div>
+      <div class="mline"><span>자기자본 <span class="bsub">대출 50%</span></span><span class="mv" style="color:#fff;">1억 3,929만</span></div>
+    </div>
+
+    <div class="reveal grid g2" style="margin-top:30px;">
+      <div class="card">
+        <div class="eyebrow" style="margin-bottom:12px;">보증금 제외 총투자금</div>
+        <div class="bignum" style="font-size:clamp(34px,6vw,52px); color:var(--lime);"><span class="tnum" data-count="22858" data-fmt="eok"></span></div>
+      </div>
+      <div class="card">
+        <div class="eyebrow" style="margin-bottom:12px;">총투자금 · 보증금 포함</div>
+        <div class="bignum" style="font-size:clamp(34px,6vw,52px); color:#fff;"><span class="tnum" data-count="25358" data-fmt="eok"></span></div>
+      </div>
+    </div>
+
+    <p class="reveal note">
+      월세+관리비 175만 = 경북 평균매출 대비 <b style="color:var(--lime);">8.3%</b>로 양호. 낮은 월세가 이 입지의 강점.
+    </p>
+  </div>
+</section>
+
+<!-- ════════ 7. 최악 시나리오 ════════ -->
+<section style="background:#1f1416;">
+  <div class="wrap" style="text-align:center;">
+    <div class="reveal kicker" style="color:#ef8073;">최악 시나리오 · 6개월 적자 후 철수</div>
+    <div class="reveal anton" style="margin-top:24px; color:var(--danger); line-height:.84;">
+      <span style="font-size:clamp(54px,16vw,168px); letter-spacing:0;">
+        <span style="font-size:.6em; vertical-align:.12em;">−</span><span class="tnum" data-count="22918" data-fmt="eok"></span><span style="font-size:.20em; font-family:'Pretendard'; font-weight:700; opacity:.8;">원</span>
+      </span>
+    </div>
+    <p class="reveal" style="font-size:15px; color:#cdbcbb; line-height:1.7; margin:30px auto 0; max-width:600px;">
+      외식점은 폐업 시 인테리어 잔존가치 거의 없음. 경북 평균(2,113만)이 철수선(2,000만)에 가까워 적자 누적 위험 큼.
+      <b style="color:#fff;">‘6개월 연속 월 2,500만 미만 시 철수’</b> 사전 기준 권장.
+    </p>
+  </div>
+</section>
+
+<!-- ════════ 8. 본사 리스크 ════════ -->
+<section>
+  <div class="wrap">
+    <div class="reveal secnum"><span class="badge" style="border-color:var(--danger); color:var(--danger);">8</span><span class="kicker" style="color:var(--danger);">본사 리스크 · 공정위 제재</span></div>
+
+    <div class="reveal warnbox" style="margin-top:30px;">
+      <div class="wh">2025.11 공정위 과징금 <span class="tnum">6억 4,100만원</span><br/>＋ 시정명령</div>
+      <ul class="warnlist">
+        <li>목동점 1개점 4개월 데이터로 예상매출 월 4,000~8,000만 <b>과장</b> (실제 13개점 월 3,300만)</li>
+        <li>배달 매출은 넣고 배달·포장비는 빼서 이익률 과장 (법원: 제시 28% vs 실제 3% 취지 손배 인정)</li>
+        <li>포크·나이프 등 일반 13개 품목 필수품목 강제 (차액가맹금 약 1.4억)</li>
+        <li>판촉비 사전동의 없이 전가 · 일부 가맹점 직영점 허위 기재</li>
+      </ul>
+      <p class="note" style="margin-top:20px; color:#586068;">
+        → <b style="color:var(--ink);">본사 수익표 그대로 믿지 말 것.</b> 정보공개서상 폐업률 약 8%로 패스트푸드 업종 평균(9%)과 비슷 —
+        교촌(2%)·엽떡(0.15%) 같은 방어형 브랜드 아님.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 9. 대안 비교 ════════ -->
+<section style="background:var(--paper2);">
+  <div class="wrap-wide">
+    <div class="reveal secnum"><span class="badge">9</span><span class="kicker">대안 비교</span></div>
+    <h2 class="reveal sec-h">‘들어가기 쉬운 것’과<br/>‘돈이 되는 것’은 다르다</h2>
+
+    <div class="reveal" style="overflow-x:auto;">
+      <table class="tbl">
+        <thead>
+          <tr><th>대안</th><th>평균 월매출</th><th>폐업률</th><th>경주 적합성</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hl">
+            <td><b>프랭크버거</b></td><td class="tnum">2,113만 <span style="color:var(--muted2); font-weight:400;">(경북)</span></td>
+            <td class="tnum">약 8%</td><td><span class="pill s-warn"><span class="dot"></span>조건부</span></td>
+          </tr>
+          <tr><td>교촌치킨</td><td class="tnum">6,061만</td><td class="tnum">2.0%</td><td><span style="color:var(--muted);">승인 어려움</span></td></tr>
+          <tr><td>엽기떡볶이</td><td class="tnum">7,331만</td><td class="tnum">0.15%</td><td><span style="color:var(--muted);">승인 어려움</span></td></tr>
+          <tr><td>독립 수제버거</td><td class="tnum">편차 큼</td><td class="tnum">—</td><td><span style="color:var(--lime-dk); font-weight:600;">관광권 유리</span></td></tr>
+          <tr><td>예금 운용</td><td class="tnum">월 약 40만 <span style="color:var(--muted2); font-weight:400;">(연 3%)</span></td><td class="tnum">원금보전</td><td><span style="color:var(--muted);">—</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="reveal note">
+      교촌·엽떡은 매출·폐업률 압도적이나 출점 승인·권리금·포화로 진입장벽 높음. 프랭크버거는 진입은 쉽지만 경북 매출 천장이 낮아
+      ‘들어가기 쉬운 것’과 ‘돈이 되는 것’이 다름.
+    </p>
+  </div>
+</section>
+
+<!-- ════════ 10. 핵심 판단 근거 ════════ -->
+<section>
+  <div class="wrap">
+    <div class="reveal secnum"><span class="badge lime">10</span><span class="kicker">핵심 판단 근거</span></div>
+    <h2 class="reveal sec-h">다섯 가지 결론</h2>
+
+    <div class="steps">
+      <div class="reveal step"><div class="n">1</div><div><h4>경북 매출 천장이 낮다</h4><p>24개점 평균 2,113만, 전국 하위권. 본전까지 960만 끌어올려야 하는 낙관 가정.</p></div></div>
+      <div class="reveal step"><div class="n">2</div><div><h4>버거 공백은 양날의 검</h4><p>선점 기회이자 아직 작은 시장.</p></div></div>
+      <div class="reveal step"><div class="n">3</div><div><h4>낮은 월세는 강점</h4><p>매출 대비 8.3%, ramp 적자 함정 회피. 진입 시 유리한 카드.</p></div></div>
+      <div class="reveal step"><div class="n">4</div><div><h4>점주 직접운영 필수</h4><p>모든 시나리오에서 직원운영형 적자(−382~−834만).</p></div></div>
+      <div class="reveal step"><div class="n">5</div><div><h4>타이밍 문제</h4><p>입지가 아니라 시점. 입주 완료 + 맘스터치 실적 확인 후 재검토 가치.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 11. 조건부 가능 체크리스트 ════════ -->
+<section class="dark">
+  <div class="wrap">
+    <div class="reveal secnum"><span class="badge">11</span><span class="kicker">‘조건부 가능’으로 올라가려면</span></div>
+    <h2 class="reveal sec-h" style="color:#fff;">이 카드들이 모이면<br/><span style="color:var(--lime);">다시 본다</span></h2>
+
+    <div class="checks">
+      <div class="reveal checkitem"><div class="ck">✓</div><p>신경주 점포가 경북 평균 아닌 <b style="color:var(--lime);">상위권(월 3,100만+)</b>으로 나올 근거 — 입주 완료 + 버거 공백 선점</p></div>
+      <div class="reveal checkitem"><div class="ck">✓</div><p>월세+관리비 현 수준(175만) 유지 — 입주로 임대료 오르기 전 확정</p></div>
+      <div class="reveal checkitem"><div class="ck">✓</div><p>권리금 낮음 · 점주 직접운영 가능</p></div>
+      <div class="reveal checkitem"><div class="ck">✓</div><p>본사로부터 중위·하위 25% 매출, 용강점 영업지역 충돌 여부 문서 확인</p></div>
+      <div class="reveal checkitem"><div class="ck">✓</div><p>후보 점포 건축물대장(위반건축물 아님)·소방 충족 확인</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 12. 지금 할 일 ════════ -->
+<section>
+  <div class="wrap">
+    <div class="reveal secnum"><span class="badge lime">12</span><span class="kicker">지금 할 일 · 무료 · 즉시</span></div>
+    <h2 class="reveal sec-h">계약 전, 돈 안 드는 검증</h2>
+
+    <div class="steps">
+      <div class="reveal step"><div class="n">1</div><div><h4>본사 요청</h4><p>중위·하위 25% 매출, 경북/신도시 손익표를 문서로. 회피하면 그 자체가 NO-GO 신호.</p></div></div>
+      <div class="reveal step"><div class="n">2</div><div><h4>후보 점포 임대조건</h4><p>중개업소 2~3곳에서 주소·전용면적·보증금·월세·관리비·권리금 + 덕트·급배수·전기 가능 여부.</p></div></div>
+      <div class="reveal step"><div class="n">3</div><div><h4>맘스터치 실적 관찰</h4><p>신경주역점 점심·저녁 손님 수를 직접 세어 시장 형성 판단.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer class="dark" style="padding:64px 0 80px; border-top:1px solid var(--line-dk);">
+  <div class="wrap">
+    <div class="anton" style="font-size:clamp(28px,7vw,54px); line-height:.92;">FRANK<span style="color:var(--lime);">BURGER</span></div>
+    <div class="eyebrow" style="margin-top:18px; color:#9aa6b1;">출처 · 데이터</div>
+    <p style="font-size:12.5px; color:#8b97a2; line-height:1.75; margin-top:12px;">
+      공정거래위원회 가맹사업정보공개서 2024년 등록분(프랭크 에프앤비, 가맹점 622개) · 경북 24개점 평균 월 2,113만,
+      면적당 3.3㎡당 월 141만 · 인테리어 단가 3.3㎡당 209만 · 부담금 합계 9,135만 · 법위반 공정위 시정조치 1건(2025.11 과징금 6.41억) ·
+      광고비 2024년 58.9억 · 세대수 5개 단지 분양 약 3,506세대.
+    </p>
+    <p style="font-size:12.5px; color:#727e89; line-height:1.75; margin-top:16px; padding-top:16px; border-top:1px solid var(--line-dk);">
+      ※ 추정 모델임. 원재료율(37%)·배달비중(40%) 등 일부 비율은 추정치이며 후보 점포·본사 추가 자료 확인 시 갱신 필요.
+      본사 광고 ‘Top10 1.28억’은 상위점만이므로 일반화 불가. 최종 판단과 책임은 투자자 본인에게 있음.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  function fmtEok(man){
+    var e=Math.floor(man/10000), m=Math.round(man%10000);
+    return e>0 ? e+'억 '+m.toLocaleString()+'만' : m.toLocaleString()+'만';
+  }
+  function animateNum(el){
+    if(el.dataset.done) return; el.dataset.done='1';
+    var target=parseFloat(el.dataset.count), fmt=el.dataset.fmt||'plain';
+    var dur=1100, t0=performance.now();
+    function tick(t){
+      var p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3), v=target*e;
+      el.textContent = fmt==='eok' ? fmtEok(v) : Math.round(v).toLocaleString();
+      if(p<1) requestAnimationFrame(tick);
+      else el.textContent = fmt==='eok' ? fmtEok(target) : Math.round(target).toLocaleString();
+    }
+    requestAnimationFrame(tick);
+  }
+  function reveal(el){
+    if(el.classList.contains('in')) return;
+    el.classList.add('in');
+    el.querySelectorAll('[data-count]').forEach(animateNum);
+    if(el.matches('[data-count]')) animateNum(el);
+  }
+  // stagger siblings
+  document.querySelectorAll('.grid, .steps, .checks, .chips').forEach(function(group){
+    var kids=group.querySelectorAll(':scope > .reveal');
+    kids.forEach(function(k,i){ k.style.transitionDelay=(i*80)+'ms'; });
+  });
+
+  var targets=[].slice.call(document.querySelectorAll('.reveal'));
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    if(!el.closest('.reveal')) targets.push(el);
+  });
+
+  function check(){
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    targets=targets.filter(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top < vh*0.9 && r.bottom > 0){ reveal(el); return false; }
+      return true;
+    });
+  }
+  // try IntersectionObserver, but never rely on it alone
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ reveal(en.target); io.unobserve(en.target); } });
+    },{threshold:0.12, rootMargin:'0px 0px -6% 0px'});
+    targets.forEach(function(el){ io.observe(el); });
+  }
+  window.addEventListener('scroll', check, {passive:true});
+  window.addEventListener('resize', check);
+  check();
+  requestAnimationFrame(check);
+  setTimeout(check, 200);
+})();
+</script>
+</body>
+</html>
