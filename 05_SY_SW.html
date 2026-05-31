@@ -289,6 +289,36 @@
   .memo li{font-size:14.5px;font-weight:500;padding-left:24px;position:relative;color:#33445f}
   .memo .yes li::before{content:"✓";position:absolute;left:0;color:#0E9E6E;font-weight:800}
   .memo .no li::before{content:"✕";position:absolute;left:0;color:#E0517A;font-weight:800}
+  /* evidence variant of memo (no red ✕ — uses ≈ for "estimate, not official") */
+  .memo .approx h4{color:var(--blue)}
+  .memo .approx li::before{content:"≈";position:absolute;left:0;color:var(--cyan);font-weight:800}
+  .memo-head{display:flex;align-items:center;gap:9px;margin-bottom:4px}
+  .memo-chip{font-size:11px;font-weight:800;letter-spacing:.06em;padding:4px 11px;border-radius:var(--r-cap);color:#fff}
+  .memo-chip.ok{background:var(--grad-cyan)}
+  .memo-chip.est{background:linear-gradient(135deg,#3E8CFF,#22DCF0)}
+
+  /* evidence source links */
+  .src-list{display:flex;flex-direction:column;gap:9px}
+  .src{
+    display:flex;gap:14px;align-items:baseline;padding:13px 18px;border-radius:16px;
+    background:#fff;border:1px solid var(--line);transition:.18s;
+  }
+  .src:hover{border-color:var(--blue);box-shadow:var(--shadow-sm)}
+  .src a{
+    flex:none;font-weight:700;font-size:14.5px;color:var(--blue);text-decoration:none;
+    border-bottom:1.5px solid rgba(46,107,255,.35);
+  }
+  .src a:hover{color:var(--cyan);border-color:var(--cyan)}
+  .src .src-desc{color:var(--muted);font-size:13.5px;font-weight:500}
+  .src .src-arrow{color:var(--cyan);font-weight:800;flex:none}
+
+  /* evidence callout */
+  .evi-callout{
+    margin-top:22px;border-radius:20px;padding:24px 26px;
+    background:#F2FBFE;border:1.5px solid var(--cyan);position:relative;
+  }
+  .evi-callout .kicker{margin-bottom:8px;display:block}
+  .evi-callout p{font-size:14.5px;color:#27405f;font-weight:500;line-height:1.7}
 
   footer{text-align:center;padding:40px 0 56px;color:var(--muted);font-size:13px}
   footer .ripple{height:20px;margin-bottom:16px}
@@ -312,9 +342,9 @@
     body{background:#fff}
     .hero,.closing{background:#0A1430 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:0}
     .blob{display:none}
-    .day,.sec-num,.ico,.fill,.cbar .bar,.tech-pill,.gp .gp-ico{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .day,.sec-num,.ico,.fill,.cbar .bar,.tech-pill,.gp .gp-ico,.mom-note,.mom-tag,.memo-chip,.evi-callout{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     section{break-inside:avoid}
-    .card,.day{box-shadow:none}
+    .card,.day,.src{box-shadow:none}
   }
 </style>
 </head>
@@ -570,6 +600,88 @@
         <div class="chart-bars" id="chartBars"></div>
         <p class="rec-hint">↑ 50m 기록을 적으면 막대가 그려져요. 막대가 점점 낮아지면 더 빨라진 거예요. (예시로 첫 칸에 51.46이 들어 있어요.)</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. 근거 & 산출 방식 ============ -->
+<section class="band" style="background:linear-gradient(180deg,#fff,#EAF1FB)" data-screen-label="근거와 산출방식">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">7</span>
+      <h2 class="sec-title">근거 &amp; <span class="blue">산출 방식</span></h2>
+    </div>
+    <span class="kicker" style="display:block;margin-top:-18px;margin-bottom:14px">Evidence &amp; Method</span>
+    <p class="sec-desc">이 가이드는 시연이의 실제 데이터와 공식 가이드라인을 함께 보고 만들었어요. 부모님을 위한 근거 정리입니다.</p>
+
+    <!-- 7-1 근거 레이어 -->
+    <h3 style="font-size:18px;font-weight:800;margin-bottom:14px">무엇을 근거로 삼았나</h3>
+    <div class="goal-process" style="margin-bottom:34px">
+      <div class="gp"><span class="gp-ico">1</span><b style="margin-right:6px">시연이 개별 데이터</b>공식기록 51.46초, 25m 풀 왕복(50m), 물속 출발, 4레인, 파란 수모, 주 3회 내외 + 사진·영상</div>
+      <div class="gp"><span class="gp-ico">2</span><b style="margin-right:6px">경기·시설 규정</b>World Aquatics, 대한수영연맹(Korea Aquatics)</div>
+      <div class="gp"><span class="gp-ico">3</span><b style="margin-right:6px">유소년 수영 발달</b>USA Swimming American Development Model(ADM)</div>
+      <div class="gp"><span class="gp-ico">4</span><b style="margin-right:6px">스타트 안전</b>USA Swimming Racing Start Safety Protocols / Certification</div>
+      <div class="gp"><span class="gp-ico">5</span><b style="margin-right:6px">아동 운동·수면·회복</b>CDC 아동 신체활동 권고, AASM 소아 수면 권고</div>
+      <div class="gp"><span class="gp-ico">6</span><b style="margin-right:6px">실무 코칭 추론</b>위 조건들을 조합한 우선순위 판단</div>
+    </div>
+
+    <!-- 7-2 공식 기준 vs 관리 추정치 -->
+    <h3 style="font-size:18px;font-weight:800;margin-bottom:14px">공식 기준 vs 관리 추정치</h3>
+    <div class="memo" style="margin-bottom:34px">
+      <div class="memo-grid">
+        <div class="yes">
+          <div class="memo-head"><span class="memo-chip ok">공식 기반</span></div>
+          <h4>✓ 공식 가이드라인 기반</h4>
+          <ul>
+            <li>푸시오프·스트림라인·브레이크아웃·턴을 기록보다 먼저 (ADM)</li>
+            <li>다이빙 스타트는 수심·코치·단계훈련 확인 후 도입 (USA Swimming 안전)</li>
+            <li>얕은 수심·코치 없는 다이빙 금지</li>
+            <li>한쪽 눈 호흡, 스컬링, 오픈턴, stroke count 게임 (ADM)</li>
+            <li>드라이랜드는 무거운 중량 대신 협응·놀이 중심 (CDC)</li>
+            <li>6~12세 수면 9~12시간 권장 (AASM)</li>
+            <li>기록 압박·비교 금지, 안전하고 긍정적인 환경 (Safe Sport)</li>
+          </ul>
+        </div>
+        <div class="approx">
+          <div class="memo-head"><span class="memo-chip est">추정치</span></div>
+          <h4>≈ 관리용 추정치 (단정 아님)</h4>
+          <ul>
+            <li>6개월·12개월 목표 기록 범위 → 공식 표준값이 아닌 조건 기반 추정</li>
+            <li>스트림라인 0.5~1.5초 / 턴 개선 0.5~2.0초 등 항목별 단축폭 → 실측 필요, 단순 합산하지 않음</li>
+            <li>피아노 박자감각 활용 → 시연이 성향 기반 개인화 전략</li>
+            <li>부모 피드백 언어, 드릴 횟수·주차별 플랜 → 동기 유지·안전 실행 설계용</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7-3 참고 자료 -->
+    <h3 style="font-size:18px;font-weight:800;margin-bottom:6px">참고한 공식 자료</h3>
+    <p class="sec-desc" style="margin-bottom:16px">자료명을 누르면 원문으로 연결돼요. (새 창에서 열림)</p>
+    <div class="src-list" style="margin-bottom:34px">
+      <div class="src"><a href="https://www.worldaquatics.com/rules/competition-regulations" target="_blank" rel="noopener">World Aquatics Competition Regulations</a><span class="src-arrow">→</span><span class="src-desc">경기 규정, 출발·턴 규칙 확인</span></div>
+      <div class="src"><a href="https://www.worldaquatics.com/rules/facilities" target="_blank" rel="noopener">World Aquatics Facilities</a><span class="src-arrow">→</span><span class="src-desc">수영장·대회 시설·수심 확인</span></div>
+      <div class="src"><a href="https://www.korswim.co.kr/66" target="_blank" rel="noopener">대한수영연맹 / Korea Aquatics</a><span class="src-arrow">→</span><span class="src-desc">국내 대회 적용 규정</span></div>
+      <div class="src"><a href="https://www.usaswimming.org/coaches/popular-resources/american-development-model" target="_blank" rel="noopener">USA Swimming American Development Model</a><span class="src-arrow">→</span><span class="src-desc">기술 우선순위·드릴 설계</span></div>
+      <div class="src"><a href="https://www.usaswimming.org/docs/default-source/coaching-resourcesdocuments/teaching-racing-starts.pdf" target="_blank" rel="noopener">USA Swimming Teaching Racing Starts</a><span class="src-arrow">→</span><span class="src-desc">스타트 안전, 단계적 입수 지도</span></div>
+      <div class="src"><a href="https://www.usaswimming.org/docs/default-source/coaching-resourcesdocuments/coaches-team-leaders/racing-start-certification-faq-and-checklist.pdf" target="_blank" rel="noopener">USA Swimming Racing Start Certification Checklist</a><span class="src-arrow">→</span><span class="src-desc">다이빙 스타트 도입 조건</span></div>
+      <div class="src"><a href="https://www.cdc.gov/physical-activity-basics/guidelines/children.html" target="_blank" rel="noopener">CDC Child Physical Activity</a><span class="src-arrow">→</span><span class="src-desc">드라이랜드·훈련량 기준</span></div>
+      <div class="src"><a href="https://aasm.org/recharge-with-sleep-pediatric-sleep-recommendations-promoting-optimal-health/" target="_blank" rel="noopener">AASM Pediatric Sleep Recommendations</a><span class="src-arrow">→</span><span class="src-desc">수면·회복 기준 (6~12세 9~12시간)</span></div>
+      <div class="src"><a href="https://www.usaswimming.org/safe-sport" target="_blank" rel="noopener">USA Swimming Safe Sport</a><span class="src-arrow">→</span><span class="src-desc">아동 보호·피드백 원칙</span></div>
+    </div>
+
+    <!-- 7-4 솔직한 한계 -->
+    <h3 style="font-size:18px;font-weight:800;margin-bottom:14px">솔직한 한계</h3>
+    <div class="mom-note" style="margin-top:0;flex-direction:column;gap:12px">
+      <span><span class="mom-tag" style="margin-right:8px">한계 1</span>정확한 초 단위 단축폭은 어떤 국제표준도 직접 제시하지 않아요. <b>6·12개월 목표는 관리용 추정치</b>입니다.</span>
+      <span><span class="mom-tag" style="margin-right:8px">한계 2</span>원거리·수면 위 영상만으로는 호흡 시 머리 들림·하체 처짐·캐치 동작을 <b>확정하지 않아요</b>. 코치 확인이 필요합니다.</span>
+      <span><span class="mom-tag" style="margin-right:8px">한계 3</span>다이빙 스타트의 기록 이득은 <b>수치로 단정하지 않아요</b>. 안전 조건을 충족한 뒤 단계적으로 검토할 기술입니다.</span>
+    </div>
+
+    <!-- 7-5 근거 한 줄 -->
+    <div class="evi-callout">
+      <span class="kicker cyan">근거 한 줄</span>
+      <p>본 가이드는 시연이의 공식기록·사진·영상과 World Aquatics 경기/시설 규정, 대한수영연맹 규정, USA Swimming ADM·Racing Start 안전 프로토콜, CDC·AASM 권고, Safe Sport 원칙을 근거로 작성했습니다. 단, 6개월·12개월 목표와 항목별 단축폭은 공식 표준값이 아니라 현재 조건과 영상 관찰 한계를 반영한 보수적 관리 추정치이며, 아이에게 압박용 목표로 제시하지 않습니다.</p>
     </div>
   </div>
 </section>
