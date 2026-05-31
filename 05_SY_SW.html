@@ -301,16 +301,17 @@
   .src-list{display:flex;flex-direction:column;gap:9px}
   .src{
     display:flex;gap:14px;align-items:baseline;padding:13px 18px;border-radius:16px;
-    background:#fff;border:1px solid var(--line);transition:.18s;
+    background:#fff;border:1px solid var(--line);transition:.18s;flex-wrap:wrap;
   }
   .src:hover{border-color:var(--blue);box-shadow:var(--shadow-sm)}
   .src a{
-    flex:none;font-weight:700;font-size:14.5px;color:var(--blue);text-decoration:none;
+    flex:0 1 auto;min-width:0;font-weight:700;font-size:14.5px;color:var(--blue);text-decoration:none;
     border-bottom:1.5px solid rgba(46,107,255,.35);
   }
   .src a:hover{color:var(--cyan);border-color:var(--cyan)}
-  .src .src-desc{color:var(--muted);font-size:13.5px;font-weight:500}
-  .src .src-arrow{color:var(--cyan);font-weight:800;flex:none}
+  .src .src-desc{color:var(--muted);font-size:13.5px;font-weight:500;flex:1 1 200px;min-width:0}
+  .src .src-desc::before{content:"→ ";color:var(--cyan);font-weight:800}
+  .src .src-arrow{display:none}
 
   /* evidence callout */
   .evi-callout{
