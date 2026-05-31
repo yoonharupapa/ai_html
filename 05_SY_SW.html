@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>박시연 · MY SWIM GUIDE</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+
+  :root{
+    --ink:#05080F;
+    --navy:#0A1430;
+    --navy2:#0E1E47;
+    --royal:#1C44D2;
+    --blue:#2E6BFF;
+    --bright:#3E8CFF;
+    --cyan:#22DCF0;
+    --aqua:#67ECF4;
+    --white:#FFFFFF;
+
+    --paper:#EEF3FA;
+    --card:#FFFFFF;
+    --line:#D9E4F2;
+    --text:#13213C;
+    --muted:#5C6E8C;
+
+    --grad-blue:linear-gradient(135deg,#1C44D2 0%,#2E6BFF 100%);
+    --grad-cyan:linear-gradient(135deg,#2E6BFF 0%,#22DCF0 100%);
+    --grad-deep:linear-gradient(140deg,#0A1430 0%,#123072 55%,#1A57C9 100%);
+
+    --r-cap:999px;
+    --shadow:0 18px 50px -22px rgba(16,46,110,.45);
+    --shadow-sm:0 8px 24px -14px rgba(16,46,110,.4);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Pretendard',system-ui,-apple-system,sans-serif;
+    background:var(--paper);
+    color:var(--text);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  section{position:relative}
+
+  .kicker{
+    font-size:12px;letter-spacing:.34em;text-transform:uppercase;
+    font-weight:700;color:var(--blue);
+  }
+  .cyan{color:var(--cyan)}
+  .blue{color:var(--blue)}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    background:var(--ink);
+    color:#fff;
+    padding:54px 0 96px;
+    overflow:hidden;
+    border-radius:0 0 38px 38px;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(120% 90% at 78% 8%, rgba(46,107,255,.30), transparent 55%),
+               radial-gradient(90% 70% at 12% 100%, rgba(34,220,240,.16), transparent 60%);
+    pointer-events:none;
+  }
+  .blob{position:absolute;border-radius:var(--r-cap);opacity:.9;filter:saturate(1.1);z-index:0}
+  .blob.circle{border-radius:50%}
+  .b1{width:230px;height:74px;background:var(--grad-cyan);top:60px;right:-40px;transform:rotate(-18deg);opacity:.85}
+  .b2{width:150px;height:150px;background:var(--grad-blue);top:140px;right:120px;opacity:.5;border-radius:50%}
+  .b3{width:330px;height:64px;background:linear-gradient(135deg,#123072,#2E6BFF);bottom:120px;left:-70px;transform:rotate(-9deg);opacity:.8}
+  .b4{width:96px;height:96px;background:var(--grad-cyan);bottom:46px;right:90px;border-radius:50%;opacity:.75}
+  .b5{width:200px;height:54px;background:linear-gradient(135deg,#1A57C9,#22DCF0);top:32px;left:6%;transform:rotate(8deg);opacity:.55}
+  .b6{width:54px;height:54px;background:#22DCF0;border-radius:50%;bottom:160px;right:30%;opacity:.5}
+  .b7{width:140px;height:44px;background:var(--grad-blue);bottom:60px;left:24%;transform:rotate(-5deg);opacity:.45}
+
+  .hero-inner{position:relative;z-index:2;text-align:center}
+  .ripple{display:flex;gap:7px;justify-content:center;align-items:flex-end;height:30px;margin-bottom:26px}
+  .ripple i{display:block;width:9px;border-radius:6px;background:var(--cyan);opacity:.92}
+
+  .hero-tag{
+    display:inline-block;font-size:13px;letter-spacing:.42em;font-weight:700;
+    color:var(--cyan);text-transform:uppercase;margin-bottom:14px;
+  }
+  .name{
+    font-weight:800;line-height:.96;letter-spacing:-.01em;
+    font-size:clamp(74px,16vw,168px);
+    background:linear-gradient(180deg,#ffffff 60%,#bcd3ff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 24px 60px rgba(46,107,255,.25);
+  }
+  .name-en{
+    font-size:clamp(14px,2.4vw,20px);letter-spacing:.5em;font-weight:600;
+    color:var(--cyan);margin-top:10px;text-transform:uppercase;padding-left:.5em;
+  }
+  .hero-sub{
+    max-width:560px;margin:24px auto 0;font-size:clamp(16px,2.2vw,19px);
+    color:#cfe0ff;font-weight:400;
+  }
+  .stat-row{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:32px;
+  }
+  .stat{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 18px;border-radius:var(--r-cap);
+    background:rgba(255,255,255,.06);border:1px solid rgba(140,180,255,.32);
+    font-size:14px;font-weight:600;color:#eaf2ff;backdrop-filter:blur(4px);
+    white-space:nowrap;flex-shrink:0;
+  }
+  .stat b{color:var(--cyan);font-weight:800}
+  .stat .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan)}
+
+  /* ============ SECTION SHELL ============ */
+  .band{padding:64px 0}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:28px;flex-wrap:wrap}
+  .sec-num{
+    font-size:13px;font-weight:800;color:#fff;background:var(--grad-blue);
+    width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex:none;
+    box-shadow:var(--shadow-sm);
+  }
+  .sec-title{font-size:clamp(24px,3.6vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.15}
+  .sec-desc{color:var(--muted);font-size:15px;max-width:640px;margin-top:-12px;margin-bottom:26px}
+
+  /* lane rope divider */
+  .lane-rope{display:flex;gap:9px;align-items:center;justify-content:center;padding:8px 0;flex-wrap:wrap}
+  .lane-rope i{width:16px;height:16px;border-radius:50%;flex:none}
+
+  /* cards */
+  .grid{display:grid;gap:18px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:22px;
+    padding:26px;box-shadow:var(--shadow-sm);
+  }
+  .card h3{font-size:19px;font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* strengths */
+  .str-card{display:flex;gap:16px;align-items:flex-start}
+  .ico{
+    width:46px;height:46px;border-radius:14px;flex:none;display:grid;place-items:center;
+    background:var(--grad-cyan);color:#fff;font-size:22px;font-weight:800;
+  }
+  .ico.soft{background:linear-gradient(135deg,#E8F0FF,#D6E6FF);color:var(--blue)}
+
+  /* goal lane bars */
+  .goal-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:30px;box-shadow:var(--shadow)}
+  .lanebar{margin:20px 0}
+  .lanebar .lb-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .lanebar .lb-label{font-weight:700;font-size:15px}
+  .lanebar .lb-val{font-size:13px;color:var(--muted);font-weight:600}
+  .track{
+    position:relative;height:26px;border-radius:var(--r-cap);
+    background:repeating-linear-gradient(90deg,#E7EEF8 0 22px,#dfe8f5 22px 24px);
+    overflow:hidden;border:1px solid var(--line);
+  }
+  .fill{
+    position:absolute;left:0;top:0;height:100%;border-radius:var(--r-cap);
+    background:var(--grad-cyan);width:0;transition:width 1.4s cubic-bezier(.22,1,.36,1);
+    display:flex;align-items:center;justify-content:flex-end;padding-right:12px;
+    color:#fff;font-size:12px;font-weight:800;
+  }
+  .fill::after{content:"";position:absolute;right:0;top:0;height:100%;width:14px;background:rgba(255,255,255,.5);border-radius:50%}
+
+  .goal-process{display:grid;gap:10px;margin-top:6px}
+  .gp{
+    display:flex;align-items:center;gap:12px;padding:13px 18px;border-radius:var(--r-cap);
+    background:#F2F7FE;border:1px solid #E1EBF8;font-weight:600;font-size:15px;
+  }
+  .gp .gp-ico{width:24px;height:24px;border-radius:50%;background:var(--grad-blue);flex:none;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:800}
+  .mom-note{
+    margin-top:22px;padding:16px 20px;border-radius:16px;
+    background:#0E1E47;color:#cfe0ff;font-size:13.5px;display:flex;gap:12px;align-items:flex-start;
+  }
+  .mom-note b{color:var(--cyan)}
+  .mom-tag{flex:none;font-size:11px;font-weight:800;letter-spacing:.1em;background:var(--cyan);color:#06203a;padding:3px 9px;border-radius:var(--r-cap)}
+
+  /* technique cards */
+  .tech{position:relative;overflow:hidden}
+  .tech .num{
+    position:absolute;top:-14px;right:6px;font-size:84px;font-weight:800;
+    color:#EDF3FC;line-height:1;z-index:0;
+  }
+  .tech-head{display:flex;align-items:center;gap:12px;position:relative;z-index:1;margin-bottom:14px}
+  .tech-pill{font-size:11px;font-weight:800;letter-spacing:.08em;padding:4px 12px;border-radius:var(--r-cap);background:var(--grad-blue);color:#fff}
+  .tech h3{position:relative;z-index:1}
+  .cues{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;position:relative;z-index:1}
+  .cue{
+    font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:var(--r-cap);
+    background:#F0F6FF;border:1px solid #DCEAFD;color:#1c3a73;
+  }
+  .cue::before{content:"“";color:var(--blue);font-weight:800}
+  .cue::after{content:"”";color:var(--blue);font-weight:800}
+
+  /* checklist */
+  .check-group{margin-bottom:18px}
+  .cg-title{font-size:13px;font-weight:800;letter-spacing:.06em;color:var(--blue);margin-bottom:10px;text-transform:uppercase}
+  .checks{display:flex;flex-direction:column;gap:9px}
+  .chk{
+    display:flex;align-items:center;gap:13px;padding:12px 18px;border-radius:var(--r-cap);
+    background:#fff;border:1.5px solid var(--line);cursor:pointer;user-select:none;
+    font-weight:600;font-size:15px;transition:.18s;
+  }
+  .chk:hover{border-color:var(--blue);transform:translateX(2px)}
+  .chk .box{
+    width:24px;height:24px;border-radius:50%;flex:none;border:2px solid #C4D4EA;
+    display:grid;place-items:center;transition:.18s;color:#fff;font-size:14px;
+  }
+  .chk.on{background:#EAF3FF;border-color:var(--blue)}
+  .chk.on .box{background:var(--grad-cyan);border-color:transparent}
+  .chk.on .txt{color:var(--blue)}
+
+  /* weekly plan */
+  .week{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .day{
+    border-radius:22px;padding:24px;color:#fff;position:relative;overflow:hidden;
+    box-shadow:var(--shadow-sm);min-height:170px;display:flex;flex-direction:column;
+  }
+  .day.d1{background:var(--grad-blue)}
+  .day.d2{background:linear-gradient(140deg,#123072,#1F5BE6)}
+  .day.d3{background:var(--grad-cyan)}
+  .day .dnum{font-size:12px;letter-spacing:.2em;font-weight:800;opacity:.85}
+  .day h4{font-size:20px;font-weight:800;margin:6px 0 10px}
+  .day ul{list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500}
+  .day ul li::before{content:"•";margin-right:8px;color:rgba(255,255,255,.7)}
+  .day .circ{position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.12);right:-30px;bottom:-40px}
+
+  .home-card{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:var(--shadow-sm)}
+  .home-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+  .htag{padding:8px 15px;border-radius:var(--r-cap);background:#F1F6FE;border:1px solid #E0EAF8;font-size:13.5px;font-weight:600;color:#26416f}
+
+  /* record tracker */
+  .rec-wrap{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow)}
+  .rec-table{width:100%;border-collapse:collapse;margin-top:6px}
+  .rec-table th,.rec-table td{padding:10px;text-align:center;font-size:14px}
+  .rec-table th{font-size:12px;letter-spacing:.05em;color:var(--muted);font-weight:700;border-bottom:2px solid var(--line)}
+  .rec-table td{border-bottom:1px solid var(--line)}
+  .rec-table input{
+    width:100%;border:none;background:#F4F8FE;border-radius:10px;padding:9px 8px;text-align:center;
+    font-family:inherit;font-size:14px;font-weight:600;color:var(--text);
+  }
+  .rec-table input:focus{outline:2px solid var(--blue);background:#fff}
+  .rec-table td:first-child{font-weight:700;color:var(--blue)}
+  .chart{margin-top:24px}
+  .chart-bars{display:flex;align-items:flex-end;gap:14px;height:140px;padding:0 6px;border-bottom:2px solid var(--line)}
+  .cbar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+  .cbar .bar{width:100%;max-width:54px;border-radius:10px 10px 0 0;background:var(--grad-cyan);transition:height .8s ease;min-height:4px}
+  .cbar .bv{font-size:12px;font-weight:700;color:var(--blue);margin-bottom:5px}
+  .cbar .bl{font-size:11px;color:var(--muted);margin-top:7px}
+  .rec-hint{font-size:13px;color:var(--muted);margin-top:6px}
+
+  /* dark closing */
+  .closing{
+    margin-top:8px;border-radius:38px;color:#fff;position:relative;overflow:hidden;
+    background:var(--ink);padding:66px 40px;
+  }
+  .closing::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(110% 80% at 85% 10%,rgba(46,107,255,.34),transparent 55%),
+               radial-gradient(80% 70% at 8% 100%,rgba(34,220,240,.18),transparent 60%);}
+  .closing .blob{opacity:.7}
+  .c1{width:260px;height:62px;background:var(--grad-cyan);top:30px;left:-50px;transform:rotate(-12deg)}
+  .c2{width:120px;height:120px;background:var(--grad-blue);border-radius:50%;bottom:-30px;right:8%;opacity:.5}
+  .c3{width:50px;height:50px;background:var(--cyan);border-radius:50%;top:40px;right:18%;opacity:.6}
+  .closing-inner{position:relative;z-index:2;text-align:center;max-width:680px;margin:0 auto}
+  .closing .kicker{color:var(--cyan)}
+  .closing h2{font-size:clamp(28px,4.5vw,42px);font-weight:800;line-height:1.2;margin:14px 0 18px;letter-spacing:-.02em}
+  .closing h2 .cyan{background:linear-gradient(135deg,#22DCF0,#67ECF4);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .closing p{color:#cfe0ff;font-size:17px}
+  .cheer-line{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:28px;
+  }
+  .cheer{
+    padding:11px 20px;border-radius:var(--r-cap);font-weight:600;font-size:14.5px;
+    background:rgba(255,255,255,.07);border:1px solid rgba(140,180,255,.3);color:#eaf2ff;
+  }
+
+  /* mom safety memo */
+  .memo{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:var(--shadow-sm)}
+  .memo-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px}
+  .memo h4{font-size:14px;font-weight:800;letter-spacing:.04em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .memo .yes h4{color:#0E9E6E}
+  .memo .no h4{color:#E0517A}
+  .memo ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+  .memo li{font-size:14.5px;font-weight:500;padding-left:24px;position:relative;color:#33445f}
+  .memo .yes li::before{content:"✓";position:absolute;left:0;color:#0E9E6E;font-weight:800}
+  .memo .no li::before{content:"✕";position:absolute;left:0;color:#E0517A;font-weight:800}
+
+  footer{text-align:center;padding:40px 0 56px;color:var(--muted);font-size:13px}
+  footer .ripple{height:20px;margin-bottom:16px}
+  footer .ripple i{background:#9db8e0}
+
+  /* ============ RESPONSIVE ============ */
+  @media(max-width:780px){
+    .g2,.g3{grid-template-columns:1fr}
+    .week{grid-template-columns:1fr}
+    .memo-grid{grid-template-columns:1fr}
+    .band{padding:48px 0}
+    .hero{padding:42px 0 72px}
+    .b2,.b5,.b6,.b7{display:none}
+    .closing{padding:48px 24px;border-radius:28px}
+    .rec-table{font-size:12px}
+    .rec-table th,.rec-table td{padding:6px 4px}
+  }
+
+  /* ============ PRINT ============ */
+  @media print{
+    body{background:#fff}
+    .hero,.closing{background:#0A1430 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:0}
+    .blob{display:none}
+    .day,.sec-num,.ico,.fill,.cbar .bar,.tech-pill,.gp .gp-ico{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    section{break-inside:avoid}
+    .card,.day{box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero" data-screen-label="Hero">
+  <span class="blob b1"></span>
+  <span class="blob circle b2"></span>
+  <span class="blob b3"></span>
+  <span class="blob circle b4"></span>
+  <span class="blob b5"></span>
+  <span class="blob circle b6"></span>
+  <span class="blob b7"></span>
+  <div class="wrap hero-inner">
+    <div class="ripple" id="heroRipple"></div>
+    <span class="hero-tag">We are swimmer</span>
+    <h1 class="name">박시연</h1>
+    <div class="name-en">Siyeon Park · My Swim Guide</div>
+    <p class="hero-sub">물을 가르며 더 멀리, 더 부드럽게.<br/>시연이가 한 발씩 자라는 수영 성장 가이드예요.</p>
+    <div class="stat-row">
+      <span class="stat"><span class="dot"></span>50m 자유형 <b>51.46초</b></span>
+      <span class="stat"><span class="dot"></span>25m 풀 왕복</span>
+      <span class="stat"><span class="dot"></span>물속 출발</span>
+      <span class="stat"><span class="dot"></span><b>4</b>레인</span>
+      <span class="stat"><span class="dot"></span>주 <b>3</b>회 연습</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 1. 잘하고 있는 점 ============ -->
+<section class="band" data-screen-label="잘하고 있는 점">
+  <div class="wrap">
+    <div class="lane-rope" data-rope></div>
+    <div class="sec-head" style="margin-top:24px">
+      <span class="sec-num">1</span>
+      <h2 class="sec-title">시연이가 <span class="blue">잘하고 있는 점</span></h2>
+    </div>
+    <p class="sec-desc">수영을 시작한 지 약 1년, 50m 자유형을 51.46초에 완영하고 초등 1~3학년부에서 4등을 했어요. 아주 잘하고 있어요!</p>
+    <div class="grid g3">
+      <div class="card str-card">
+        <div class="ico">🎯</div>
+        <div><h3>집중력이 좋아요</h3><p>한 가지에 차분히 집중하는 힘이 있어요. 수영 동작을 하나씩 고치기에 딱 좋은 강점이에요.</p></div>
+      </div>
+      <div class="card str-card">
+        <div class="ico soft">🧩</div>
+        <div><h3>정확하게 익혀요</h3><p>퍼즐·피아노·미술처럼 정확한 걸 좋아해요. 수영도 힘보다 '기술'이라서 시연이에게 잘 맞아요.</p></div>
+      </div>
+      <div class="card str-card">
+        <div class="ico">🏅</div>
+        <div><h3>끝까지 완주해요</h3><p>물속 출발로 25m를 돌아 50m를 끝까지 헤엄쳐 완주했어요. 이미 멋진 출발선에 서 있어요.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. 이번 목표 ============ -->
+<section class="band" style="background:linear-gradient(180deg,#fff,#EAF1FB)" data-screen-label="이번 목표">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">2</span>
+      <h2 class="sec-title">이번 <span class="blue">목표</span></h2>
+    </div>
+    <p class="sec-desc">진짜 목표는 '빠른 기록'이 아니라 '좋은 기술'이에요. 기술이 자라면 기록은 자연스럽게 따라와요. 시연이는 아래 미션만 즐겁게 도전하면 돼요.</p>
+
+    <div class="goal-card">
+      <div class="goal-process">
+        <div class="gp"><span class="gp-ico">1</span>벽 차고 <b style="margin:0 4px">화살표 자세</b> 더 길게 미끄러지기</div>
+        <div class="gp"><span class="gp-ico">2</span><b style="margin-right:4px">한쪽 눈 호흡</b> 한 번 성공하기</div>
+        <div class="gp"><span class="gp-ico">3</span>턴하고 나서 <b style="margin:0 4px">바로 길게</b> 나가기</div>
+        <div class="gp"><span class="gp-ico">4</span>마지막까지 고개 들지 않고 <b style="margin-left:4px">손으로 벽 찍기</b></div>
+      </div>
+
+      <div style="margin-top:30px">
+        <div class="lanebar">
+          <div class="lb-top"><span class="lb-label">지금</span><span class="lb-val">50m 자유형 · 51.46초</span></div>
+          <div class="track"><div class="fill" data-fill="100" style="background:linear-gradient(135deg,#7E93B8,#A9BBD6)">51.46초</div></div>
+        </div>
+        <div class="lanebar">
+          <div class="lb-top"><span class="lb-label">6개월 뒤 <span style="color:var(--muted);font-weight:500">(적정 목표)</span></span><span class="lb-val">약 47~49초</span></div>
+          <div class="track"><div class="fill" data-fill="76">47~49초</div></div>
+        </div>
+        <div class="lanebar">
+          <div class="lb-top"><span class="lb-label">12개월 뒤 <span style="color:var(--muted);font-weight:500">(적정 목표)</span></span><span class="lb-val">약 45~47초</span></div>
+          <div class="track"><div class="fill" data-fill="56">45~47초</div></div>
+        </div>
+      </div>
+
+      <div class="mom-note">
+        <span class="mom-tag">엄마 메모</span>
+        <span>기록 숫자는 <b>부모·코치만 보는 참고용</b>이에요. 주 3회 연습을 이어가면 6~12개월 동안 충분히 의미 있는 변화를 기대할 수 있어요. 다만 시연이에게는 숫자 대신 위의 '오늘의 미션'으로 말해 주세요. 매주 기록을 재며 압박하지 않는 것이 가장 중요해요.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. 자유형 핵심 포인트 ============ -->
+<section class="band" data-screen-label="핵심 포인트">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">3</span>
+      <h2 class="sec-title">자유형 <span class="blue">핵심 포인트</span></h2>
+    </div>
+    <p class="sec-desc">한 번에 하나씩만 연습해요. 코치 선생님이 알려준 큐(주문 말)를 머릿속으로 외치며 헤엄치면 몸이 기억해요.</p>
+    <div class="grid g2">
+      <div class="card tech">
+        <span class="num">01</span>
+        <div class="tech-head"><span class="tech-pill">출발</span></div>
+        <h3>벽 차고 화살표</h3>
+        <p>벽을 차고 나오면 바로 팔을 젓지 말고, 몸을 길게 만들어 미끄러져요. 귀는 두 팔 사이에 쏙.</p>
+        <div class="cues"><span class="cue">화살표처럼 길게</span><span class="cue">귀는 팔 안에</span><span class="cue">몸이 길어지고 나서 팔 젓기</span></div>
+      </div>
+      <div class="card tech">
+        <span class="num">02</span>
+        <div class="tech-head"><span class="tech-pill">25m 턴</span></div>
+        <h3>벽 찍고 다시 출발</h3>
+        <p>벽 앞에서 속도를 줄이지 않고 끝까지 가요. 벽을 찍으면 곧바로 화살표 자세로 다시 출발해요.</p>
+        <div class="cues"><span class="cue">벽까지 속도 줄이지 말고</span><span class="cue">벽 찍고 바로 화살표</span><span class="cue">벽 차고 길게</span></div>
+      </div>
+      <div class="card tech">
+        <span class="num">03</span>
+        <div class="tech-head"><span class="tech-pill">턴 이후</span></div>
+        <h3>턴 후 다시 길게</h3>
+        <p>턴을 한 다음에도 화살표 자세를 유지해요. 허둥대지 말고 첫 세 번의 팔을 차분히.</p>
+        <div class="cues"><span class="cue">벽에서 다시 출발하는 느낌</span><span class="cue">턴하고 바로 허둥대지 않기</span></div>
+      </div>
+      <div class="card tech">
+        <span class="num">04</span>
+        <div class="tech-head"><span class="tech-pill">호흡</span></div>
+        <h3>옆으로 조용히 숨쉬기</h3>
+        <p>숨 쉴 때 앞을 보려고 고개를 들면 다리가 가라앉아요. 턱은 들지 말고 옆으로 살짝.</p>
+        <div class="cues"><span class="cue">한쪽 눈만 밖으로</span><span class="cue">귀는 물속에</span><span class="cue">옆 창문 보기</span></div>
+      </div>
+      <div class="card tech">
+        <span class="num">05</span>
+        <div class="tech-head"><span class="tech-pill">킥</span></div>
+        <h3>작고 빠른 물결</h3>
+        <p>큰 물보라보다 조용하고 작은 킥이 더 잘 나가요. 무릎보다 발끝으로 물을 톡톡.</p>
+        <div class="cues"><span class="cue">작고 빠른 물결</span><span class="cue">큰 물보라보다 조용한 물</span><span class="cue">발끝으로 물을 톡톡</span></div>
+      </div>
+      <div class="card tech">
+        <span class="num">06</span>
+        <div class="tech-head"><span class="tech-pill">피니시</span></div>
+        <h3>끝까지 손으로 벽 찍기</h3>
+        <p>마지막 5m에서 고개를 들지 않고 팔과 킥을 끝까지 유지해요. 마지막은 손으로 벽을 콕!</p>
+        <div class="cues"><span class="cue">고개 들지 않고 끝까지</span><span class="cue">마지막은 손으로 벽 찍기</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. 연습 드릴 체크리스트 ============ -->
+<section class="band" style="background:linear-gradient(180deg,#fff,#EAF1FB)" data-screen-label="드릴 체크리스트">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">4</span>
+      <h2 class="sec-title">연습 <span class="blue">드릴 체크리스트</span></h2>
+    </div>
+    <p class="sec-desc">오늘 해본 드릴을 톡 눌러서 체크해 보세요. 다 못 해도 괜찮아요. 하나씩만 해도 충분해요! (체크는 자동으로 저장돼요.)</p>
+    <div class="grid g3">
+      <div class="check-group">
+        <div class="cg-title">출발 · 화살표</div>
+        <div class="checks">
+          <div class="chk"><span class="box">✓</span><span class="txt">벽 차고 화살표 3m 가기</span></div>
+          <div class="chk"><span class="box">✓</span><span class="txt">3m → 5m 미끄럼 게임</span></div>
+          <div class="chk"><span class="box">✓</span><span class="txt">첫 팔젓기 살짝 늦추기</span></div>
+          <div class="chk"><span class="box">✓</span><span class="txt">브레이크아웃 연습</span></div>
+        </div>
+      </div>
+      <div class="check-group">
+        <div class="cg-title">호흡 · 자세</div>
+        <div class="checks">
+          <div class="chk"><span class="box">✓</span><span class="txt">한쪽 눈 호흡</span></div>
+          <div class="chk"><span class="box">✓</span><span class="txt">사이드 킥</span></div>
+          <div class="chk"><span class="box">✓</span><span class="txt">캐치업 드릴</span></div>
+          <div class="chk"><span class="box">✓</span><span class="txt">킥판 없이 수평 킥</span></div>
+        </div>
+      </div>
+      <div class="check-group">
+        <div class="cg-title">턴 · 마무리</div>
+        <div class="checks">
+          <div class="chk"><span class="box">✓</span><span class="txt">작고 빠른 킥</span></div>
+          <div class="chk"><span class="box">✓</span><span class="txt">오픈턴 빠르게 하기</span></div>
+          <div class="chk"><span class="box">✓</span><span class="txt">턴 후 화살표 자세</span></div>
+          <div class="chk"><span class="box">✓</span><span class="txt">마지막 5m 벽 찍기</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. 주간 연습 계획 ============ -->
+<section class="band" data-screen-label="주간 계획">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">5</span>
+      <h2 class="sec-title">주간 <span class="blue">연습 계획</span></h2>
+    </div>
+    <p class="sec-desc">일주일에 3번, 매번 한 가지 주제만 집중해요. 욕심내지 않아도 돼요.</p>
+    <div class="week">
+      <div class="day d1">
+        <span class="circ"></span>
+        <span class="dnum">DAY 1</span>
+        <h4>출발 · 화살표</h4>
+        <ul><li>벽 푸시오프</li><li>스트림라인 거리 게임</li><li>브레이크아웃</li></ul>
+      </div>
+      <div class="day d2">
+        <span class="circ"></span>
+        <span class="dnum">DAY 2</span>
+        <h4>턴 · 다시 출발</h4>
+        <ul><li>벽 접근 속도 유지</li><li>오픈턴 빠르게</li><li>턴 후 화살표</li></ul>
+      </div>
+      <div class="day d3">
+        <span class="circ"></span>
+        <span class="dnum">DAY 3</span>
+        <h4>리듬 · 실전</h4>
+        <ul><li>25m 리듬 잡기</li><li>50m 한 번 도전</li><li>마지막 5m 벽 찍기</li></ul>
+      </div>
+    </div>
+
+    <div class="home-card">
+      <h3>🏠 집에서 (주 2~3회 · 10~15분)</h3>
+      <p>근육을 키우는 게 아니라, 몸을 곧게 펴고 균형을 잡는 가벼운 운동이에요. 피곤한 날은 쉬고, 아프면 바로 멈춰요.</p>
+      <div class="home-tags">
+        <span class="htag">벽 화살표 자세 20초</span>
+        <span class="htag">데드버그</span>
+        <span class="htag">버드독</span>
+        <span class="htag">짧은 플랭크</span>
+        <span class="htag">발목 포인팅</span>
+        <span class="htag">한 발 균형 서기</span>
+        <span class="htag">어깨 원 그리기</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. 성장 기록 ============ -->
+<section class="band" style="background:linear-gradient(180deg,#fff,#EAF1FB)" data-screen-label="성장 기록">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">6</span>
+      <h2 class="sec-title">성장 <span class="blue">기록 노트</span></h2>
+    </div>
+    <p class="sec-desc">연습이나 대회가 끝나면 함께 적어요. 숫자보다 '오늘 무엇을 고쳤는지'가 더 중요해요. (적은 내용은 자동 저장돼요.)</p>
+    <div class="rec-wrap">
+      <table class="rec-table">
+        <thead>
+          <tr><th>회차</th><th>날짜</th><th>50m 기록</th><th>오늘 잘한 점</th><th>다음에 고칠 점</th></tr>
+        </thead>
+        <tbody id="recBody"></tbody>
+      </table>
+      <div class="chart">
+        <div class="chart-bars" id="chartBars"></div>
+        <p class="rec-hint">↑ 50m 기록을 적으면 막대가 그려져요. 막대가 점점 낮아지면 더 빨라진 거예요. (예시로 첫 칸에 51.46이 들어 있어요.)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 엄마 메모 (함께 지켜요) ============ -->
+<section class="band" data-screen-label="함께 지켜요">
+  <div class="wrap">
+    <div class="lane-rope" data-rope></div>
+    <div class="sec-head" style="margin-top:24px">
+      <span class="sec-num">♥</span>
+      <h2 class="sec-title">엄마와 <span class="blue">함께 지켜요</span></h2>
+    </div>
+    <div class="memo">
+      <div class="memo-grid">
+        <div class="yes">
+          <h4>이렇게 말해 주세요</h4>
+          <ul>
+            <li>“오늘은 화살표 자세가 더 좋아졌는지 보자.”</li>
+            <li>“한쪽 눈 호흡 하나만 성공해보자.”</li>
+            <li>“네가 어제보다 고친 점을 같이 찾아보자.”</li>
+            <li>“결과보다 네가 고친 방법이 더 중요해.”</li>
+            <li>“잘했어! 벽 차고 나가는 게 더 길어졌어.”</li>
+          </ul>
+        </div>
+        <div class="no">
+          <h4>이런 말은 피해요</h4>
+          <ul>
+            <li>“왜 마지막에 힘이 빠졌어?”</li>
+            <li>“1등은 벌써 들어왔잖아.”</li>
+            <li>“말라서 힘이 없는 거야.”</li>
+            <li>“숨 참고 가면 기록 줄어.”</li>
+            <li>“다른 애는 하는데 너는 왜 못 해?”</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 마무리 ============ -->
+<section class="wrap" data-screen-label="마무리">
+  <div class="closing">
+    <span class="blob b1 c1"></span>
+    <span class="blob circle c2"></span>
+    <span class="blob circle c3"></span>
+    <div class="closing-inner">
+      <span class="kicker">Keep swimming</span>
+      <h2>지금은 빠르게 될 수 있는<br/><span class="cyan">기술을 만드는 시기</span>예요</h2>
+      <p>51.46초는 충분히 더 줄어들 수 있는 기록이에요. 비교하지 않고, 즐겁게, 한 가지씩. 시연이는 물에서 점점 더 멋진 선수가 되고 있어요.</p>
+      <div class="cheer-line">
+        <span class="cheer">🌊 더 멀리</span>
+        <span class="cheer">💧 더 부드럽게</span>
+        <span class="cheer">⭐ 한 발씩</span>
+        <span class="cheer">💙 시연이 화이팅!</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ripple" id="footRipple"></div>
+  박시연 · My Swim Guide &nbsp;·&nbsp; 50m 자유형 51.46초 &nbsp;·&nbsp; 안전하게, 즐겁게, 한 발씩
+</footer>
+
+<script>
+  // ripple / dot-matrix wave motif
+  function buildRipple(el,count,base){
+    if(!el) return;
+    el.innerHTML='';
+    for(let i=0;i<count;i++){
+      const b=document.createElement('i');
+      const h=base + Math.sin(i/count*Math.PI*2)*base*0.7 + base*0.7;
+      b.style.height=Math.max(6,h)+'px';
+      b.style.opacity=(0.45+0.5*Math.abs(Math.sin(i/count*Math.PI))).toFixed(2);
+      el.appendChild(b);
+    }
+  }
+  buildRipple(document.getElementById('heroRipple'),26,11);
+  buildRipple(document.getElementById('footRipple'),20,7);
+
+  // lane rope dividers
+  const ropeColors=['#2E6BFF','#22DCF0','#fff','#1C44D2','#67ECF4'];
+  document.querySelectorAll('[data-rope]').forEach(r=>{
+    for(let i=0;i<26;i++){
+      const d=document.createElement('i');
+      d.style.background=ropeColors[i%ropeColors.length];
+      if(ropeColors[i%ropeColors.length]==='#fff'){d.style.border='1px solid #cfe0ff'}
+      d.style.boxShadow='0 2px 6px -2px rgba(40,90,200,.4)';
+      r.appendChild(d);
+    }
+  });
+
+  // animate goal fills on view
+  const fills=document.querySelectorAll('.fill');
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.style.width=e.target.dataset.fill+'%';io.unobserve(e.target);}});
+  },{threshold:.4});
+  fills.forEach(f=>io.observe(f));
+
+  // checklist persistence
+  const CK='siyeon_checks_v1';
+  let saved=JSON.parse(localStorage.getItem(CK)||'{}');
+  document.querySelectorAll('.chk').forEach((c,i)=>{
+    const key='c'+i;
+    if(saved[key]) c.classList.add('on');
+    c.addEventListener('click',()=>{
+      c.classList.toggle('on');
+      saved[key]=c.classList.contains('on');
+      localStorage.setItem(CK,JSON.stringify(saved));
+    });
+  });
+
+  // record tracker
+  const RK='siyeon_records_v1';
+  const ROWS=6;
+  const cols=['date','time','good','fix'];
+  let recs=JSON.parse(localStorage.getItem(RK)||'null');
+  if(!recs){recs=Array.from({length:ROWS},()=>({date:'',time:'',good:'',fix:''})); recs[0].time='51.46'; recs[0].date='첫 기록';}
+  const body=document.getElementById('recBody');
+  const placeholders={date:'예: 5/31',time:'초',good:'무엇을?',fix:'무엇을?'};
+  function renderTable(){
+    body.innerHTML='';
+    recs.forEach((row,ri)=>{
+      const tr=document.createElement('tr');
+      const tdN=document.createElement('td'); tdN.textContent=(ri+1); tr.appendChild(tdN);
+      cols.forEach(col=>{
+        const td=document.createElement('td');
+        const inp=document.createElement('input');
+        inp.value=row[col]||''; inp.placeholder=placeholders[col];
+        if(col==='time') inp.inputMode='decimal';
+        inp.addEventListener('input',()=>{recs[ri][col]=inp.value; localStorage.setItem(RK,JSON.stringify(recs)); if(col==='time') renderChart();});
+        td.appendChild(inp); tr.appendChild(td);
+      });
+      body.appendChild(tr);
+    });
+  }
+  function renderChart(){
+    const bars=document.getElementById('chartBars');
+    bars.innerHTML='';
+    const vals=recs.map(r=>parseFloat(r.time)).map(v=>isNaN(v)?null:v);
+    const nums=vals.filter(v=>v!==null);
+    const max=nums.length?Math.max(...nums):60;
+    const min=nums.length?Math.min(...nums):40;
+    const span=Math.max(2,max-min);
+    recs.forEach((r,i)=>{
+      const v=vals[i];
+      const cb=document.createElement('div'); cb.className='cbar';
+      if(v!==null){
+        const bv=document.createElement('div'); bv.className='bv'; bv.textContent=v.toFixed(2);
+        const bar=document.createElement('div'); bar.className='bar';
+        const h=30 + ((v-min)/span)*70; // lower time = shorter bar
+        cb.appendChild(bv); cb.appendChild(bar);
+        requestAnimationFrame(()=>{bar.style.height=h+'%';});
+      } else {
+        const bar=document.createElement('div'); bar.className='bar'; bar.style.background='#E3EBF6'; bar.style.height='10%';
+        cb.appendChild(bar);
+      }
+      const bl=document.createElement('div'); bl.className='bl'; bl.textContent=(i+1)+'회'; cb.appendChild(bl);
+      bars.appendChild(cb);
+    });
+  }
+  renderTable(); renderChart();
+</script>
+</body>
+</html>
