@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>개인 투자 OS · Investment Terminal v1.0</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<style>
+
+:root{
+  --bg:#0a0b0d; --bg2:#0d0f13; --panel:#101319; --panel2:#0b0d11;
+  --line:#1d222c; --line2:#2a313d; --linea:#3a2e12;
+  --amber:#FF9E1B; --amber2:#FFC062; --amberdim:#7a5d1e;
+  --green:#28D17C; --red:#FF4D4D; --cyan:#3CC8E6; --yellow:#FFD23F;
+  --green-bg:rgba(40,209,124,.10); --red-bg:rgba(255,77,77,.10);
+  --cyan-bg:rgba(60,200,230,.10); --amber-bg:rgba(255,158,27,.10); --yellow-bg:rgba(255,210,63,.09);
+  --ink:#D4D9E2; --muted:#828B9B; --faint:#5a6473; --white:#F1F4F9;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,"Roboto Mono",Consolas,"Noto Sans Mono CJK KR",monospace;
+  --sans:"Pretendard Variable","Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,-apple-system,sans-serif;
+  /* aliases used by existing inline-style logic (kept identical in meaning) */
+  --accent:#FF9E1B; --go:#28D17C; --stop:#FF4D4D; --hold:#FFD23F;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+body{background-image:linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);background-size:30px 30px}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{font-weight:700;line-height:1.25;letter-spacing:-.01em;margin:0}
+.num,.kicker,.band,.bigscore,.pill,.redtag,.warntag,code,kbd,.sg-r,.vbar,.meter{font-variant-numeric:tabular-nums}
+hr{border:0;border-top:1px solid var(--line);margin:0}
+code,kbd{font-family:var(--mono);font-size:.88em;background:#0c0f14;border:1px solid var(--line2);border-radius:3px;padding:1px 5px;color:var(--amber2)}
+
+/* command bar */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(8,9,11,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--linea)}
+.topbar .inner{max-width:1320px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-family:var(--mono);font-weight:700;letter-spacing:.05em;white-space:nowrap;color:var(--amber);font-size:.92rem}
+.brand .v{color:var(--cyan);font-size:.68rem;margin-left:7px;font-weight:600}
+.nav{display:flex;gap:0;flex-wrap:wrap;flex:1}
+.nav a{font-family:var(--mono);font-size:.74rem;color:var(--muted);padding:5px 10px;border-radius:3px;border:1px solid transparent;white-space:nowrap;letter-spacing:.02em}
+.nav a:hover{color:var(--amber);border-color:var(--linea);text-decoration:none;background:#0c0f14}
+.tools{display:flex;gap:4px}
+.btn{font-family:var(--mono);font-size:.72rem;cursor:pointer;background:#0c0f14;color:var(--ink);border:1px solid var(--line2);border-radius:3px;padding:6px 10px;transition:.12s;letter-spacing:.02em}
+.btn:hover{border-color:var(--amber);color:var(--amber)}
+.btn.primary{background:var(--amber);border-color:var(--amber);color:#0a0b0d;font-weight:700}
+.btn.primary:hover{background:var(--amber2);color:#0a0b0d}
+.btn.ghost{background:transparent;color:var(--muted)}
+.btn.sm{padding:4px 8px;font-size:.68rem}
+
+/* terminal header + ticker */
+.term-head{background:#070809;border-bottom:1px solid var(--linea);position:relative}
+.th-inner{max-width:1320px;margin:0 auto;padding:24px 20px 18px}
+.th-row1{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:13px}
+.th-id{font-family:var(--mono);font-size:1.02rem;font-weight:700;color:var(--amber);letter-spacing:.08em}
+.th-id .th-ver{color:var(--cyan);font-size:.74rem;margin-left:8px;letter-spacing:.02em}
+.th-stat{display:flex;gap:18px;flex-wrap:wrap}
+.th-stat .kv{font-family:var(--mono);font-size:.71rem;color:var(--muted);letter-spacing:.03em}
+.th-stat .kv b{color:var(--faint);font-weight:600;margin-right:6px;letter-spacing:.1em}
+.th-stat .kv i{font-style:normal}
+.th-stat .g{color:var(--green)}
+.th-title{font-family:var(--mono);font-size:1.46rem;font-weight:800;color:var(--white);letter-spacing:-.01em;line-height:1.2}
+.th-decl{font-size:.98rem;color:var(--ink);max-width:840px;margin:10px 0 0;line-height:1.55}
+.blink{color:var(--amber);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.ticker{overflow:hidden;background:#040506;border-top:1px solid var(--linea);height:30px;display:flex;align-items:center}
+.ticker-track{display:inline-flex;white-space:nowrap;font-family:var(--mono);font-size:.73rem;will-change:transform;animation:tkscroll 75s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes tkscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tk{color:var(--ink);padding:0 13px;display:inline-flex;align-items:center;white-space:nowrap}
+.tk b{color:var(--amber);font-weight:700;margin-right:6px;letter-spacing:.03em}
+.tk-r{color:var(--red)} .tk-c{color:var(--cyan)} .tk-v{color:var(--amber2)} .tk-t{color:var(--amber2)} .tk-s{color:var(--green)} .tk-k{color:var(--amber)}
+.tk-sep{color:var(--amberdim);padding:0 2px}
+
+/* layout */
+.wrap{max-width:1320px;margin:0 auto;padding:26px 20px 130px}
+.grid{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:start}
+@media(max-width:920px){.grid{grid-template-columns:1fr}}
+
+/* panel = terminal window */
+.card{background:var(--panel);border:1px solid var(--line2);border-radius:4px;padding:22px 24px;margin-bottom:18px}
+.card h2{font-family:var(--mono);font-size:1.02rem;display:flex;align-items:center;gap:10px;color:var(--amber);margin:-22px -24px 16px;padding:11px 16px;background:#0c0f15;border-bottom:1px solid var(--linea);letter-spacing:.02em}
+.card h2 .num{font-family:var(--mono);font-size:.66rem;color:#0a0b0d;background:var(--amber);border-radius:3px;padding:3px 7px;font-weight:700;letter-spacing:.06em}
+.card .sub{color:var(--muted);font-size:.86rem;margin:2px 0 14px}
+.card.dim{opacity:.4}
+.card.dim:hover{opacity:.82}
+.card h4{font-family:var(--mono);font-size:.78rem;color:var(--amber2);font-weight:700;letter-spacing:.03em;margin:18px 0 7px}
+
+/* callouts */
+.callout{border-radius:3px;padding:12px 15px;margin:13px 0;font-size:.88rem;border:1px solid;line-height:1.55;border-left-width:3px}
+.callout .ttl{font-weight:700;display:block;margin-bottom:4px;font-size:.78rem;letter-spacing:.05em;font-family:var(--mono);text-transform:uppercase}
+.c-danger{background:var(--red-bg);border-color:rgba(255,77,77,.4);border-left-color:var(--red);color:#ffc9c5}
+.c-danger .ttl{color:var(--red)}
+.c-warn{background:var(--amber-bg);border-color:rgba(255,158,27,.35);border-left-color:var(--amber);color:#ffe2bb}
+.c-warn .ttl{color:var(--amber)}
+.c-check{background:var(--green-bg);border-color:rgba(40,209,124,.35);border-left-color:var(--green);color:#bdeed5}
+.c-check .ttl{color:var(--green)}
+.c-note{background:var(--cyan-bg);border-color:rgba(60,200,230,.3);border-left-color:var(--cyan);color:#cdebf3}
+.c-note .ttl{color:var(--cyan)}
+.c-quote{background:#0c0f15;border-color:var(--line2);border-left-color:var(--amber);color:#d7dde6}
+.c-quote .ttl{color:var(--amber)}
+
+/* forms */
+label{display:block;font-size:.78rem;color:var(--muted);margin:12px 0 4px;font-family:var(--mono);letter-spacing:.02em}
+input[type=text],input[type=number],textarea,select{width:100%;background:#0b0d11;border:1px solid var(--line2);border-radius:3px;color:var(--ink);font-family:var(--sans);font-size:.9rem;padding:9px 11px;resize:vertical}
+input[type=number]{font-family:var(--mono);font-variant-numeric:tabular-nums}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 2px rgba(255,158,27,.14)}
+textarea{min-height:52px;line-height:1.5}
+select{color:var(--ink)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:560px){.field-row{grid-template-columns:1fr}}
+
+/* checklist */
+.check{display:flex;gap:11px;align-items:flex-start;padding:9px 12px;border:1px solid var(--line2);border-radius:3px;margin:6px 0;background:#0b0d11;cursor:pointer;transition:.12s}
+.check:hover{border-color:var(--amber)}
+.check input{margin-top:3px;width:15px;height:15px;accent-color:var(--amber);flex:none;cursor:pointer}
+.check .lab{flex:1}
+.check .lab .t{font-size:.88rem;color:var(--ink)}
+.check .lab .act{display:none;font-size:.76rem;color:var(--muted);margin-top:4px;font-family:var(--mono)}
+.check.on{border-color:rgba(255,77,77,.55);background:var(--red-bg)}
+.check.on .lab .act{display:block;color:var(--red)}
+.check.on.warnitem{border-color:rgba(255,158,27,.5);background:var(--amber-bg)}
+.check.on.warnitem .lab .act{color:var(--amber)}
+.redtag,.warntag{font-family:var(--mono);font-size:.58rem;padding:2px 6px;border-radius:2px;margin-left:7px;vertical-align:middle;letter-spacing:.06em;font-weight:700}
+.redtag{background:var(--red-bg);color:var(--red);border:1px solid rgba(255,77,77,.4)}
+.warntag{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(255,158,27,.4)}
+
+/* score rows */
+.score-row{display:grid;grid-template-columns:1fr 78px;gap:13px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.score-row:last-child{border-bottom:0}
+.score-row .q{font-size:.87rem}
+.score-row .q .crit{display:block;color:var(--faint);font-size:.75rem;margin-top:3px;line-height:1.45}
+.score-row .q .max{font-family:var(--mono);color:var(--amber);font-size:.71rem;margin-left:7px;font-weight:600}
+.score-row input[type=number]{text-align:center;font-weight:700;color:var(--amber2)}
+.ev{margin:4px 0 2px}
+.ev textarea{min-height:34px;font-size:.81rem}
+.ev .miss{color:var(--amber);font-size:.73rem;display:none;margin-top:3px;font-family:var(--mono)}
+.ev.unconfirmed .miss{display:block}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:.83rem;margin:11px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.tbl th{background:#0c0f15;color:var(--amber2);font-weight:600;font-family:var(--mono);letter-spacing:.02em}
+.tbl td.r{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* action selector */
+.actionsel{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.actionsel button{font-family:var(--mono);cursor:pointer;background:#0b0d11;border:1px solid var(--line2);color:var(--ink);border-radius:3px;padding:9px 14px;font-size:.83rem;transition:.12s;letter-spacing:.02em}
+.actionsel button:hover{border-color:var(--amber);color:var(--amber)}
+.actionsel button.sel{background:var(--amber);border-color:var(--amber);color:#0a0b0d;font-weight:700}
+
+/* big numbers + band */
+.bigscore{font-family:var(--mono);font-size:1.95rem;font-weight:700;line-height:1;color:var(--white);font-variant-numeric:tabular-nums}
+.band{display:inline-block;font-family:var(--mono);font-size:.76rem;padding:4px 11px;border-radius:3px;border:1px solid var(--line2);margin-left:10px;color:var(--muted);background:#0c0f15;font-weight:600}
+.band.b0{color:var(--cyan);border-color:rgba(60,200,230,.5)}
+.band.b1{color:var(--green);border-color:rgba(40,209,124,.5)}
+.band.b2{color:var(--yellow);border-color:rgba(255,210,63,.5)}
+.band.b3{color:var(--amber);border-color:rgba(255,158,27,.5)}
+.band.b4{color:var(--red);border-color:rgba(255,77,77,.5)}
+
+/* temperature gauge — risk posture, NOT buy/sell signal */
+.gauge{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:14px 0 26px}
+.gauge .seg{position:relative;text-align:center;padding:10px 4px 8px;border-radius:3px;border:1px solid var(--line2);background:#0b0d11;transition:.15s;opacity:.42}
+.gauge .seg .sg-r{display:block;font-family:var(--mono);font-size:.63rem;color:var(--faint)}
+.gauge .seg .sg-n{display:block;font-size:.79rem;font-weight:600;color:var(--muted);margin-top:2px;font-family:var(--mono)}
+.gauge .seg[data-seg="0"].active{background:var(--cyan-bg);border-color:var(--cyan);opacity:1;box-shadow:0 0 8px rgba(60,200,230,.25)}
+.gauge .seg[data-seg="1"].active{background:var(--green-bg);border-color:var(--green);opacity:1;box-shadow:0 0 8px rgba(40,209,124,.2)}
+.gauge .seg[data-seg="2"].active{background:var(--yellow-bg);border-color:var(--yellow);opacity:1}
+.gauge .seg[data-seg="3"].active{background:var(--amber-bg);border-color:var(--amber);opacity:1;box-shadow:0 0 8px rgba(255,158,27,.22)}
+.gauge .seg[data-seg="4"].active{background:var(--red-bg);border-color:var(--red);opacity:1;box-shadow:0 0 8px rgba(255,77,77,.28)}
+.gauge .seg.active .sg-n{color:var(--white)}
+.gauge .seg.active:after{content:"\25B2 \D604\C7AC";position:absolute;left:0;right:0;bottom:-16px;font-family:var(--mono);font-size:.6rem;color:var(--amber2);letter-spacing:.04em}
+
+/* temp area bar chart */
+.vbars{margin:14px 0 4px;border-top:1px dashed var(--line);padding-top:13px}
+.vbar{display:grid;grid-template-columns:118px 1fr 32px;gap:10px;align-items:center;padding:4px 0;font-family:var(--mono);font-size:.73rem}
+.vbar .vk{color:var(--muted)}
+.vtrack{height:9px;background:#0b0d11;border:1px solid var(--line2);border-radius:2px;overflow:hidden}
+.vtrack i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--amber));transition:width .25s}
+.vbar .vv{text-align:right;color:var(--amber2);font-weight:700}
+
+/* score meters */
+.meter{position:relative;height:13px;background:#0b0d11;border:1px solid var(--line2);border-radius:3px;margin:12px 0 6px;overflow:visible}
+.meter i{display:block;height:100%;width:0;border-radius:2px;transition:width .25s,background .25s}
+.meter .fill-go{background:var(--green)} .meter .fill-warn{background:var(--amber)} .meter .fill-stop{background:var(--red)} .meter .fill-dim{background:var(--faint)}
+.mtick{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--amber2)}
+.mtick span{position:absolute;top:-15px;left:-6px;font-family:var(--mono);font-size:.6rem;color:var(--amber2)}
+
+/* right rail verdict */
+.rail{position:sticky;top:60px}
+.verdict{padding:0 0 20px}
+.verdict>.kicker{margin:0 -24px 0;padding:11px 16px;background:#0c0f15;border-bottom:1px solid var(--linea);display:block}
+.verdict .state{font-family:var(--mono);font-size:1.32rem;font-weight:800;letter-spacing:.02em;padding:13px 14px;border-radius:3px;margin:16px 0 8px;text-align:center;border:1px solid}
+.v-go{background:var(--green-bg);color:var(--green);border-color:rgba(40,209,124,.5)}
+.v-hold{background:var(--yellow-bg);color:var(--yellow);border-color:rgba(255,210,63,.5)}
+.v-kill{background:#0e1116;color:var(--muted);border-color:var(--line2)}
+.v-stop{background:var(--red-bg);color:var(--red);border-color:rgba(255,77,77,.55);box-shadow:0 0 12px rgba(255,77,77,.18)}
+.v-idle{background:#0c0f15;color:var(--faint);border-color:var(--line2)}
+.reasons{list-style:none;padding:0;margin:13px 0 0;text-align:left;font-size:.81rem}
+.reasons li{padding:8px 0 8px 19px;position:relative;border-top:1px solid var(--line);color:var(--muted)}
+.reasons li:before{content:"\203A";position:absolute;left:3px;color:var(--amber);font-weight:700}
+.reasons li.stop{color:#ffb3ae}
+.reasons li.stop:before{content:"\2715";color:var(--red)}
+.reasons li.ok{color:#a9e6c8}
+.reasons li.ok:before{content:"\2713";color:var(--green)}
+
+/* misc */
+.note-disc{font-size:.72rem;color:var(--faint);margin-top:16px;line-height:1.55;border-top:1px solid var(--line);padding-top:13px}
+.foot{max-width:1320px;margin:0 auto;padding:20px 20px 60px;color:var(--faint);font-size:.75rem;line-height:1.6;font-family:var(--mono)}
+.kicker{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;font-weight:700}
+.rel{font-size:.77rem;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px dashed var(--line2);font-family:var(--mono)}
+.rel a{color:var(--cyan)}
+details summary{cursor:pointer;color:var(--muted);font-size:.83rem;padding:6px 0;font-family:var(--mono)}
+details[open] summary{color:var(--amber)}
+.pill{display:inline-block;font-family:var(--mono);font-size:.65rem;color:var(--muted);border:1px solid var(--line2);border-radius:14px;padding:3px 10px;margin:2px 4px 2px 0;background:#0c0f15}
+
+@media print{
+  .topbar,.rail,.tools,.actionsel,.ticker,.no-print{display:none!important}
+  .grid{grid-template-columns:1fr}
+  body{background:#fff;color:#000;background-image:none}
+  .term-head{background:#fff;color:#000;border-bottom:2px solid #000}
+  .th-title,.th-decl,.th-id{color:#000}
+  .card{break-inside:avoid;border-color:#bbb}
+  .card h2{background:#eee;color:#000;border-color:#999}
+}
+
+/* ============================================================
+   v2 ENHANCEMENT LAYER — UI / visualization only (no logic)
+   ============================================================ */
+
+/* faint scanline + accessible focus */
+.scan{position:fixed;inset:0;z-index:9000;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0,rgba(255,255,255,.018) 1px,transparent 1px,transparent 3px);opacity:.55;mix-blend-mode:overlay}
+body.noscan .scan{display:none}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+input:focus-visible,textarea:focus-visible,select:focus-visible{outline:none}
+
+/* ---- command bar v2 ---- */
+.topbar .inner{padding-bottom:8px}
+.topbar .row1{display:flex;align-items:center;gap:12px;width:100%;flex-wrap:wrap}
+.cmdline{display:flex;align-items:center;gap:8px;flex:1 1 200px;min-width:170px;background:#050609;border:1px solid var(--line2);border-radius:3px;padding:5px 10px}
+.cmdline:focus-within{border-color:var(--amber);box-shadow:0 0 0 2px rgba(255,158,27,.12)}
+.cmdline .cprompt{font-family:var(--mono);color:var(--amber);font-weight:700;font-size:.8rem;line-height:1}
+.cmdline .cprompt b{animation:blink 1.1s steps(1) infinite}
+.cmdline input[type=text]{background:transparent!important;border:0!important;color:var(--white);font-family:var(--mono);font-size:.78rem;padding:0;width:100%;letter-spacing:.04em;box-shadow:none!important}
+.cmdline .chint{font-family:var(--mono);font-size:.58rem;color:var(--faint);white-space:nowrap;letter-spacing:.05em}
+@media(max-width:720px){.cmdline .chint{display:none}}
+
+.leds{display:flex;gap:6px;flex-wrap:wrap}
+.led{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;background:#050609;border:1px solid var(--line2);border-radius:3px;padding:4px 9px;white-space:nowrap}
+.led .ldot{width:7px;height:7px;border-radius:50%;background:var(--faint);flex:none}
+.led .lk{color:var(--faint)}
+.led .lv{color:var(--ink);font-weight:700}
+.led.ok{border-color:rgba(40,209,124,.4)} .led.ok .ldot{background:var(--green);box-shadow:0 0 7px rgba(40,209,124,.75)} .led.ok .lv{color:var(--green)}
+.led.warn{border-color:rgba(255,158,27,.4)} .led.warn .ldot{background:var(--amber);box-shadow:0 0 7px rgba(255,158,27,.7)} .led.warn .lv{color:var(--amber2)}
+.led.info{border-color:rgba(60,200,230,.4)} .led.info .ldot{background:var(--cyan);box-shadow:0 0 7px rgba(60,200,230,.65)} .led.info .lv{color:var(--cyan)}
+.led.bad{border-color:rgba(255,77,77,.5)} .led.bad .ldot{background:var(--red);box-shadow:0 0 8px rgba(255,77,77,.85);animation:ledpulse 1.25s ease-in-out infinite} .led.bad .lv{color:var(--red)}
+@keyframes ledpulse{50%{opacity:.4}}
+@media(max-width:560px){.led .lk{display:none}}
+
+.disc-strip{font-family:var(--mono);font-size:.62rem;letter-spacing:.04em;color:var(--faint);background:#040506;border-top:1px solid var(--linea);padding:4px 20px;display:flex;align-items:center;gap:8px}
+.disc-strip b{color:var(--amberdim);font-weight:700}
+
+/* ---- terminal panel headers ---- */
+.card h2{gap:9px;flex-wrap:wrap}
+.card h2 .htitle{font-size:.84rem;white-space:nowrap;color:var(--amber);font-weight:700}
+.card h2 .htitle .ko{color:var(--muted);font-weight:600;margin-left:7px;font-size:.92em}
+.card h2 .lead{flex:1 1 30px;height:.9em;border-bottom:1px dotted var(--linea);min-width:18px;align-self:center;opacity:.8}
+.card h2 .hstat{font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--muted);white-space:nowrap;letter-spacing:.05em}
+.card h2 .hstat .hk{color:var(--faint);font-weight:600;margin-right:6px;font-size:.86em}
+.card h2 .hstat.s-ok{color:var(--green)} .card h2 .hstat.s-bad{color:var(--red)} .card h2 .hstat.s-warn{color:var(--amber2)} .card h2 .hstat.s-info{color:var(--cyan)}
+@media(max-width:560px){.card h2 .htitle .ko{display:none}.card h2 .lead{flex-basis:12px}}
+
+/* jump-flash when navigated via command line / shortcut */
+.jflash{animation:jflash 1s ease-out}
+@keyframes jflash{0%{box-shadow:0 0 0 1px var(--amber),0 0 22px rgba(255,158,27,.28)}100%{box-shadow:none}}
+
+/* value-change flash */
+@keyframes flashbg{0%{background:rgba(255,158,27,.34)}100%{background:transparent}}
+.flash{animation:flashbg .55s ease-out;border-radius:3px}
+
+/* ---- temperature precision spectrum ---- */
+.spectrum{position:relative;height:38px;margin:4px 2px 30px}
+.spectrum .strack{position:absolute;left:0;right:0;top:12px;height:13px;border-radius:3px;border:1px solid var(--line2);
+  background:linear-gradient(90deg,#1b5e6e 0%,#1b5e6e 20%,#1c7a52 20%,#1c7a52 40%,#9c8430 40%,#9c8430 60%,#a3641a 60%,#a3641a 80%,#9c3030 80%,#9c3030 100%)}
+.spectrum .stick{position:absolute;top:8px;width:1px;height:21px;background:var(--line2)}
+.spectrum .stick span{position:absolute;top:22px;left:0;transform:translateX(-50%);font-family:var(--mono);font-size:.58rem;color:var(--faint)}
+.spectrum .sneedle{position:absolute;top:4px;width:2px;height:29px;background:var(--white);box-shadow:0 0 7px rgba(241,244,249,.85);transition:left .35s cubic-bezier(.4,0,.2,1);z-index:3}
+.spectrum .sneedle:after{content:attr(data-v);position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.62rem;font-weight:700;color:#0a0b0d;background:var(--white);border-radius:2px;padding:0 5px;white-space:nowrap}
+.spectrum.idle .sneedle{opacity:.18;filter:grayscale(1)}
+.spectrum.idle .sneedle:after{content:"—";background:var(--line2);color:var(--faint)}
+
+/* ---- A–F contribution bars (refined) ---- */
+.vbar{grid-template-columns:128px 1fr 56px}
+.vbar .vk{color:var(--muted)}
+.vtrack{height:11px}
+.vtrack i{background:linear-gradient(90deg,var(--cyan),var(--amber2))}
+.vbar .vv{display:flex;justify-content:flex-end;align-items:baseline;gap:1px}
+.vbar .vv b{color:var(--amber2);font-weight:700}
+.vbar .vv .vmax{color:var(--faint);font-weight:600;font-size:.85em}
+@media(max-width:560px){.vbar{grid-template-columns:96px 1fr 48px}}
+
+/* ---- equity permit: 7-area stacked cumulative bar ---- */
+.stack{position:relative;height:30px;border:1px solid var(--line2);border-radius:3px;background:#0b0d11;overflow:hidden;margin:16px 0 30px}
+.stack .track{display:flex;height:100%}
+.stack .track .seg{height:100%;transition:width .35s cubic-bezier(.4,0,.2,1)}
+.stack .gridline{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.05);z-index:1}
+.stack .passline{position:absolute;top:-5px;bottom:-5px;left:80%;width:2px;background:var(--amber2);z-index:6}
+.stack .passline span{position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.59rem;font-weight:700;color:var(--amber2);white-space:nowrap}
+.stklegend{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;margin:-18px 0 4px;font-family:var(--mono);font-size:.68rem}
+@media(max-width:560px){.stklegend{grid-template-columns:1fr}}
+.stklegend .li{display:flex;align-items:center;gap:7px;padding:2px 0;border-bottom:1px solid var(--line)}
+.stklegend .sw{width:9px;height:9px;border-radius:2px;flex:none}
+.stklegend .ln{color:var(--muted);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stklegend .lvv{color:var(--ink);font-weight:700}
+.stklegend .lvv .lm{color:var(--faint);font-weight:600}
+
+/* ---- risk band track + needle ---- */
+.bandtrack{position:relative;height:26px;display:flex;border:1px solid var(--line2);border-radius:3px;overflow:hidden;margin:16px 0 30px}
+.bandtrack .bz{flex:1;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.58rem;letter-spacing:.02em;border-right:1px solid var(--bg);position:relative}
+.bandtrack .bz:last-child{border-right:0}
+.bandtrack .bz.z0{background:rgba(40,209,124,.14);color:#7fcfa6}
+.bandtrack .bz.z1{background:rgba(255,210,63,.13);color:#ccab43}
+.bandtrack .bz.z2{background:rgba(255,158,27,.14);color:var(--amber2)}
+.bandtrack .bz.z3{background:rgba(255,77,77,.14);color:#e88}
+.bandtrack .bz.z4{background:rgba(255,77,77,.26);color:#ffb0ab}
+.bandtrack .bneedle{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--white);box-shadow:0 0 7px rgba(241,244,249,.85);z-index:6;transition:left .35s cubic-bezier(.4,0,.2,1)}
+.bandtrack .bneedle:after{content:attr(data-v);position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.6rem;font-weight:700;color:#0a0b0d;background:var(--white);border-radius:2px;padding:0 4px}
+.bandtrack.idle .bneedle{opacity:.18;filter:grayscale(1)}
+.bandtrack.idle .bneedle:after{content:"—";background:var(--line2);color:var(--faint)}
+
+/* ---- decision ticket ---- */
+.tk-grid{display:grid;grid-template-columns:auto 1fr;font-family:var(--mono);font-size:.74rem;border:1px solid var(--line2);border-radius:3px;overflow:hidden;margin:14px 0 4px}
+.tk-grid .tkk{background:#0c0f15;color:var(--faint);padding:7px 11px;border-bottom:1px solid var(--line);letter-spacing:.05em;font-size:.66rem;display:flex;align-items:center}
+.tk-grid .tkv{padding:7px 11px;border-bottom:1px solid var(--line);color:var(--ink);text-align:right;font-weight:700;display:flex;align-items:center;justify-content:flex-end;gap:6px;word-break:break-all}
+.tk-grid .tkk:nth-last-child(2),.tk-grid .tkv:last-child{border-bottom:0}
+.tk-grid .tkv.ok{color:var(--green)} .tk-grid .tkv.bad{color:var(--red)} .tk-grid .tkv.warn{color:var(--amber2)} .tk-grid .tkv.info{color:var(--cyan)}
+.tk-perf{height:0;border-top:1px dashed var(--line2);margin:13px -24px;position:relative}
+.tk-perf:before,.tk-perf:after{content:"";position:absolute;top:-7px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:1px solid var(--line2)}
+.tk-perf:before{left:-7px} .tk-perf:after{right:-7px}
+.tk-alert{display:none;margin:12px 0 4px;background:var(--red-bg);border:1px solid var(--red);border-radius:3px;padding:11px 13px;color:#ffb3ae;font-size:.8rem;line-height:1.5;box-shadow:0 0 14px rgba(255,77,77,.22);animation:ledpulse 1.6s ease-in-out infinite}
+.tk-alert .ttl{display:block;font-family:var(--mono);font-weight:700;color:var(--red);font-size:.74rem;letter-spacing:.08em;margin-bottom:4px}
+
+/* ---- compact mode ---- */
+body.compact{font-size:14px}
+body.compact .wrap{padding:16px 16px 100px}
+body.compact .card{padding:15px 17px;margin-bottom:14px}
+body.compact .card h2{margin:-15px -17px 13px;padding:8px 13px}
+body.compact .score-row{padding:7px 0}
+body.compact .callout{padding:8px 12px;margin:9px 0}
+body.compact .th-inner{padding:16px 20px 13px}
+body.compact label{margin:8px 0 3px}
+
+/* ---- 1-page decision memo (print only) ---- */
+.memo{display:none}
+@media print{
+  .topbar,.term-head,.wrap,.foot,.scan,.disc-strip{display:none!important}
+  body{background:#fff!important;color:#111!important;background-image:none}
+  .memo{display:block!important;max-width:760px;margin:0 auto;padding:8px;font-family:var(--mono);color:#111}
+  .memo .mh{border-bottom:2px solid #111;padding-bottom:8px;margin-bottom:12px}
+  .memo .mh .mt{font-size:18px;font-weight:800;letter-spacing:.02em}
+  .memo .mh .ms{font-size:11px;color:#555;margin-top:3px}
+  .memo .mv{display:inline-block;font-size:15px;font-weight:800;border:2px solid #111;padding:4px 12px;margin:4px 0 12px}
+  .memo .mv.bad{border-color:#b00000;color:#b00000}
+  .memo .mrow{display:grid;grid-template-columns:150px 1fr;gap:4px 10px;font-size:12px;line-height:1.55;border-bottom:1px solid #ddd;padding:4px 0}
+  .memo .mrow .mk{color:#555;font-weight:700}
+  .memo h3{font-size:12px;letter-spacing:.06em;margin:16px 0 4px;border-bottom:1px solid #999;padding-bottom:3px}
+  .memo .mlist{font-size:12px;line-height:1.6;margin:4px 0;padding-left:16px}
+  .memo .mdisc{font-size:10px;color:#666;margin-top:18px;border-top:1px solid #ccc;padding-top:8px;line-height:1.5}
+}
+
+</style>
+</head>
+<body>
+
+<div class="scan" aria-hidden="true"></div>
+
+<div class="topbar">
+  <div class="inner">
+    <div class="row1">
+      <div class="brand">투자 OS Mission Control<span class="v">v1.0</span></div>
+      <div class="cmdline no-print" title="코드 입력 후 Enter로 이동 (예: TEMP · GATE · 002 · RISK) · / 로 포커스">
+        <span class="cprompt">&gt;<b>_</b></span>
+        <input id="cmdinput" type="text" autocomplete="off" spellcheck="false" placeholder="명령 코드 입력 후 Enter (TEMP·GATE·002·RISK·LOG…)">
+        <span class="chint">CMD · 1–9 / G T C S H R V</span>
+      </div>
+      <div class="leds no-print" id="leds">
+        <span class="led" id="led_gate"><span class="ldot"></span><span class="lk">GATE</span><span class="lv">—</span></span>
+        <span class="led" id="led_temp"><span class="ldot"></span><span class="lk">TEMP</span><span class="lv">—</span></span>
+        <span class="led" id="led_verdict"><span class="ldot"></span><span class="lk">VERDICT</span><span class="lv">대기</span></span>
+      </div>
+      <div class="tools no-print">
+        <button class="btn sm" onclick="saveState()">저장</button>
+        <button class="btn sm ghost" onclick="loadState()">불러오기</button>
+        <button class="btn sm ghost" onclick="exportJSON()">JSON</button>
+        <button class="btn sm ghost" onclick="document.getElementById('imp').click()">가져오기</button>
+        <input id="imp" type="file" accept="application/json" style="display:none" onchange="importJSON(event)">
+        <button class="btn sm ghost" onclick="resetState()">초기화</button>
+        <button class="btn sm ghost" id="btnCompact" onclick="toggleCompact()" title="밀도 전환">밀도</button>
+        <button class="btn sm ghost" onclick="window.print()">인쇄</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#home">홈</a>
+      <a href="#gate">금지 게이트</a>
+      <a href="#temp">시장온도</a>
+      <a href="#core">코어 매수</a>
+      <a href="#stock">개별주 허가증</a>
+      <a href="#hold">보유 점검</a>
+      <a href="#sell">매도 검토</a>
+      <a href="#risk">복리중단</a>
+      <a href="#review">복기</a>
+      <a href="#verdict">판정</a>
+      <a href="#log">로그</a>
+    </nav>
+  </div>
+  <div class="disc-strip no-print"><b>DISCLAIMER</b> 개인 투자 정책 시스템 · 실행 전 점검·기록 도구 · 매매 신호·종목 추천·시장 전망 아님 · 모든 데이터는 브라우저에만 저장</div>
+</div>
+
+<header class="term-head">
+  <div class="th-inner">
+    <div class="th-row1">
+      <div class="th-id"><span class="blink">▮</span> INVESTMENT-OS <span class="th-ver">v1.0 · LONG-TERM</span></div>
+      <div class="th-stat">
+        <span class="kv"><b>STATUS</b> <i class="g">ACTIVE</i></span>
+        <span class="kv"><b>ROLE</b> investment-os</span>
+        <span class="kv"><b>UPD</b> 2026-06-01</span>
+      </div>
+    </div>
+    <h1 class="th-title">개인 투자 운영체계 · PERSONAL INVESTMENT TERMINAL</h1>
+    <p class="th-decl">저비용 전체시장 기본값 위에, 생존 규율 · 가격 규율 · 개별주 허가제 · 시장 온도 점검 · 복기 체계를 덧대는 방식으로만 투자한다.</p>
+  </div>
+  <div class="ticker"><div class="ticker-track" id="ticker"></div></div>
+</header>
+
+<div class="wrap">
+<div class="grid">
+<div class="main">
+
+  <!-- HOME -->
+  <section class="card" id="home">
+    <h2><span class="num">HOME</span> <span class="htitle">MISSION CONTROL<span class="ko">홈 대시보드</span></span><span class="lead"></span><span class="hstat" id="hs_home"><span class="hk">ACT</span>—</span></h2>
+    <div class="callout c-quote">
+      <span class="ttl" style="font-style:normal">최상위 문장</span>
+      나는 저비용 전체시장 기본값 위에, 생존 규율·가격 규율·개별주 허가제·시장 온도 점검·복기 체계를 덧대는 방식으로만 투자한다.
+    </div>
+    <div class="callout c-danger">
+      <span class="ttl">집행 전 최소 조건</span>
+      매수 직전 핵심 필드 3개(자금 성격 · 계좌/전략 구분 · 매수 후 최대 비중과 실패 시 행동)가 비어 있으면 집행 불가. 아래 즉시 금지 게이트에 하나라도 해당하면 신규 매수 금지.
+    </div>
+
+    <label>오늘의 행동 선택</label>
+    <div class="actionsel" id="actionsel"></div>
+
+    <div class="field-row" style="margin-top:14px">
+      <div>
+        <label>날짜</label>
+        <input type="text" id="m_date" placeholder="2026-06-01">
+      </div>
+      <div>
+        <label>종목/대상 (선택)</label>
+        <input type="text" id="m_target" placeholder="예: 코어 인덱스 / NVDA">
+      </div>
+    </div>
+    <div class="field-row">
+      <div>
+        <label>자금 성격 <span class="warntag">핵심필드 1</span></label>
+        <select id="m_money">
+          <option value="">선택</option>
+          <option>코어</option><option>위성</option><option>학습</option>
+          <option>생활(투자 금지)</option><option>비상(투자 금지)</option><option>목적·3년이내(투자 금지)</option>
+        </select>
+      </div>
+      <div>
+        <label>계좌/전략 구분 <span class="warntag">핵심필드 2</span></label>
+        <select id="m_acct">
+          <option value="">선택</option>
+          <option>코어</option><option>위성</option><option>학습</option><option>트레이딩 아님</option>
+        </select>
+      </div>
+    </div>
+    <label>매수 후 최대 비중 & 실패 시 행동 <span class="warntag">핵심필드 3</span></label>
+    <textarea id="m_max" placeholder="예: 시가 비중 최대 1.5%까지, thesis break 발생 시 전량 매도"></textarea>
+    <div class="field-row">
+      <div><label>비상자금 (개월)</label><input type="number" id="m_emerg" placeholder="6"></div>
+      <div><label>다음 점검일</label><input type="text" id="m_next" placeholder="2026-09-01"></div>
+    </div>
+    <div class="rel">관련: <a href="#gate">즉시 금지 게이트</a> · <a href="#verdict">최종 판정</a> · 전체 원칙은 투자헌법(000) / 정책서(001) 문서 참조</div>
+  </section>
+
+  <!-- GATE -->
+  <section class="card" id="gate">
+    <h2><span class="num">GATE</span> <span class="htitle">KILL-SWITCH GATE<span class="ko">즉시 금지 게이트</span></span><span class="lead"></span><span class="hstat" id="hs_gate"><span class="hk">STATUS</span>—</span></h2>
+    <p class="sub">아래 중 하나라도 해당하면 신규 매수를 중단한다. <b style="color:#ff948b">Red line</b> 항목은 점수와 무관하게 즉시 금지다. (007 복리중단 위험체크)</p>
+    <div id="gatelist"></div>
+    <div class="callout c-danger">
+      <span class="ttl">Red line — 점수와 무관하게 즉시 금지</span>
+      생활자금·목적자금 투자 / 차입금·신용거래·마진콜 가능 구조 / 실직·세후 가처분소득 20%↓ 상태의 신규 위성매수 / 비상자금 6개월 미만 상태의 신규 위성매수 / 포지션 때문에 업무·수면·가족생활이 3일 이상 흔들리는 상태. 수익률보다 생존이 우선이다.
+    </div>
+  </section>
+
+  <!-- TEMP -->
+  <section class="card" id="temp">
+    <h2><span class="num">003</span> <span class="htitle">MARKET TEMPERATURE<span class="ko">시장온도 계산기</span></span><span class="lead"></span><span class="hstat" id="hs_temp"><span class="hk">STATUS</span>IDLE</span></h2>
+    <p class="sub">0~100 점수는 예측값이 아니라 5개 구간 분류용 도구다. 각 영역은 관찰근거 2개 이상 없으면 점수를 확정하지 않는다.</p>
+    <div class="callout c-danger">
+      <span class="ttl">핵심 금지 규칙</span>
+      시장 온도는 코어 인앤아웃 신호가 아니다. 고온은 자동 매도 신호가 아니고, 저온은 자동 매수 신호가 아니다. 시장 온도는 신규 자금 집행 속도, 위성 비중 상한, 현금완충 점검 강도만 조절한다.
+    </div>
+    <div class="gauge" id="tempgauge" aria-hidden="true">
+      <div class="seg" data-seg="0"><span class="sg-r">0~20</span><span class="sg-n">극저온</span></div>
+      <div class="seg" data-seg="1"><span class="sg-r">21~40</span><span class="sg-n">저온</span></div>
+      <div class="seg" data-seg="2"><span class="sg-r">41~60</span><span class="sg-n">중립</span></div>
+      <div class="seg" data-seg="3"><span class="sg-r">61~80</span><span class="sg-n">고온</span></div>
+      <div class="seg" data-seg="4"><span class="sg-r">81~100</span><span class="sg-n">극고온</span></div>
+    </div>
+    <div class="spectrum idle" id="tempspectrum" aria-hidden="true">
+      <div class="strack"></div>
+      <div class="stick" style="left:0%"><span>0</span></div>
+      <div class="stick" style="left:20%"><span>20</span></div>
+      <div class="stick" style="left:40%"><span>40</span></div>
+      <div class="stick" style="left:60%"><span>60</span></div>
+      <div class="stick" style="left:80%"><span>80</span></div>
+      <div class="stick" style="left:100%"><span>100</span></div>
+      <div class="sneedle" data-v="0" style="left:0%"></div>
+    </div>
+    <div id="templist"></div>
+    <div style="margin-top:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <div>합계 <span class="bigscore" id="temp_total">0</span><span style="color:var(--faint);font-family:var(--mono)"> / 100</span></div>
+      <span class="band" id="temp_band">미산출</span>
+    </div>
+    <div class="vbars" id="tempbars">
+      <div class="vbar"><span class="vk">A 가격·가치</span><span class="vtrack"><i data-vb="a"></i></span><span class="vv"><b data-vbv="a">0</b><span class="vmax">/20</span></span></div>
+      <div class="vbar"><span class="vk">B 신용·유동성</span><span class="vtrack"><i data-vb="b"></i></span><span class="vv"><b data-vbv="b">0</b><span class="vmax">/20</span></span></div>
+      <div class="vbar"><span class="vk">C 군중심리</span><span class="vtrack"><i data-vb="c"></i></span><span class="vv"><b data-vbv="c">0</b><span class="vmax">/20</span></span></div>
+      <div class="vbar"><span class="vk">D 수급·강제매매</span><span class="vtrack"><i data-vb="d"></i></span><span class="vv"><b data-vbv="d">0</b><span class="vmax">/15</span></span></div>
+      <div class="vbar"><span class="vk">E 투기 신호</span><span class="vtrack"><i data-vb="e"></i></span><span class="vv"><b data-vbv="e">0</b><span class="vmax">/15</span></span></div>
+      <div class="vbar"><span class="vk">F 행동 온도</span><span class="vtrack"><i data-vb="f"></i></span><span class="vv"><b data-vbv="f">0</b><span class="vmax">/10</span></span></div>
+    </div>
+    <div class="callout c-note" id="temp_guide" style="margin-top:14px">구간을 산출하면 허용 행동과 개별주 매수 강도가 표시됩니다.</div>
+    <details style="margin-top:6px">
+      <summary>증거 로그 (근거·반대근거·감정 해석 가능성)</summary>
+      <label>점수를 준 근거 종합</label><textarea id="t_eviAll" placeholder="영역별 관찰근거 요약"></textarea>
+      <label>반대 근거</label><textarea id="t_eviCon" placeholder="내 판단과 반대되는 신호"></textarea>
+      <label>내가 감정적으로 해석하고 있을 가능성</label><textarea id="t_eviEmo"></textarea>
+    </details>
+    <div class="rel">관련: <a href="#core">코어 매수</a> · <a href="#stock">개별주 허가증</a> · <a href="#sell">매도 검토</a></div>
+  </section>
+
+  <!-- CORE BUY -->
+  <section class="card" id="core">
+    <h2><span class="num">004</span> <span class="htitle">CORE EXECUTION<span class="ko">코어 매수 체크</span></span><span class="lead"></span><span class="hstat" id="hs_core"><span class="hk">GATES</span>0/8</span></h2>
+    <p class="sub">코어 매수는 정책 집행이다. 시장 전망이 아니라 비용·분산·장기 보유·정책 비중 복원을 기준으로 판단한다.</p>
+    <div class="callout c-warn">
+      <span class="ttl">코어 금지</span>
+      시장 온도, 뉴스, 전문가 발언, 주변 수익률만으로 전량 매도·전량 매수. 코어는 시장 온도에 따라 전면 중단·전면 확대하지 않으며, 온도는 신규 자금 집행 속도에만 반영한다.
+    </div>
+    <h4 style="margin:14px 0 4px;font-size:.92rem;color:var(--muted)">공통 매수 게이트 (하나라도 "아니오"면 매수 금지)</h4>
+    <div id="corelist"></div>
+    <div class="rel">관련: <a href="#temp">시장온도</a> · 정책 비중은 정책서(001): 코어 70~90%(기준 80%)</div>
+  </section>
+
+  <!-- STOCK PERMIT -->
+  <section class="card" id="stock">
+    <h2><span class="num">002</span> <span class="htitle">EQUITY PERMIT<span class="ko">개별주 투자 허가증</span></span><span class="lead"></span><span class="hstat" id="hs_stock"><span class="hk">SCORE</span>IDLE</span></h2>
+    <p class="sub">개별주는 기본값이 아니라 허가제 예외다. 이 문서를 통과하지 못한 개별주는 매수하지 않는다.</p>
+    <div class="callout c-warn">
+      <span class="ttl">작성 원칙</span>
+      2분 스토리는 필요조건일 뿐 충분조건이 아니다. 반대증거와 thesis break가 비어 있으면 매수 불가. 금지 게이트 하나라도 걸리면 점수와 무관하게 매수 금지.
+    </div>
+
+    <div class="field-row">
+      <div><label>종목명</label><input type="text" id="s_name"></div>
+      <div><label>티커</label><input type="text" id="s_ticker"></div>
+    </div>
+    <div class="field-row">
+      <div><label>기업 유형</label>
+        <select id="s_type"><option value="">선택</option><option>대형우량</option><option>고성장</option><option>회생</option><option>경기순환</option><option>자산주</option><option>기타</option></select>
+      </div>
+      <div><label>투자 계좌</label>
+        <select id="s_acct2"><option value="">선택</option><option>위성</option><option>학습</option><option>기타</option></select>
+      </div>
+    </div>
+
+    <h4 style="margin:16px 0 2px;font-size:.92rem;color:var(--muted)">비중 (총 투자자산 대비 %)</h4>
+    <div class="field-row">
+      <div><label>신규 진입 비중</label><input type="number" step="0.1" id="s_new" placeholder="최대 1"></div>
+      <div><label>누적 원가 기준 비중</label><input type="number" step="0.1" id="s_cost" placeholder="최대 3"></div>
+    </div>
+    <label>시가 기준 현재 비중</label><input type="number" step="0.1" id="s_mkt" placeholder="5 초과 시 신규매수 금지">
+    <div id="s_posmsg"></div>
+
+    <h4 style="margin:16px 0 2px;font-size:.92rem;color:var(--muted)">필수 입력 — 비어 있으면 매수 불가</h4>
+    <label>2분 스토리 (유형·논리·성공조건·실패조건·기대수익 근거·틀렸음 인정 기준)</label>
+    <textarea id="s_story"></textarea>
+    <div class="field-row">
+      <div><label>내가 틀릴 수 있는 이유 1 (반대증거)</label><textarea id="s_con1"></textarea></div>
+      <div><label>내가 틀릴 수 있는 이유 2 (반대증거)</label><textarea id="s_con2"></textarea></div>
+    </div>
+    <div class="field-row">
+      <div><label>thesis break 1</label><input type="text" id="s_tb1"></div>
+      <div><label>thesis break 2</label><input type="text" id="s_tb2"></div>
+    </div>
+    <label>thesis break 3</label><input type="text" id="s_tb3">
+    <div class="field-row">
+      <div><label>평가 프레임</label>
+        <select id="s_frame"><option value="">선택</option><option>안정형·가치형</option><option>성장형</option></select>
+      </div>
+      <div><label>매도 기준</label><input type="text" id="s_exit"></div>
+    </div>
+    <div class="callout c-note" id="s_framehint" style="display:none"></div>
+
+    <h4 style="margin:16px 0 2px;font-size:.92rem;color:var(--muted)">최종 승인 점수 (100점 만점, 80점 미만 매수 금지)</h4>
+    <div id="stockscore"></div>
+    <div style="margin-top:12px">허가증 점수 <span class="bigscore" id="s_total">0</span><span style="color:var(--faint);font-family:var(--mono)"> / 100</span>
+      <span class="band" id="s_gate80">—</span></div>
+    <div class="meter"><i data-m="s"></i><span class="mtick" style="left:80%"><span>80</span></span></div>
+    <div class="stack" id="s_stack" aria-hidden="true">
+      <div class="gridline" style="left:20%"></div><div class="gridline" style="left:40%"></div><div class="gridline" style="left:60%"></div>
+      <div class="track"></div>
+      <div class="passline" style="left:80%"><span>80 통과선</span></div>
+    </div>
+    <div class="stklegend" id="s_legend" aria-hidden="true"></div>
+    <div class="callout c-warn" id="s_tempgate" style="display:none;margin-top:12px"></div>
+    <div class="rel">관련: <a href="#temp">시장온도</a> · <a href="#hold">보유 점검</a> · <a href="#sell">매도 검토</a></div>
+  </section>
+
+  <!-- HOLD -->
+  <section class="card" id="hold">
+    <h2><span class="num">005</span> <span class="htitle">POSITION REVIEW<span class="ko">보유 점검</span></span><span class="lead"></span><span class="hstat" id="hs_hold"><span class="hk">TRIG</span>0</span></h2>
+    <p class="sub">보유는 방치가 아니다. 가격 변동이 아니라 논리 유지 여부를 점검한다.</p>
+    <h4 style="margin:8px 0 2px;font-size:.92rem;color:var(--muted)">자동 점검 트리거 (해당 항목 체크 → 조치 표시)</h4>
+    <div id="holdlist"></div>
+    <div class="rel">관련: <a href="#sell">매도 체크리스트</a> · <a href="#review">성공 복기(+100%/+200%)</a></div>
+  </section>
+
+  <!-- SELL -->
+  <section class="card" id="sell">
+    <h2><span class="num">006</span> <span class="htitle">SELL REVIEW<span class="ko">매도 검토</span></span><span class="lead"></span><span class="hstat" id="hs_sell"><span class="hk">REASON</span>—</span></h2>
+    <p class="sub">매도는 "가격이 움직였기 때문에"가 아니라 "정책상 종료 사유가 발생했기 때문에" 실행한다.</p>
+    <label>매도 사유 4분류</label>
+    <select id="sell_reason">
+      <option value="">선택</option>
+      <option value="logic">논리 훼손 (정당)</option>
+      <option value="risk">리스크 관리 (정당)</option>
+      <option value="alloc">자산배분·정책 (조건부 정당)</option>
+      <option value="emotion">감정 반응 (매도 사유 아님)</option>
+    </select>
+    <div class="callout c-danger">
+      <span class="ttl">감정 반응은 매도 사유가 아니다</span>
+      단기 뉴스 공포 · 손실 회피 · 수익 인증 욕구 · 지루함 · 시장 예측. 감정 반응이 감지되면 최소 24시간 보류하고 복기장(008)에 원인을 기록한다. 시장 온도는 코어 전량 매도 근거가 될 수 없다.
+    </div>
+    <div class="callout c-warn">
+      <span class="ttl">과열 매도 2-of-3</span>
+      가격 과열 매도는 아래 3개 중 2개 이상일 때만 검토한다.
+    </div>
+    <div id="selllist"></div>
+    <div id="sell_msg"></div>
+    <div class="rel">관련: <a href="#hold">보유 점검</a> · <a href="#review">복기장</a></div>
+  </section>
+
+  <!-- RISK -->
+  <section class="card" id="risk">
+    <h2><span class="num">007</span> <span class="htitle">COMPOUNDING-HALT RISK<span class="ko">복리중단 위험 점수</span></span><span class="lead"></span><span class="hstat" id="hs_risk"><span class="hk">LEVEL</span>IDLE</span></h2>
+    <p class="sub">100점 만점. 점수가 높을수록 위험하다. (즉시 금지 게이트와 별도)</p>
+    <div id="risklist"></div>
+    <div style="margin-top:14px">위험 점수 <span class="bigscore" id="risk_total">0</span><span style="color:var(--faint);font-family:var(--mono)"> / 100</span>
+      <span class="band" id="risk_band">—</span></div>
+    <div class="meter"><i data-m="r"></i></div>
+    <div class="bandtrack idle" id="risktrack" aria-hidden="true">
+      <div class="bz z0">낮음 0–20</div>
+      <div class="bz z1">관리 21–40</div>
+      <div class="bz z2">높음 41–60</div>
+      <div class="bz z3">매우높음 61–80</div>
+      <div class="bz z4">위기 81–100</div>
+      <div class="bneedle" data-v="0" style="left:0%"></div>
+    </div>
+    <div class="callout c-note" id="risk_guide" style="margin-top:12px"></div>
+  </section>
+
+  <!-- REVIEW -->
+  <section class="card" id="review">
+    <h2><span class="num">008</span> <span class="htitle">POST-MORTEM<span class="ko">투자실수 복기장</span></span><span class="lead"></span><span class="hstat" id="hs_review"><span class="hk">CLOSE</span>—</span></h2>
+    <p class="sub">수익이 난 나쁜 결정은 실패이고, 손실이 난 좋은 결정은 개선 가능한 경험이다.</p>
+    <div class="field-row">
+      <div><label>사건 유형</label>
+        <select id="r_type"><option value="">선택</option><option>손실</option><option>실수</option><option>큰 성공</option><option>원칙 위반</option><option>기타</option></select>
+      </div>
+      <div><label>결과</label>
+        <select id="r_result"><option value="">선택</option><option>수익</option><option>손실</option><option>미실현</option><option>기회비용</option></select>
+      </div>
+    </div>
+    <label>한 문장 복기 — 이번 실수의 본질은 ___이다. 다음에는 ___을 확인하기 전까지 행동하지 않는다.</label>
+    <textarea id="r_oneline"></textarea>
+    <div class="callout c-check">
+      <span class="ttl">복기 완료 조건 — 셋 중 하나로 종료</span>
+      복기 1건은 반드시 규칙 추가 / 규칙 수정 / 무변경 중 하나로 끝난다. 선택하지 않으면 복기는 완료되지 않은 것으로 본다.
+    </div>
+    <label>규칙 전환 판정</label>
+    <select id="r_rule">
+      <option value="">선택 (미선택 시 복기 미완료)</option>
+      <option>규칙 추가 — 기존 OS에 없는 실수 유형 발견</option>
+      <option>규칙 수정 — 기존 규칙이 모호하거나 실행 불가능했음</option>
+      <option>무변경 — 규칙은 충분했으나 내가 지키지 않았음</option>
+    </select>
+    <div class="rel">관련: <a href="#sell">매도 후 복기</a> · <a href="#hold">+100%/+200% 성공 복기</a></div>
+  </section>
+
+</div><!-- /main -->
+
+<!-- RIGHT RAIL -->
+<aside class="rail">
+  <div class="card verdict" id="verdict">
+    <div class="kicker">DECISION TICKET · 최종 판정</div>
+    <div class="tk-grid">
+      <div class="tkk">ACTION</div><div class="tkv" id="tk_action">—</div>
+      <div class="tkk">자금 성격</div><div class="tkv" id="tk_money">—</div>
+      <div class="tkk">GATE</div><div class="tkv" id="tk_gate">—</div>
+      <div class="tkk">MKT.TEMP</div><div class="tkv" id="tk_temp">—</div>
+      <div class="tkk">PERMIT</div><div class="tkv" id="tk_permit">—</div>
+      <div class="tkk">RISK</div><div class="tkv" id="tk_risk">—</div>
+    </div>
+    <div class="state v-idle" id="v_state">대기</div>
+    <div style="font-size:.78rem;color:var(--faint)">승인은 투자 추천이 아니라 "내 OS 기준상 집행 가능"이라는 뜻이다.</div>
+    <div class="tk-alert" id="tk_alert"><span class="ttl">⛔ EXECUTION HALT · 실행 금지</span>현재 입력 기준 신규 매수를 중단한다. 수익률보다 생존이 우선이다. 사유는 아래 체크리스트를 확인할 것.</div>
+    <ul class="reasons" id="v_reasons"></ul>
+    <div class="tk-perf"></div>
+    <button class="btn primary no-print" style="width:100%" onclick="buildLog()">Markdown 로그 생성 ↓</button>
+    <div class="note-disc">
+      이 도구는 투자 성과를 보장하지 않는다. 사용자가 이미 정한 투자 원칙(000~009)을 실행 전 점검·기록하기 위한 개인 운영체계다. 주가·실시간 시세·외부 API를 사용하지 않으며, 모든 데이터는 브라우저(localStorage)에만 저장된다. 장기 투자 OS 전용이며 트레이딩 OS와 섞지 않는다.
+    </div>
+  </div>
+</aside>
+</div><!-- /grid -->
+
+<!-- LOG -->
+<section class="card" id="log">
+  <h2><span class="num">LOG</span> <span class="htitle">DECISION LOG<span class="ko">Markdown 로그</span></span><span class="lead"></span><span class="hstat"><span class="hk">OBSIDIAN</span>.md</span></h2>
+  <p class="sub">아래 텍스트를 복사해 Obsidian에 붙여넣는다. 파일명 예: <code>2026-06-01_NVDA_매수검토.md</code></p>
+  <div style="display:flex;gap:8px;margin-bottom:10px" class="no-print">
+    <button class="btn" onclick="buildLog()">로그 갱신</button>
+    <button class="btn primary" onclick="copyLog()">복사</button>
+    <span id="copymsg" style="align-self:center;color:var(--go);font-size:.82rem"></span>
+  </div>
+  <textarea id="logout" style="min-height:340px;font-family:var(--mono);font-size:.8rem"></textarea>
+</section>
+
+</div><!-- /wrap -->
+
+<div class="memo" id="memo" aria-hidden="true"></div>
+
+<div class="foot">
+  투자 OS Mission Control v1.0 · 모든 규칙·수치·금지 조항은 투자헌법(000)·정책서(001)·체크리스트(002~009) 원문 기준. 이 인터페이스는 원칙을 실행하기 위한 도구이며 새로운 투자 조언을 추가하지 않는다.
+</div>
+
+<script>
+/* ===== 데이터: 원문(000~009) 그대로 ===== */
+const ACTIONS=["코어 매수","개별주 매수","추가 매수","보유 점검","매도 검토","관망","복기 작성"];
+// 행동별 표시 섹션
+const ACTION_MAP={
+ "코어 매수":["gate","temp","core","verdict","log"],
+ "개별주 매수":["gate","temp","stock","verdict","log"],
+ "추가 매수":["gate","hold","stock","verdict","log"],
+ "보유 점검":["hold","temp","verdict","log"],
+ "매도 검토":["sell","hold","review","verdict","log"],
+ "관망":["temp","verdict","log"],
+ "복기 작성":["review","verdict","log"]
+};
+const ALL_SEC=["home","gate","temp","core","stock","hold","sell","risk","review","verdict","log"];
+
+// 즉시 금지 게이트 (007 §1). red=점수 무관 즉시 금지(Red line)
+const GATE=[
+ {t:"생활비를 투자 중이다",a:"즉시 분리",red:true},
+ {t:"3년 이내 필요자금을 위험자산에 넣었다",a:"회수 계획 수립",red:true},
+ {t:"비상자금이 6개월 미만이다",a:"신규 위성매수 중단, 현금 버킷 복구",red:true},
+ {t:"소득 변동성이 크거나 고정지출이 높은데 비상자금이 12개월 미만이다",a:"신규 위성매수 보류",red:false},
+ {t:"차입금으로 투자한다",a:"금지, 청산 검토",red:true},
+ {t:"마진콜 가능성이 있다",a:"금지, 위험 축소",red:true},
+ {t:"한 종목 실패가 전체 계획을 훼손한다",a:"비중 축소",red:false},
+ {t:"손실 만회를 위해 거래한다",a:"거래 중지, 복기",red:false},
+ {t:"포지션 때문에 업무·수면·가족생활이 3일 이상 흔들린다",a:"과대 포지션으로 간주, 축소 검토",red:true},
+ {t:"실직 또는 세후 가처분소득 20% 이상 감소가 발생했다",a:"신규 위성매수 중단, 비상자금 복구 우선",red:true}
+];
+
+// 시장온도 (003 §2)
+const TEMP=[
+ {k:"a",n:"A. 가격·가치",max:20,q:"주요 자산 가격이 이익·현금흐름·기대수익 대비 비싼가?",c:"싸면 0, 중립 10, 과열 20"},
+ {k:"b",n:"B. 신용·유동성",max:20,q:"돈이 너무 쉽거나 너무 마른 상태인가?",c:"긴축·공포 0~5, 중립 10, 과잉유동성 15~20"},
+ {k:"c",n:"C. 군중심리",max:20,q:"탐욕·FOMO·낙관·질투가 지배하는가?",c:"공포 0~5, 중립 10, 광기 15~20"},
+ {k:"d",n:"D. 수급·강제매매",max:15,q:"강제 매수/매도, 자금 유입/유출이 가격을 왜곡하는가?",c:"강제매도 0~5, 중립 7, 강제매수·쏠림 12~15"},
+ {k:"e",n:"E. 투기 신호",max:15,q:"신상품 열기, 레버리지, IPO/테마, '이번엔 다르다'가 많은가?",c:"없음 0~5, 중립 7, 과잉 12~15"},
+ {k:"f",n:"F. 나의 행동 온도",max:10,q:"내가 조급하거나 무섭거나 비교심리에 흔들리는가?",c:"침착 0~3, 불안 5, 충동 8~10"}
+];
+// 구간별 허용행동 + 개별주 강도 (003 §3,§6,§8)
+function tempBandInfo(s){
+ if(s<=20)return{name:"극저온",range:"0~20",allow:"코어 유지, 리밸런싱 검토, 현금완충 확인 후 점진 매수",permit:"개별주: 허가증 90점 이상만 소액",ban:"올인, 레버리지, 무리한 바닥 예측"};
+ if(s<=40)return{name:"저온",range:"21~40",allow:"정기적립 유지, 허가된 후보만 분할 매수",permit:"개별주: 허가증 85점 이상",ban:"공포로 코어 매도"};
+ if(s<=60)return{name:"중립",range:"41~60",allow:"기본 정책 유지",permit:"개별주: 허가증 80점 이상",ban:"불필요한 전략 변경"};
+ if(s<=80)return{name:"고온",range:"61~80",allow:"신규 위성 축소, 비중 점검, 매수 기준 강화",permit:"개별주: 신규매수 원칙적 보류",ban:"FOMO, 테마 추격, 비중 확대"};
+ return{name:"극고온",range:"81~100",allow:"신규 위성 금지, 초과 비중 축소, 방어 점검",permit:"개별주: 신규매수 금지",ban:"시장이 계속 오른다는 이유로 매수"};
+}
+
+// 코어 매수 공통 게이트 (004 §1)
+const CORE=[
+ "이 자금은 생활비가 아닌가?",
+ "3년 이내 반드시 써야 할 돈이 아닌가?",
+ "차입금이 아닌가?",
+ "매수 후 하락해도 강제매도 가능성이 없는가?",
+ "투자 목적과 계좌 목적이 일치하는가?",
+ "매수 이유를 문서화했는가?",
+ "시장 온도에 따른 신규 자금 집행 속도가 정책 범위 안인가?",
+ "내 감정 상태가 충동·공포·FOMO가 아닌가?"
+];
+
+// 개별주 허가증 점수 (002 §9)
+const SSCORE=[
+ {n:"자금 성격·생존",max:20},{n:"사업 이해",max:15},{n:"2분 스토리",max:15},
+ {n:"가격·가치·안전마진",max:20},{n:"재무·리스크",max:15},{n:"시장 온도·심리",max:10},
+ {n:"매도 기준·복기 계획",max:5}
+];
+// 안정형/성장형 프레임 (002 §5)
+const FRAME={
+ "안정형·가치형":"반드시 볼 항목: PER/PBR, 배당, 자사주, 현금흐름, 부채, 자산가치, 하방 안전마진.",
+ "성장형":"반드시 볼 항목: 재투자 여지, 단위경제성, 성장의 질, 마진 경로, 희석 가능성, 장기 현금흐름 전환 가능성, 경쟁우위 지속성. 현재 PER/PBR만으로 배제하지 않는다."
+};
+
+// 보유 자동 점검 트리거 (005)
+const HOLD=[
+ {t:"개별주 가격 ±25% 이상 이동",a:"보유 점검표 재작성"},
+ {t:"개별주 -50% 도달",a:"thesis break 3개 중 발생 여부 점검"},
+ {t:"개별주 -60% 도달",a:"신규매수 금지, 허가증 재심사 전 재매수 금지"},
+ {t:"개별주 +100% 도달",a:"14일 신규 개별주 허가 심사 중단, 성공 복기 작성"},
+ {t:"개별주 +200% 도달",a:"집중도·과신·trim 필요성 점검"},
+ {t:"단일 종목 시가 5% 초과",a:"신규매수 금지 + 보유 점검"},
+ {t:"단일 종목 시가 8% 초과",a:"집중도 자동 점검"},
+ {t:"단일 종목 시가 10% 초과",a:"trim 여부 의무 결정, 매도 체크리스트 작성"}
+];
+
+// 과열 매도 2-of-3 (006 §3.5)
+const SELL3=[
+ {k:"val",t:"valuation — 현재 가격에서 기대수익률이 충분히 낮아졌는가?"},
+ {k:"mat",t:"thesis maturity — 최초 투자 논리가 성숙·소진되었는가?"},
+ {k:"crd",t:"crowding — 군중심리, 기관 과밀, 테마 과열이 뚜렷한가?"}
+];
+
+// 복리중단 위험 점수 (007 §2)
+const RISK=[
+ {n:"유동성 부족",max:20,q:"비상자금·생활자금·목적자금이 부족한가?"},
+ {n:"레버리지",max:20,q:"신용·차입·파생·마진콜 가능성이 있는가?"},
+ {n:"집중도",max:15,q:"단일 종목·섹터·국가·테마가 과도한가?"},
+ {n:"시간 제한",max:15,q:"가까운 시일 내 필요한 돈이 투자되어 있는가?"},
+ {n:"행동 위험",max:15,q:"FOMO·공포·손실회피·비교심리가 강한가?"},
+ {n:"전략 불일치",max:10,q:"나에게 맞지 않는 전략을 따라 하는가?"},
+ {n:"기록 부재",max:5,q:"매수·보유·매도 근거가 없는가?"}
+];
+function riskBandInfo(s){
+ if(s<=20)return{name:"낮음",a:"정상 운영"};
+ if(s<=40)return{name:"관리 필요",a:"신규 위성 축소, 현금완충 점검"};
+ if(s<=60)return{name:"높음",a:"신규 매수 중지, 리스크 축소 계획 작성"};
+ if(s<=80)return{name:"매우 높음",a:"개별주/레버리지 축소, 생존 우선"};
+ return{name:"위기",a:"신규 투자 금지, 강제매도 위험 제거"};
+}
+
+/* ===== 렌더 ===== */
+const $=id=>document.getElementById(id);
+let curAction="";
+
+function renderActions(){
+ const w=$("actionsel");
+ ACTIONS.forEach(a=>{
+  const b=document.createElement("button");
+  b.textContent=a;b.onclick=()=>selectAction(a);b.dataset.a=a;
+  w.appendChild(b);
+ });
+}
+function selectAction(a){
+ curAction=(curAction===a)?"":a;
+ document.querySelectorAll("#actionsel button").forEach(b=>b.classList.toggle("sel",b.dataset.a===curAction));
+ applyFilter();compute();
+}
+function applyFilter(){
+ const show=curAction?ACTION_MAP[curAction]:null;
+ ALL_SEC.forEach(s=>{
+  if(s==="home")return;
+  const el=$(s);if(!el)return;
+  if(!show){el.classList.remove("dim");}
+  else el.classList.toggle("dim",!show.includes(s));
+ });
+}
+
+function renderGate(){
+ const w=$("gatelist");
+ GATE.forEach((g,i)=>{
+  const d=document.createElement("label");
+  d.className="check"+(g.red?"":" warnitem");d.dataset.i=i;
+  d.innerHTML=`<input type="checkbox" data-g="${i}"><span class="lab"><span class="t">${g.t}${g.red?'<span class="redtag">RED LINE</span>':'<span class="warntag">경고</span>'}</span><span class="act">→ 조치: ${g.a}</span></span>`;
+  w.appendChild(d);
+ });
+ w.addEventListener("change",e=>{
+  const c=e.target.closest("label");c.classList.toggle("on",e.target.checked);compute();
+ });
+}
+
+function renderTemp(){
+ const w=$("templist");
+ TEMP.forEach(t=>{
+  const row=document.createElement("div");
+  row.innerHTML=`
+   <div class="score-row">
+     <div class="q">${t.n}<span class="max">/ ${t.max}</span><span class="crit">${t.q} · ${t.c}</span></div>
+     <input type="number" min="0" max="${t.max}" data-t="${t.k}" placeholder="0">
+   </div>
+   <div class="ev unconfirmed" data-ev="${t.k}">
+     <textarea data-tev="${t.k}" placeholder="관찰근거 (2개 이상 권장)"></textarea>
+     <span class="miss">근거 미입력 — 이 영역 점수는 미확정으로 간주</span>
+   </div>`;
+  w.appendChild(row);
+ });
+ w.addEventListener("input",e=>{
+  if(e.target.dataset.t){let v=+e.target.value||0;if(v<0)e.target.value=0;const m=+e.target.max;if(v>m)e.target.value=m;}
+  if(e.target.dataset.tev!==undefined){
+   const k=e.target.dataset.tev;
+   document.querySelector(`.ev[data-ev="${k}"]`).classList.toggle("unconfirmed",!e.target.value.trim());
+  }
+  compute();
+ });
+}
+
+function renderCore(){
+ const w=$("corelist");
+ CORE.forEach((q,i)=>{
+  const d=document.createElement("label");d.className="check";
+  d.innerHTML=`<input type="checkbox" data-core="${i}"><span class="lab"><span class="t">${q}</span></span>`;
+  w.appendChild(d);
+ });
+ w.addEventListener("change",e=>{e.target.closest("label").classList.toggle("on",false);
+  // core: 체크=예(통과). 미체크=아니오(금지요인). on표시는 안 씀(긍정문)
+  e.target.closest("label").classList.remove("on");compute();});
+}
+
+function renderStockScore(){
+ const w=$("stockscore");
+ SSCORE.forEach((s,i)=>{
+  const r=document.createElement("div");r.className="score-row";
+  r.innerHTML=`<div class="q">${s.n}<span class="max">/ ${s.max}</span></div><input type="number" min="0" max="${s.max}" data-ss="${i}" placeholder="0">`;
+  w.appendChild(r);
+ });
+ w.addEventListener("input",e=>{let v=+e.target.value||0;const m=+e.target.max;if(v<0)e.target.value=0;if(v>m)e.target.value=m;compute();});
+}
+
+function renderHold(){
+ const w=$("holdlist");
+ HOLD.forEach((h,i)=>{
+  const d=document.createElement("label");d.className="check warnitem";
+  d.innerHTML=`<input type="checkbox" data-h="${i}"><span class="lab"><span class="t">${h.t}</span><span class="act">→ 조치: ${h.a}</span></span>`;
+  w.appendChild(d);
+ });
+ w.addEventListener("change",e=>{e.target.closest("label").classList.toggle("on",e.target.checked);compute();});
+}
+
+function renderSell3(){
+ const w=$("selllist");
+ SELL3.forEach(s=>{
+  const d=document.createElement("label");d.className="check";
+  d.innerHTML=`<input type="checkbox" data-s3="${s.k}"><span class="lab"><span class="t">${s.t}</span></span>`;
+  w.appendChild(d);
+ });
+ w.addEventListener("change",e=>{e.target.closest("label").classList.remove("on");compute();});
+}
+
+function renderRisk(){
+ const w=$("risklist");
+ RISK.forEach((r,i)=>{
+  const row=document.createElement("div");row.className="score-row";
+  row.innerHTML=`<div class="q">${r.n}<span class="max">/ ${r.max}</span><span class="crit">${r.q}</span></div><input type="number" min="0" max="${r.max}" data-rs="${i}" placeholder="0">`;
+  w.appendChild(row);
+ });
+ w.addEventListener("input",e=>{let v=+e.target.value||0;const m=+e.target.max;if(v<0)e.target.value=0;if(v>m)e.target.value=m;compute();});
+}
+
+/* ===== 계산 ===== */
+function num(el){return +(el&&el.value)||0;}
+function gateChecks(){return [...document.querySelectorAll('[data-g]')].map(c=>c.checked);}
+function coreChecks(){return [...document.querySelectorAll('[data-core]')].map(c=>c.checked);}
+
+function compute(){
+ // 시장온도
+ let tt=0;TEMP.forEach(t=>{tt+=num(document.querySelector(`[data-t="${t.k}"]`));});
+ $("temp_total").textContent=tt;
+ const anyTemp=TEMP.some(t=>document.querySelector(`[data-t="${t.k}"]`).value!=="");
+ const bi=tempBandInfo(tt);
+ if(anyTemp){
+  $("temp_band").textContent=bi.name+" "+bi.range;
+  $("temp_guide").innerHTML=`<span class="ttl" style="display:block;font-weight:700;color:var(--accent);margin-bottom:4px">${bi.name} (${bi.range})</span>허용: ${bi.allow}<br>${bi.permit}<br><span style="color:#e8b85a">금지: ${bi.ban}</span>`;
+ }else{$("temp_band").textContent="미산출";}
+ const _si=tt<=20?0:tt<=40?1:tt<=60?2:tt<=80?3:4;
+ document.querySelectorAll('#tempgauge .seg').forEach((s,i)=>s.classList.toggle('active',anyTemp&&i===_si));
+
+ // 개별주 비중 메시지
+ const sn=num($("s_new")),sc=num($("s_cost")),sm=num($("s_mkt"));
+ let pm=[];
+ if(sn>1)pm.push(["stop","신규 진입 한도(총 투자자산 1%) 초과"]);
+ if(sc>3)pm.push(["stop","원가 기준 상한(총 투자자산 3%) 초과 — 추가매수 후에도 초과 금지"]);
+ if(sm>10)pm.push(["stop","시가 10% 초과 — trim 여부 의무 결정, 매도 체크리스트 작성"]);
+ else if(sm>8)pm.push(["warn","시가 8% 초과 — 집중도 자동 점검"]);
+ else if(sm>5)pm.push(["warn","시가 5% 초과 — 신규매수 금지 + 보유 점검 (즉시 매도 사유 아님)"]);
+ $("s_posmsg").innerHTML=pm.map(p=>`<div class="callout ${p[0]==='stop'?'c-danger':'c-warn'}" style="margin:8px 0;padding:8px 12px">${p[1]}</div>`).join("");
+
+ // 프레임 힌트
+ const fr=$("s_frame").value;
+ if(fr&&FRAME[fr]){$("s_framehint").style.display="block";$("s_framehint").textContent=FRAME[fr];}
+ else $("s_framehint").style.display="none";
+
+ // 허가증 점수
+ let st=0;SSCORE.forEach((s,i)=>{st+=num(document.querySelector(`[data-ss="${i}"]`));});
+ $("s_total").textContent=st;
+ const g80=$("s_gate80");
+ if(st===0){g80.textContent="—";g80.style.color="var(--muted)";}
+ else if(st<80){g80.textContent="80점 미만 · 매수 금지";g80.style.color="var(--stop)";}
+ else {g80.textContent="80점 이상";g80.style.color="var(--go)";}
+ // 온도-허가증 게이트
+ const tg=$("s_tempgate");
+ if(anyTemp){tg.style.display="block";tg.innerHTML=`<span class="ttl">현재 시장 온도(${bi.name}) 기준 개별주 강도</span>${bi.permit}`;}
+ else tg.style.display="none";
+
+ // 위험 점수
+ let rt=0;RISK.forEach((r,i)=>{rt+=num(document.querySelector(`[data-rs="${i}"]`));});
+ $("risk_total").textContent=rt;
+ const anyRisk=RISK.some((r,i)=>document.querySelector(`[data-rs="${i}"]`).value!=="");
+ const rb=riskBandInfo(rt);
+ if(anyRisk){$("risk_band").textContent=rb.name;$("risk_band").style.color=rt>40?"var(--stop)":rt>20?"var(--hold)":"var(--go)";
+  $("risk_guide").innerHTML=`<b>${rb.name}</b> — ${rb.a}`;}
+ else{$("risk_band").textContent="—";$("risk_guide").innerHTML="영역 점수를 입력하면 위험 수준과 조치가 표시됩니다.";}
+
+ verdict({tt,anyTemp,bi,sn,sc,sm,st,pm});
+ renderViz();
+}
+
+function verdict(x){
+ const gc=gateChecks();
+ const redHit=GATE.some((g,i)=>g.red&&gc[i]);
+ const warnHit=GATE.some((g,i)=>!g.red&&gc[i]);
+ const reasons=[];let state="대기",cls="v-idle";
+
+ const isBuy=["코어 매수","개별주 매수","추가 매수"].includes(curAction);
+ const isStock=["개별주 매수","추가 매수"].includes(curAction);
+ const isSell=curAction==="매도 검토";
+ const isReview=curAction==="복기 작성";
+
+ // 핵심필드 3개
+ const f1=$("m_money").value,f2=$("m_acct").value,f3=$("m_max").value.trim();
+ const coreFieldsMissing=isBuy&&(!f1||!f2||!f3);
+ // 자금성격이 금지 항목
+ const moneyBan=["생활(투자 금지)","비상(투자 금지)","목적·3년이내(투자 금지)"].includes(f1);
+
+ if(redHit){state="실행 금지";cls="v-stop";reasons.push(["stop","Red line 게이트 해당 — 점수와 무관하게 즉시 금지"]);}
+ if(moneyBan){state="실행 금지";cls="v-stop";reasons.push(["stop","자금 성격이 투자 금지 대상(생활·비상·목적자금)"]);}
+
+ // 코어 공통 게이트 미통과 (매수 시)
+ if(curAction==="코어 매수"){
+  const cc=coreChecks();const allYes=cc.every(Boolean);
+  if(!allYes){if(state!=="실행 금지"){state="보류";cls="v-hold";}reasons.push(["","코어 공통 매수 게이트에 '아니오'가 있음 — 전부 통과해야 매수"]);}
+ }
+
+ // 개별주 필수 입력 + 점수 + 비중
+ if(isStock){
+  const need=[$("s_story").value,$("s_con1").value,$("s_con2").value,$("s_tb1").value,$("s_tb2").value,$("s_tb3").value,$("s_exit").value].some(v=>!v.trim());
+  if(need){if(state!=="실행 금지"){state="보류";cls="v-hold";}reasons.push(["","개별주 필수 입력(2분 스토리·반대증거 2·thesis break 3·매도 기준) 미완성 — 매수 불가"]);}
+  if(x.st>0&&x.st<80){if(state!=="실행 금지"){state="보류";cls="v-hold";}reasons.push(["","허가증 80점 미만 — 매수 금지"]);}
+  if(x.sn>1||x.sc>3||x.sm>5){if(state!=="실행 금지"&&x.sm>5){state="보류";cls="v-hold";}reasons.push(["","단일 종목 비중 한도 관련 조치 필요(위 비중 경고 확인)"]);}
+ }
+
+ // 매도: 감정 반응
+ if(isSell){
+  const sr=$("sell_reason").value;
+  if(sr==="emotion"){if(state!=="실행 금지"){state="보류";cls="v-hold";}reasons.push(["","감정 반응은 매도 사유 아님 — 최소 24시간 보류, 복기장(008) 기록"]);}
+  if(sr==="logic"||sr==="risk")reasons.push(["ok","정당한 매도 사유 분류"]);
+  if(sr==="alloc")reasons.push(["","자산배분·정책 사유 — 조건부 정당(세금·기회비용 확인)"]);
+  // 과열 매도 2-of-3
+  const s3=SELL3.filter(s=>document.querySelector(`[data-s3="${s.k}"]`).checked).length;
+  if(s3>0&&s3<2)reasons.push(["","과열 매도 신호 2개 미만 — 가격만으로 매도 정당화 불가"]);
+ }
+
+ // 복기 완료
+ if(isReview){
+  if(!$("r_rule").value){state="보류";cls="v-hold";reasons.push(["","규칙 추가/수정/무변경 미선택 — 복기 미완료"]);}
+  else reasons.push(["ok","복기 종결(규칙 전환 판정 완료)"]);
+ }
+
+ // 위험 점수 경고
+ if(x.anyRisk===undefined){}
+ const rt=+$("risk_total").textContent;
+ if(rt>60){if(state==="대기"||state==="승인 후보"){state="보류";cls="v-hold";}reasons.push(["stop",`복리중단 위험 ${rt}점(높음 이상) — 신규 매수 중지 권고`]);}
+
+ if(warnHit)reasons.push(["","경고 게이트 해당 — 표시된 조치 확인(신규 매수 제한)"]);
+
+ // 최종: 아무 문제 없고 행동이 정해졌으면 승인 후보
+ if(state==="대기"&&curAction){
+  if(isBuy&&!coreFieldsMissing){state="승인 후보";cls="v-go";reasons.unshift(["ok","상위 금지·게이트 통과 — OS 기준상 집행 가능(투자 추천 아님)"]);}
+  else if(coreFieldsMissing){state="보류";cls="v-hold";reasons.push(["","핵심 필드 3개(자금 성격·계좌/전략·최대 비중·실패 시 행동) 미완성"]);}
+  else if(isSell&&$("sell_reason").value&&$("sell_reason").value!=="emotion"){state="승인 후보";cls="v-go";}
+  else if(curAction==="관망"||curAction==="보유 점검"){state="기록";cls="v-kill";}
+ }
+ if(coreFieldsMissing&&state==="승인 후보"){state="보류";cls="v-hold";}
+
+ const se=$("v_state");se.textContent=state;se.className="state "+cls;
+ $("v_reasons").innerHTML=reasons.length?reasons.map(r=>`<li class="${r[0]}">${r[1]}</li>`).join(""):'<li>행동을 선택하고 항목을 입력하세요.</li>';
+}
+
+
+function renderViz(){
+  TEMP.forEach(function(t){
+    var inp=document.querySelector(`[data-t="${t.k}"]`);var val=+(inp&&inp.value)||0;
+    var bar=document.querySelector(`[data-vb="${t.k}"]`);if(bar)bar.style.width=(val/t.max*100)+"%";
+    var vv=document.querySelector(`[data-vbv="${t.k}"]`);if(vv)vv.textContent=val;
+  });
+  var tt=+($("temp_total").textContent)||0;
+  var anyTemp=TEMP.some(function(t){return document.querySelector(`[data-t="${t.k}"]`).value!=="";});
+  var bi=tt<=20?0:tt<=40?1:tt<=60?2:tt<=80?3:4;
+  var bands=["극저온","저온","중립","고온","극고온"];
+  var tb=$("temp_band");if(tb)tb.className="band"+(anyTemp?(" b"+bi):"");
+  var st=+($("s_total").textContent)||0;
+  var sm=document.querySelector(`[data-m="s"]`);if(sm){sm.style.width=Math.min(st,100)+"%";sm.className=st>=80?"fill-go":(st>0?"fill-warn":"fill-dim");}
+  var rt=+($("risk_total").textContent)||0;
+  var rm=document.querySelector(`[data-m="r"]`);if(rm){rm.style.width=Math.min(rt,100)+"%";rm.className=rt>60?"fill-stop":(rt>20?"fill-warn":"fill-go");}
+  var tk=$("ticker");
+  if(tk){
+    var vs=$("v_state")?$("v_state").textContent:"-";
+    var bandTxt=anyTemp?bands[bi]:"—";
+    var items=[["CORE","70~90% 기준80%","a"],["SAT","개별주총합 ≤20%","a"],["단일종목","신규1·원가3·시가5/8/10%","c"],["비상자금","≥6M·고변동12M","c"],["REDLINE","무레버리지·무생활자금·무FOMO","r"],["MKT.TEMP","자세조절전용·매매신호아님","a"],["ACT",(curAction||"—"),"c"],["VERDICT",vs,"v"],["TEMP",tt+"/100 ["+bandTxt+"]","t"],["PERMIT",st+"/100","s"],["RISK",rt+"/100","k"]];
+    var seg=items.map(function(x){return `<span class="tk tk-${x[2]}"><b>${x[0]}</b> ${x[1]}</span>`;}).join(`<span class="tk-sep">◦</span>`);
+    tk.innerHTML=seg+`<span class="tk-sep">◦</span>`+seg;
+  }
+  renderEnhanced();
+}
+
+/* ============================================================
+   v2 ENHANCEMENT LAYER — UI / visualization only (no logic change)
+   reads computed DOM state; never mutates scores/rules/verdict
+   ============================================================ */
+const SSCOLORS=["#FF9E1B","#3CC8E6","#28D17C","#FFC062","#6FB8DA","#FFD23F","#C98A4A"];
+const TNAMES=["극저온","저온","중립","고온","극고온"];
+const RNAMES=["낮음","관리 필요","높음","매우 높음","위기"];
+let _pv={};
+function flashEl(el){if(!el)return;el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
+function flashIfChanged(key,el,val){if(!el)return;if(_pv[key]!==undefined&&_pv[key]!==val)flashEl(el);_pv[key]=val;}
+function setHStat(id,label,txt,cls){const e=$(id);if(!e)return;e.className="hstat "+(cls||"");e.innerHTML=`<span class="hk">${label}</span>${txt}`;}
+function setTK(id,txt,cls){const e=$(id);if(!e)return;e.className="tkv "+(cls||"");e.textContent=txt;}
+function gRedHit(){return GATE.some((g,i)=>g.red&&document.querySelector(`[data-g="${i}"]`).checked);}
+function gWarnHit(){return GATE.some((g,i)=>!g.red&&document.querySelector(`[data-g="${i}"]`).checked);}
+
+function renderEnhanced(){
+ const tt=+($("temp_total").textContent)||0;
+ const anyTemp=TEMP.some(t=>document.querySelector(`[data-t="${t.k}"]`).value!=="");
+ const tb=tt<=20?0:tt<=40?1:tt<=60?2:tt<=80?3:4;
+ const st=+($("s_total").textContent)||0;
+ const anyStock=SSCORE.some((s,i)=>document.querySelector(`[data-ss="${i}"]`).value!=="");
+ const rt=+($("risk_total").textContent)||0;
+ const anyRisk=RISK.some((r,i)=>document.querySelector(`[data-rs="${i}"]`).value!=="");
+ const rb=rt<=20?0:rt<=40?1:rt<=60?2:rt<=80?3:4;
+ const red=gRedHit(),warn=gWarnHit();
+ const vstate=$("v_state")?$("v_state").textContent:"";
+ const isStockAction=["개별주 매수","추가 매수"].includes(curAction);
+ const moneyBan=["생활(투자 금지)","비상(투자 금지)","목적·3년이내(투자 금지)"].includes($("m_money").value);
+
+ /* --- status LEDs --- */
+ let lg=$("led_gate");if(lg){lg.className="led "+(red?"bad":"ok");lg.querySelector(".lv").textContent=red?"FAIL":"PASS";}
+ let lt=$("led_temp");if(lt){lt.className="led "+(anyTemp?["info","ok","warn","warn","bad"][tb]:"");lt.querySelector(".lv").textContent=anyTemp?(TNAMES[tb]+" "+tt):"—";}
+ let lvd=$("led_verdict");if(lvd){let c=/금지/.test(vstate)?"bad":/보류/.test(vstate)?"warn":/승인/.test(vstate)?"ok":/기록/.test(vstate)?"info":"";lvd.className="led "+c;lvd.querySelector(".lv").textContent=vstate||"대기";}
+
+ /* --- panel header statuses --- */
+ setHStat("hs_temp","STATUS",anyTemp?TNAMES[tb]:"IDLE",anyTemp?["s-info","s-ok","","s-warn","s-bad"][tb]:"");
+ setHStat("hs_stock","SCORE",anyStock?(st+"/100 "+(st>=80?"PASS":"BLOCK")):"IDLE",anyStock?(st>=80?"s-ok":"s-bad"):"");
+ setHStat("hs_risk","LEVEL",anyRisk?RNAMES[rb]:"IDLE",anyRisk?["s-ok","s-warn","s-warn","s-bad","s-bad"][rb]:"");
+ setHStat("hs_gate","STATUS",red?"FAIL":(warn?"WARN":"PASS"),red?"s-bad":(warn?"s-warn":"s-ok"));
+ const coreYes=[...document.querySelectorAll('[data-core]')].filter(c=>c.checked).length;
+ setHStat("hs_core","GATES",coreYes+"/8",coreYes===8?"s-ok":"");
+ const holdN=[...document.querySelectorAll('[data-h]')].filter(c=>c.checked).length;
+ setHStat("hs_hold","TRIG",String(holdN),holdN?"s-warn":"");
+ const sr=$("sell_reason").value;
+ const srMap={logic:"논리(정당)",risk:"리스크(정당)",alloc:"배분(조건부)",emotion:"감정(불가)"};
+ setHStat("hs_sell","REASON",sr?srMap[sr]:"—",sr==="emotion"?"s-bad":(sr==="logic"||sr==="risk")?"s-ok":sr==="alloc"?"s-warn":"");
+ const rrule=$("r_rule").value;
+ setHStat("hs_review","CLOSE",rrule?"완료":"미완료",rrule?"s-ok":"s-warn");
+ setHStat("hs_home","ACT",curAction||"—",curAction?"s-info":"");
+
+ /* --- temperature precision needle --- */
+ const spec=$("tempspectrum");if(spec){spec.classList.toggle("idle",!anyTemp);const nd=spec.querySelector(".sneedle");if(nd){nd.style.left=Math.max(0,Math.min(100,tt))+"%";nd.setAttribute("data-v",tt);}}
+
+ /* --- permit stacked cumulative bar + legend --- */
+ const stk=$("s_stack");if(stk){const tr=stk.querySelector(".track");if(tr)tr.innerHTML=SSCORE.map((s,i)=>{const v=+(document.querySelector(`[data-ss="${i}"]`).value)||0;return v>0?`<div class="seg" style="width:${v}%;background:${SSCOLORS[i]}"></div>`:"";}).join("");}
+ const leg=$("s_legend");if(leg){leg.innerHTML=SSCORE.map((s,i)=>{const v=+(document.querySelector(`[data-ss="${i}"]`).value)||0;return `<div class="li"><span class="sw" style="background:${SSCOLORS[i]}"></span><span class="ln">${i+1}. ${s.n}</span><span class="lvv">${v}<span class="lm">/${s.max}</span></span></div>`;}).join("");}
+
+ /* --- risk band needle --- */
+ const rtk=$("risktrack");if(rtk){rtk.classList.toggle("idle",!anyRisk);const nd=rtk.querySelector(".bneedle");if(nd){nd.style.left=Math.max(0,Math.min(100,rt))+"%";nd.setAttribute("data-v",rt);}}
+
+ /* --- decision ticket --- */
+ setTK("tk_action",curAction||"—","");
+ setTK("tk_money",$("m_money").value||"—",moneyBan?"bad":"");
+ setTK("tk_gate",red?"FAIL · 즉시금지":(warn?"WARN":"PASS"),red?"bad":warn?"warn":"ok");
+ setTK("tk_temp",anyTemp?(TNAMES[tb]+" "+tt+"/100"):"—",anyTemp?["info","ok","","warn","bad"][tb]:"");
+ setTK("tk_permit",isStockAction?(anyStock?(st+"/100"):"—"):"N/A",isStockAction&&anyStock?(st>=80?"ok":"bad"):"");
+ setTK("tk_risk",anyRisk?(RNAMES[rb]+" "+rt):"—",anyRisk?["ok","warn","warn","bad","bad"][rb]:"");
+ const al=$("tk_alert");if(al)al.style.display=/금지/.test(vstate)?"block":"none";
+
+ /* --- value-change flash --- */
+ flashIfChanged("tt",$("temp_total"),tt);
+ flashIfChanged("st",$("s_total"),st);
+ flashIfChanged("rt",$("risk_total"),rt);
+
+ /* --- print decision memo --- */
+ buildMemo({tt,anyTemp,tb,st,anyStock,rt,anyRisk,rb,red,warn,vstate,isStockAction});
+}
+
+function buildMemo(x){
+ const m=$("memo");if(!m)return;
+ const date=(v("m_date")||"YYYY-MM-DD");const tgt=(v("m_target")||"대상");
+ const gateHit=GATE.filter((g,i)=>document.querySelector(`[data-g="${i}"]`).checked).map(g=>(g.red?"[RED] ":"")+g.t+" → "+g.a);
+ const holdHit=HOLD.filter((h,i)=>document.querySelector(`[data-h="${i}"]`).checked).map(h=>h.t+" → "+h.a);
+ const stop=/금지/.test(x.vstate);
+ const rows=[
+  ["행동 (ACTION)",curAction||"미선택"],
+  ["자금 성격",$("m_money").value||"-"],
+  ["계좌 / 전략",$("m_acct").value||"-"],
+  ["즉시 금지 게이트",x.red?"FAIL · 즉시 금지 해당":(x.warn?"WARN · 경고 항목 있음":"PASS")],
+  ["시장 온도",x.anyTemp?(TNAMES[x.tb]+" "+x.tt+"/100"):"-"],
+  ["허가증 점수",x.isStockAction?(x.anyStock?(x.st+"/100 "+(x.st>=80?"(통과)":"(80점 미만 · 매수 금지)")):"-"):"N/A"],
+  ["복리중단 위험",x.anyRisk?(RNAMES[x.rb]+" "+x.rt+"/100"):"-"],
+  ["다음 점검일",v("m_next")||"-"]
+ ];
+ let h=`<div class="mh"><div class="mt">투자 OS · DECISION MEMO</div><div class="ms">${date} · ${tgt} · ${curAction||"행동 미선택"}</div></div>`;
+ h+=`<div class="mv ${stop?"bad":""}">판정: ${x.vstate||"대기"}</div>`;
+ h+=rows.map(r=>`<div class="mrow"><span class="mk">${r[0]}</span><span>${r[1]}</span></div>`).join("");
+ h+=`<h3>매수 후 최대 비중 & 실패 시 행동</h3><div style="font-size:12px;line-height:1.55">${v("m_max")||"-"}</div>`;
+ if(gateHit.length)h+=`<h3>발동된 금지 게이트</h3><ul class="mlist">${gateHit.map(g=>"<li>"+g+"</li>").join("")}</ul>`;
+ if(x.isStockAction)h+=`<h3>개별주 허가증</h3><div class="mrow"><span class="mk">종목</span><span>${v("s_name")||"-"} (${v("s_ticker")||"-"})</span></div><div class="mrow"><span class="mk">비중 신규/원가/시가</span><span>${v("s_new")||"-"} / ${v("s_cost")||"-"} / ${v("s_mkt")||"-"} %</span></div><div class="mrow"><span class="mk">2분 스토리</span><span>${v("s_story")||"-"}</span></div><div class="mrow"><span class="mk">thesis break</span><span>${[v("s_tb1"),v("s_tb2"),v("s_tb3")].filter(Boolean).join(" / ")||"-"}</span></div><div class="mrow"><span class="mk">매도 기준</span><span>${v("s_exit")||"-"}</span></div>`;
+ if(curAction==="매도 검토"){const mp={logic:"논리 훼손(정당)",risk:"리스크 관리(정당)",alloc:"자산배분·정책(조건부)",emotion:"감정 반응(매도 사유 아님)"};h+=`<h3>매도 검토</h3><div class="mrow"><span class="mk">매도 사유</span><span>${mp[$("sell_reason").value]||"-"}</span></div>`;}
+ if(curAction==="복기 작성")h+=`<h3>복기</h3><div class="mrow"><span class="mk">한 문장 복기</span><span>${v("r_oneline")||"-"}</span></div><div class="mrow"><span class="mk">규칙 전환</span><span>${$("r_rule").value||"미선택(복기 미완료)"}</span></div>`;
+ if(holdHit.length)h+=`<h3>보유 점검 트리거</h3><ul class="mlist">${holdHit.map(t=>"<li>"+t+"</li>").join("")}</ul>`;
+ h+=`<div class="mdisc">이 문서는 개인 투자 정책 시스템이며 매매 신호·상품 추천·시장 전망이 아니다. 모든 수치는 사용자가 입력한 값과 OS 자체 파라미터에서만 산출되며, 실시간 시세·외부 API를 사용하지 않는다. 데이터는 브라우저에만 저장된다.</div>`;
+ m.innerHTML=h;
+}
+
+/* ===== command line + keyboard navigation ===== */
+const CMD_PLACEHOLDER="명령 코드 입력 후 Enter (TEMP·GATE·002·RISK·LOG…)";
+const CMDMAP={HOME:"home",DASH:"home",GATE:"gate",KILL:"gate",TEMP:"temp","003":"temp",CORE:"core","004":"core",STOCK:"stock",PERMIT:"stock","002":"stock",HOLD:"hold","005":"hold",SELL:"sell","006":"sell",RISK:"risk","007":"risk",REVIEW:"review",PM:"review","008":"review",LOG:"log",VERDICT:"verdict",TICKET:"verdict"};
+function scrollToSection(sec){const el=$(sec);if(!el)return false;const y=el.getBoundingClientRect().top+window.pageYOffset-72;window.scrollTo({top:y,behavior:"smooth"});el.classList.remove("jflash");void el.offsetWidth;el.classList.add("jflash");setTimeout(()=>el.classList.remove("jflash"),1000);return true;}
+function runCmd(raw){const c=(raw||"").trim().toUpperCase();if(!c)return false;const sec=CMDMAP[c]||(ALL_SEC.includes(c.toLowerCase())?c.toLowerCase():null);return sec?scrollToSection(sec):false;}
+function initCmd(){const ci=$("cmdinput");if(!ci)return;ci.placeholder=CMD_PLACEHOLDER;ci.addEventListener("keydown",e=>{if(e.key==="Enter"){const ok=runCmd(ci.value);ci.value="";if(!ok){ci.placeholder="? 알 수 없는 코드";setTimeout(()=>ci.placeholder=CMD_PLACEHOLDER,1200);}e.preventDefault();}else if(e.key==="Escape"){ci.value="";ci.blur();}e.stopPropagation();});}
+const SHORT={g:"gate",t:"temp",c:"core",s:"stock",h:"hold",r:"risk",v:"verdict",l:"log",m:"home"};
+const NUMSEC=["home","gate","temp","core","stock","hold","sell","risk","review"];
+function initKeys(){document.addEventListener("keydown",e=>{const t=e.target;if(t&&/^(input|textarea|select)$/i.test(t.tagName))return;if(e.metaKey||e.ctrlKey||e.altKey)return;if(e.key==="/"){const ci=$("cmdinput");if(ci){ci.focus();e.preventDefault();}return;}if(e.key>="1"&&e.key<="9"){const s=NUMSEC[+e.key-1];if(s){scrollToSection(s);e.preventDefault();}return;}const k=e.key.toLowerCase();if(SHORT[k]){scrollToSection(SHORT[k]);e.preventDefault();}});}
+
+/* ===== density mode ===== */
+function toggleCompact(){const on=document.body.classList.toggle("compact");localStorage.setItem("investOS_compact",on?"1":"0");const b=$("btnCompact");if(b)b.classList.toggle("primary",on);}
+function initPrefs(){if(localStorage.getItem("investOS_compact")==="1"){document.body.classList.add("compact");const b=$("btnCompact");if(b)b.classList.add("primary");}}
+
+/* ===== Markdown 로그 ===== */
+function v(id){return ($(id)&&$(id).value||"").trim();}
+function buildLog(){
+ const tt=$("temp_total").textContent;const tb=$("temp_band").textContent;
+ const st=$("s_total").textContent;const rt=$("risk_total").textContent;
+ const gateHit=GATE.filter((g,i)=>document.querySelector(`[data-g="${i}"]`).checked).map(g=>`${g.red?'[RED] ':''}${g.t} → ${g.a}`);
+ const holdHit=HOLD.filter((h,i)=>document.querySelector(`[data-h="${i}"]`).checked).map(h=>`${h.t} → ${h.a}`);
+ const tb_=($("v_state").textContent);
+ const date=v("m_date")||"YYYY-MM-DD";
+ const tgt=v("m_target")||"대상";
+ let L=`---
+date: ${date}
+action: ${curAction||"미선택"}
+verdict: ${tb_}
+type: investment-os-log
+---
+
+# ${date} ${tgt} ${curAction||""} 로그
+
+## 최종 판정
+- 판정: **${tb_}**  (승인 = OS 기준상 집행 가능, 투자 추천 아님)
+- 행동 유형: ${curAction||"미선택"}
+
+## 핵심 필드
+- 자금 성격: ${$("m_money").value||"-"}
+- 계좌/전략: ${$("m_acct").value||"-"}
+- 매수 후 최대 비중 & 실패 시 행동: ${v("m_max")||"-"}
+- 비상자금: ${v("m_emerg")||"-"}개월
+- 다음 점검일: ${v("m_next")||"-"}
+
+## 즉시 금지 게이트
+${gateHit.length?gateHit.map(x=>"- "+x).join("\n"):"- 해당 없음"}
+
+## 시장온도
+- 점수: ${tt} / 100
+- 구간: ${tb}
+`;
+ if(curAction==="개별주 매수"||curAction==="추가 매수"){
+  L+=`
+## 개별주 허가증
+- 종목: ${v("s_name")} (${v("s_ticker")})
+- 유형: ${$("s_type").value||"-"} / 평가 프레임: ${$("s_frame").value||"-"}
+- 비중: 신규 ${v("s_new")||"-"}% / 원가 ${v("s_cost")||"-"}% / 시가 ${v("s_mkt")||"-"}%
+- 허가증 점수: ${st} / 100 ${(+st>0&&+st<80)?"(80점 미만 · 매수 금지)":""}
+- 2분 스토리: ${v("s_story")||"-"}
+- 반대증거: 1) ${v("s_con1")||"-"} / 2) ${v("s_con2")||"-"}
+- thesis break: 1) ${v("s_tb1")||"-"} / 2) ${v("s_tb2")||"-"} / 3) ${v("s_tb3")||"-"}
+- 매도 기준: ${v("s_exit")||"-"}
+`;
+ }
+ if(curAction==="보유 점검"||curAction==="추가 매수"){
+  L+=`
+## 보유 점검 트리거
+${holdHit.length?holdHit.map(x=>"- "+x).join("\n"):"- 해당 없음"}
+`;
+ }
+ if(curAction==="매도 검토"){
+  const map={logic:"논리 훼손(정당)",risk:"리스크 관리(정당)",alloc:"자산배분·정책(조건부)",emotion:"감정 반응(매도 사유 아님)"};
+  const s3=SELL3.filter(s=>document.querySelector(`[data-s3="${s.k}"]`).checked).map(s=>s.k);
+  L+=`
+## 매도 검토
+- 매도 사유 분류: ${map[$("sell_reason").value]||"-"}
+- 과열 매도 2-of-3 충족: ${s3.length?s3.join(", "):"없음"} (2개 이상일 때만 가격 과열 매도 검토)
+`;
+ }
+ if(curAction==="복기 작성"){
+  L+=`
+## 복기
+- 사건 유형: ${$("r_type").value||"-"} / 결과: ${$("r_result").value||"-"}
+- 한 문장 복기: ${v("r_oneline")||"-"}
+- 규칙 전환 판정: ${$("r_rule").value||"미선택(복기 미완료)"}
+`;
+ }
+ L+=`
+## 복리중단 위험
+- 위험 점수: ${rt} / 100
+
+## 관련 문서
+- 투자헌법(000) · 정책서(001) · 개별주 허가증(002) · 시장온도(003) · 매수(004) · 보유(005) · 매도(006) · 복리중단(007) · 복기(008) · 1페이지 실전판(009)
+`;
+ $("logout").value=L;
+ if(curAction)scrollToSection("log");
+}
+function copyLog(){
+ const t=$("logout");if(!t.value)buildLog();t.select();
+ navigator.clipboard.writeText(t.value).then(()=>{$("copymsg").textContent="복사됨";setTimeout(()=>$("copymsg").textContent="",1500);});
+}
+
+/* ===== 상태 저장 ===== */
+const KEY="investOS_v1_state";
+function collect(){
+ const o={action:curAction,fields:{},gate:[],core:[],hold:[],sell3:[],temp:{},tev:{},sscore:[],risk:[]};
+ ["m_date","m_target","m_money","m_acct","m_max","m_emerg","m_next","s_name","s_ticker","s_type","s_acct2","s_new","s_cost","s_mkt","s_story","s_con1","s_con2","s_tb1","s_tb2","s_tb3","s_frame","s_exit","sell_reason","r_type","r_result","r_oneline","r_rule","t_eviAll","t_eviCon","t_eviEmo"].forEach(id=>o.fields[id]=($(id)?$(id).value:""));
+ o.gate=[...document.querySelectorAll('[data-g]')].map(c=>c.checked);
+ o.core=[...document.querySelectorAll('[data-core]')].map(c=>c.checked);
+ o.hold=[...document.querySelectorAll('[data-h]')].map(c=>c.checked);
+ o.sell3=SELL3.map(s=>document.querySelector(`[data-s3="${s.k}"]`).checked);
+ TEMP.forEach(t=>{o.temp[t.k]=document.querySelector(`[data-t="${t.k}"]`).value;o.tev[t.k]=document.querySelector(`[data-tev="${t.k}"]`).value;});
+ o.sscore=SSCORE.map((s,i)=>document.querySelector(`[data-ss="${i}"]`).value);
+ o.risk=RISK.map((r,i)=>document.querySelector(`[data-rs="${i}"]`).value);
+ return o;
+}
+function apply(o){
+ if(!o)return;
+ Object.keys(o.fields||{}).forEach(id=>{if($(id))$(id).value=o.fields[id];});
+ (o.gate||[]).forEach((v,i)=>{const c=document.querySelector(`[data-g="${i}"]`);if(c){c.checked=v;c.closest("label").classList.toggle("on",v);}});
+ (o.hold||[]).forEach((v,i)=>{const c=document.querySelector(`[data-h="${i}"]`);if(c){c.checked=v;c.closest("label").classList.toggle("on",v);}});
+ (o.core||[]).forEach((v,i)=>{const c=document.querySelector(`[data-core="${i}"]`);if(c)c.checked=v;});
+ (o.sell3||[]).forEach((v,i)=>{const c=document.querySelector(`[data-s3="${SELL3[i].k}"]`);if(c)c.checked=v;});
+ if(o.temp)TEMP.forEach(t=>{const e=document.querySelector(`[data-t="${t.k}"]`);if(e)e.value=o.temp[t.k]||"";const ev=document.querySelector(`[data-tev="${t.k}"]`);if(ev){ev.value=(o.tev&&o.tev[t.k])||"";document.querySelector(`.ev[data-ev="${t.k}"]`).classList.toggle("unconfirmed",!ev.value.trim());}});
+ if(o.sscore)o.sscore.forEach((v,i)=>{const e=document.querySelector(`[data-ss="${i}"]`);if(e)e.value=v||"";});
+ if(o.risk)o.risk.forEach((v,i)=>{const e=document.querySelector(`[data-rs="${i}"]`);if(e)e.value=v||"";});
+ if(o.action){curAction=o.action;document.querySelectorAll("#actionsel button").forEach(b=>b.classList.toggle("sel",b.dataset.a===curAction));applyFilter();}
+ compute();
+}
+function saveState(){try{localStorage.setItem(KEY,JSON.stringify(collect()));flash("저장됨");}catch(e){alert("저장 실패: "+e);}}
+function loadState(){try{const s=localStorage.getItem(KEY);if(!s){alert("저장된 데이터가 없습니다.");return;}apply(JSON.parse(s));flash("불러옴");}catch(e){alert("불러오기 실패");}}
+function resetState(){if(!confirm("현재 입력을 모두 초기화할까요? (저장된 데이터는 유지)"))return;document.querySelectorAll("input,textarea,select").forEach(el=>{if(el.type==="checkbox")el.checked=false;else el.value="";});document.querySelectorAll(".check").forEach(c=>c.classList.remove("on"));curAction="";document.querySelectorAll("#actionsel button").forEach(b=>b.classList.remove("sel"));applyFilter();compute();}
+function exportJSON(){const blob=new Blob([JSON.stringify(collect(),null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=(v("m_date")||"investOS")+"_state.json";a.click();}
+function importJSON(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{apply(JSON.parse(r.result));flash("가져옴");}catch(x){alert("JSON 파싱 실패");}};r.readAsText(f);}
+function flash(m){$("copymsg").textContent=m;setTimeout(()=>$("copymsg").textContent="",1400);}
+
+/* ===== init ===== */
+renderActions();renderGate();renderTemp();renderCore();renderStockScore();renderHold();renderSell3();renderRisk();
+["sell_reason","s_frame","m_money","m_acct","m_max","r_rule","r_type","s_name"].forEach(id=>{if($(id))$(id).addEventListener("input",compute);});
+initPrefs();initCmd();initKeys();
+try{const s=localStorage.getItem(KEY);if(s)apply(JSON.parse(s));}catch(e){}
+compute();
+</script>
+</body>
+</html>
