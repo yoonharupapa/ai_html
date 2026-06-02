@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>단결! 투쟁! — 삼성 6억 합의, 진짜 무슨 일이 있었나</title>
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#ECE2CC;        /* 신문지 / 대자보 종이 */
+    --paper-2:#F5EFDF;
+    --card:#FBF7EC;
+    --ink:#171310;          /* 먹빛 */
+    --ink-soft:#3C362E;
+    --muted:#6F685B;
+    --line:#D8CCB0;
+    --line-strong:#C2B492;
+    --red:#D11A2A;          /* 투쟁 적색 */
+    --red-deep:#9E1019;
+    --blue:#173FC4;         /* 금속 청 / 단결 */
+    --blue-deep:#102C8C;
+    --gold:#C2891A;
+    --display:"Black Han Sans",sans-serif;
+    --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,"Apple SD Gothic Neo",sans-serif;
+    --maxw:680px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      repeating-linear-gradient(0deg, #00000005 0 2px, transparent 2px 4px),
+      var(--paper);
+    color:var(--ink);
+    font-family:var(--font);
+    font-size:17px;line-height:1.74;
+    -webkit-font-smoothing:antialiased;
+    word-break:keep-all;overflow-wrap:break-word;
+  }
+  ::selection{background:#D11A2A33;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 18px;}
+  .section{padding:44px 0;}
+
+  /* ---------- 상단 투쟁 마키 ---------- */
+  .marquee{
+    background:var(--red);overflow:hidden;white-space:nowrap;border-bottom:4px solid var(--ink);
+    position:relative;
+  }
+  .marquee::before,.marquee::after{
+    content:"";position:absolute;top:0;bottom:0;width:46px;z-index:2;
+  }
+  .marquee::before{left:0;background:linear-gradient(90deg,var(--red),transparent);}
+  .marquee::after{right:0;background:linear-gradient(270deg,var(--red),transparent);}
+  .marquee .track{display:inline-flex;gap:0;animation:slide 22s linear infinite;will-change:transform;}
+  .marquee span{
+    font-family:var(--display);color:#fff;font-size:.96rem;letter-spacing:.06em;
+    padding:9px 0;
+  }
+  .marquee span i{font-style:normal;color:#FFD9A0;padding:0 14px;}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------- HERO (먹빛 벽에 붙은 대자보) ---------- */
+  .hero{
+    background:
+      radial-gradient(120% 80% at 50% 0%, #2a221b 0%, transparent 60%),
+      repeating-linear-gradient(135deg,#1d1813 0 26px,#171310 26px 52px);
+    padding:34px 0 46px;
+    border-bottom:5px solid var(--red);
+  }
+  .stripebar{height:14px;background:repeating-linear-gradient(45deg,var(--red) 0 16px,var(--ink) 16px 32px);}
+  .poster{
+    background:var(--paper-2);
+    border:3px solid var(--ink);
+    box-shadow:10px 12px 0 #00000040;
+    padding:30px 24px 30px;position:relative;margin-top:30px;
+  }
+  .poster::before,.poster::after{
+    content:"";position:absolute;top:-13px;width:88px;height:26px;
+    background:rgba(213,180,120,.55);border:1px dashed #00000022;
+  }
+  .poster::before{left:24px;transform:rotate(-5deg);}
+  .poster::after{right:24px;transform:rotate(4deg);}
+  .band{
+    display:inline-block;background:var(--red);color:#fff;font-family:var(--display);
+    font-size:1.15rem;letter-spacing:.14em;padding:7px 20px;transform:rotate(-2.2deg);
+    box-shadow:4px 4px 0 var(--ink);margin-bottom:20px;
+  }
+  .masthead{display:flex;align-items:center;gap:14px;margin-bottom:8px;color:var(--red);}
+  .masthead .emblem{width:54px;height:54px;flex:none;color:var(--red);}
+  .masthead .org{font-family:var(--display);font-size:.95rem;color:var(--ink);line-height:1.25;letter-spacing:.02em;}
+  .masthead .org small{display:block;color:var(--muted);font-family:var(--font);font-weight:700;font-size:.72rem;letter-spacing:.04em;}
+  .hero h1{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(2.1rem,9.5vw,3.5rem);line-height:1.16;letter-spacing:-.01em;
+    margin:6px 0 18px;color:var(--ink);
+  }
+  .hero h1 .q{color:var(--red);}
+  .hero-claim{font-size:1.08rem;line-height:1.66;color:var(--ink-soft);margin:0 0 24px;font-weight:500;border-left:4px solid var(--red);padding-left:14px;}
+  .hero-claim b{color:var(--ink);font-weight:800;}
+  .verdict-headline{background:var(--ink);color:#F4ECD9;padding:20px 20px 22px;border:2px solid var(--ink);}
+  .verdict-headline .small{font-family:var(--display);font-size:.92rem;color:#FFB36B;letter-spacing:.06em;margin-bottom:10px;}
+  .verdict-headline .big{font-size:clamp(1.08rem,4.2vw,1.32rem);line-height:1.56;font-weight:600;}
+  .verdict-headline .big em{font-style:normal;color:#fff;font-family:var(--display);font-weight:400;}
+  .scroll-hint{display:flex;align-items:center;gap:8px;justify-content:center;color:#E9DcC0;font-size:.86rem;margin-top:24px;font-family:var(--display);letter-spacing:.04em;}
+  .scroll-hint svg{animation:bob 1.6s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+  /* ---------- 섹션 배너(투쟁 리본) ---------- */
+  .sec-head{margin-bottom:20px;}
+  .sec-step{
+    display:inline-block;font-family:var(--display);background:var(--ink);color:#fff;
+    font-size:.82rem;letter-spacing:.08em;padding:4px 12px;margin-bottom:12px;
+  }
+  .sec-step.s2{background:var(--blue);}
+  .sec-step.s3{background:var(--red);}
+  .sec-step.s4{background:var(--red-deep);}
+  .kicker{display:flex;align-items:center;gap:9px;font-family:var(--display);color:var(--red);font-size:.96rem;letter-spacing:.04em;margin:0 0 8px;}
+  .kicker .fist{width:20px;height:24px;color:var(--red);flex:none;}
+  h2.sec-title{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(1.85rem,7.6vw,2.7rem);line-height:1.18;letter-spacing:-.01em;
+    margin:0 0 14px;color:var(--ink);
+  }
+  h2.sec-title .r{color:var(--red);}
+  h2.sec-title .b{color:var(--blue);}
+  .lead{font-size:1.05rem;color:var(--ink-soft);margin:0 0 8px;font-weight:500;}
+  .lead b{color:var(--ink);font-weight:800;}
+  p{margin:0 0 16px;}
+  .hl{background:linear-gradient(transparent 56%,#FFD23F88 56%);padding:0 2px;font-weight:700;}
+  .hl-r{background:linear-gradient(transparent 56%,#D11A2A33 56%);padding:0 2px;font-weight:700;}
+
+  /* ---------- 대자보 카드 ---------- */
+  .daza{
+    background:var(--card);border:2.5px solid var(--ink);
+    box-shadow:6px 7px 0 #00000022;
+    padding:20px 20px;margin:0 0 18px;position:relative;
+  }
+  .daza .card-head{display:flex;align-items:flex-start;gap:11px;margin-bottom:12px;flex-wrap:wrap;}
+  .daza .num{
+    font-family:var(--display);font-size:1.2rem;color:#fff;background:var(--ink);
+    width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;flex:none;
+  }
+  .daza .card-title{font-family:var(--display);font-size:1.18rem;letter-spacing:-.01em;color:var(--ink);line-height:1.32;margin:2px 0;flex:1;min-width:0;}
+  .daza p{margin:0 0 10px;color:var(--ink-soft);font-size:1.0rem;}
+  .daza p:last-child{margin-bottom:0;}
+  .daza .takeaway{
+    margin-top:14px;padding:11px 13px;background:#FBEFD2;border-left:4px solid var(--gold);
+    font-size:.96rem;color:#6E5212;font-weight:700;display:flex;gap:8px;
+  }
+  .daza .takeaway .arr{color:var(--red);font-family:var(--display);flex:none;}
+
+  /* ---------- 도장(판정) 스탬프 ---------- */
+  .stamp{
+    font-family:var(--display);border:2.5px solid;padding:2px 11px;
+    transform:rotate(-3deg);letter-spacing:.04em;font-size:.86rem;line-height:1.35;
+    display:inline-flex;align-items:center;gap:6px;background:#fff;white-space:nowrap;flex:none;
+  }
+  .stamp .bdot{width:7px;height:7px;border-radius:50%;flex:none;}
+  .stamp.true{color:var(--blue);border-color:var(--blue);} .stamp.true .bdot{background:var(--blue);}
+  .stamp.partly{color:#2A6488;border-color:#2A6488;} .stamp.partly .bdot{background:#2A6488;}
+  .stamp.exagg{color:var(--gold);border-color:var(--gold);} .stamp.exagg .bdot{background:var(--gold);}
+  .stamp.error{color:var(--red);border-color:var(--red);} .stamp.error .bdot{background:var(--red);}
+  .stamp.weak{color:#5A554C;border-color:#5A554C;} .stamp.weak .bdot{background:#5A554C;}
+
+  .legend{background:var(--ink);color:#F4ECD9;padding:18px;margin-bottom:18px;}
+  .legend h4{font-family:var(--display);margin:0 0 13px;font-size:1.02rem;letter-spacing:.04em;}
+  .legend-grid{display:flex;flex-wrap:wrap;gap:9px;}
+  .legend .stamp{transform:none;}
+
+  /* ---------- 미용실 비유 ---------- */
+  .analogy{background:var(--card);border:2.5px solid var(--ink);box-shadow:6px 7px 0 #00000022;padding:22px 20px;}
+  .analogy .icons{display:flex;gap:10px;align-items:center;margin-bottom:14px;}
+  .analogy .chip{width:44px;height:44px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;}
+  .analogy .label{font-family:var(--display);font-size:1rem;color:var(--red);letter-spacing:.04em;}
+  .analogy blockquote{margin:0;font-size:1.12rem;line-height:1.74;color:var(--ink);font-weight:500;}
+  .analogy blockquote b{font-weight:800;color:var(--red-deep);}
+  .quote-pol{margin-top:16px;background:var(--ink);color:#F4ECD9;padding:16px 18px;font-size:.99rem;}
+  .quote-pol b{color:#FFD9A0;}
+  .quote-pol .who{display:block;margin-top:8px;font-family:var(--display);font-size:.86rem;color:#bdb3a0;}
+
+  /* ---------- 빅넘버 ---------- */
+  .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+  .stat{background:var(--card);border:2.5px solid var(--ink);box-shadow:5px 6px 0 #00000022;padding:16px 15px 15px;position:relative;}
+  .stat .val{font-family:var(--display);color:var(--red);font-size:clamp(1.7rem,7vw,2.2rem);line-height:1.04;margin-bottom:7px;letter-spacing:-.01em;}
+  .stat .val .u{font-size:.5em;color:var(--ink);margin-left:2px;}
+  .stat .val .vs{color:var(--muted);font-size:.5em;margin:0 5px;}
+  .stat .val .wrong{color:#9a9488;text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:3px;}
+  .stat.b .val{color:var(--blue);}
+  .stat.k .val{color:var(--ink);}
+  .stat .desc{font-size:.85rem;line-height:1.5;color:var(--ink-soft);font-weight:500;}
+  .stat .desc b{color:var(--ink);font-weight:800;}
+  .stat.span2{grid-column:1 / -1;}
+  .stat .tag{position:absolute;top:13px;right:13px;font-family:var(--display);font-size:.68rem;padding:3px 8px;background:var(--blue);color:#fff;letter-spacing:.03em;}
+  .stat .tag.err{background:var(--red);}
+
+  /* ---------- 영상 vs 사실 ---------- */
+  .cf{margin-top:13px;border:2px solid var(--ink);background:#fff;}
+  .cf-row{padding:14px 15px;}
+  .cf-claim{background:#F4ECDC;border-bottom:2px dashed var(--line-strong);}
+  .cf-tag{display:flex;align-items:center;gap:7px;font-family:var(--display);font-size:.82rem;letter-spacing:.03em;margin-bottom:7px;}
+  .cf-claim .cf-tag{color:var(--red);}
+  .cf-fact .cf-tag{color:var(--blue);}
+  .cf-tag .ic{width:19px;height:19px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;flex:none;}
+  .cf-claim .ic{background:var(--red);}
+  .cf-fact .ic{background:var(--blue);}
+  .cf-claim .txt{color:var(--muted);font-size:.98rem;}
+  .cf-claim .txt s{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2.5px;color:#8c8473;}
+  .cf-fact .txt{color:var(--ink-soft);font-size:.99rem;}
+  .cf-fact .txt b{color:var(--ink);font-weight:800;}
+
+  /* ---------- 양팔 (E) ---------- */
+  .balance-cols{display:grid;grid-template-columns:1fr;gap:16px;}
+  .party{border:2.5px solid var(--ink);background:var(--card);box-shadow:6px 7px 0 #00000022;overflow:hidden;}
+  .party-head{padding:14px 18px;font-family:var(--display);font-size:1.22rem;color:#fff;display:flex;align-items:center;gap:10px;letter-spacing:.02em;}
+  .party.union .party-head{background:var(--blue);}
+  .party.company .party-head{background:var(--ink);}
+  .party-head .role{font-family:var(--font);font-size:.74rem;font-weight:700;opacity:.85;}
+  .party-body{padding:4px 18px 18px;}
+  .plist{margin:0;padding:0;list-style:none;}
+  .grp-label{font-family:var(--display);font-size:.92rem;margin:16px 0 8px;display:flex;align-items:center;gap:7px;letter-spacing:.03em;}
+  .grp-label.gain{color:var(--blue);} .grp-label.cost{color:var(--red);}
+  .plist li.item{display:flex;gap:10px;padding:8px 0;font-size:.97rem;line-height:1.55;color:var(--ink-soft);border-top:1.5px solid var(--line);}
+  .plist li.item:first-of-type{border-top:none;}
+  .plist .mk{flex:none;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);font-size:.9rem;color:#fff;margin-top:2px;}
+  .gain .mk{background:var(--blue);} .cost .mk{background:var(--red);}
+  .plist li.item b{color:var(--ink);font-weight:800;}
+
+  /* ---------- 결론 ---------- */
+  .conclusion{background:var(--red);color:#fff;padding:30px 24px;border:3px solid var(--ink);box-shadow:8px 9px 0 #00000033;margin-bottom:22px;}
+  .conclusion .ct{font-family:var(--display);font-size:1.05rem;letter-spacing:.08em;color:#FFD9A0;margin-bottom:14px;}
+  .conclusion .body{font-size:clamp(1.18rem,4.6vw,1.5rem);line-height:1.56;font-weight:600;}
+  .conclusion .body b{font-family:var(--display);font-weight:400;}
+  .conclusion .body .x{color:#FFE0CC;font-weight:700;}
+  .quote-cards{display:grid;gap:11px;}
+  .qcard{background:var(--card);border:2.5px solid var(--ink);border-left:7px solid var(--red);padding:14px 16px;font-size:1.0rem;line-height:1.6;color:var(--ink);font-weight:600;box-shadow:4px 5px 0 #00000018;}
+  .qcard b{font-family:var(--display);font-weight:400;color:var(--red-deep);}
+
+  /* ---------- 연대 단체 ---------- */
+  .solidarity{background:var(--ink);color:#F4ECD9;padding:38px 0 34px;border-top:5px solid var(--red);}
+  .solidarity .band{margin-bottom:6px;}
+  .solidarity h3{font-family:var(--display);font-size:clamp(1.5rem,6vw,2rem);margin:8px 0 6px;color:#fff;font-weight:400;}
+  .solidarity p{color:#C9BFAC;font-size:.95rem;margin:0 0 22px;}
+  .logos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+  .logo-chip{background:#fff;border:2px solid #000;display:flex;align-items:center;justify-content:center;padding:16px;min-height:96px;}
+  .logo-chip img{max-width:100%;max-height:64px;height:auto;width:auto;object-fit:contain;}
+  .logo-chip.wide{grid-column:1 / -1;}
+
+  /* ---------- 출처 ---------- */
+  footer{background:var(--paper-2);border-top:3px solid var(--ink);padding:34px 0 50px;}
+  footer h4{font-family:var(--display);margin:0 0 13px;font-size:1.05rem;color:var(--ink);letter-spacing:.03em;}
+  footer ul{margin:0 0 18px;padding:0;list-style:none;}
+  footer li{font-size:.88rem;color:var(--muted);line-height:1.6;padding:4px 0 4px 16px;position:relative;}
+  footer li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;background:var(--red);}
+  footer .note{font-size:.84rem;color:var(--muted);line-height:1.65;padding-top:16px;border-top:1.5px solid var(--line-strong);}
+
+  .js .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1);}
+  .js .reveal.in{opacity:1;transform:none;}
+
+  @media (min-width:720px){
+    body{font-size:18px;}
+    .stat-grid{grid-template-columns:repeat(3,1fr);}
+    .stat.span2{grid-column:span 1;}
+    .balance-cols{grid-template-columns:1fr 1fr;}
+    .logos{grid-template-columns:repeat(3,1fr);}
+    .logo-chip.wide{grid-column:span 1;}
+  }
+  @media print{
+    body{background:#fff;}
+    .marquee,.scroll-hint{display:none;}
+    .js .reveal{opacity:1 !important;transform:none !important;}
+    .daza,.stat,.party,.conclusion,.poster,.qcard{box-shadow:none;}
+    .section{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<!-- 투쟁 마키 -->
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>단결!<i>·</i>투쟁!<i>·</i>연대!<i>·</i>노동존중!<i>·</i>사실로 싸운다<i>·</i>숫자로 따진다<i>·</i>단결!<i>·</i>투쟁!<i>·</i>연대!<i>·</i>노동존중!<i>·</i>사실로 싸운다<i>·</i>숫자로 따진다<i>·</i></span>
+    <span>단결!<i>·</i>투쟁!<i>·</i>연대!<i>·</i>노동존중!<i>·</i>사실로 싸운다<i>·</i>숫자로 따진다<i>·</i>단결!<i>·</i>투쟁!<i>·</i>연대!<i>·</i>노동존중!<i>·</i>사실로 싸운다<i>·</i>숫자로 따진다<i>·</i></span>
+  </div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" data-screen-label="Hero">
+  <div class="stripebar"></div>
+  <div class="wrap">
+    <div class="poster reveal">
+      <div class="band">단결! 투쟁!</div>
+      <div class="masthead">
+        <svg class="emblem" viewBox="0 0 120 120" fill="currentColor" aria-hidden="true">
+          <rect x="20" y="8" width="9" height="104" rx="3"/>
+          <path d="M29 14 q34 -12 64 4 q-9 20 0 38 q-34 -16 -64 -3 z"/>
+          <path d="M50 30 l5 11 12 1 -9 8 3 12 -11 -7 -11 7 3 -12 -9 -8 12 -1 z" fill="#fff"/>
+        </svg>
+        <div class="org">노동현장 팩트 브리핑<small>현장과 함께 · 사실과 함께</small></div>
+      </div>
+      <h1>노조가 6억에 환호했다는<br />그 영상, <span class="q">사실일까?</span></h1>
+      <div class="hero-claim">
+        팩트는 <b>맞는 게 많지만</b>, 결론은 <b>부풀려져</b> 있습니다.<br />
+        한쪽으로 치우치지 않고, 숫자와 재무 논리로 따져봤습니다.
+      </div>
+      <div class="verdict-headline">
+        <div class="small">한 줄 결론</div>
+        <div class="big">
+          “노조가 완전히 당했다”가 아니라 →<br />
+          노조는 <em>큰 보상을 제도화</em>로 얻었고, 사측은 그 돈을 <em>자사주·보호예수·성과차등</em>으로 묶어 리스크를 관리한 <em>“고비용 합의”</em>입니다.
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      내려서 하나씩 따져보자
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== A ===================== -->
+<section class="section" data-screen-label="A 도입">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-step">STEP 1 · 공감</span>
+      <p class="kicker">
+        <svg class="fist" viewBox="0 0 64 80" fill="currentColor" aria-hidden="true"><rect x="20" y="44" width="26" height="36" rx="4"/><rect x="13" y="27" width="38" height="26" rx="8"/><rect x="15" y="13" width="9" height="19" rx="4"/><rect x="25" y="11" width="9" height="21" rx="4"/><rect x="35" y="12" width="9" height="20" rx="4"/><rect x="44" y="15" width="9" height="17" rx="4"/><rect x="7" y="30" width="13" height="11" rx="5"/></svg>
+        무슨 일이 있었나
+      </p>
+      <h2 class="sec-title">총파업 <span class="r">1시간 30분 전</span>,<br />노사가 서명했다</h2>
+    </div>
+    <div class="daza reveal">
+      <p><strong>2026년 5월 20일 밤.</strong> 다음 날(5월 21일)로 예정돼 있던 총파업을 <span class="hl">약 1시간 30분 앞두고</span> 삼성전자 노사가 잠정합의에 서명했습니다.</p>
+      <p>5개월간 끌어온 임금·성과급 협상의 막판 타결이었습니다.</p>
+      <p style="margin-bottom:0;">핵심 결과 — 반도체(DS) 메모리 일부 직원이 <strong>최대 약 6억 원</strong>의 성과급을 받을 수 있게 됐습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== B ===================== -->
+<section class="section" data-screen-label="B 공감">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">
+        <svg class="fist" viewBox="0 0 64 80" fill="currentColor" aria-hidden="true"><rect x="20" y="44" width="26" height="36" rx="4"/><rect x="13" y="27" width="38" height="26" rx="8"/><rect x="15" y="13" width="9" height="19" rx="4"/><rect x="25" y="11" width="9" height="21" rx="4"/><rect x="35" y="12" width="9" height="20" rx="4"/><rect x="44" y="15" width="9" height="17" rx="4"/><rect x="7" y="30" width="13" height="11" rx="5"/></svg>
+        먼저, 솔직하게
+      </p>
+      <h2 class="sec-title">“이번 요구,<br />솔직히 <span class="r">과했다</span>”</h2>
+      <p class="lead">노조의 최초 핵심 요구는 <b>영업이익의 15%(약 45조 원)를 상한 없이 성과급으로 제도화</b>하자는 것이었습니다.</p>
+    </div>
+
+    <div class="analogy reveal">
+      <div class="icons">
+        <span class="chip"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></span>
+        <span class="chip"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v7a2 2 0 0 0 2 2h6"/><path d="M18 9v11"/><path d="M6 13v7"/><path d="M14 13v3a2 2 0 0 0 2 2h2"/></svg></span>
+        <span class="label">미용실로 비유하면</span>
+      </div>
+      <blockquote>
+        “미용실이 대박 나서 영업이익이 많이 났다고 칩시다. 그런데 아직 <b>세금도 내야 하고, 대출이자도 갚아야 하고, 비수기도 대비</b>해야 하고, 의자·샴푸대·인테리어도 바꿔야 합니다. 그런데 직원이 ‘<b>세금 떼기 전 영업이익의 15%를 매년 고정으로 달라</b>’고 하면 사장 입장에선 부담이 크죠.”
+      </blockquote>
+      <div class="quote-pol">
+        실제로 이재명 <b>대통령</b>도 “세금·주주 몫 정리 전 영업이익을 나누자는 요구는 이해되지 않는다”고 직접 비판했습니다.
+        <span class="who">— 이재명 대통령</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 빅넘버 ===================== -->
+<section class="section" data-screen-label="빅넘버">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">
+        <svg class="fist" viewBox="0 0 64 80" fill="currentColor" aria-hidden="true"><rect x="20" y="44" width="26" height="36" rx="4"/><rect x="13" y="27" width="38" height="26" rx="8"/><rect x="15" y="13" width="9" height="19" rx="4"/><rect x="25" y="11" width="9" height="21" rx="4"/><rect x="35" y="12" width="9" height="20" rx="4"/><rect x="44" y="15" width="9" height="17" rx="4"/><rect x="7" y="30" width="13" height="11" rx="5"/></svg>
+        숫자로 먼저
+      </p>
+      <h2 class="sec-title">기억할 <span class="r">핵심 수치</span></h2>
+      <p class="lead">이 숫자만 알아도 합의의 80%는 이해한 셈입니다.</p>
+    </div>
+    <div class="stat-grid reveal">
+      <div class="stat span2"><div class="val">약 6억<span class="u">원</span></div><div class="desc">DS 메모리 <b>일부</b> 직원의 최대 성과급 (세전, 연봉 1억 기준 추정)</div></div>
+      <div class="stat b"><div class="val">600만<span class="u">원</span></div><div class="desc">DX 부문이 받는 자사주 수준</div></div>
+      <div class="stat k span2"><div class="val">1/3 · 1년 · 2년</div><div class="desc">자사주 매각 제한(보호예수) — 1/3 즉시, 1/3 1년 뒤, 1/3 2년 뒤</div></div>
+      <div class="stat"><div class="val">15<span class="u">%</span></div><div class="desc">노조의 최초 요구 (약 45조 원)</div></div>
+      <div class="stat b"><span class="tag">영상 정확</span><div class="val">약 66<span class="u">%</span></div><div class="desc">삼성 DS 2026년 1분기 영업이익률 (영업이익 53.7조·매출 81.7조)</div></div>
+      <div class="stat"><span class="tag err">영상 오류</span><div class="val">58.1<span class="u">%</span><span class="vs">vs</span><span class="wrong">72%</span></div><div class="desc">TSMC 영업이익률 vs SK하이닉스 — 영상은 TSMC를 72%로 잘못 표기</div></div>
+      <div class="stat k"><div class="val">매년 200조<span class="vs">/</span>100조</div><div class="desc">지급 조건 (2026~28 / 2029~35) — <b>누적 아님</b></div></div>
+      <div class="stat b"><div class="val">73.7<span class="u">%</span></div><div class="desc">합의안 가결률 (투표율 95.5%)</div></div>
+      <div class="stat"><div class="val">하루 1억<span class="u">원</span></div><div class="desc">법원 간접강제금 (위반 시, 최대 약 18억 원)</div></div>
+      <div class="stat k"><div class="val">약 370억<span class="u">달러</span></div><div class="desc">테일러 공장 투자액 (약 54조 원)</div></div>
+      <div class="stat k"><div class="val">약 7,000<span class="u">명</span></div><div class="desc">테일러 공장 현장 인력</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== C ===================== -->
+<section class="section" data-screen-label="C 맞는팩트">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-step s2">STEP 2 · 팩트</span>
+      <p class="kicker" style="color:var(--blue)">
+        <svg class="fist" style="color:var(--blue)" viewBox="0 0 64 80" fill="currentColor" aria-hidden="true"><rect x="20" y="44" width="26" height="36" rx="4"/><rect x="13" y="27" width="38" height="26" rx="8"/><rect x="15" y="13" width="9" height="19" rx="4"/><rect x="25" y="11" width="9" height="21" rx="4"/><rect x="35" y="12" width="9" height="20" rx="4"/><rect x="44" y="15" width="9" height="17" rx="4"/><rect x="7" y="30" width="13" height="11" rx="5"/></svg>
+        영상이 맞힌 것
+      </p>
+      <h2 class="sec-title">영상에서 <span class="b">“맞는”</span><br />핵심 팩트 4가지</h2>
+    </div>
+
+    <div class="legend reveal">
+      <h4>판정 도장 보는 법</h4>
+      <div class="legend-grid">
+        <span class="stamp true"><span class="bdot"></span>사실</span>
+        <span class="stamp partly"><span class="bdot"></span>부분 사실</span>
+        <span class="stamp exagg"><span class="bdot"></span>과장</span>
+        <span class="stamp error"><span class="bdot"></span>오류</span>
+        <span class="stamp weak"><span class="bdot"></span>근거 부족</span>
+      </div>
+    </div>
+
+    <div class="daza reveal">
+      <div class="card-head"><span class="num">1</span><h3 class="card-title">6억은 현금이 아니라 자사주다</h3><span class="stamp true"><span class="bdot"></span>사실</span></div>
+      <p>세후 전액을 삼성전자 <strong>주식</strong>으로 지급합니다. 3분의 1만 즉시 매각 가능하고, 나머지 3분의 1은 1년, 마지막 3분의 1은 2년간 매각이 제한(보호예수)됩니다.</p>
+      <div class="takeaway"><span class="arr">→</span> 직원 보상이 회사 주가와 묶이는 구조입니다.</div>
+    </div>
+    <div class="daza reveal">
+      <div class="card-head"><span class="num">2</span><h3 class="card-title">전 직원 6억이 아니라 부문별 차등이다</h3><span class="stamp true"><span class="bdot"></span>사실</span></div>
+      <p>DS 메모리는 최대 약 6억, DX(스마트폰·가전·TV)는 약 600만 원 수준의 자사주입니다. 적자인 비메모리 사업부도 최소 1.6억 원 수준입니다.</p>
+      <div class="takeaway"><span class="arr">→</span> 같은 회사 안에서 100배 가까운 격차 → 내부 갈등이 생깁니다.</div>
+    </div>
+    <div class="daza reveal">
+      <div class="card-head"><span class="num">3</span><h3 class="card-title">합의안은 조합원 투표에서 가결됐다</h3><span class="stamp true"><span class="bdot"></span>사실</span></div>
+      <p>찬성률 <strong>73.7%</strong>, 투표율 <strong>95.5%</strong>.</p>
+      <div class="takeaway"><span class="arr">→</span> “노조가 모르고 당했다”기보다 “알고도 이 정도면 받자고 판단한 조합원이 많았다”에 가깝습니다.</div>
+    </div>
+    <div class="daza reveal">
+      <div class="card-head"><span class="num">4</span><h3 class="card-title">법원·정부가 노조에 강한 압박을 줬다</h3><span class="stamp true"><span class="bdot"></span>사실</span></div>
+      <p>수원지법은 파업 중에도 안전시설·웨이퍼 보호 작업을 평상시 수준으로 유지하라며 가처분을 대부분 인용하고, 위반 시 <strong>하루 1억 원</strong>(간부는 하루 1천만 원)의 간접강제금을 명령했습니다. 김민석 국무총리는 긴급조정 가능성을 공식 언급했습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== D ===================== -->
+<section class="section" data-screen-label="D 틀린것">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-step s3">STEP 3 · 균형</span>
+      <p class="kicker">
+        <svg class="fist" viewBox="0 0 64 80" fill="currentColor" aria-hidden="true"><rect x="20" y="44" width="26" height="36" rx="4"/><rect x="13" y="27" width="38" height="26" rx="8"/><rect x="15" y="13" width="9" height="19" rx="4"/><rect x="25" y="11" width="9" height="21" rx="4"/><rect x="35" y="12" width="9" height="20" rx="4"/><rect x="44" y="15" width="9" height="17" rx="4"/><rect x="7" y="30" width="13" height="11" rx="5"/></svg>
+        가장 중요한 대목
+      </p>
+      <h2 class="sec-title">영상에서 <span class="r">“틀리거나<br />과장된”</span> 것</h2>
+      <p class="lead">왼쪽은 <b>영상이 말한 것</b>, 오른쪽은 <b>실제 사실</b>입니다.</p>
+    </div>
+
+    <div class="daza reveal">
+      <div class="card-head"><span class="num">1</span><h3 class="card-title">TSMC 영업이익률 72%</h3><span class="stamp error"><span class="bdot"></span>오류</span></div>
+      <div class="cf">
+        <div class="cf-row cf-claim"><div class="cf-tag"><span class="ic">✕</span> 영상이 말한 것</div><div class="txt"><s>TSMC의 영업이익률은 72%다.</s></div></div>
+        <div class="cf-row cf-fact"><div class="cf-tag"><span class="ic">✓</span> 실제 사실</div><div class="txt">TSMC의 2026년 1분기 영업이익률은 <b>58.1%</b>입니다. <b>72%는 SK하이닉스</b> 수치이고, TSMC의 66.2%는 매출총이익률(영업이익률 아님)입니다. 영상이 숫자를 잘못 붙였습니다.</div></div>
+      </div>
+    </div>
+    <div class="daza reveal">
+      <div class="card-head"><span class="num">2</span><h3 class="card-title">“누적 200조”면 된다</h3><span class="stamp error"><span class="bdot"></span>오류</span></div>
+      <div class="cf">
+        <div class="cf-row cf-claim"><div class="cf-tag"><span class="ic">✕</span> 영상이 말한 것</div><div class="txt"><s>성과급 조건은 누적 200조다.</s></div></div>
+        <div class="cf-row cf-fact"><div class="cf-tag"><span class="ic">✓</span> 실제 사실</div><div class="txt"><b>“매년 200조”</b>가 맞습니다. 2026~2028년 <b>매년</b> DS 영업이익 200조 원, 2029~2035년 <b>매년</b> 100조 원이 조건입니다. 누적이면 훨씬 쉽지만, 매년 200조는 반도체 사이클상 2027~2028년에 자동 보장이 아닙니다.</div></div>
+      </div>
+    </div>
+    <div class="daza reveal">
+      <div class="card-head"><span class="num">3</span><h3 class="card-title">테일러 공장 470억 달러</h3><span class="stamp error"><span class="bdot"></span>오류</span></div>
+      <div class="cf">
+        <div class="cf-row cf-claim"><div class="cf-tag"><span class="ic">✕</span> 영상이 말한 것</div><div class="txt"><s>테일러 공장 투자는 470억 달러다.</s></div></div>
+        <div class="cf-row cf-fact"><div class="cf-tag"><span class="ic">✓</span> 실제 사실</div><div class="txt">실제는 <b>약 370억 달러(약 54조 원)</b>입니다. 2021년 170억 달러로 시작해 추가 투자를 더해 총 370억 달러로 확대됐습니다. 영상의 470억 달러도, 일각의 170억 달러도 모두 현재 수치가 아닙니다.</div></div>
+      </div>
+    </div>
+    <div class="daza reveal">
+      <div class="card-head"><span class="num">4</span><h3 class="card-title">“사람 없는 무인공장으로 노조 제거”</h3><span class="stamp exagg"><span class="bdot"></span>과장</span></div>
+      <div class="cf">
+        <div class="cf-row cf-claim"><div class="cf-tag"><span class="ic">✕</span> 영상이 말한 것</div><div class="txt"><s>무인공장을 지어 노조를 제거하려는 것이다.</s></div></div>
+        <div class="cf-row cf-fact"><div class="cf-tag"><span class="ic">✓</span> 실제 사실</div><div class="txt">삼성이 2030년까지 AI 자율공장·휴머노이드 로봇 도입을 발표한 것은 사실이나, 테일러 공장은 현장 인력만 <b>약 7,000명</b> 규모입니다. 반도체 공장은 원래 자동화가 핵심 경쟁력인 산업이고, 자동화의 본질은 노조 대응이 아니라 <b>수율·품질·원가경쟁</b>입니다.</div></div>
+      </div>
+    </div>
+    <div class="daza reveal">
+      <div class="card-head"><span class="num">5</span><h3 class="card-title">“이재용이 던진 미끼”</h3><span class="stamp weak"><span class="bdot"></span>근거 부족</span></div>
+      <div class="cf">
+        <div class="cf-row cf-claim"><div class="cf-tag"><span class="ic">✕</span> 영상이 말한 것</div><div class="txt"><s>이재용 회장이 6억짜리 미끼 구조를 직접 설계했다.</s></div></div>
+        <div class="cf-row cf-fact"><div class="cf-tag"><span class="ic">✓</span> 실제 사실</div><div class="txt">공개 보도상 협상 당사자는 여명구 DS 피플팀장, 최승호 초기업노조 위원장, 김영훈 고용노동부 장관입니다. 이재용 회장이 직접 이 구조를 설계했다는 근거는 없습니다(제목 장사). <b>※ 압박한 인물은 이재명 대통령으로, 이재용 회장과 혼동 금지.</b></div></div>
+      </div>
+    </div>
+    <div class="daza reveal">
+      <div class="card-head"><span class="num">6</span><h3 class="card-title">“월가가 한국에 노조 리스크 청구서를 보냈다”</h3><span class="stamp weak"><span class="bdot"></span>근거 부족</span></div>
+      <div class="cf">
+        <div class="cf-row cf-claim"><div class="cf-tag"><span class="ic">✕</span> 영상이 말한 것</div><div class="txt"><s>월가가 한국에 노조 리스크 청구서를 보냈다.</s></div></div>
+        <div class="cf-row cf-fact"><div class="cf-tag"><span class="ic">✓</span> 실제 사실</div><div class="txt">근거가 약합니다. 합의 직후 삼성전자 주가는 파업 회피를 반영해 오히려 <b>상승</b>했습니다(로이터 보도).</div></div>
+      </div>
+    </div>
+    <div class="daza reveal">
+      <div class="card-head"><span class="num">7</span><h3 class="card-title">노조 막말</h3><span class="stamp partly"><span class="bdot"></span>부분 사실</span></div>
+      <div class="cf">
+        <div class="cf-row cf-claim"><div class="cf-tag"><span class="ic">✕</span> 영상이 말한 것</div><div class="txt">노조 전체가 “삼성전자를 없애버리는 게 맞다”는 협상 철학을 갖고 있다. <span style="color:var(--red);font-weight:800;">(일반화는 과장)</span></div></div>
+        <div class="cf-row cf-fact"><div class="cf-tag"><span class="ic">✓</span> 실제 사실</div><div class="txt"><b>발언은 진짜입니다.</b> 이송이 부위원장이 텔레그램에서 “삼성전자는 우리가 그냥 없애버리는 게 맞다”고 말한 것은 사실입니다. 단, 이를 노조 전체의 협상 철학으로 일반화한 것은 과장입니다. 실제로 또 다른 노조 ‘전삼노’는 찬성률 21%로 사실상 반대했습니다.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== E ===================== -->
+<section class="section" data-screen-label="E 균형">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">
+        <svg class="fist" viewBox="0 0 64 80" fill="currentColor" aria-hidden="true"><rect x="20" y="44" width="26" height="36" rx="4"/><rect x="13" y="27" width="38" height="26" rx="8"/><rect x="15" y="13" width="9" height="19" rx="4"/><rect x="25" y="11" width="9" height="21" rx="4"/><rect x="35" y="12" width="9" height="20" rx="4"/><rect x="44" y="15" width="9" height="17" rx="4"/><rect x="7" y="30" width="13" height="11" rx="5"/></svg>
+        양쪽을 같이 보자
+      </p>
+      <h2 class="sec-title">누가 무엇을<br /><span class="b">얻고</span> <span class="r">잃었나</span></h2>
+    </div>
+    <div class="balance-cols reveal">
+      <div class="party union">
+        <div class="party-head">노조 <span class="role">근로자 측</span></div>
+        <div class="party-body">
+          <ul class="plist">
+            <div class="grp-label gain">얻은 것</div>
+            <li class="item"><span class="mk">+</span><span>DS 특별경영성과급 신설 (상한 없음, 사업성과 10.5% 재원, <b>10년 제도화</b>)</span></li>
+            <li class="item"><span class="mk">+</span><span>메모리 일부 <b>최대 약 6억</b>(자사주)</span></li>
+            <li class="item"><span class="mk">+</span><span>평균 임금 6.2% 인상, 최대 5억 원 주택자금 대출 신설, 출산경조금 인상</span></li>
+          </ul>
+          <ul class="plist">
+            <div class="grp-label cost">감수한 것</div>
+            <li class="item"><span class="mk">−</span><span>현금 아닌 자사주(주가 변동 위험) + 1~2년 보호예수</span></li>
+            <li class="item"><span class="mk">−</span><span>DS·DX 보상 격차 → 노노 갈등 → 소수노조 소송</span></li>
+            <li class="item"><span class="mk">−</span><span>정부·법원·여론의 압박</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="party company">
+        <div class="party-head">사측 <span class="role">회사 측</span></div>
+        <div class="party-body">
+          <ul class="plist">
+            <div class="grp-label gain">얻은 것</div>
+            <li class="item"><span class="mk">+</span><span>총파업 회피, 즉시 현금 유출 방어</span></li>
+            <li class="item"><span class="mk">+</span><span>직원을 ‘주가 이해관계자’로 묶음 (파업 시 본인도 손해)</span></li>
+            <li class="item"><span class="mk">+</span><span>성과주의·부문차등의 명분 확보</span></li>
+          </ul>
+          <ul class="plist">
+            <div class="grp-label cost">부담</div>
+            <li class="item"><span class="mk">−</span><span>호황 지속 시 매우 큰 보상비용 (예: DS 연 300조 가정 시 재원 약 31.5조)</span></li>
+            <li class="item"><span class="mk">−</span><span>주주 형평성·소송 리스크</span></li>
+            <li class="item"><span class="mk">−</span><span>DX·비메모리 직원의 박탈감</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== F ===================== -->
+<section class="section" data-screen-label="F 결론">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-step s4">STEP 4 · 결론</span>
+    </div>
+    <div class="conclusion reveal">
+      <div class="ct">▶ 최종 판정</div>
+      <div class="body">
+        <span class="x">“노조가 완전히 당했다”가 아니라</span> →<br />
+        노조는 <b>큰 보상을 제도화로 얻었고</b>, 사측은 그 돈을 <b>자사주·보호예수·성과차등</b>으로 묶어 리스크를 관리한 <b>“고비용 합의”</b>입니다.
+      </div>
+    </div>
+    <div class="sec-head reveal" style="margin-top:8px;">
+      <h2 class="sec-title" style="font-size:clamp(1.4rem,5.4vw,1.8rem);">그대로 말해도 되는<br /><span class="r">핵심 문장</span></h2>
+    </div>
+    <div class="quote-cards reveal">
+      <div class="qcard">“영상이 완전 가짜는 아닌데, <b>결론이 좀 세게 포장</b>됐습니다.”</div>
+      <div class="qcard">“삼성 직원 <b>모두가 6억 받는 게 아니라</b>, 반도체 메모리 쪽 일부가 최대 6억 수준입니다.”</div>
+      <div class="qcard">“그 6억도 현금이 아니라 <b>자사주</b>입니다. 3분의 1만 바로 팔 수 있고 나머지는 1·2년 묶입니다.”</div>
+      <div class="qcard">“영상에서 TSMC 영업이익률 72%라고 하면 틀린 겁니다. <b>TSMC는 58.1%, SK하이닉스가 72%</b>입니다.”</div>
+      <div class="qcard">“성과급 조건도 누적 200조가 아니라 <b>2026~2028년 매년 200조</b>입니다. 이 차이는 큽니다.”</div>
+      <div class="qcard">“자동화는 현실이지만, <b>노조 제거용 함정이라고 단정하면 과장</b>입니다. 반도체 공장은 원래 자동화가 핵심입니다.”</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 연대(구호) ===================== -->
+<section class="solidarity" data-screen-label="연대">
+  <div class="wrap">
+    <div class="band">단결하는 만큼 강하다</div>
+    <h3>현장은 사실로 싸운다</h3>
+    <p>감정과 선동이 아니라 숫자와 재무 논리로. 함께 따져보는 노동의 동지들에게.</p>
+  </div>
+</section>
+
+<!-- ===================== 출처 ===================== -->
+<footer data-screen-label="출처">
+  <div class="wrap">
+    <h4>출처</h4>
+    <ul>
+      <li>삼성전자·SK하이닉스 실적 발표 및 뉴스룸 (2026년 1분기)</li>
+      <li>미국 상무부 발표 (테일러 투자 370억 달러)</li>
+      <li>수원지방법원 민사31부 가처분 결정 (2026.5.18)</li>
+      <li>연합뉴스·한국경제·매일경제·서울신문·MBC 등 합의·투표·정부 발언 보도 (2026.5)</li>
+      <li>로이터 (합의 직후 주가 반응)</li>
+    </ul>
+    <p class="note">본 자료는 2026년 6월 기준 공개 보도·공식 발표를 근거로 작성됐습니다. 수치는 발표 시점 기준이며, 향후 실적·법적 판단에 따라 달라질 수 있습니다.</p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in');}); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    els.forEach(function(e){ io.observe(e); });
+  })();
+</script>
+</body>
+</html>
