@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUANT://READING-LIST — 퀀트 필독서 인터랙티브 큐레이션</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090d; --bg1:#0b0f15; --bg2:#10151d; --bg3:#151b25; --bg4:#1b222e;
+  --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.13);
+  --text:#e7eaf0; --muted:#8a95a6; --dim:#5a6473;
+  --amber:#ffb000; --amber2:#ff8a1e;
+  --green:#2fe6a0; --cyan:#3ad6ff; --gold:#ffd24d; --slate:#8fa3bb; --violet:#b69dff;
+  --mono:'IBM Plex Mono','IBM Plex Sans KR',ui-monospace,monospace;
+  --kr:'IBM Plex Sans KR','IBM Plex Mono',sans-serif;
+  --glow:0 0 0 1px rgba(255,176,0,.0),0 0 22px rgba(255,176,0,.10);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:var(--mono); font-size:14px; line-height:1.5;
+  letter-spacing:.01em; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:48px 48px; opacity:.32;
+  mask-image:radial-gradient(130% 90% at 50% 0%,#000 30%,transparent 90%);
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:9999; pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.10) 2px 3px);
+  opacity:.45; mix-blend-mode:multiply;
+}
+.bgglow{position:fixed;left:50%;top:-280px;width:1200px;height:580px;transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(255,176,0,.12),rgba(255,138,30,.04) 55%,transparent 75%);
+  z-index:0;pointer-events:none;filter:blur(10px)}
+.wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 22px 90px}
+::selection{background:rgba(255,176,0,.28);color:#fff}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:4px}
+a{color:inherit}
+
+/* ticker */
+.ticker{position:relative;z-index:2;border-bottom:1px solid var(--line);background:rgba(7,9,13,.88);
+  overflow:hidden;white-space:nowrap;font-size:11.5px;letter-spacing:.14em;color:var(--muted)}
+.ticker .track{display:inline-block;padding:8px 0;animation:scroll 46s linear infinite;will-change:transform}
+.ticker:hover .track{animation-play-state:paused}
+.ticker b{color:var(--amber)} .ticker .up{color:var(--green)} .ticker .in{color:var(--cyan)} .ticker .vi{color:var(--violet)}
+.ticker .sep{color:var(--dim);padding:0 15px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* header */
+header{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+  justify-content:space-between;padding:24px 0 18px;border-bottom:1px solid var(--line2)}
+.brand{display:flex;align-items:center;gap:15px;min-width:0}
+.mark{width:44px;height:44px;flex:0 0 auto;border:1px solid var(--amber);border-radius:8px;
+  display:grid;place-items:center;color:var(--amber);box-shadow:var(--glow);position:relative;
+  background:linear-gradient(180deg,rgba(255,176,0,.10),transparent)}
+.mark span{font-weight:700;font-size:19px;line-height:1}
+.mark::after{content:"";position:absolute;inset:6px;border:1px solid rgba(255,176,0,.25);border-radius:5px}
+.title h1{margin:0;font-size:18px;font-weight:700;letter-spacing:.04em}
+.title h1 i{color:var(--amber);font-style:normal}
+.title .sub{margin-top:4px;font-size:11.5px;color:var(--muted);letter-spacing:.04em;font-family:var(--kr)}
+.hud{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:flex-end}
+.hud .blk{text-align:right;line-height:1.25}
+.hud .lab{font-size:9.5px;letter-spacing:.18em;color:var(--dim)}
+.hud .val{font-size:15px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.hud .val.amber{color:var(--amber)}
+.live{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:var(--green);letter-spacing:.12em}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;display:flex;gap:4px;flex-wrap:wrap;margin:14px 0 4px;padding:8px;
+  background:rgba(9,12,17,.86);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:11px}
+.nav a{font-size:10.5px;letter-spacing:.12em;color:var(--muted);text-decoration:none;padding:7px 12px;border-radius:7px;transition:.15s;white-space:nowrap}
+.nav a:hover{color:var(--text);background:var(--bg2)}
+.nav a.on{color:var(--amber);background:rgba(255,176,0,.08)}
+
+/* kpi */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;margin:22px 0 8px;
+  background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.kpi{background:var(--bg1);padding:16px 18px;position:relative}
+.kpi .lab{font-size:9.5px;letter-spacing:.15em;color:var(--dim);display:flex;justify-content:space-between;gap:6px}
+.kpi .num{font-size:30px;font-weight:700;margin-top:7px;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .meta{font-size:10px;color:var(--muted);margin-top:8px;letter-spacing:.02em;font-family:var(--kr)}
+.kpi.g .num{color:var(--green)} .kpi.c .num{color:var(--cyan)}
+.kpi.r .num{color:var(--amber)} .kpi.n .num{color:var(--text)} .kpi.v .num{color:var(--violet)}
+.kpi .arrow{font-size:11px;opacity:.7}
+.bar{display:flex;height:5px;margin-top:10px;border-radius:3px;overflow:hidden;background:var(--bg3)}
+.bar i{display:block;height:100%;transition:width .8s cubic-bezier(.22,1,.36,1)}
+.bar .s{background:var(--gold)}.bar .a{background:var(--cyan)}.bar .b{background:var(--slate)}.bar .c{background:var(--dim)}
+
+/* section */
+section{margin-top:50px;scroll-margin-top:64px}
+.sec-h{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.sec-h .idx{color:var(--amber);font-weight:700;font-size:13px;letter-spacing:.1em;white-space:nowrap}
+.sec-h .nm{font-size:13px;letter-spacing:.16em;color:var(--text);white-space:nowrap}
+.sec-h .nm .ko{color:var(--muted);font-family:var(--kr);letter-spacing:.02em}
+.sec-h .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent)}
+.sec-h .cnt{font-size:11px;color:var(--dim);letter-spacing:.1em;border:1px solid var(--line2);border-radius:20px;padding:3px 11px;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* dashboard grid */
+.dash{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px}
+.panel{background:var(--bg1);border:1px solid var(--line);border-radius:12px;padding:18px 20px;position:relative;overflow:hidden}
+.panel.span2{grid-column:span 2}
+.panel .ph{font-size:10px;letter-spacing:.16em;color:var(--dim);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.panel .ph .k{font-family:var(--kr);color:var(--muted);letter-spacing:.02em;font-size:11px}
+/* tier stack */
+.tierbar{display:flex;height:30px;border-radius:7px;overflow:hidden;border:1px solid var(--line2)}
+.tierbar i{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#06090d;transition:flex .8s cubic-bezier(.22,1,.36,1)}
+.tierbar .s{background:var(--gold)}.tierbar .a{background:var(--cyan)}.tierbar .b{background:var(--slate)}.tierbar .c{background:#3a4456;color:var(--muted)}
+.tierleg{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap;font-size:10.5px;color:var(--muted)}
+.tierleg .it{display:flex;align-items:center;gap:7px}
+.tierleg .sw{width:10px;height:10px;border-radius:3px}
+/* field bars */
+.fbars{display:flex;flex-direction:column;gap:11px}
+.fbar{display:grid;grid-template-columns:96px 1fr 26px;align-items:center;gap:10px;font-size:11px}
+.fbar .nm{font-family:var(--kr);color:var(--muted);text-align:right;letter-spacing:0;line-height:1.2}
+.fbar .tr{height:8px;background:var(--bg3);border-radius:5px;overflow:hidden}
+.fbar .tr i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),rgba(58,214,255,.4));border-radius:5px;transition:width .9s cubic-bezier(.22,1,.36,1)}
+.fbar .vv{color:var(--text);font-variant-numeric:tabular-nums;text-align:right}
+/* gauge ring */
+.gauge{display:flex;align-items:center;gap:18px}
+.ring{--p:0;width:108px;height:108px;border-radius:50%;flex:0 0 auto;position:relative;
+  background:conic-gradient(var(--green) calc(var(--p)*1%),var(--bg3) 0)}
+.ring::after{content:"";position:absolute;inset:11px;border-radius:50%;background:var(--bg1)}
+.ring .v{position:absolute;inset:0;display:grid;place-content:center;text-align:center;z-index:1}
+.ring .v b{font-size:25px;font-weight:700;color:var(--green);font-variant-numeric:tabular-nums}
+.ring .v small{display:block;font-size:8.5px;letter-spacing:.16em;color:var(--dim);margin-top:2px}
+.gmeta{font-family:var(--kr);font-size:11.5px;color:var(--muted);line-height:1.7}
+.gmeta b{color:var(--text)}.gmeta .gr{color:var(--green)}.gmeta .am{color:var(--amber)}
+/* difficulty histogram */
+.hist{display:flex;align-items:flex-end;gap:8px;height:96px;padding-top:6px}
+.hcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.hcol .bar2{width:100%;background:linear-gradient(180deg,var(--amber),rgba(255,176,0,.25));border-radius:5px 5px 0 0;min-height:3px;transition:height .9s cubic-bezier(.22,1,.36,1)}
+.hcol .lb{font-size:10px;color:var(--gold)}
+.hcol .ct{font-size:10px;color:var(--dim);font-variant-numeric:tabular-nums}
+/* progress mini */
+.prog{display:flex;flex-direction:column;gap:14px}
+.prow{display:flex;flex-direction:column;gap:6px}
+.prow .t{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+.prow .t b{color:var(--text);font-variant-numeric:tabular-nums}
+.ptrack{height:8px;background:var(--bg3);border-radius:5px;overflow:hidden}
+.ptrack i{display:block;height:100%;border-radius:5px;transition:width .6s ease}
+.ptrack i.gr{background:var(--green)}.ptrack i.gd{background:var(--gold)}.ptrack i.am{background:var(--amber)}
+
+/* quick start row */
+.quick{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}
+.qbtn{font-family:var(--kr);font-size:11.5px;color:var(--text);background:var(--bg1);border:1px solid var(--line2);
+  border-radius:8px;padding:9px 14px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:7px}
+.qbtn:hover{border-color:var(--amber);color:var(--amber);background:rgba(255,176,0,.05)}
+.qbtn .mono{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.1em}
+.qbtn:hover .mono{color:var(--amber2)}
+
+/* explorer layout */
+.explorer{display:grid;grid-template-columns:236px 1fr;gap:16px;align-items:start}
+.filters{background:var(--bg1);border:1px solid var(--line);border-radius:12px;padding:6px 0;position:sticky;top:64px}
+.fgroup{border-bottom:1px solid var(--line);padding:13px 16px}
+.fgroup:last-child{border-bottom:none}
+.fgroup .ft{font-size:9.5px;letter-spacing:.16em;color:var(--dim);margin-bottom:11px;display:flex;justify-content:space-between}
+.fopts{display:flex;flex-wrap:wrap;gap:6px}
+.fopt{font-family:var(--kr);font-size:11px;color:var(--muted);background:var(--bg2);border:1px solid var(--line2);
+  border-radius:7px;padding:6px 10px;cursor:pointer;transition:.13s;user-select:none;white-space:nowrap}
+.fopt:hover{color:var(--text);border-color:var(--dim)}
+.fopt[aria-pressed="true"]{color:#06090d;background:var(--amber);border-color:var(--amber);font-weight:600}
+.fopt.alt[aria-pressed="true"]{background:var(--cyan);border-color:var(--cyan)}
+.fopt.alt2[aria-pressed="true"]{background:var(--green);border-color:var(--green)}
+.reset{width:calc(100% - 32px);margin:13px 16px 6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  color:var(--muted);background:transparent;border:1px solid var(--line2);border-radius:8px;padding:9px;cursor:pointer;transition:.15s}
+.reset:hover{color:var(--amber);border-color:rgba(255,176,0,.4)}
+
+.results{min-width:0}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.search{flex:1;min-width:180px;display:flex;align-items:center;gap:9px;background:var(--bg1);
+  border:1px solid var(--line2);border-radius:9px;padding:10px 13px}
+.search:focus-within{border-color:var(--amber);box-shadow:var(--glow)}
+.search svg{flex:0 0 auto;opacity:.55}
+.search input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:var(--kr);font-size:13px;min-width:0}
+.search input::placeholder{color:var(--dim)}
+.viewtog{display:flex;border:1px solid var(--line2);border-radius:9px;overflow:hidden}
+.viewtog button{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--muted);background:var(--bg1);border:none;padding:10px 13px;cursor:pointer;transition:.15s}
+.viewtog button.on{color:#06090d;background:var(--amber);font-weight:600}
+.exp-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:10.5px;color:var(--dim);letter-spacing:.06em;flex-wrap:wrap;gap:8px}
+.exp-meta .rc b{color:var(--amber);font-variant-numeric:tabular-nums}
+.exports{display:flex;gap:7px}
+.xbtn{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--dim);background:var(--bg1);border:1px solid var(--line2);border-radius:6px;padding:6px 10px;cursor:pointer;transition:.15s}
+.xbtn:hover{color:var(--cyan);border-color:rgba(58,214,255,.4)}
+
+/* table */
+.grid{border:1px solid var(--line2);border-radius:12px;overflow:hidden;background:var(--bg1)}
+.scroll{overflow-x:auto}
+table.data{width:100%;border-collapse:collapse;min-width:720px}
+table.data thead th{position:sticky;top:0;background:var(--bg2);text-align:left;font-weight:500;
+  font-size:9.5px;letter-spacing:.12em;color:var(--dim);padding:11px 12px;border-bottom:1px solid var(--line2);white-space:nowrap;z-index:1;cursor:pointer;user-select:none}
+table.data thead th:hover{color:var(--muted)}
+table.data thead th .ar{color:var(--amber);font-size:9px;margin-left:3px}
+table.data thead th.nosort{cursor:default}
+table.data thead th.nosort:hover{color:var(--dim)}
+table.data td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle;font-size:12.5px}
+table.data tbody tr{transition:background .12s;cursor:pointer}
+table.data tbody tr:hover{background:var(--bg2)}
+table.data tbody tr:last-child td{border-bottom:none}
+.en{font-family:var(--mono);color:var(--text);font-weight:500;line-height:1.35}
+.ko{font-family:var(--kr)}
+.ko-main{font-family:var(--kr);color:var(--text);font-weight:500;line-height:1.35}
+.dim{color:var(--dim)} .mut{color:var(--muted)}
+.titlecell{display:flex;flex-direction:column;gap:2px}
+.titlecell .auth{font-family:var(--kr);font-size:10.5px;color:var(--dim)}
+.yr{font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap;font-size:11.5px}
+.tier{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:6px;font-weight:700;font-size:12px;border:1px solid}
+.tier.tS{color:var(--gold);border-color:rgba(255,210,77,.45);background:rgba(255,210,77,.08)}
+.tier.tA{color:var(--cyan);border-color:rgba(58,214,255,.4);background:rgba(58,214,255,.08)}
+.tier.tB{color:var(--slate);border-color:rgba(143,163,187,.35);background:rgba(143,163,187,.08)}
+.tier.tC{color:var(--dim);border-color:var(--line2);background:transparent}
+.stars{color:var(--gold);font-size:11px;letter-spacing:1px;white-space:nowrap}
+.stars .off{color:var(--bg4)}
+.fld{font-family:var(--kr);font-size:10.5px;color:var(--cyan);letter-spacing:.01em;white-space:nowrap;
+  border:1px solid rgba(58,214,255,.22);border-radius:5px;padding:2px 7px;background:rgba(58,214,255,.05);display:inline-block}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.04em;padding:4px 9px;border-radius:20px;white-space:nowrap;font-weight:600;font-family:var(--kr)}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;flex:0 0 auto}
+.pill.ok{color:var(--green);background:rgba(47,230,160,.1);border:1px solid rgba(47,230,160,.3)}
+.pill.ok::before{background:var(--green);box-shadow:0 0 6px var(--green)}
+.pill.soft{color:var(--cyan);background:rgba(58,214,255,.08);border:1px solid rgba(58,214,255,.26)}
+.pill.soft::before{background:var(--cyan)}
+.pill.chk{color:var(--slate);background:rgba(143,163,187,.08);border:1px solid rgba(143,163,187,.26)}
+.pill.chk::before{background:var(--slate)}
+.rowact{display:flex;gap:5px;align-items:center}
+.iconbtn{width:28px;height:28px;border-radius:7px;border:1px solid var(--line2);background:var(--bg2);color:var(--dim);
+  cursor:pointer;display:grid;place-items:center;transition:.13s;font-size:13px;flex:0 0 auto}
+.iconbtn:hover{color:var(--text);border-color:var(--dim)}
+.iconbtn.bm.on{color:var(--gold);border-color:rgba(255,210,77,.5);background:rgba(255,210,77,.08)}
+.iconbtn.rs.r{color:var(--cyan);border-color:rgba(58,214,255,.45)}
+.iconbtn.rs.d{color:var(--green);border-color:rgba(47,230,160,.45)}
+.empty{padding:40px;text-align:center;color:var(--dim);font-family:var(--kr);font-size:13px}
+
+/* card view */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:13px}
+.bcard{background:var(--bg1);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;position:relative;display:flex;flex-direction:column;gap:9px}
+.bcard:hover{transform:translateY(-3px);border-color:var(--line2);box-shadow:0 14px 34px rgba(0,0,0,.4)}
+.bcard .ch{display:flex;align-items:center;gap:9px}
+.bcard .ch .fld{margin-left:auto}
+.bcard .en{font-size:12.5px}
+.bcard .ko-main{font-size:13px}
+.bcard .auth{font-family:var(--kr);font-size:11px;color:var(--dim)}
+.bcard .cf{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:10px;border-top:1px solid var(--line);flex-wrap:wrap}
+.bcard .cf .stars{font-size:10.5px}
+.bcard .cardact{position:absolute;top:13px;right:13px;display:flex;gap:5px;opacity:0;transition:.15s}
+.bcard:hover .cardact,.bcard .cardact:has(.on){opacity:1}
+.bcard.book-bm .cardact{opacity:1}
+
+/* featured */
+.feat{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:13px}
+.fcard{background:linear-gradient(180deg,var(--bg1),var(--bg));border:1px solid var(--line2);border-radius:13px;padding:18px;
+  cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:10px}
+.fcard::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 100% 0%,rgba(255,176,0,.06),transparent 45%);pointer-events:none}
+.fcard:hover{transform:translateY(-4px);border-color:rgba(255,176,0,.35);box-shadow:0 18px 40px rgba(0,0,0,.45)}
+.fcard .rk{position:absolute;top:14px;right:16px;font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.1em}
+.fcard .top{display:flex;align-items:center;gap:10px}
+.fcard .en{font-size:13.5px;line-height:1.3}
+.fcard .ko-main{font-size:12.5px;color:var(--muted)}
+.fcard .auth{font-family:var(--kr);font-size:11px;color:var(--dim)}
+.fcard .purpose{font-family:var(--kr);font-size:11.5px;color:var(--slate);line-height:1.6;border-left:2px solid var(--line2);padding-left:11px}
+.fcard .ff{display:flex;align-items:center;gap:9px;margin-top:auto;padding-top:11px;border-top:1px solid var(--line);flex-wrap:wrap}
+
+/* book-link buttons */
+.book-link{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.06em;text-decoration:none;border:1px solid var(--line2);border-radius:7px;padding:6px 11px;transition:.15s;white-space:nowrap}
+.book-link.kyobo{color:var(--amber);border-color:rgba(255,176,0,.32);background:rgba(255,176,0,.05)}
+.book-link.kyobo:hover{background:rgba(255,176,0,.12);border-color:rgba(255,176,0,.55)}
+.book-link.orig{color:var(--cyan);border-color:rgba(58,214,255,.28);background:rgba(58,214,255,.04)}
+.book-link.orig:hover{background:rgba(58,214,255,.1);border-color:rgba(58,214,255,.5)}
+
+/* tabs */
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:0}
+.tab{font-family:var(--kr);font-size:12px;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;
+  padding:11px 15px;cursor:pointer;transition:.15s;white-space:nowrap;margin-bottom:-1px}
+.tab:hover{color:var(--text)}
+.tab.on{color:var(--amber);border-bottom-color:var(--amber)}
+.tab .mono{font-family:var(--mono);font-size:9.5px;color:var(--dim);letter-spacing:.1em;margin-right:7px}
+.tab.on .mono{color:var(--amber2)}
+.trackpane{display:none;animation:fade .35s both}
+.trackpane.on{display:block}
+.trackgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stage{background:var(--bg1);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.stage .sh{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.stage .sh .n{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-weight:700;font-size:12px;
+  color:var(--amber);border:1px solid rgba(255,176,0,.35);background:rgba(255,176,0,.07)}
+.stage .sh .lab{font-family:var(--kr);font-size:12px;letter-spacing:.04em;color:var(--text);font-weight:600}
+.stage ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.stage li{display:flex;gap:10px;align-items:flex-start;font-family:var(--kr);font-size:12px;color:var(--muted);
+  cursor:pointer;padding:7px 9px;margin:0 -9px;border-radius:8px;transition:.13s}
+.stage li:hover{background:var(--bg2);color:var(--text)}
+.stage li .tier{width:21px;height:21px;font-size:10px;flex:0 0 auto;margin-top:1px}
+.stage li .li-en{font-family:var(--mono);font-size:10px;color:var(--dim);display:block;margin-top:2px}
+.stage.task{background:linear-gradient(180deg,rgba(58,214,255,.04),transparent);border-color:rgba(58,214,255,.18)}
+.stage.task .n{color:var(--cyan);border-color:rgba(58,214,255,.35);background:rgba(58,214,255,.07)}
+.stage.next{background:linear-gradient(180deg,rgba(47,230,160,.04),transparent);border-color:rgba(47,230,160,.18)}
+.stage.next .n{color:var(--green);border-color:rgba(47,230,160,.35);background:rgba(47,230,160,.07)}
+.stage .body{font-family:var(--kr);font-size:12px;color:var(--muted);line-height:1.75}
+.stage .body b{color:var(--text)}
+.trackhead{font-family:var(--kr);font-size:12.5px;color:var(--slate);line-height:1.7;margin-bottom:16px;
+  background:var(--bg1);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:10px;padding:14px 18px}
+.trackhead b{color:var(--text)}
+
+/* korean / originals compact rows */
+.krgrid,.oggrid{display:grid;gap:11px}
+.krrow{display:grid;grid-template-columns:30px 1fr auto;gap:14px;align-items:center;background:var(--bg1);
+  border:1px solid var(--line);border-radius:11px;padding:13px 16px;cursor:pointer;transition:.15s}
+.krrow:hover{border-color:var(--line2);background:var(--bg2)}
+.krrow .map{font-family:var(--kr);font-size:12.5px;color:var(--text);line-height:1.4}
+.krrow .map .o{font-family:var(--mono);font-size:10.5px;color:var(--dim);display:block;margin-top:3px}
+.krrow .map .o b{color:var(--cyan);font-weight:500}
+.krrow .rt{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
+.weeks{display:flex;flex-direction:column;gap:10px}
+.week{display:grid;grid-template-columns:64px 1fr;gap:14px;background:var(--bg1);border:1px solid var(--line);border-radius:11px;padding:14px 16px;position:relative}
+.week .wn{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--amber);align-self:start;padding-top:2px}
+.week .wn b{display:block;font-size:20px;font-weight:700;color:var(--text);letter-spacing:0;margin-top:2px}
+.week .wb{font-family:var(--kr);font-size:12px;color:var(--muted);line-height:1.7}
+.week .wb b{color:var(--text)}
+.week .wb .en{font-size:10.5px;color:var(--dim)}
+.horizons{display:flex;flex-direction:column;gap:11px}
+.horizon{background:var(--bg1);border:1px solid var(--line);border-radius:11px;padding:15px 17px;border-left:3px solid}
+.horizon.h3{border-left-color:var(--cyan)}.horizon.h6{border-left-color:var(--amber)}.horizon.h12{border-left-color:var(--green)}
+.horizon .hh{display:flex;align-items:baseline;gap:9px;margin-bottom:9px}
+.horizon .hh .m{font-family:var(--mono);font-size:18px;font-weight:700}
+.horizon.h3 .hh .m{color:var(--cyan)}.horizon.h6 .hh .m{color:var(--amber)}.horizon.h12 .hh .m{color:var(--green)}
+.horizon .hh .l{font-family:var(--kr);font-size:11px;color:var(--dim);letter-spacing:.04em}
+.horizon .hb{font-family:var(--kr);font-size:11.5px;color:var(--muted);line-height:1.75}
+.horizon .hb b{color:var(--text)}
+
+/* detail panel */
+.scrim{position:fixed;inset:0;z-index:200;background:rgba(4,6,9,.66);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .28s}
+.scrim.on{opacity:1;pointer-events:auto}
+.detail{position:fixed;top:0;right:0;bottom:0;z-index:201;width:min(460px,94vw);background:var(--bg1);
+  border-left:1px solid var(--line2);transform:translateX(102%);transition:transform .34s cubic-bezier(.22,1,.36,1);
+  display:flex;flex-direction:column;box-shadow:-30px 0 70px rgba(0,0,0,.5)}
+.detail.on{transform:none}
+.detail .dh{display:flex;align-items:flex-start;gap:12px;padding:20px 22px 16px;border-bottom:1px solid var(--line)}
+.detail .dh .meta{flex:1;min-width:0}
+.detail .dh .dt-tier{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.detail .dh h3{margin:0;font-family:var(--mono);font-size:16px;font-weight:600;line-height:1.3;color:var(--text)}
+.detail .dh .ko{font-family:var(--kr);font-size:13px;color:var(--amber);margin-top:5px}
+.detail .dh .auth{font-family:var(--kr);font-size:11.5px;color:var(--dim);margin-top:6px}
+.detail .close{width:34px;height:34px;border-radius:8px;border:1px solid var(--line2);background:var(--bg2);color:var(--muted);
+  cursor:pointer;font-size:18px;display:grid;place-items:center;flex:0 0 auto;transition:.15s}
+.detail .close:hover{color:var(--text);border-color:var(--dim)}
+.detail .dbody{overflow-y:auto;padding:18px 22px 26px;flex:1;display:flex;flex-direction:column;gap:2px}
+.detail .dactions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.dact{font-family:var(--kr);font-size:11.5px;color:var(--text);background:var(--bg2);border:1px solid var(--line2);
+  border-radius:8px;padding:9px 13px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:7px}
+.dact:hover{border-color:var(--dim)}
+.dact.on.bm{color:var(--gold);border-color:rgba(255,210,77,.5);background:rgba(255,210,77,.08)}
+.dact.rs-r{color:var(--cyan);border-color:rgba(58,214,255,.45)}
+.dact.rs-d{color:var(--green);border-color:rgba(47,230,160,.45)}
+.kvs{display:grid;grid-template-columns:auto 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:18px}
+.kvs .k{background:var(--bg2);font-size:9.5px;letter-spacing:.1em;color:var(--dim);padding:10px 12px;white-space:nowrap;display:flex;align-items:center}
+.kvs .v{background:var(--bg1);font-family:var(--kr);font-size:12px;color:var(--text);padding:10px 12px;line-height:1.5}
+.kvs .v.mono{font-family:var(--mono);font-size:11.5px}
+.kvs .v .stars{font-size:12px}
+.kvs .v.need{color:var(--slate)}
+.dblock{margin-bottom:16px}
+.dblock .bl{font-size:9.5px;letter-spacing:.14em;color:var(--amber);margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.dblock .bl::before{content:"";width:3px;height:11px;background:var(--amber);border-radius:2px}
+.dblock p{margin:0;font-family:var(--kr);font-size:12.5px;color:var(--muted);line-height:1.7}
+.dblock.cyan .bl{color:var(--cyan)}.dblock.cyan .bl::before{background:var(--cyan)}
+.dblock.green .bl{color:var(--green)}.dblock.green .bl::before{background:var(--green)}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;color:var(--dim);background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:4px 9px}
+.complist{display:flex;flex-direction:column;gap:6px}
+.complink{display:flex;align-items:center;gap:9px;font-family:var(--kr);font-size:11.5px;color:var(--muted);
+  background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:8px 11px;cursor:pointer;transition:.13s}
+.complink:hover{color:var(--text);border-color:var(--dim)}
+.complink .tier{width:19px;height:19px;font-size:9px}
+.dlinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+
+/* footer */
+footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line2)}
+.foot-meta{display:flex;flex-wrap:wrap;gap:10px 24px;font-size:10.5px;color:var(--dim);letter-spacing:.06em}
+.foot-meta span b{color:var(--muted);font-weight:500}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;font-size:10.5px;color:var(--dim)}
+.legend .it{display:inline-flex;align-items:center;gap:7px}
+.foot-note{font-family:var(--kr);font-size:11px;color:var(--dim);line-height:1.7;margin-top:18px;max-width:760px}
+
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* responsive */
+@media(max-width:1080px){
+  .dash{grid-template-columns:1fr 1fr}
+  .panel.span2{grid-column:span 2}
+  .explorer{grid-template-columns:1fr}
+  .filters{position:static}
+  .fgroup{display:inline-block;border-bottom:none;border-right:1px solid var(--line);vertical-align:top}
+  .filters{display:flex;flex-wrap:wrap;padding:4px}
+  .trackgrid{grid-template-columns:1fr}
+  .road{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  body{font-size:13px}
+  .wrap{padding:0 14px 80px}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpi:nth-child(5){grid-column:span 2}
+  .dash{grid-template-columns:1fr}
+  .panel.span2{grid-column:span 1}
+  .hud{gap:14px}
+  .filters{display:none}
+  .filters.open{display:flex}
+  .fgroup{border-right:none;border-bottom:1px solid var(--line);width:100%}
+  .mfilter{display:inline-flex!important}
+  /* detail becomes bottom sheet */
+  .detail{top:auto;left:0;right:0;bottom:0;width:100%;height:88vh;border-left:none;border-top:1px solid var(--line2);
+    border-radius:16px 16px 0 0;transform:translateY(102%);box-shadow:0 -30px 70px rgba(0,0,0,.5)}
+  .detail.on{transform:none}
+  .detail .dh{border-radius:16px 16px 0 0}
+}
+.mfilter{display:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--muted);
+  background:var(--bg1);border:1px solid var(--line2);border-radius:9px;padding:10px 13px;cursor:pointer;align-items:center;gap:7px}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .ticker .track{animation:scroll 46s linear infinite!important}
+  .dot{animation:pulse 1.6s ease-in-out infinite!important}
+}
+</style>
+</head>
+<body>
+<div class="bgglow"></div>
+
+<div class="ticker"><div class="track" id="ticker"></div></div>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="mark"><span>Q</span></div>
+      <div class="title">
+        <h1>QUANT<i>://</i>READING-LIST</h1>
+        <div class="sub">국내·해외 퀀트 필독서 인터랙티브 큐레이션</div>
+      </div>
+    </div>
+    <div class="hud">
+      <div class="blk"><div class="lab">SESSION · KST</div><div class="val amber" id="clock">--:--:--</div></div>
+      <div class="blk"><div class="lab">기준일</div><div class="val">2026.06.05</div></div>
+      <div class="blk"><div class="live"><span class="dot"></span>BIBLIOGRAPHY&nbsp;VIEW</div></div>
+    </div>
+  </header>
+
+  <nav class="nav" id="nav">
+    <a href="#dashboard" class="on">CORE DASHBOARD</a>
+    <a href="#explorer">BOOK EXPLORER</a>
+    <a href="#featured">FEATURED CORE 15</a>
+    <a href="#tracks">LEARNING TRACKS</a>
+    <a href="#korean">KOREAN EDITION</a>
+    <a href="#originals">ORIGINALS</a>
+    <a href="#roadmap">STUDY ROADMAP</a>
+  </nav>
+
+  <div class="kpis">
+    <div class="kpi n"><div class="lab"><span>TOTAL BOOKS</span><span class="arrow">≣</span></div><div class="num" data-count="0" id="k-total">0</div><div class="meta">전체 큐레이션 도서</div></div>
+    <div class="kpi g"><div class="lab"><span>KOREAN ED.</span><span class="arrow">▲</span></div><div class="num" data-count="0" id="k-kr">0</div><div class="meta">국내 번역/출간 확인</div></div>
+    <div class="kpi c"><div class="lab"><span>ORIGINALS</span><span class="arrow">◆</span></div><div class="num" data-count="0" id="k-orig">0</div><div class="meta">원서 중심 학습</div></div>
+    <div class="kpi r"><div class="lab"><span>TIER MIX</span><span class="arrow">★</span></div><div class="num" id="k-tier">0</div><div class="meta" id="k-tiermeta">S · A · B</div>
+      <div class="bar"><i class="s" id="bar-s"></i><i class="a" id="bar-a"></i><i class="b" id="bar-b"></i><i class="c" id="bar-c"></i></div></div>
+    <div class="kpi v"><div class="lab"><span>ADVANCED</span><span class="arrow">▴</span></div><div class="num" data-count="0" id="k-adv">0</div><div class="meta">고급서 비중 (난이도 ★4↑)</div></div>
+  </div>
+
+  <!-- CORE DASHBOARD -->
+  <section id="dashboard">
+    <div class="sec-h"><span class="idx">&gt; 01</span><span class="nm">CORE DASHBOARD&nbsp;&nbsp;<span class="ko">전체 도서 시각 요약</span></span><span class="rule"></span><span class="cnt" id="dash-cnt">—</span></div>
+    <div class="dash">
+      <div class="panel">
+        <div class="ph"><span>TIER DISTRIBUTION</span><span class="k">티어 분포</span></div>
+        <div class="tierbar" id="tierbar"></div>
+        <div class="tierleg" id="tierleg"></div>
+      </div>
+      <div class="panel">
+        <div class="ph"><span>TRANSLATION COVERAGE</span><span class="k">국내 번역 커버리지</span></div>
+        <div class="gauge">
+          <div class="ring" id="cov-ring"><div class="v"><b id="cov-pct">0%</b><small>KOREAN ED.</small></div></div>
+          <div class="gmeta" id="cov-meta"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ph"><span>DIFFICULTY HISTOGRAM</span><span class="k">난이도 분포</span></div>
+        <div class="hist" id="hist"></div>
+      </div>
+      <div class="panel span2">
+        <div class="ph"><span>FIELD DISTRIBUTION</span><span class="k">분야별 분포</span></div>
+        <div class="fbars" id="fbars"></div>
+      </div>
+      <div class="panel">
+        <div class="ph"><span>READING PROGRESS</span><span class="k">학습 진행률</span></div>
+        <div class="prog">
+          <div class="prow"><div class="t"><span>전체 완독</span><b id="pg-all">0 / 0</b></div><div class="ptrack"><i class="gr" id="pg-all-bar"></i></div></div>
+          <div class="prow"><div class="t"><span>S-Tier 완독</span><b id="pg-s">0 / 0</b></div><div class="ptrack"><i class="gd" id="pg-s-bar"></i></div></div>
+          <div class="prow"><div class="t"><span>읽는 중</span><b id="pg-reading">0</b></div><div class="ptrack"><i class="am" id="pg-reading-bar"></i></div></div>
+          <div class="prow"><div class="t"><span>즐겨찾기</span><b id="pg-bm">0</b></div><div class="ptrack"><i class="gd" id="pg-bm-bar"></i></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK EXPLORER -->
+  <section id="explorer">
+    <div class="sec-h"><span class="idx">&gt; 02</span><span class="nm">BOOK EXPLORER&nbsp;&nbsp;<span class="ko">검색 · 필터 · 정렬</span></span><span class="rule"></span><span class="cnt" id="cnt-exp">—</span></div>
+    <div class="quick" id="quick"></div>
+    <div class="explorer">
+      <aside class="filters" id="filters"></aside>
+      <div class="results">
+        <div class="tools">
+          <label class="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+            <input id="q-exp" type="text" placeholder="원제 · 번역서명 · 저자 · 출판사 · 분야 · 메모 검색…"></label>
+          <button class="mfilter" id="mfilter">⚙ 필터</button>
+          <div class="viewtog" id="viewtog">
+            <button data-v="table" class="on">▤ TABLE</button>
+            <button data-v="card">▦ CARD</button>
+          </div>
+        </div>
+        <div class="exp-meta">
+          <span class="rc"><b id="rc-n">0</b> / <span id="rc-t">0</span> 권 · <span id="rc-sort">TIER ▼</span></span>
+          <span class="exports">
+            <button class="xbtn" id="x-csv">⤓ CSV (필터결과)</button>
+            <button class="xbtn" id="x-json">⤓ JSON (즐겨찾기)</button>
+          </span>
+        </div>
+        <div id="exp-out"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED CORE 15 -->
+  <section id="featured">
+    <div class="sec-h"><span class="idx">&gt; 03</span><span class="nm">FEATURED CORE 15&nbsp;&nbsp;<span class="ko">핵심 15권</span></span><span class="rule"></span><span class="cnt">CURATED</span></div>
+    <div class="feat" id="feat"></div>
+  </section>
+
+  <!-- LEARNING TRACKS -->
+  <section id="tracks">
+    <div class="sec-h"><span class="idx">&gt; 04</span><span class="nm">LEARNING TRACKS&nbsp;&nbsp;<span class="ko">학습 트랙</span></span><span class="rule"></span><span class="cnt">5 TRACKS</span></div>
+    <div class="tabs" id="trtabs"></div>
+    <div id="trpanes"></div>
+  </section>
+
+  <!-- KOREAN EDITION -->
+  <section id="korean">
+    <div class="sec-h"><span class="idx">&gt; 05</span><span class="nm">KOREAN EDITION VIEW&nbsp;&nbsp;<span class="ko">국내 번역 · 교보문고</span></span><span class="rule"></span><span class="cnt" id="cnt-kr">—</span></div>
+    <div class="krgrid" id="krgrid"></div>
+  </section>
+
+  <!-- ORIGINALS -->
+  <section id="originals">
+    <div class="sec-h"><span class="idx">&gt; 06</span><span class="nm">ORIGINALS VIEW&nbsp;&nbsp;<span class="ko">원서 중심</span></span><span class="rule"></span><span class="cnt" id="cnt-og">—</span></div>
+    <div class="oggrid" id="oggrid"></div>
+  </section>
+
+  <!-- STUDY ROADMAP -->
+  <section id="roadmap">
+    <div class="sec-h"><span class="idx">&gt; 07</span><span class="nm">STUDY ROADMAP&nbsp;&nbsp;<span class="ko">IT·Python 배경 학습 순서</span></span><span class="rule"></span><span class="cnt">4W · 3 · 6 · 12M</span></div>
+    <div class="road">
+      <div>
+        <div class="trackhead">IT 인프라·Python 배경 학습자를 위한 <b>첫 4주</b> — 코드로 손에 익히면서 금융 개념과 통계 기반을 동시에 쌓는 순서입니다.</div>
+        <div class="weeks" id="weeks"></div>
+      </div>
+      <div class="horizons" id="horizons"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="legend">
+      <span class="it"><span class="pill ok">국내 번역 있음</span></span>
+      <span class="it"><span class="pill soft">원서 중심</span></span>
+      <span class="it"><span class="pill chk">확인 필요</span></span>
+      <span class="it"><span class="tier tS">S</span><span class="tier tA">A</span><span class="tier tB">B</span> 티어</span>
+    </div>
+    <div class="foot-meta">
+      <span><b>SOURCES:</b> 교보문고 · 출판사 공식 페이지 · 저자 배포본</span>
+      <span><b>METHOD:</b> 서지 큐레이션 · 판본 메모</span>
+      <span><b>LINKS:</b> 교보문고 검색 우선 · 번역본/원서 병기</span>
+      <span><b>BUILD:</b> quant://reading-list v2.0 · 2026.06.05</span>
+    </div>
+    <div class="foot-note">국내 번역서명·출판사·판본은 큐레이션 시점 기준의 참고 정보입니다. 일부 서지(ISBN·옮긴이·판차)는 <b>확인 필요</b>로 표시했으며, 구매 전 교보문고 검색 링크에서 원제·판차를 함께 확인하면 가장 정확합니다. 학습 순서와 난이도는 일반적 기준을 따른 권장값으로, 투자 성과를 보장하지 않습니다.</div>
+  </footer>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="detail" id="detail" aria-hidden="true"></aside>
+
+<script>
+const KYOBO="https://search.kyobobook.co.kr/search?keyword=";
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+const el=(t,c,txt)=>{const e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e;};
+const reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+/* track + group constants */
+const T={INV:"퀀트 투자자",ALG:"알고리즘 트레이더",MAT:"수리금융/금융공학",ML:"금융 ML/데이터 사이언스",IT:"IT 인프라·Python 배경 학습자"};
+const G={MAT:"수리금융·금융공학",INV:"퀀트 투자·포트폴리오",ML:"금융 ML·AI",MIC:"미시구조·실행",ECO:"계량·시계열",RSK:"리스크·채권·최적화"};
+const ST={KR:"국내 번역 있음",OG:"원서 중심",CK:"확인 필요"};
+
+/* ============ DATA: unified books ============ */
+const books=[
+ {id:"hull-ofod",tier:"S",feat:1,
+  originalTitle:"Options, Futures, and Other Derivatives",koreanTitle:"선물·옵션 투자의 이론과 전략",
+  author:"John C. Hull",originalPublisher:"Pearson",koreanPublisher:"퍼스트북",
+  yearFirst:"1988",recommendedEdition:"11th ed.",editionYear:"2021",isbn:"확인 필요",
+  field:"수리금융·금융공학",group:G.MAT,difficulty:4,translationStatus:ST.KR,
+  prerequisites:"확률, 미적분, 기본 금융시장 지식",
+  summary:"파생상품·선물·옵션·스왑·헤징·리스크 관리를 한 권에 정리한 표준 교재.",
+  whyEssential:"파생상품과 금융공학의 공통 언어를 제공한다. 실무·학계 양쪽에서 기준점으로 쓰인다.",
+  practicalUse:"옵션 가격결정, 헤징, 리스크 측정 개념을 체계적으로 정리.",
+  limitation:"판본 메모: 국내 번역본은 최신 원서 판본보다 이전 판차일 수 있다.",
+  complement:["shreve","glasserman"],track:[T.MAT,T.ALG],
+  tags:["derivatives","options","risk","hedging"],
+  purpose:"파생상품의 표준 언어를 먼저 잡는다",
+  linkQueryKo:"선물 옵션 투자의 이론과 전략",linkQueryOriginal:"Options Futures and Other Derivatives John Hull"},
+
+ {id:"hull-ffom",tier:"B",
+  originalTitle:"Fundamentals of Futures and Options Markets",koreanTitle:"파생상품의 평가와 헤징전략",
+  author:"John C. Hull",originalPublisher:"Pearson",koreanPublisher:"퍼스트북",
+  yearFirst:"1991",recommendedEdition:"9th ed.",editionYear:"2023",isbn:"확인 필요",
+  field:"파생상품 입문",group:G.MAT,difficulty:3,translationStatus:ST.KR,
+  prerequisites:"기초 통계, 금융시장 개념",
+  summary:"OFOD의 학부용 입문 버전. 수식 부담을 줄이고 핵심 개념 위주로 구성.",
+  whyEssential:"파생상품을 처음 접할 때 OFOD로 넘어가기 전 다리 역할을 한다.",
+  practicalUse:"선물·옵션의 기본 메커니즘과 헤징 전략을 빠르게 습득.",
+  limitation:"판본 메모: OFOD 종합서와는 다른 책이다. 더 얇은 입문서.",
+  complement:["hull-ofod"],track:[T.MAT],
+  tags:["derivatives","intro","options","futures"],
+  purpose:"파생 입문 — OFOD로 가는 다리",
+  linkQueryKo:"파생상품의 평가와 헤징전략",linkQueryOriginal:"Fundamentals of Futures and Options Markets Hull"},
+
+ {id:"wwows",tier:"B",
+  originalTitle:"What Works on Wall Street",koreanTitle:"월가의 퀀트 투자 바이블",
+  author:"James P. O'Shaughnessy",originalPublisher:"McGraw-Hill",koreanPublisher:"에프엔미디어",
+  yearFirst:"1997",recommendedEdition:"4th ed.",editionYear:"2011",isbn:"확인 필요",
+  field:"퀀트 투자",group:G.INV,difficulty:2,translationStatus:ST.KR,
+  prerequisites:"기초 재무비율 이해",
+  summary:"수십 년 데이터로 가치·모멘텀 등 팩터 전략의 장기 성과를 검증한 실증서.",
+  whyEssential:"팩터 투자의 직관과 백테스트 사고방식을 쉬운 언어로 익힐 수 있다.",
+  practicalUse:"단순 팩터 스크리닝과 장기 성과 비교의 출발점.",
+  limitation:"판본 메모: 1997 초판 → 2011 4판 번역. 통계 깊이는 제한적.",
+  complement:["ei","ialer"],track:[T.INV],
+  tags:["factor","value","momentum","backtest"],
+  purpose:"팩터 투자 직관을 잡는 입문",
+  linkQueryKo:"월가의 퀀트 투자 바이블",linkQueryOriginal:"What Works on Wall Street OShaughnessy"},
+
+ {id:"ei",tier:"B",
+  originalTitle:"Efficiently Inefficient",koreanTitle:"효율적으로 비효율적인 시장",
+  author:"Lasse Heje Pedersen",originalPublisher:"Princeton Univ. Press",koreanPublisher:"워터베어프레스",
+  yearFirst:"2015",recommendedEdition:"1st ed.",editionYear:"2015",isbn:"확인 필요",
+  field:"헤지펀드 전략",group:G.INV,difficulty:3,translationStatus:ST.KR,
+  prerequisites:"기초 포트폴리오 이론",
+  summary:"실제 헤지펀드 전략(가치·모멘텀·캐리·차익거래)을 매니저 인터뷰와 함께 설명.",
+  whyEssential:"학술 이론과 실무 운용 사이의 간극을 메우는 드문 책.",
+  practicalUse:"전략별 수익 원천과 리스크 구조를 실무 관점에서 파악.",
+  limitation:"판본 메모: 개별 전략의 구현 코드는 다루지 않는다.",
+  complement:["ialer","apm"],track:[T.INV],
+  tags:["hedge-fund","carry","arbitrage","strategy"],
+  purpose:"실전 헤지펀드 전략 지도",
+  linkQueryKo:"효율적으로 비효율적인 시장",linkQueryOriginal:"Efficiently Inefficient Pedersen"},
+
+ {id:"ialer",tier:"B",
+  originalTitle:"Investing Amid Low Expected Returns",koreanTitle:"과거의 검증, 미래의 투자",
+  author:"Antti Ilmanen",originalPublisher:"Wiley",koreanPublisher:"워터베어프레스",
+  yearFirst:"2022",recommendedEdition:"1st ed.",editionYear:"2023",isbn:"확인 필요",
+  field:"퀀트 투자",group:G.INV,difficulty:3,translationStatus:ST.KR,
+  prerequisites:"자산배분·기대수익 개념",
+  summary:"저수익 환경에서의 자산배분과 기대수익을 데이터 중심으로 다룬 실무서.",
+  whyEssential:"기대수익·분산투자·팩터를 현재 시장 맥락에서 통합적으로 본다.",
+  practicalUse:"장기 자산배분 가정과 팩터 포트폴리오 설계에 참고.",
+  limitation:"관련 번역서: Expected Returns의 한국어판이 아니라 축약 후속작(2022)이다.",
+  complement:["expret","ei"],track:[T.INV],
+  tags:["expected-returns","allocation","factor"],
+  purpose:"저수익 시대 자산배분 가이드",
+  linkQueryKo:"과거의 검증 미래의 투자 일마넨",linkQueryOriginal:"Investing Amid Low Expected Returns Ilmanen"},
+
+ {id:"afml",tier:"A",feat:1,
+  originalTitle:"Advances in Financial Machine Learning",koreanTitle:"실전 금융 머신러닝 완벽 분석",
+  author:"Marcos López de Prado",originalPublisher:"Wiley",koreanPublisher:"에이콘",
+  yearFirst:"2018",recommendedEdition:"1st ed.",editionYear:"2018",isbn:"확인 필요",
+  field:"금융 ML",group:G.ML,difficulty:5,translationStatus:ST.KR,
+  prerequisites:"Python, 통계/ML 기초, 금융시계열 이해",
+  summary:"금융 데이터의 특수성을 반영한 라벨링·표본가중·교차검증·백테스트 기법 모음.",
+  whyEssential:"금융 ML에서 흔한 과적합·정보누수 문제를 정면으로 다루는 표준 참고서.",
+  practicalUse:"트리플 배리어 라벨링, 퍼지드 CV, 특징 중요도 분석 실무 적용.",
+  limitation:"판본 메모: 난도가 높고 코드 구현은 별도 보완이 필요하다.",
+  complement:["mlfam","mlat","esl"],track:[T.ML,T.ALG],
+  tags:["financial-ml","overfitting","cross-validation","labeling"],
+  purpose:"금융 ML의 함정을 정면으로 배운다",
+  linkQueryKo:"실전 금융 머신러닝 완벽 분석",linkQueryOriginal:"Advances in Financial Machine Learning Lopez de Prado"},
+
+ {id:"mlfam",tier:"B",
+  originalTitle:"Machine Learning for Asset Managers",koreanTitle:"자산운용을 위한 금융 머신러닝",
+  author:"Marcos López de Prado",originalPublisher:"Cambridge Univ. Press",koreanPublisher:"에이콘",
+  yearFirst:"2020",recommendedEdition:"1st ed.",editionYear:"2021",isbn:"확인 필요",
+  field:"금융 ML",group:G.ML,difficulty:4,translationStatus:ST.KR,
+  prerequisites:"선형대수, 기초 ML, AFML 일부 개념",
+  summary:"AFML의 자매서. 군집화·노이즈 제거·거리행렬 등 핵심 주제를 압축적으로 정리.",
+  whyEssential:"방대한 AFML을 보완하는 핵심 요약본으로 빠르게 개념을 잡기 좋다.",
+  practicalUse:"공분산 행렬 안정화, 군집 기반 포트폴리오 구성 참고.",
+  limitation:"판본 메모: 분량이 짧아 배경 지식이 어느 정도 필요하다.",
+  complement:["afml"],track:[T.ML],
+  tags:["asset-management","clustering","denoising"],
+  purpose:"AFML 핵심을 압축한 자매서",
+  linkQueryKo:"자산운용을 위한 금융 머신러닝",linkQueryOriginal:"Machine Learning for Asset Managers Lopez de Prado"},
+
+ {id:"mlat",tier:"A",feat:1,
+  originalTitle:"Machine Learning for Algorithmic Trading",koreanTitle:"퀀트 투자를 위한 머신러닝·딥러닝 알고리듬 트레이딩",
+  author:"Stefan Jansen",originalPublisher:"Packt",koreanPublisher:"에이콘",
+  yearFirst:"2018",recommendedEdition:"2nd ed.",editionYear:"2021",isbn:"확인 필요",
+  field:"금융 ML 구현",group:G.ML,difficulty:4,translationStatus:ST.KR,
+  prerequisites:"Python, pandas, 기초 ML",
+  summary:"데이터 수집부터 특징 생성·모델링·백테스트까지 트레이딩 파이프라인을 코드로 구현.",
+  whyEssential:"이론을 실제 동작하는 전략 파이프라인으로 연결하는 실습형 교재.",
+  practicalUse:"엔드투엔드 전략 코드 베이스를 따라 만들며 학습.",
+  limitation:"판본 메모: 라이브러리 버전 변화로 일부 코드는 보정이 필요하다.",
+  complement:["afml","pyfin"],track:[T.ML,T.ALG,T.IT],
+  tags:["algo-trading","pipeline","python","backtest"],
+  purpose:"엔드투엔드 트레이딩 파이프라인 실습",
+  linkQueryKo:"퀀트 투자를 위한 머신러닝 딥러닝 알고리듬 트레이딩",linkQueryOriginal:"Machine Learning for Algorithmic Trading Jansen"},
+
+ {id:"pyfin",tier:"A",feat:1,
+  originalTitle:"Python for Finance",koreanTitle:"파이썬을 활용한 금융 분석",
+  author:"Yves Hilpisch",originalPublisher:"O'Reilly",koreanPublisher:"한빛미디어",
+  yearFirst:"2014",recommendedEdition:"2nd ed.",editionYear:"2022",isbn:"확인 필요",
+  field:"프로그래밍",group:G.ML,difficulty:3,translationStatus:ST.KR,
+  prerequisites:"Python 기초",
+  summary:"NumPy·pandas로 금융 데이터를 다루고 가치평가·시뮬레이션을 구현하는 실용서.",
+  whyEssential:"IT/Python 배경 학습자가 금융 도메인으로 진입하는 가장 자연스러운 출발점.",
+  practicalUse:"데이터 처리·시각화·몬테카를로 시뮬레이션 코드 패턴 습득.",
+  limitation:"판본 메모: API 변화가 잦아 공식 문서를 함께 보는 편이 좋다.",
+  complement:["mlat","aiif"],track:[T.IT,T.ML],
+  tags:["python","numpy","pandas","simulation"],
+  purpose:"Python 배경에서 금융으로 가는 첫 책",
+  linkQueryKo:"파이썬을 활용한 금융 분석",linkQueryOriginal:"Python for Finance Yves Hilpisch"},
+
+ {id:"aiif",tier:"B",
+  originalTitle:"Artificial Intelligence in Finance",koreanTitle:"파이썬 기반 금융 인공지능",
+  author:"Yves Hilpisch",originalPublisher:"O'Reilly",koreanPublisher:"한빛미디어",
+  yearFirst:"2020",recommendedEdition:"1st ed.",editionYear:"2022",isbn:"확인 필요",
+  field:"금융 AI",group:G.ML,difficulty:4,translationStatus:ST.KR,
+  prerequisites:"Python, 기초 신경망 개념",
+  summary:"딥러닝·강화학습을 금융 데이터에 적용하는 관점과 구현을 다룬다.",
+  whyEssential:"금융 AI의 데이터·모델·실행 흐름을 한 흐름으로 보여준다.",
+  practicalUse:"신경망 기반 예측·전략 구현의 코드 스캐폴드로 활용.",
+  limitation:"판본 메모: 실거래 적용에는 추가 검증과 리스크 관리가 필요하다.",
+  complement:["pyfin","afml"],track:[T.IT,T.ML],
+  tags:["deep-learning","reinforcement","python","ai"],
+  purpose:"딥러닝·RL의 금융 적용 관점",
+  linkQueryKo:"파이썬 기반 금융 인공지능",linkQueryOriginal:"Artificial Intelligence in Finance Hilpisch"},
+
+ {id:"prml",tier:"B",
+  originalTitle:"Pattern Recognition and Machine Learning",koreanTitle:"패턴 인식과 머신 러닝",
+  author:"Christopher M. Bishop",originalPublisher:"Springer",koreanPublisher:"제이펍",
+  yearFirst:"2006",recommendedEdition:"1st ed.",editionYear:"2018",isbn:"확인 필요",
+  field:"ML 이론",group:G.ML,difficulty:5,translationStatus:ST.KR,
+  prerequisites:"선형대수, 확률론, 미적분",
+  summary:"베이지안 관점에서 머신러닝 이론을 체계적으로 정리한 고전 교재.",
+  whyEssential:"금융 ML의 수학적 토대를 탄탄히 하고 싶을 때 기준이 되는 이론서.",
+  practicalUse:"확률 모델·근사추론의 원리를 깊이 이해.",
+  limitation:"판본 메모: 이론 비중이 커 코드 실습은 별도 자료가 필요하다.",
+  complement:["esl","afml"],track:[T.ML],
+  tags:["ml-theory","bayesian","probabilistic"],
+  purpose:"ML 이론의 수학적 토대",
+  linkQueryKo:"패턴 인식과 머신 러닝 비숍",linkQueryOriginal:"Pattern Recognition and Machine Learning Bishop"},
+
+ {id:"shreve",tier:"S",feat:1,
+  originalTitle:"Stochastic Calculus for Finance I, II",koreanTitle:"",
+  author:"Steven E. Shreve",originalPublisher:"Springer",koreanPublisher:"",
+  yearFirst:"2004",recommendedEdition:"1st ed.",editionYear:"2004",isbn:"확인 필요",
+  field:"수리금융",group:G.MAT,difficulty:5,translationStatus:ST.OG,
+  prerequisites:"실해석, 확률론, 미적분",
+  summary:"이산·연속시간 확률미적분을 금융 파생상품 가격결정과 함께 다루는 표준 교재.",
+  whyEssential:"수리금융/금융공학 트랙의 핵심 수학 토대를 제공한다.",
+  practicalUse:"이토 적분, 위험중립 측도, BS 모형의 유도 원리 이해.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["hull-ofod","glasserman","bjork"],track:[T.MAT],
+  tags:["stochastic-calculus","ito","measure","derivatives"],
+  purpose:"확률미적분의 표준 교재",
+  linkQueryKo:"",linkQueryOriginal:"Stochastic Calculus for Finance Shreve"},
+
+ {id:"clm",tier:"S",feat:1,
+  originalTitle:"The Econometrics of Financial Markets",koreanTitle:"",
+  author:"Campbell, Lo, MacKinlay",originalPublisher:"Princeton Univ. Press",koreanPublisher:"",
+  yearFirst:"1997",recommendedEdition:"1st ed.",editionYear:"1997",isbn:"확인 필요",
+  field:"금융계량",group:G.ECO,difficulty:5,translationStatus:ST.OG,
+  prerequisites:"계량경제학, 통계, 확률",
+  summary:"금융시장의 계량 분석을 종합적으로 정리한 대표 교재.",
+  whyEssential:"실증 자산가격결정과 시장 효율성 검정의 표준 레퍼런스.",
+  practicalUse:"이벤트 스터디·예측가능성·기간구조 모형 분석.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["tsay","hamilton"],track:[T.INV,T.MAT],
+  tags:["econometrics","asset-pricing","efficiency"],
+  purpose:"금융계량의 종합 레퍼런스",
+  linkQueryKo:"",linkQueryOriginal:"The Econometrics of Financial Markets Campbell Lo MacKinlay"},
+
+ {id:"tsay",tier:"S",feat:1,
+  originalTitle:"Analysis of Financial Time Series",koreanTitle:"",
+  author:"Ruey S. Tsay",originalPublisher:"Wiley",koreanPublisher:"",
+  yearFirst:"2002",recommendedEdition:"3rd ed.",editionYear:"2010",isbn:"확인 필요",
+  field:"시계열",group:G.ECO,difficulty:4,translationStatus:ST.OG,
+  prerequisites:"통계, 회귀분석 기초",
+  summary:"금융 시계열의 변동성·공적분·고빈도 데이터 분석을 폭넓게 다룬다.",
+  whyEssential:"GARCH·VAR 등 실무 시계열 도구의 표준 입문/참고서.",
+  practicalUse:"변동성 모형 적합과 리스크 측정의 기초.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["hamilton","clm"],track:[T.ML,T.MAT],
+  tags:["time-series","garch","volatility"],
+  purpose:"금융 시계열의 표준 도구상자",
+  linkQueryKo:"",linkQueryOriginal:"Analysis of Financial Time Series Tsay"},
+
+ {id:"qrm",tier:"S",feat:1,
+  originalTitle:"Quantitative Risk Management",koreanTitle:"",
+  author:"McNeil, Frey, Embrechts",originalPublisher:"Princeton Univ. Press",koreanPublisher:"",
+  yearFirst:"2005",recommendedEdition:"Revised ed.",editionYear:"2015",isbn:"확인 필요",
+  field:"리스크 관리",group:G.RSK,difficulty:5,translationStatus:ST.OG,
+  prerequisites:"확률론, 통계, 코퓰라 개념",
+  summary:"시장·신용·운영 리스크를 통합적으로 다루는 정량 리스크 관리 표준서.",
+  whyEssential:"극단 위험·코퓰라·VaR/ES의 이론과 실무를 연결한다.",
+  practicalUse:"리스크 측정·통합 리스크 모형 설계의 기준.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["tsay","glasserman"],track:[T.MAT],
+  tags:["risk","copula","var","extreme-value"],
+  purpose:"정량 리스크 관리의 표준",
+  linkQueryKo:"",linkQueryOriginal:"Quantitative Risk Management McNeil Frey Embrechts"},
+
+ {id:"harris",tier:"S",feat:1,
+  originalTitle:"Trading and Exchanges",koreanTitle:"",
+  author:"Larry Harris",originalPublisher:"Oxford Univ. Press",koreanPublisher:"",
+  yearFirst:"2003",recommendedEdition:"1st ed.",editionYear:"2003",isbn:"확인 필요",
+  field:"시장미시구조",group:G.MIC,difficulty:3,translationStatus:ST.OG,
+  prerequisites:"기본 시장 메커니즘 이해",
+  summary:"시장 미시구조와 거래 메커니즘을 실무 언어로 풀어낸 고전.",
+  whyEssential:"호가·체결·유동성의 작동 원리를 직관적으로 이해하게 한다.",
+  practicalUse:"주문 유형·시장 설계·거래비용 사고의 기반.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["ahft","ohara","hasbrouck"],track:[T.ALG],
+  tags:["microstructure","liquidity","order-book"],
+  purpose:"시장 미시구조의 직관적 고전",
+  linkQueryKo:"",linkQueryOriginal:"Trading and Exchanges Larry Harris"},
+
+ {id:"ahft",tier:"S",feat:1,
+  originalTitle:"Algorithmic and High-Frequency Trading",koreanTitle:"",
+  author:"Cartea, Jaimungal, Penalva",originalPublisher:"Cambridge Univ. Press",koreanPublisher:"",
+  yearFirst:"2015",recommendedEdition:"1st ed.",editionYear:"2015",isbn:"확인 필요",
+  field:"실행/미시구조",group:G.MIC,difficulty:5,translationStatus:ST.OG,
+  prerequisites:"확률미적분, 최적제어, 미시구조 기초",
+  summary:"최적 실행과 마켓메이킹을 확률제어로 정식화한 알고/고빈도 거래 교재.",
+  whyEssential:"실행 알고리즘과 재고 관리의 수리적 토대를 제공한다.",
+  practicalUse:"최적 청산·마켓메이킹 모형의 수식적 이해.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["harris","shreve"],track:[T.ALG,T.MAT],
+  tags:["hft","execution","market-making","control"],
+  purpose:"최적 실행·마켓메이킹의 수리",
+  linkQueryKo:"",linkQueryOriginal:"Algorithmic and High-Frequency Trading Cartea"},
+
+ {id:"glasserman",tier:"S",feat:1,
+  originalTitle:"Monte Carlo Methods in Financial Engineering",koreanTitle:"",
+  author:"Paul Glasserman",originalPublisher:"Springer",koreanPublisher:"",
+  yearFirst:"2003",recommendedEdition:"1st ed.",editionYear:"2003",isbn:"확인 필요",
+  field:"수치금융",group:G.MAT,difficulty:5,translationStatus:ST.OG,
+  prerequisites:"확률론, 수치해석, 프로그래밍",
+  summary:"금융공학의 몬테카를로 시뮬레이션 이론과 분산감소 기법을 집대성.",
+  whyEssential:"파생상품 가격결정·리스크 계산의 수치적 표준 레퍼런스.",
+  practicalUse:"경로 시뮬레이션·분산감소·민감도 계산 구현.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["shreve","qrm"],track:[T.MAT],
+  tags:["monte-carlo","simulation","numerical"],
+  purpose:"금융공학 몬테카를로의 집대성",
+  linkQueryKo:"",linkQueryOriginal:"Monte Carlo Methods in Financial Engineering Glasserman"},
+
+ {id:"apm",tier:"S",feat:1,
+  originalTitle:"Active Portfolio Management",koreanTitle:"",
+  author:"Grinold & Kahn",originalPublisher:"McGraw-Hill",koreanPublisher:"",
+  yearFirst:"1995",recommendedEdition:"2nd ed.",editionYear:"1999",isbn:"확인 필요",
+  field:"포트폴리오",group:G.INV,difficulty:4,translationStatus:ST.OG,
+  prerequisites:"포트폴리오 이론, 회귀분석",
+  summary:"액티브 운용의 정보비율·기본법칙을 정립한 퀀트 포트폴리오의 고전.",
+  whyEssential:"알파·리스크·정보비율의 사고 프레임을 제공하는 필독서.",
+  practicalUse:"신호 결합·리스크 예산·포트폴리오 구성의 원리.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["meucci","ei"],track:[T.INV],
+  tags:["active","information-ratio","alpha","portfolio"],
+  purpose:"액티브 운용의 기본법칙",
+  linkQueryKo:"",linkQueryOriginal:"Active Portfolio Management Grinold Kahn"},
+
+ {id:"expret",tier:"S",feat:1,
+  originalTitle:"Expected Returns",koreanTitle:"",
+  author:"Antti Ilmanen",originalPublisher:"Wiley",koreanPublisher:"",
+  yearFirst:"2011",recommendedEdition:"1st ed.",editionYear:"2011",isbn:"확인 필요",
+  field:"퀀트 투자",group:G.INV,difficulty:4,translationStatus:ST.OG,
+  prerequisites:"자산배분, 팩터 개념",
+  summary:"자산군·전략·팩터별 기대수익을 방대한 실증으로 종합한 대작.",
+  whyEssential:"기대수익의 원천을 폭넓게 조망하는 퀀트 투자 레퍼런스.",
+  practicalUse:"장기 자산배분 가정과 팩터 프리미엄 이해.",
+  limitation:"관련 번역서: 국내에는 축약 후속작 『과거의 검증, 미래의 투자』가 있다.",
+  complement:["ialer","ei"],track:[T.INV],
+  tags:["expected-returns","factor","allocation"],
+  purpose:"기대수익의 원천을 종합한 대작",
+  linkQueryKo:"",linkQueryOriginal:"Expected Returns Antti Ilmanen"},
+
+ {id:"ang",tier:"A",feat:1,
+  originalTitle:"Asset Management",koreanTitle:"",
+  author:"Andrew Ang",originalPublisher:"Oxford Univ. Press",koreanPublisher:"",
+  yearFirst:"2014",recommendedEdition:"1st ed.",editionYear:"2014",isbn:"확인 필요",
+  field:"퀀트 투자",group:G.INV,difficulty:4,translationStatus:ST.CK,
+  prerequisites:"포트폴리오 이론, 팩터 개념",
+  summary:"팩터를 중심으로 자산운용 전반을 재구성한 현대적 운용 교재.",
+  whyEssential:"\"팩터가 자산\"이라는 관점으로 운용을 통합적으로 사고하게 한다.",
+  practicalUse:"팩터 기반 자산배분과 운용 의사결정 프레임.",
+  limitation:"국내 번역: 확인 필요. 현재는 원서 기준으로 본다.",
+  complement:["apm","expret"],track:[T.INV],
+  tags:["factor","asset-management","allocation"],
+  purpose:"팩터 관점의 현대 자산운용",
+  linkQueryKo:"",linkQueryOriginal:"Asset Management Andrew Ang"},
+
+ {id:"qepm",tier:"A",feat:1,
+  originalTitle:"Quantitative Equity Portfolio Management",koreanTitle:"",
+  author:"Chincarini & Kim",originalPublisher:"McGraw-Hill",koreanPublisher:"",
+  yearFirst:"2006",recommendedEdition:"2nd ed.",editionYear:"2023",isbn:"확인 필요",
+  field:"퀀트 투자",group:G.INV,difficulty:4,translationStatus:ST.OG,
+  prerequisites:"통계, 포트폴리오 최적화",
+  summary:"퀀트 주식 포트폴리오의 팩터 모형·리스크·구현을 실무 중심으로 다룬다.",
+  whyEssential:"주식 퀀트 운용의 모델링과 구현을 체계적으로 잇는다.",
+  practicalUse:"팩터 모형 추정·포트폴리오 최적화·성과 분석.",
+  limitation:"판본 메모: McGraw-Hill 2판(2023). 동명의 다른 책과 혼동에 유의.",
+  complement:["apm","meucci"],track:[T.INV],
+  tags:["equity","factor-model","optimization"],
+  purpose:"주식 퀀트 운용의 실무 모델링",
+  linkQueryKo:"",linkQueryOriginal:"Quantitative Equity Portfolio Management Chincarini Kim"},
+
+ {id:"brooks",tier:"A",
+  originalTitle:"Introductory Econometrics for Finance",koreanTitle:"",
+  author:"Chris Brooks",originalPublisher:"Cambridge Univ. Press",koreanPublisher:"",
+  yearFirst:"2002",recommendedEdition:"4th ed.",editionYear:"2019",isbn:"확인 필요",
+  field:"계량 입문",group:G.ECO,difficulty:3,translationStatus:ST.OG,
+  prerequisites:"기초 통계",
+  summary:"금융 데이터에 초점을 둔 계량경제학 입문서. 예제와 소프트웨어 활용 풍부.",
+  whyEssential:"금융계량의 첫 걸음으로 접근성이 좋다.",
+  practicalUse:"회귀·시계열·패널 분석의 실습 기반.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["tsay","clm"],track:[T.INV],
+  tags:["econometrics","intro","regression"],
+  purpose:"금융계량의 친절한 입문",
+  linkQueryKo:"",linkQueryOriginal:"Introductory Econometrics for Finance Brooks"},
+
+ {id:"hamilton",tier:"A",
+  originalTitle:"Time Series Analysis",koreanTitle:"",
+  author:"James D. Hamilton",originalPublisher:"Princeton Univ. Press",koreanPublisher:"",
+  yearFirst:"1994",recommendedEdition:"1st ed.",editionYear:"1994",isbn:"확인 필요",
+  field:"시계열",group:G.ECO,difficulty:5,translationStatus:ST.OG,
+  prerequisites:"행렬대수, 확률론, 계량 기초",
+  summary:"시계열 계량의 이론적 표준서. 상태공간·VAR·단위근을 깊이 있게 다룬다.",
+  whyEssential:"시계열 분석의 수학적 토대를 가장 엄밀하게 제공한다.",
+  practicalUse:"상태공간 모형·필터링·구조 추정의 이론 근거.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["tsay","clm"],track:[T.MAT,T.ML],
+  tags:["time-series","var","state-space"],
+  purpose:"시계열 계량의 이론적 표준",
+  linkQueryKo:"",linkQueryOriginal:"Time Series Analysis Hamilton"},
+
+ {id:"meucci",tier:"A",
+  originalTitle:"Risk and Asset Allocation",koreanTitle:"",
+  author:"Attilio Meucci",originalPublisher:"Springer",koreanPublisher:"",
+  yearFirst:"2005",recommendedEdition:"1st ed.",editionYear:"2005",isbn:"확인 필요",
+  field:"포트폴리오",group:G.INV,difficulty:5,translationStatus:ST.OG,
+  prerequisites:"확률론, 최적화, 통계",
+  summary:"분포 추정에서 포트폴리오 최적화까지 리스크-자산배분을 엄밀히 통합.",
+  whyEssential:"불확실성하의 포트폴리오 최적화를 깊이 있게 다룬다.",
+  practicalUse:"추정오차·강건 최적화·시나리오 분석 적용.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["apm","qepm"],track:[T.MAT,T.INV],
+  tags:["allocation","optimization","estimation"],
+  purpose:"리스크-자산배분의 엄밀한 통합",
+  linkQueryKo:"",linkQueryOriginal:"Risk and Asset Allocation Meucci"},
+
+ {id:"ohara",tier:"A",
+  originalTitle:"Market Microstructure Theory",koreanTitle:"",
+  author:"Maureen O'Hara",originalPublisher:"Blackwell",koreanPublisher:"",
+  yearFirst:"1995",recommendedEdition:"1st ed.",editionYear:"1995",isbn:"확인 필요",
+  field:"미시구조",group:G.MIC,difficulty:4,translationStatus:ST.OG,
+  prerequisites:"미시경제, 정보경제 기초",
+  summary:"정보 비대칭과 가격 형성을 다루는 시장 미시구조 이론의 표준서.",
+  whyEssential:"미시구조 이론 모형의 토대를 제공한다.",
+  practicalUse:"정보 기반 거래·스프레드 모형의 이론 이해.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["harris","hasbrouck"],track:[T.ALG],
+  tags:["microstructure","information","spread"],
+  purpose:"미시구조 이론의 표준",
+  linkQueryKo:"",linkQueryOriginal:"Market Microstructure Theory OHara"},
+
+ {id:"hasbrouck",tier:"A",
+  originalTitle:"Empirical Market Microstructure",koreanTitle:"",
+  author:"Joel Hasbrouck",originalPublisher:"Oxford Univ. Press",koreanPublisher:"",
+  yearFirst:"2007",recommendedEdition:"1st ed.",editionYear:"2007",isbn:"확인 필요",
+  field:"미시구조",group:G.MIC,difficulty:4,translationStatus:ST.OG,
+  prerequisites:"시계열, 계량 기초",
+  summary:"거래·호가 데이터의 실증 분석으로 미시구조를 다루는 실무 지향서.",
+  whyEssential:"미시구조의 이론을 데이터로 검증하는 방법을 보여준다.",
+  practicalUse:"가격 발견·거래비용·정보 함량 추정.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["ohara","harris"],track:[T.ALG],
+  tags:["microstructure","empirical","price-discovery"],
+  purpose:"미시구조의 실증 분석",
+  linkQueryKo:"",linkQueryOriginal:"Empirical Market Microstructure Hasbrouck"},
+
+ {id:"boyd",tier:"A",
+  originalTitle:"Convex Optimization",koreanTitle:"",
+  author:"Boyd & Vandenberghe",originalPublisher:"Cambridge Univ. Press",koreanPublisher:"",
+  yearFirst:"2004",recommendedEdition:"1st ed.",editionYear:"2004",isbn:"확인 필요",
+  field:"최적화",group:G.RSK,difficulty:4,translationStatus:ST.OG,
+  prerequisites:"선형대수, 미적분",
+  summary:"볼록 최적화의 이론과 응용을 폭넓게 다루는 표준 교재.",
+  whyEssential:"포트폴리오 최적화·ML 등 퀀트 전반의 최적화 토대.",
+  practicalUse:"제약 최적화 문제의 정식화와 해법.",
+  limitation:"판본 메모: 저자가 무료 PDF를 공식 배포한다.",
+  complement:["meucci","esl"],track:[T.ML,T.IT],
+  tags:["optimization","convex","math"],
+  purpose:"퀀트 전반의 최적화 토대",
+  linkQueryKo:"",linkQueryOriginal:"Convex Optimization Boyd Vandenberghe"},
+
+ {id:"bjork",tier:"B",
+  originalTitle:"Arbitrage Theory in Continuous Time",koreanTitle:"",
+  author:"Tomas Björk",originalPublisher:"Oxford Univ. Press",koreanPublisher:"",
+  yearFirst:"1998",recommendedEdition:"4th ed.",editionYear:"2019",isbn:"확인 필요",
+  field:"수리금융",group:G.MAT,difficulty:4,translationStatus:ST.OG,
+  prerequisites:"확률미적분 기초",
+  summary:"연속시간 차익거래 이론을 비교적 접근하기 쉽게 전개한 교재.",
+  whyEssential:"Shreve로 가기 전후로 보기 좋은 수리금융 교재.",
+  practicalUse:"위험중립 가격결정과 이자율 모형 이해.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["shreve","baxter"],track:[T.MAT],
+  tags:["arbitrage","continuous-time","pricing"],
+  purpose:"접근성 좋은 수리금융 교재",
+  linkQueryKo:"",linkQueryOriginal:"Arbitrage Theory in Continuous Time Bjork"},
+
+ {id:"luenberger",tier:"B",
+  originalTitle:"Investment Science",koreanTitle:"",
+  author:"David G. Luenberger",originalPublisher:"Oxford Univ. Press",koreanPublisher:"",
+  yearFirst:"1997",recommendedEdition:"2nd ed.",editionYear:"2013",isbn:"확인 필요",
+  field:"투자수학",group:G.MAT,difficulty:3,translationStatus:ST.OG,
+  prerequisites:"미적분, 기초 확률",
+  summary:"투자의 수리적 기초(현금흐름·포트폴리오·파생)를 균형 있게 정리한 교재.",
+  whyEssential:"투자수학의 전반을 한 권으로 조망하기 좋다.",
+  practicalUse:"채권·포트폴리오·파생의 기초 수식 이해.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["bjork","tuckman"],track:[T.MAT,T.INV],
+  tags:["investment","math","portfolio"],
+  purpose:"투자수학의 균형 잡힌 입문",
+  linkQueryKo:"",linkQueryOriginal:"Investment Science Luenberger"},
+
+ {id:"tuckman",tier:"B",
+  originalTitle:"Fixed Income Securities",koreanTitle:"",
+  author:"Tuckman & Serrat",originalPublisher:"Wiley",koreanPublisher:"",
+  yearFirst:"1995",recommendedEdition:"3rd ed.",editionYear:"2011",isbn:"확인 필요",
+  field:"채권",group:G.RSK,difficulty:3,translationStatus:ST.OG,
+  prerequisites:"기초 금융수학",
+  summary:"채권과 금리 파생의 가격결정·헤징을 실무 관점에서 다룬다.",
+  whyEssential:"고정수익 시장의 핵심 도구를 체계적으로 정리한다.",
+  practicalUse:"듀레이션·기간구조·금리 리스크 관리.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["luenberger","hull-ofod"],track:[T.MAT],
+  tags:["fixed-income","rates","duration"],
+  purpose:"고정수익 시장의 실무 도구",
+  linkQueryKo:"",linkQueryOriginal:"Fixed Income Securities Tuckman Serrat"},
+
+ {id:"baxter",tier:"B",
+  originalTitle:"Financial Calculus",koreanTitle:"",
+  author:"Baxter & Rennie",originalPublisher:"Cambridge Univ. Press",koreanPublisher:"",
+  yearFirst:"1996",recommendedEdition:"1st ed.",editionYear:"1996",isbn:"확인 필요",
+  field:"파생 입문",group:G.MAT,difficulty:3,translationStatus:ST.OG,
+  prerequisites:"미적분, 기초 확률",
+  summary:"파생상품 가격결정의 직관을 비교적 가볍게 전달하는 입문서.",
+  whyEssential:"Shreve 같은 정식 교재 전에 직관을 잡기 좋다.",
+  practicalUse:"마틴게일·복제 포트폴리오의 직관적 이해.",
+  limitation:"국내 번역: 확인 필요. 원서 권장.",
+  complement:["shreve","bjork"],track:[T.MAT],
+  tags:["derivatives","intro","martingale"],
+  purpose:"파생 가격결정의 직관 입문",
+  linkQueryKo:"",linkQueryOriginal:"Financial Calculus Baxter Rennie"},
+
+ {id:"esl",tier:"B",
+  originalTitle:"The Elements of Statistical Learning",koreanTitle:"",
+  author:"Hastie, Tibshirani, Friedman",originalPublisher:"Springer",koreanPublisher:"",
+  yearFirst:"2001",recommendedEdition:"2nd ed.",editionYear:"2009",isbn:"확인 필요",
+  field:"ML 이론",group:G.ML,difficulty:5,translationStatus:ST.OG,
+  prerequisites:"선형대수, 통계, 회귀",
+  summary:"통계적 학습의 이론과 방법을 폭넓게 정리한 ML의 고전.",
+  whyEssential:"금융 ML의 통계적 기반을 다지는 표준 레퍼런스.",
+  practicalUse:"정규화·앙상블·차원축소의 원리 이해.",
+  limitation:"판본 메모: 저자가 무료 PDF를 공식 배포한다.",
+  complement:["prml","afml"],track:[T.ML,T.IT],
+  tags:["statistical-learning","regularization","ensemble"],
+  purpose:"통계적 학습의 고전",
+  linkQueryKo:"",linkQueryOriginal:"The Elements of Statistical Learning Hastie"}
+];
+const byId=id=>books.find(b=>b.id===id);
+
+/* ============ user state (localStorage) ============ */
+const LS="qt_book_state_v2";
+let state={bookmarks:[],read:{}};
+try{const s=JSON.parse(localStorage.getItem(LS));if(s&&typeof s==="object"){state.bookmarks=Array.isArray(s.bookmarks)?s.bookmarks:[];state.read=s.read&&typeof s.read==="object"?s.read:{};}}catch(e){}
+const saveState=()=>{try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){}};
+const isBm=id=>state.bookmarks.includes(id);
+const readOf=id=>state.read[id]||"not";
+function toggleBm(id){const i=state.bookmarks.indexOf(id);if(i<0)state.bookmarks.push(id);else state.bookmarks.splice(i,1);saveState();refreshAll();}
+function cycleRead(id){const order=["not","reading","done"];const cur=readOf(id);const nx=order[(order.indexOf(cur)+1)%3];if(nx==="not")delete state.read[id];else state.read[id]=nx;saveState();refreshAll();}
+const READLBL={not:"Not Started",reading:"Reading",done:"Completed"};
+const READSH={not:"○",reading:"◐",done:"●"};
+
+/* ============ helpers ============ */
+function stars(n){const f="★".repeat(n),o="☆".repeat(5-n);const s=el("span","stars");s.innerHTML=f+'<span class="off">'+o+"</span>";return s;}
+function tierEl(t){return el("span","tier t"+t,t);}
+function kyoboLink(query,label){const a=el("a","book-link kyobo");a.href=KYOBO+encodeURIComponent(query);a.target="_blank";a.rel="noopener noreferrer";a.textContent=label||"교보문고 ↗";return a;}
+function origLink(query){const a=el("a","book-link orig");a.href=KYOBO+encodeURIComponent(query);a.target="_blank";a.rel="noopener noreferrer";a.textContent="원서 검색 ↗";return a;}
+function primaryLink(b){
+  if(b.translationStatus===ST.KR&&b.koreanTitle)return kyoboLink(b.linkQueryKo||b.koreanTitle,"교보문고 ↗");
+  return origLink(b.linkQueryOriginal||b.originalTitle);
+}
+function statusPill(b){
+  const cls=b.translationStatus===ST.KR?"ok":b.translationStatus===ST.OG?"soft":"chk";
+  return el("span","pill "+cls,b.translationStatus);
+}
+
+/* ============ KPI + count-up ============ */
+function countUp(node,to){
+  if(reduce||document.visibilityState!=="visible"){node.textContent=to;return;}
+  const dur=900,t0=performance.now();
+  function step(t){const p=Math.min(1,(t-t0)/dur);const e=1-Math.pow(1-p,3);node.textContent=Math.round(to*e);if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+const tierCount=t=>books.filter(b=>b.tier===t).length;
+function renderKPIs(){
+  const total=books.length;
+  const kr=books.filter(b=>b.translationStatus===ST.KR).length;
+  const og=books.filter(b=>b.translationStatus!==ST.KR).length;
+  const adv=books.filter(b=>b.difficulty>=4).length;
+  const S=tierCount("S"),A=tierCount("A"),B=tierCount("B"),C=tierCount("C");
+  countUp($("#k-total"),total);countUp($("#k-kr"),kr);countUp($("#k-orig"),og);countUp($("#k-adv"),Math.round(adv/total*100));
+  $("#k-adv").insertAdjacentText("beforeend","");
+  $("#k-tier").textContent=S+A+B+C;
+  $("#k-tiermeta").textContent="S "+S+" · A "+A+" · B "+B;
+  const tot=S+A+B+C;
+  $("#bar-s").style.width=(S/tot*100)+"%";$("#bar-a").style.width=(A/tot*100)+"%";
+  $("#bar-b").style.width=(B/tot*100)+"%";$("#bar-c").style.width=(C/tot*100)+"%";
+  // adv shows as %
+  setTimeout(()=>{$("#k-adv").textContent=Math.round(adv/total*100)+"%";},reduce?0:950);
+  $("#dash-cnt").textContent=total+" BOOKS";
+}
+
+/* ============ DASHBOARD viz ============ */
+function renderDashboard(){
+  const total=books.length;
+  // tier bar
+  const tb=$("#tierbar");tb.innerHTML="";const leg=$("#tierleg");leg.innerHTML="";
+  [["S","s",tierCount("S")],["A","a",tierCount("A")],["B","b",tierCount("B")]].forEach(([t,c,n])=>{
+    const i=el("div",c);i.style.flex="0 0 0";i.textContent=n;tb.append(i);
+    requestAnimationFrame(()=>{i.style.flex=n;});
+    const it=el("span","it");const sw=el("span","sw");sw.style.background=t==="S"?"var(--gold)":t==="A"?"var(--cyan)":"var(--slate)";
+    it.append(sw,document.createTextNode(t+"-Tier · "+n+"권 ("+Math.round(n/total*100)+"%)"));leg.append(it);
+  });
+  // field bars (by group)
+  const fb=$("#fbars");fb.innerHTML="";
+  const groups={};books.forEach(b=>groups[b.group]=(groups[b.group]||0)+1);
+  const maxg=Math.max(...Object.values(groups));
+  Object.entries(groups).sort((a,b)=>b[1]-a[1]).forEach(([g,n])=>{
+    const row=el("div","fbar");row.append(el("div","nm",g));
+    const tr=el("div","tr");const i=el("i");tr.append(i);row.append(tr);row.append(el("div","vv",String(n)));
+    fb.append(row);requestAnimationFrame(()=>{i.style.width=(n/maxg*100)+"%";});
+  });
+  // translation gauge
+  const kr=books.filter(b=>b.translationStatus===ST.KR).length;
+  const pct=Math.round(kr/total*100);
+  const ring=$("#cov-ring");
+  if(reduce){ring.style.setProperty("--p",pct);}else{let cur=0;const iv=setInterval(()=>{cur+=2;if(cur>=pct){cur=pct;clearInterval(iv);}ring.style.setProperty("--p",cur);},14);}
+  $("#cov-pct").textContent=pct+"%";
+  const og=books.filter(b=>b.translationStatus===ST.OG).length;
+  const ck=books.filter(b=>b.translationStatus===ST.CK).length;
+  $("#cov-meta").innerHTML='<b class="gr">'+kr+'권</b> 국내 번역 있음<br><b>'+og+'권</b> 원서 중심<br><b class="am">'+ck+'권</b> 확인 필요';
+  // difficulty histogram
+  const h=$("#hist");h.innerHTML="";
+  const dc=[1,2,3,4,5].map(d=>books.filter(b=>b.difficulty===d).length);
+  const maxd=Math.max(...dc);
+  dc.forEach((n,idx)=>{
+    const col=el("div","hcol");const bar=el("div","bar2");bar.style.height="0%";
+    col.append(bar,el("div","lb","★"+(idx+1)),el("div","ct",String(n)));h.append(col);
+    requestAnimationFrame(()=>{bar.style.height=(maxd?n/maxd*100:0)+"%";});
+  });
+  renderProgress();
+}
+function renderProgress(){
+  const total=books.length;
+  const done=books.filter(b=>readOf(b.id)==="done").length;
+  const reading=books.filter(b=>readOf(b.id)==="reading").length;
+  const sBooks=books.filter(b=>b.tier==="S");
+  const sDone=sBooks.filter(b=>readOf(b.id)==="done").length;
+  const bm=state.bookmarks.length;
+  $("#pg-all").textContent=done+" / "+total;
+  $("#pg-all-bar").style.width=(done/total*100)+"%";
+  $("#pg-s").textContent=sDone+" / "+sBooks.length;
+  $("#pg-s-bar").style.width=(sDone/sBooks.length*100)+"%";
+  $("#pg-reading").textContent=reading+" 권";
+  $("#pg-reading-bar").style.width=(reading/total*100)+"%";
+  $("#pg-bm").textContent=bm+" 권";
+  $("#pg-bm-bar").style.width=(bm/total*100)+"%";
+}
+
+/* ============ EXPLORER ============ */
+const SORTS={tier:"TIER",title:"제목",field:"분야",difficulty:"난이도",year:"연도",trans:"번역"};
+const TIERORD={S:0,A:1,B:2,C:3};
+let exp={q:"",tier:"ALL",group:"ALL",diff:"ALL",trans:"ALL",read:"ALL",bm:false,view:(window.innerWidth<=760?"card":"table"),sortKey:"tier",sortDir:1};
+
+function buildFilters(){
+  const f=$("#filters");f.innerHTML="";
+  const groups=Array.from(new Set(books.map(b=>b.group)));
+  function group(title,key,opts,cls){
+    const g=el("div","fgroup");g.append(Object.assign(el("div","ft"),{textContent:title}));
+    const o=el("div","fopts");
+    opts.forEach(([val,lbl])=>{
+      const c=el("div","fopt"+(cls?" "+cls:""),lbl);c.dataset.k=key;c.dataset.v=val;
+      c.setAttribute("aria-pressed",String(exp[key]===val||(key==="bm"&&exp.bm&&val==="Y")));
+      c.addEventListener("click",()=>{
+        if(key==="bm"){exp.bm=!exp.bm;}else{exp[key]=val;}
+        buildFilters();renderExplorer();
+      });
+      o.append(c);
+    });
+    g.append(o);f.append(g);
+  }
+  group("TIER","tier",[["ALL","전체"],["S","S"],["A","A"],["B","B"]]);
+  group("분야 · FIELD","group",[["ALL","전체"]].concat(groups.map(g=>[g,g])),"alt");
+  group("난이도 · DIFFICULTY","diff",[["ALL","전체"],["1","★1"],["2","★2"],["3","★3"],["4","★4"],["5","★5"]]);
+  group("번역 · TRANSLATION","trans",[["ALL","전체"],[ST.KR,"번역 있음"],[ST.OG,"원서 중심"],[ST.CK,"확인 필요"]],"alt");
+  group("읽음 상태 · STATUS","read",[["ALL","전체"],["not","Not Started"],["reading","Reading"],["done","Completed"]],"alt2");
+  group("즐겨찾기 · BOOKMARK","bm",[["Y","★ 즐겨찾기만"]]);
+  const r=el("button","reset","↺ RESET FILTERS");r.addEventListener("click",resetFilters);f.append(r);
+}
+function resetFilters(){exp={...exp,q:"",tier:"ALL",group:"ALL",diff:"ALL",trans:"ALL",read:"ALL",bm:false};$("#q-exp").value="";buildFilters();renderExplorer();}
+
+function applyFilters(){
+  const q=exp.q.toLowerCase();
+  let rows=books.filter(b=>{
+    if(exp.tier!=="ALL"&&b.tier!==exp.tier)return false;
+    if(exp.group!=="ALL"&&b.group!==exp.group)return false;
+    if(exp.diff!=="ALL"&&String(b.difficulty)!==exp.diff)return false;
+    if(exp.trans!=="ALL"&&b.translationStatus!==exp.trans)return false;
+    if(exp.read!=="ALL"&&readOf(b.id)!==exp.read)return false;
+    if(exp.bm&&!isBm(b.id))return false;
+    if(q){
+      const hay=[b.originalTitle,b.koreanTitle,b.author,b.originalPublisher,b.koreanPublisher,b.field,b.group,b.summary,(b.tags||[]).join(" ")].join(" ").toLowerCase();
+      if(!hay.includes(q))return false;
+    }
+    return true;
+  });
+  rows.sort((a,b)=>{
+    let r=0;const k=exp.sortKey;
+    if(k==="tier")r=TIERORD[a.tier]-TIERORD[b.tier];
+    else if(k==="title")r=a.originalTitle.localeCompare(b.originalTitle);
+    else if(k==="field")r=a.group.localeCompare(b.group);
+    else if(k==="difficulty")r=a.difficulty-b.difficulty;
+    else if(k==="year")r=(+a.editionYear||0)-(+b.editionYear||0);
+    else if(k==="trans")r=a.translationStatus.localeCompare(b.translationStatus);
+    if(r===0)r=TIERORD[a.tier]-TIERORD[b.tier];
+    return r*exp.sortDir;
+  });
+  return rows;
+}
+function setSort(k){if(exp.sortKey===k){exp.sortDir*=-1;}else{exp.sortKey=k;exp.sortDir=1;}renderExplorer();}
+
+function renderExplorer(){
+  const rows=applyFilters();
+  $("#rc-n").textContent=rows.length;$("#rc-t").textContent=books.length;
+  $("#cnt-exp").textContent=rows.length+" / "+books.length;
+  $("#rc-sort").textContent=SORTS[exp.sortKey]+(exp.sortDir>0?" ▲":" ▼");
+  const out=$("#exp-out");out.innerHTML="";
+  $$("#viewtog button").forEach(b=>b.classList.toggle("on",b.dataset.v===exp.view));
+  if(!rows.length){out.innerHTML='<div class="grid"><div class="empty">› 일치하는 항목이 없습니다. 필터를 조정해 보세요.</div></div>';return;}
+  if(exp.view==="table")out.append(buildTable(rows));else out.append(buildCards(rows));
+}
+function arrow(k){if(exp.sortKey!==k)return"";const s=el("span","ar",exp.sortDir>0?"▲":"▼");return s;}
+function buildTable(rows){
+  const grid=el("div","grid");const sc=el("div","scroll");const t=el("table","data");
+  const thead=el("thead");const htr=el("tr");
+  const cols=[["tier","TIER"],["title","ORIGINAL TITLE"],["_ko","국내 번역서"],["field","FIELD"],["difficulty","난이도"],["year","최신판"],["trans","번역"],["_act","STATUS"]];
+  cols.forEach(([k,lbl])=>{
+    const th=el("th",null,lbl);
+    if(k.startsWith("_")){th.classList.add("nosort");}
+    else{th.addEventListener("click",()=>setSort(k));const a=arrow(k);if(a)th.append(a);}
+    htr.append(th);
+  });
+  thead.append(htr);t.append(thead);
+  const tb=el("tbody");
+  rows.forEach(b=>{
+    const tr=el("tr");tr.addEventListener("click",e=>{if(e.target.closest(".iconbtn")||e.target.closest("a"))return;openDetail(b.id);});
+    const td0=el("td");td0.dataset.label="TIER";td0.append(tierEl(b.tier));tr.append(td0);
+    const td1=el("td");td1.dataset.label="ORIGINAL";const tc=el("div","titlecell");tc.append(el("span","en",b.originalTitle));tc.append(el("span","auth",b.author));td1.append(tc);tr.append(td1);
+    const td2=el("td");td2.dataset.label="번역서";const kc=el("div","titlecell");
+    if(b.koreanTitle){kc.append(el("span","ko-main",b.koreanTitle));if(b.koreanPublisher)kc.append(el("span","auth",b.koreanPublisher));}
+    else{kc.append(el("span","ko-main dim","— 원서 중심"));}
+    td2.append(kc);tr.append(td2);
+    const td3=el("td");td3.dataset.label="FIELD";td3.append(el("span","fld",b.group));tr.append(td3);
+    const td4=el("td");td4.dataset.label="난이도";td4.append(stars(b.difficulty));tr.append(td4);
+    const td5=el("td");td5.dataset.label="최신판";td5.append(el("span","yr",b.editionYear));tr.append(td5);
+    const td6=el("td");td6.dataset.label="번역";td6.append(statusPill(b));tr.append(td6);
+    const td7=el("td");td7.dataset.label="STATUS";td7.append(rowActions(b));tr.append(td7);
+    tb.append(tr);
+  });
+  t.append(tb);sc.append(t);grid.append(sc);return grid;
+}
+function rowActions(b){
+  const w=el("div","rowact");
+  const bm=el("button","iconbtn bm"+(isBm(b.id)?" on":""),isBm(b.id)?"★":"☆");bm.title="즐겨찾기";
+  bm.addEventListener("click",e=>{e.stopPropagation();toggleBm(b.id);});
+  const rs=el("button","iconbtn rs "+(readOf(b.id)==="reading"?"r":readOf(b.id)==="done"?"d":""),READSH[readOf(b.id)]);
+  rs.title="읽음 상태: "+READLBL[readOf(b.id)];
+  rs.addEventListener("click",e=>{e.stopPropagation();cycleRead(b.id);});
+  w.append(bm,rs);return w;
+}
+function buildCards(rows){
+  const wrap=el("div","cards");
+  rows.forEach(b=>{
+    const c=el("div","bcard"+(isBm(b.id)?" book-bm":""));c.addEventListener("click",e=>{if(e.target.closest(".iconbtn")||e.target.closest("a"))return;openDetail(b.id);});
+    const act=el("div","cardact");act.append(...rowActions(b).childNodes);
+    c.append(act);
+    const ch=el("div","ch");ch.append(tierEl(b.tier));ch.append(stars(b.difficulty));ch.append(el("span","fld",b.group));c.append(ch);
+    c.append(el("div","en",b.originalTitle));
+    if(b.koreanTitle)c.append(el("div","ko-main",b.koreanTitle));else c.append(el("div","ko-main dim","원서 중심"));
+    c.append(el("div","auth",b.author+" · "+(b.koreanPublisher||b.originalPublisher)));
+    const cf=el("div","cf");cf.append(statusPill(b));cf.append(primaryLink(b));c.append(cf);
+    wrap.append(c);
+  });
+  return wrap;
+}
+
+/* ============ FEATURED ============ */
+function renderFeatured(){
+  const wrap=$("#feat");wrap.innerHTML="";
+  const feats=books.filter(b=>b.feat);
+  feats.forEach((b,i)=>{
+    const c=el("div","fcard");c.addEventListener("click",e=>{if(e.target.closest("a"))return;openDetail(b.id);});
+    c.append(Object.assign(el("div","rk"),{textContent:"#"+String(i+1).padStart(2,"0")}));
+    const top=el("div","top");top.append(tierEl(b.tier));top.append(stars(b.difficulty));c.append(top);
+    c.append(el("div","en",b.originalTitle));
+    if(b.koreanTitle)c.append(el("div","ko-main",b.koreanTitle));
+    c.append(el("div","auth",b.author+" · "+b.field));
+    c.append(el("div","purpose",b.purpose));
+    const ff=el("div","ff");ff.append(statusPill(b));ff.append(primaryLink(b));c.append(ff);
+    wrap.append(c);
+  });
+}
+
+/* ============ LEARNING TRACKS ============ */
+const tracks=[
+ {key:T.IT,code:"IT/PY",head:"IT 인프라·Python 배경에서 출발해 <b>코드로 익히며</b> 금융 도메인과 통계 기반을 함께 쌓는 트랙입니다.",
+  s1:["pyfin","mlat"],s2:["aiif","esl","afml"],
+  task:"공개 시세 데이터로 <b>데이터 적재 → 특징 생성 → 단순 모델 → 백테스트</b> 파이프라인을 직접 구현한다.",
+  next:"pandas로 시계열을 자유롭게 다루고, 백테스트의 과적합·정보누수를 설명할 수 있으면 ML/데이터 트랙으로 이동."},
+ {key:T.ML,code:"FIN-ML",head:"통계적 기반 위에서 <b>금융 데이터의 특수성</b>을 다루는 ML/데이터 사이언스 트랙입니다.",
+  s1:["esl","tsay"],s2:["afml","mlfam","prml"],
+  task:"트리플 배리어 라벨링과 퍼지드 교차검증을 적용해 <b>누수 없는 검증 파이프라인</b>을 만든다.",
+  next:"교차검증·특징중요도·과적합 통제를 일관되게 적용할 수 있으면 알고리즘 트레이딩 트랙과 병행."},
+ {key:T.INV,code:"QUANT-INV",head:"팩터·자산배분 중심의 <b>퀀트 투자자</b> 트랙입니다. 직관 → 실증 → 운용 프레임 순으로 쌓습니다.",
+  s1:["wwows","ei"],s2:["expret","apm","ang"],
+  task:"가치·모멘텀 등 팩터 스크리너를 만들고 <b>장기 성과·드로다운</b>을 비교한다.",
+  next:"팩터 프리미엄과 정보비율을 설명하고, 리스크 예산 관점에서 포트폴리오를 구성할 수 있으면 다음 단계."},
+ {key:T.ALG,code:"ALGO",head:"시장 미시구조와 <b>실행</b>을 다루는 알고리즘 트레이더 트랙입니다.",
+  s1:["harris","hull-ofod"],s2:["ahft","ohara","hasbrouck"],
+  task:"호가 데이터로 <b>스프레드·시장충격</b>을 측정하고 간단한 실행 시뮬레이터를 만든다.",
+  next:"유동성·시장충격·재고 리스크를 정량적으로 다룰 수 있으면 수리금융 트랙으로 심화."},
+ {key:T.MAT,code:"MATH-FIN",head:"확률미적분과 <b>수리금융/금융공학</b>의 토대를 세우는 트랙입니다. 가장 가파르지만 가장 단단합니다.",
+  s1:["baxter","bjork"],s2:["shreve","glasserman","qrm"],
+  task:"BS 모형을 <b>몬테카를로로 가격결정</b>하고 분산감소 기법으로 정확도를 개선한다.",
+  next:"위험중립 측도와 이토 적분을 설명하고, 수치적으로 파생상품을 가격결정할 수 있으면 연구 트랙."}
+];
+function renderTracks(){
+  const tabs=$("#trtabs");const panes=$("#trpanes");tabs.innerHTML="";panes.innerHTML="";
+  tracks.forEach((tr,i)=>{
+    const tab=el("button","tab"+(i===0?" on":""));tab.innerHTML='<span class="mono">'+tr.code+'</span>'+tr.key;
+    tab.addEventListener("click",()=>{$$(".tab").forEach(x=>x.classList.remove("on"));$$(".trackpane").forEach(x=>x.classList.remove("on"));tab.classList.add("on");panes.children[i].classList.add("on");});
+    tabs.append(tab);
+    const pane=el("div","trackpane"+(i===0?" on":""));
+    pane.append(Object.assign(el("div","trackhead"),{innerHTML:tr.head}));
+    const grid=el("div","trackgrid");
+    grid.append(stageBooks("1","1단계 · 기초 다지기",tr.s1));
+    grid.append(stageBooks("2","2단계 · 심화",tr.s2));
+    const task=el("div","stage task");const th=el("div","sh");th.append(Object.assign(el("div","n"),{textContent:"✓"}),Object.assign(el("div","lab"),{textContent:"실습 과제"}));task.append(th);task.append(Object.assign(el("div","body"),{innerHTML:tr.task}));grid.append(task);
+    const next=el("div","stage next");const nh=el("div","sh");nh.append(Object.assign(el("div","n"),{textContent:"→"}),Object.assign(el("div","lab"),{textContent:"다음 단계 기준"}));next.append(nh);next.append(Object.assign(el("div","body"),{innerHTML:tr.next}));grid.append(next);
+    pane.append(grid);panes.append(pane);
+  });
+}
+function stageBooks(n,label,ids){
+  const st=el("div","stage");const sh=el("div","sh");sh.append(Object.assign(el("div","n"),{textContent:n}),Object.assign(el("div","lab"),{textContent:label}));st.append(sh);
+  const ul=el("ul");
+  ids.forEach(id=>{const b=byId(id);if(!b)return;const li=el("li");li.append(tierEl(b.tier));
+    const tx=el("div");tx.append(document.createTextNode(b.koreanTitle||b.originalTitle));tx.append(Object.assign(el("span","li-en"),{textContent:b.originalTitle+" · ★"+b.difficulty}));li.append(tx);
+    li.addEventListener("click",()=>openDetail(id));ul.append(li);});
+  st.append(ul);return st;
+}
+
+/* ============ KOREAN + ORIGINALS ============ */
+function renderKorean(){
+  const wrap=$("#krgrid");wrap.innerHTML="";
+  const kr=books.filter(b=>b.translationStatus===ST.KR);
+  $("#cnt-kr").textContent=kr.length+" 권";
+  kr.forEach(b=>{
+    const row=el("div","krrow");row.addEventListener("click",e=>{if(e.target.closest("a"))return;openDetail(b.id);});
+    row.append(tierEl(b.tier));
+    const map=el("div","map");map.append(document.createTextNode(b.koreanTitle));
+    const o=el("span","o");o.innerHTML="원서 · <b>"+b.originalTitle+"</b> · "+b.author;map.append(o);row.append(map);
+    const rt=el("div","rt");rt.append(el("span","fld",b.group));rt.append(kyoboLink(b.linkQueryKo||b.koreanTitle,"교보문고 ↗"));row.append(rt);
+    wrap.append(row);
+  });
+}
+function renderOriginals(){
+  const wrap=$("#oggrid");wrap.innerHTML="";
+  const og=books.filter(b=>b.translationStatus!==ST.KR);
+  $("#cnt-og").textContent=og.length+" 권";
+  og.forEach(b=>{
+    const row=el("div","krrow");row.addEventListener("click",e=>{if(e.target.closest("a"))return;openDetail(b.id);});
+    row.append(tierEl(b.tier));
+    const map=el("div","map");map.append(document.createTextNode(b.originalTitle));
+    const o=el("span","o");o.innerHTML=b.author+" · "+b.field+" · <b>"+(b.translationStatus===ST.CK?"국내 번역: 확인 필요":"원서 권장")+"</b>";map.append(o);row.append(map);
+    const rt=el("div","rt");rt.append(statusPill(b));rt.append(origLink(b.linkQueryOriginal||b.originalTitle));row.append(rt);
+    wrap.append(row);
+  });
+}
+
+/* ============ ROADMAP ============ */
+const weeks=[
+ {w:"01",b:"환경·데이터·Python — <b>파이썬을 활용한 금융 분석</b><span class='en'>Python for Finance</span>으로 데이터 적재·시각화·수익률 계산을 손에 익힙니다."},
+ {w:"02",b:"통계 기반 — <b>The Elements of Statistical Learning</b><span class='en'>회귀·정규화·교차검증</span> 핵심 장을 코드와 함께 읽습니다."},
+ {w:"03",b:"파이프라인 — <b>퀀트 투자를 위한 머신러닝 알고리듬 트레이딩</b><span class='en'>ML for Algorithmic Trading</span>로 특징 생성→모델→백테스트를 연결합니다."},
+ {w:"04",b:"금융 ML의 함정 — <b>실전 금융 머신러닝</b><span class='en'>Advances in Financial ML</span> 라벨링·교차검증 장으로 누수·과적합을 점검합니다."}
+];
+const horizons=[
+ {c:"h3",m:"3M",l:"기초 트랙 완주",b:"Python·통계·백테스트 파이프라인을 손에 익히고, <b>팩터 스크리너</b>와 <b>누수 없는 검증</b>을 직접 구현합니다."},
+ {c:"h6",m:"6M",l:"도메인 심화",b:"투자(팩터·자산배분) 또는 미시구조(실행) 중 한 축을 선택해 <b>전공 트랙</b>을 깊이 파고, 시계열·리스크를 보강합니다."},
+ {c:"h12",m:"12M",l:"수리적 토대",b:"<b>확률미적분·몬테카를로·리스크 관리</b>로 이론을 단단히 하고, 관심 분야의 연구·실무 프로젝트로 마무리합니다."}
+];
+function renderRoadmap(){
+  const w=$("#weeks");w.innerHTML="";
+  weeks.forEach(x=>{const d=el("div","week");const wn=el("div","wn");wn.innerHTML="WEEK<b>"+x.w+"</b>";d.append(wn);d.append(Object.assign(el("div","wb"),{innerHTML:x.b}));w.append(d);});
+  const h=$("#horizons");h.innerHTML="";
+  horizons.forEach(x=>{const d=el("div","horizon "+x.c);const hh=el("div","hh");hh.innerHTML='<span class="m">'+x.m+'</span><span class="l">'+x.l+'</span>';d.append(hh);d.append(Object.assign(el("div","hb"),{innerHTML:x.b}));h.append(d);});
+}
+
+/* ============ DETAIL PANEL ============ */
+let lastFocus=null;
+function openDetail(id){
+  const b=byId(id);if(!b)return;
+  const d=$("#detail");d.setAttribute("aria-hidden","false");
+  d.innerHTML="";
+  const dh=el("div","dh");
+  const meta=el("div","meta");
+  const dt=el("div","dt-tier");dt.append(tierEl(b.tier));dt.append(stars(b.difficulty));dt.append(statusPill(b));meta.append(dt);
+  meta.append(Object.assign(el("h3"),{textContent:b.originalTitle}));
+  if(b.koreanTitle)meta.append(Object.assign(el("div","ko"),{textContent:b.koreanTitle}));
+  meta.append(Object.assign(el("div","auth"),{textContent:b.author+" · "+b.field}));
+  dh.append(meta);
+  const cl=el("button","close","✕");cl.setAttribute("aria-label","닫기");cl.addEventListener("click",closeDetail);dh.append(cl);
+  d.append(dh);
+  const body=el("div","dbody");
+  // actions
+  const da=el("div","dactions");
+  const bm=el("button","dact bm"+(isBm(id)?" on":""));bm.innerHTML=(isBm(id)?"★":"☆")+" 즐겨찾기";bm.addEventListener("click",()=>{toggleBm(id);openDetail(id);});
+  const rs=el("button","dact "+(readOf(id)==="reading"?"rs-r":readOf(id)==="done"?"rs-d":""));rs.innerHTML=READSH[readOf(id)]+" "+READLBL[readOf(id)];rs.addEventListener("click",()=>{cycleRead(id);openDetail(id);});
+  da.append(bm,rs);body.append(da);
+  // kv table
+  const kvs=el("div","kvs");
+  const kv=(k,v,cls)=>{kvs.append(Object.assign(el("div","k"),{textContent:k}));const vv=el("div","v"+(cls?" "+cls:""));if(v instanceof Node)vv.append(v);else vv.textContent=v;kvs.append(vv);};
+  kv("원제",b.originalTitle,"mono");
+  kv("번역서명",b.koreanTitle||"— (원서 중심)",b.koreanTitle?"":"need");
+  kv("저자",b.author);
+  kv("출판사",(b.koreanPublisher?b.koreanPublisher+" / ":"")+b.originalPublisher);
+  kv("초판 / 최신판",b.yearFirst+" / "+b.recommendedEdition+" ("+b.editionYear+")");
+  kv("ISBN",b.isbn,b.isbn===ST.CK?"need":"mono");
+  kv("분야",b.field);
+  const ts=el("span");ts.append(stars(b.difficulty));kv("난이도",ts);
+  kv("선수지식",b.prerequisites);
+  kv("국내 번역",b.translationStatus,b.translationStatus===ST.CK?"need":"");
+  body.append(kvs);
+  // blocks
+  const block=(label,text,cls)=>{const bl=el("div","dblock"+(cls?" "+cls:""));bl.append(Object.assign(el("div","bl"),{textContent:label}));bl.append(Object.assign(el("p"),{textContent:text}));body.append(bl);};
+  block("핵심 내용",b.summary);
+  block("왜 중요한가",b.whyEssential,"cyan");
+  block("실무 적용 포인트",b.practicalUse,"green");
+  block("판본 메모 · 한계",b.limitation);
+  // tags
+  if(b.tags&&b.tags.length){const tb=el("div","dblock");tb.append(Object.assign(el("div","bl"),{textContent:"태그"}));const tr=el("div","tagrow");b.tags.forEach(t=>tr.append(el("span","tag","#"+t)));tb.append(tr);body.append(tb);}
+  // complements
+  if(b.complement&&b.complement.length){
+    const cb=el("div","dblock");cb.append(Object.assign(el("div","bl"),{textContent:"보완 도서"}));const cl2=el("div","complist");
+    b.complement.forEach(cid=>{const cbk=byId(cid);if(!cbk)return;const lk=el("div","complink");lk.append(tierEl(cbk.tier));lk.append(document.createTextNode(cbk.koreanTitle||cbk.originalTitle));lk.addEventListener("click",()=>openDetail(cid));cl2.append(lk);});
+    cb.append(cl2);body.append(cb);
+  }
+  // links
+  const lb=el("div","dblock");lb.append(Object.assign(el("div","bl"),{textContent:"구매 · 검색 링크"}));const dl=el("div","dlinks");
+  if(b.koreanTitle)dl.append(kyoboLink(b.linkQueryKo||b.koreanTitle,"교보문고 ↗"));
+  dl.append(origLink(b.linkQueryOriginal||b.originalTitle));
+  lb.append(dl);body.append(lb);
+  d.append(body);
+  $("#scrim").classList.add("on");d.classList.add("on");
+  lastFocus=document.activeElement;cl.focus();
+}
+function closeDetail(){$("#detail").classList.remove("on");$("#scrim").classList.remove("on");$("#detail").setAttribute("aria-hidden","true");if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+$("#scrim").addEventListener("click",closeDetail);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDetail();});
+
+/* ============ QUICK START ============ */
+const quicks=[
+ {lbl:"IT/Python 추천 시작점",mono:"FIRST 5",act:()=>{resetFilters();exp.group="ALL";const ids=["pyfin","mlat","esl","afml","tsay"];/* show as filter via search not ideal; jump to roadmap */ document.querySelector("#roadmap").scrollIntoView();}},
+ {lbl:"S-Tier만 보기",mono:"TIER=S",act:()=>{exp.tier="S";exp.bm=false;exp.read="ALL";exp.trans="ALL";exp.group="ALL";exp.diff="ALL";buildFilters();renderExplorer();$("#explorer").scrollIntoView();}},
+ {lbl:"한국어 번역 있음만",mono:"KR ED.",act:()=>{exp.trans=ST.KR;exp.tier="ALL";exp.group="ALL";exp.diff="ALL";buildFilters();renderExplorer();$("#explorer").scrollIntoView();}},
+ {lbl:"원서 중심 고급서",mono:"ORIG ★4+",act:()=>{exp.trans=ST.OG;exp.diff="ALL";exp.tier="ALL";exp.group="ALL";exp.sortKey="difficulty";exp.sortDir=-1;buildFilters();renderExplorer();$("#explorer").scrollIntoView();}},
+ {lbl:"Python 구현 중심",mono:"PY IMPL",act:()=>{$("#q-exp").value="python";exp.q="python";exp.tier="ALL";exp.trans="ALL";exp.group="ALL";exp.diff="ALL";buildFilters();renderExplorer();$("#explorer").scrollIntoView();}},
+ {lbl:"4주 로드맵 보기",mono:"4W PLAN",act:()=>{$("#roadmap").scrollIntoView();}}
+];
+function renderQuick(){
+  const q=$("#quick");q.innerHTML="";
+  quicks.forEach(x=>{const b=el("button","qbtn");b.innerHTML=x.lbl+' <span class="mono">'+x.mono+'</span>';b.addEventListener("click",x.act);q.append(b);});
+}
+
+/* ============ EXPORT ============ */
+function download(name,content,type){const blob=new Blob([content],{type});const u=URL.createObjectURL(blob);const a=el("a");a.href=u;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);}
+function exportCSV(){
+  const rows=applyFilters();
+  const cols=["tier","originalTitle","koreanTitle","author","originalPublisher","koreanPublisher","yearFirst","editionYear","field","group","difficulty","translationStatus","readStatus"];
+  const head=cols.join(",");
+  const esc=v=>{v=(v==null?"":String(v));return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+  const lines=rows.map(b=>cols.map(c=>esc(c==="readStatus"?READLBL[readOf(b.id)]:b[c])).join(","));
+  download("quant_reading_filtered.csv","\uFEFF"+head+"\n"+lines.join("\n"),"text/csv;charset=utf-8");
+}
+function exportJSON(){
+  const out=state.bookmarks.map(id=>{const b=byId(id);if(!b)return null;return{id:b.id,tier:b.tier,originalTitle:b.originalTitle,koreanTitle:b.koreanTitle,author:b.author,field:b.field,difficulty:b.difficulty,translationStatus:b.translationStatus,readStatus:READLBL[readOf(id)]};}).filter(Boolean);
+  download("quant_reading_bookmarks.json",JSON.stringify({exportedAt:new Date().toISOString(),count:out.length,books:out},null,2),"application/json");
+}
+
+/* ============ TICKER + CLOCK ============ */
+function renderTicker(){
+  const kr=books.filter(b=>b.translationStatus===ST.KR).length;
+  const og=books.length-kr;
+  const seg='<b>QUANT://READING-LIST</b><span class="sep">|</span>BIBLIOGRAPHY VIEW · 2026.06.05'
+   +'<span class="sep">|</span><span class="up">TOTAL '+books.length+'권</span>'
+   +'<span class="sep">|</span><span class="in">KOREAN ED. '+kr+'권 ▲</span>'
+   +'<span class="sep">|</span><span class="vi">ORIGINALS '+og+'권 ◆</span>'
+   +'<span class="sep">|</span>S-TIER CORE: Hull · Shreve · Ilmanen · Grinold/Kahn · López de Prado'
+   +'<span class="sep">|</span>TRACKS: Quant Investing · Algo Trading · Financial ML · Risk · Math Foundations'
+   +'<span class="sep">|</span>KOREAN VIEW: 교보문고 링크 우선 · 번역본/원서 병기'
+   +'<span class="sep">|</span>';
+  $("#ticker").innerHTML=seg+seg;
+}
+function tick(){const d=new Date(Date.now()+(540+new Date().getTimezoneOffset())*60000);const p=n=>String(n).padStart(2,"0");$("#clock").textContent=p(d.getHours())+":"+p(d.getMinutes())+":"+p(d.getSeconds());}
+
+/* ============ refresh / wiring ============ */
+function refreshAll(){renderProgress();renderExplorer();}
+$("#q-exp").addEventListener("input",e=>{exp.q=e.target.value;renderExplorer();});
+$$("#viewtog button").forEach(b=>b.addEventListener("click",()=>{exp.view=b.dataset.v;renderExplorer();}));
+$("#x-csv").addEventListener("click",exportCSV);
+$("#x-json").addEventListener("click",exportJSON);
+$("#mfilter").addEventListener("click",()=>$("#filters").classList.toggle("open"));
+
+// nav active state
+const navLinks=$$("#nav a");const secs=navLinks.map(a=>$(a.getAttribute("href")));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id="#"+e.target.id;navLinks.forEach(a=>a.classList.toggle("on",a.getAttribute("href")===id));}});},{rootMargin:"-45% 0px -50% 0px"});
+secs.forEach(s=>s&&io.observe(s));
+
+// init
+renderKPIs();renderDashboard();buildFilters();renderQuick();renderExplorer();renderFeatured();renderTracks();renderKorean();renderOriginals();renderRoadmap();renderTicker();
+tick();setInterval(tick,1000);
+
+// replay count-up + viz when first becoming visible (e.g. opened in a background tab)
+let _seen=document.visibilityState==="visible";
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&!_seen){_seen=true;renderKPIs();renderDashboard();}});
+</script>
+</body>
+</html>
