@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astellas Pharma Inc. — Company Briefing</title>
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --red:#D91E49; --dark-red:#A62B4E;
+    --gray:#939597; --light-gray:#A7A9AC;
+    --blue:#004C97; --yellow:#F0B323; --green:#658D1B; --purple:#A20067;
+
+    --bg:#ffffff; --surface:#f7f7f8; --surface-2:#f0f0f2;
+    --line:#e6e6e8; --line-soft:#efeff1;
+    --ink:#3a3a3c; --ink-strong:#2a2a2c; --muted:#6e6f72; --faint:#9a9b9e;
+    --chip:#f0f0f2; --tooltip-bg:#2a2a2c; --tooltip-fg:#fff;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
+    --shadow-lift:0 8px 28px rgba(0,0,0,.10);
+    --font:-apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    --nav-h:54px;
+  }
+  [data-theme="dark"]{
+    --bg:#141619; --surface:#1b1e22; --surface-2:#22262b;
+    --line:#2c3036; --line-soft:#24272c;
+    --ink:#dfe0e2; --ink-strong:#f2f3f4; --muted:#a3a5a9; --faint:#777a7f;
+    --chip:#262a30; --tooltip-bg:#e8e8ea; --tooltip-fg:#16181b;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.4);
+    --shadow-lift:0 10px 34px rgba(0,0,0,.55);
+    --red:#F2305C;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; font-family:var(--font); color:var(--ink); background:var(--bg);
+    line-height:1.7; font-size:15.5px; -webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums; transition:background .35s ease, color .35s ease;
+  }
+  /* fixed backdrop so the page bg always paints even if host forces body transparent */
+  body::before{ content:""; position:fixed; inset:0; background:var(--bg); z-index:-1; transition:background .35s ease; }
+  h1,h2,h3,h4{ color:var(--ink-strong); line-height:1.16; letter-spacing:-0.015em; margin:0; font-weight:700; }
+  p{ margin:0; }
+  a{ color:inherit; text-decoration:none; }
+  svg{ display:block; }
+  .num{ font-variant-numeric:tabular-nums; }
+
+  .container{ max-width:1240px; margin:0 auto; padding:0 36px; }
+  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  :focus-visible{ outline:2px solid var(--red); outline-offset:2px; border-radius:3px; }
+
+  /* ============ READING PROGRESS ============ */
+  #progress{ position:fixed; top:0; left:0; height:3px; width:0; background:var(--red); z-index:200; transition:width .1s linear; }
+
+  /* ============ TOP BAR / HERO ============ */
+  .topbar{ border-bottom:1px solid var(--line); background:var(--bg); }
+  .topbar .container{ display:flex; align-items:center; justify-content:space-between; padding:18px 36px; gap:20px; }
+  .brand-lock{ display:flex; align-items:center; gap:16px; }
+  .brand-lock img{ height:34px; width:auto; }
+  .brand-lock .ph{ height:34px; display:flex; align-items:center; padding:0 14px; border:1px dashed var(--line); border-radius:5px; color:var(--faint); font-size:12px; letter-spacing:.16em; text-transform:uppercase; }
+  .topbar .tools{ display:flex; align-items:center; gap:10px; }
+  .iconbtn{ display:inline-flex; align-items:center; gap:8px; height:36px; padding:0 14px; border:1px solid var(--line); background:var(--surface); color:var(--muted); border-radius:7px; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap; transition:border-color .18s, color .18s, background .18s; }
+  .iconbtn:hover{ border-color:var(--red); color:var(--red); }
+
+  .hero{ position:relative; overflow:hidden; border-bottom:1px solid var(--line); background:var(--bg); }
+  .hero .container{ position:relative; z-index:2; padding-top:74px; padding-bottom:66px; }
+  .hero .motif{ position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden; }
+  .hero .motif svg{ position:absolute; top:-180px; right:-200px; width:780px; height:780px; }
+  .kicker{ font-size:12.5px; letter-spacing:.26em; text-transform:uppercase; color:var(--red); font-weight:700; }
+  .hero h1{ font-size:clamp(34px,5.4vw,62px); font-weight:800; letter-spacing:-0.03em; margin-top:16px; line-height:1.03; }
+  .hero .sub{ margin-top:18px; max-width:42ch; font-size:clamp(16px,1.9vw,21px); color:var(--muted); font-weight:400; }
+  .hero .meta{ margin-top:26px; display:flex; flex-wrap:wrap; gap:10px 22px; font-size:12.5px; color:var(--faint); letter-spacing:.04em; }
+  .hero .meta b{ color:var(--muted); font-weight:600; }
+  .summary{ margin-top:40px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; max-width:1000px; }
+  .sum-card{ background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--red); border-radius:8px; padding:18px 20px; }
+  .sum-card p{ font-size:14px; color:var(--ink); }
+  .hero-note{ margin-top:30px; font-size:12px; color:var(--faint); max-width:80ch; line-height:1.6; }
+
+  /* ============ STICKY NAV ============ */
+  .nav{ position:sticky; top:0; z-index:100; background:color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter:saturate(180%) blur(12px); border-bottom:1px solid var(--line); }
+  .nav ul{ list-style:none; margin:0; padding:0; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; height:var(--nav-h); align-items:stretch; }
+  .nav ul::-webkit-scrollbar{ display:none; }
+  .nav a{ display:flex; align-items:center; white-space:nowrap; padding:0 13px; font-size:13px; font-weight:600; color:var(--muted); border-bottom:2px solid transparent; transition:color .16s, border-color .16s; }
+  .nav a:hover{ color:var(--ink-strong); }
+  .nav a.active{ color:var(--red); border-bottom-color:var(--red); }
+
+  /* ============ SECTION SCAFFOLD ============ */
+  section.block{ padding:72px 0; border-bottom:1px solid var(--line-soft); scroll-margin-top:var(--nav-h); background:var(--bg); }
+  section.block.alt{ background:var(--surface); }
+  .eyebrow{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .eyebrow .ix{ color:var(--red); font-weight:700; font-size:13px; }
+  .eyebrow .lbl{ color:var(--faint); font-size:11.5px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; }
+  .eyebrow::after{ content:""; flex:1; height:1px; background:var(--line); }
+  .sec-title{ font-size:clamp(24px,3vw,36px); font-weight:700; max-width:22ch; }
+  .sec-title .em{ color:var(--red); }
+  .sec-lead{ margin-top:14px; max-width:70ch; color:var(--muted); font-size:16px; }
+
+  /* ============ TAGS / BADGES / CONFIDENCE ============ */
+  .tag{ display:inline-flex; align-items:center; height:20px; padding:0 9px; border-radius:999px; font-size:10.5px; font-weight:700; letter-spacing:.04em; white-space:nowrap; vertical-align:middle; }
+  .tag.fact{ background:var(--ink-strong); color:var(--bg); }
+  .tag.forecast{ background:color-mix(in srgb, var(--blue) 14%, transparent); color:var(--blue); border:1px solid color-mix(in srgb, var(--blue) 30%, transparent); }
+  [data-theme="dark"] .tag.forecast{ color:#7fb0e6; }
+  .tag.ambition{ background:color-mix(in srgb, var(--dark-red) 14%, transparent); color:var(--dark-red); border:1px solid color-mix(in srgb, var(--dark-red) 32%, transparent); }
+  [data-theme="dark"] .tag.ambition{ color:#e88aa1; }
+  .tag.interp{ background:transparent; color:var(--gray); border:1px solid var(--line); font-style:italic; font-weight:600; }
+
+  .conf{ display:inline-flex; align-items:center; gap:5px; font-size:11px; color:var(--faint); font-weight:600; }
+  .conf .dot{ width:8px; height:8px; border-radius:50%; flex:0 0 8px; }
+  .conf.high .dot{ background:var(--green); }
+  .conf.med .dot{ background:var(--yellow); }
+
+  /* source chip */
+  .schip{ display:inline-flex; align-items:center; height:18px; padding:0 7px; border-radius:5px; background:var(--chip); color:var(--faint); font-size:10px; font-weight:700; letter-spacing:.02em; cursor:pointer; border:1px solid transparent; transition:border-color .15s, color .15s; vertical-align:middle; }
+  .schip:hover{ border-color:var(--red); color:var(--red); }
+
+  .meta-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px; }
+
+  /* ============ GRID + CARDS ============ */
+  .grid{ display:grid; gap:18px; }
+  .g2{ grid-template-columns:repeat(2,1fr); }
+  .g3{ grid-template-columns:repeat(3,1fr); }
+  .g4{ grid-template-columns:repeat(4,1fr); }
+  .card{ background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:22px 24px; box-shadow:var(--shadow); }
+  section.alt .card{ background:var(--bg); }
+
+  /* KPI */
+  .kpis{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:30px; }
+  .kpi{ background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:18px 18px 16px; box-shadow:var(--shadow); position:relative; }
+  .kpi .klabel{ font-size:11.5px; color:var(--muted); font-weight:600; letter-spacing:.02em; min-height:32px; }
+  .kpi .kval{ margin-top:8px; font-size:30px; font-weight:800; color:var(--red); letter-spacing:-0.02em; line-height:1; }
+  .kpi .kval .u{ font-size:.42em; font-weight:600; color:var(--faint); margin-left:4px; letter-spacing:0; }
+  .kpi .kfoot{ margin-top:12px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .kpi .kfy{ font-size:11px; color:var(--faint); font-weight:600; }
+  .kpi .krw, .strip .krw{ margin-top:6px; font-size:12px; font-weight:700; color:var(--muted); }
+  .krw-lbl{ font-size:9.5px; font-weight:600; color:var(--faint); letter-spacing:.02em; margin-left:3px; }
+  .krw-cell{ font-size:10.5px; font-weight:600; color:var(--faint); margin-top:2px; white-space:nowrap; }
+
+  /* Snapshot table */
+  .snap{ margin-top:14px; display:grid; grid-template-columns:repeat(2,1fr); gap:0 40px; }
+  .snap dl{ margin:0; }
+  .snap .row{ display:grid; grid-template-columns:42% 1fr; gap:14px; padding:13px 0; border-bottom:1px solid var(--line-soft); }
+  .snap dt{ color:var(--muted); font-weight:600; font-size:13.5px; }
+  .snap dd{ margin:0; color:var(--ink-strong); font-weight:600; font-size:14.5px; }
+  .ta-chips{ display:flex; flex-wrap:wrap; gap:7px; }
+  .ta-chips span{ font-size:12px; font-weight:600; background:var(--chip); color:var(--ink); padding:4px 10px; border-radius:6px; }
+
+  /* exec summary */
+  .exec{ margin-top:20px; display:grid; gap:12px; }
+  .exec .e{ display:flex; gap:16px; align-items:flex-start; background:var(--bg); border:1px solid var(--line); border-radius:9px; padding:16px 20px; }
+  .exec .e .bar{ width:4px; align-self:stretch; border-radius:3px; background:var(--red); flex:0 0 4px; }
+  .exec .e p{ font-size:14.5px; color:var(--ink); }
+
+  /* timeline */
+  .tl{ margin-top:34px; position:relative; padding-left:32px; }
+  .tl::before{ content:""; position:absolute; left:7px; top:6px; bottom:6px; width:2px; background:var(--line); }
+  .tl .node{ position:relative; padding-bottom:30px; }
+  .tl .node:last-child{ padding-bottom:0; }
+  .tl .node::before{ content:""; position:absolute; left:-32px; top:5px; width:16px; height:16px; border-radius:50%; background:var(--red); border:3px solid var(--bg); box-shadow:0 0 0 1px var(--line); }
+  .tl .yr{ font-size:20px; font-weight:800; color:var(--red); }
+  .tl .ev{ margin-top:3px; font-size:15.5px; font-weight:700; color:var(--ink-strong); }
+  .tl .mn{ margin-top:3px; font-size:14px; color:var(--muted); max-width:64ch; }
+
+  /* tables */
+  .tbl-wrap{ position:relative; margin-top:22px; border:1px solid var(--line); border-radius:10px; overflow:hidden; box-shadow:var(--shadow); }
+  .tbl-scroll{ overflow-x:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:13.5px; min-width:680px; }
+  thead th{ background:var(--surface-2); color:var(--ink-strong); font-weight:700; text-align:left; padding:13px 16px; font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; white-space:nowrap; border-bottom:1px solid var(--line); }
+  tbody td{ padding:13px 16px; border-top:1px solid var(--line-soft); vertical-align:top; }
+  tbody tr:hover td{ background:var(--surface); }
+  td .b{ font-weight:700; color:var(--ink-strong); }
+  .num-cell{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .na{ color:var(--faint); font-style:italic; }
+
+  /* product / brand cards */
+  .prodgrid{ margin-top:22px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .brand-acc{ margin-top:24px; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
+  .bcard{ background:var(--bg); border:1px solid var(--line); border-radius:11px; padding:22px; box-shadow:var(--shadow); cursor:pointer; transition:transform .2s ease, box-shadow .2s ease, border-color .2s; }
+  .bcard:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lift); border-color:color-mix(in srgb,var(--red) 40%, var(--line)); }
+  .bcard .bh{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+  .bcard .bn{ font-size:20px; font-weight:800; color:var(--ink-strong); letter-spacing:-0.01em; }
+  .bcard .gen{ font-size:12px; color:var(--faint); margin-top:2px; font-style:italic; }
+  .bcard .stat{ margin-top:16px; display:flex; align-items:baseline; gap:10px; }
+  .bcard .stat .v{ font-size:24px; font-weight:800; color:var(--red); }
+  .bcard .stat .yoy{ font-size:13px; font-weight:700; color:var(--green); }
+  .bcard .why{ margin-top:12px; font-size:13.5px; color:var(--muted); }
+  .bcard .detail{ overflow:hidden; max-height:0; transition:max-height .4s ease; }
+  .bcard.open .detail{ max-height:420px; }
+  .bcard .detail-inner{ padding-top:16px; margin-top:16px; border-top:1px solid var(--line-soft); display:grid; gap:10px; }
+  .bcard .dl{ font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); }
+  .bcard .dv{ font-size:13.5px; color:var(--ink); margin-top:2px; }
+  .bcard .toggle{ margin-top:14px; font-size:12px; font-weight:700; color:var(--red); display:flex; align-items:center; gap:6px; }
+  .bcard .toggle .ar{ transition:transform .3s; }
+  .bcard.open .toggle .ar{ transform:rotate(180deg); }
+
+  /* phase steppers / pipeline */
+  .filterbar{ margin-top:22px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .fbtn{ height:34px; padding:0 16px; border:1px solid var(--line); background:var(--bg); color:var(--muted); border-radius:999px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; transition:all .16s; }
+  .fbtn:hover{ border-color:var(--red); color:var(--red); }
+  .fbtn.active{ background:var(--red); border-color:var(--red); color:#fff; }
+  .pipegrid{ margin-top:20px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .pcard{ background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:20px; box-shadow:var(--shadow); transition:opacity .35s ease, transform .35s ease, border-color .2s; }
+  .pcard.hide{ display:none; }
+  .pcard .pcode{ font-size:16px; font-weight:800; color:var(--ink-strong); }
+  .pcard .pind{ font-size:13px; color:var(--muted); margin-top:4px; min-height:36px; }
+  .pcard .pmoa{ font-size:12px; color:var(--faint); margin-top:6px; }
+  .stepper{ margin-top:16px; display:flex; align-items:center; gap:0; }
+  .stepper .st{ flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; position:relative; }
+  .stepper .st .d{ width:13px; height:13px; border-radius:50%; background:var(--line); border:2px solid var(--bg); z-index:2; }
+  .stepper .st.on .d{ background:var(--red); }
+  .stepper .st .pl{ font-size:10px; font-weight:700; color:var(--faint); }
+  .stepper .st.on .pl{ color:var(--red); }
+  .stepper .st::before{ content:""; position:absolute; top:6px; left:-50%; width:100%; height:2px; background:var(--line); z-index:1; }
+  .stepper .st:first-child::before{ display:none; }
+  .stepper .st.on::before{ background:var(--red); }
+  .pnote{ margin-top:14px; font-size:11.5px; color:var(--faint); font-style:italic; line-height:1.5; }
+
+  /* CSP */
+  .pillars{ margin-top:24px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .pillar{ background:var(--bg); border:1px solid var(--line); border-left:3px solid var(--dark-red); border-radius:9px; padding:20px 22px; box-shadow:var(--shadow); }
+  .pillar .pt{ font-size:16px; font-weight:800; color:var(--ink-strong); }
+  .pillar .pc{ font-size:14px; color:var(--muted); margin-top:8px; }
+  .goals{ margin-top:22px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .goal{ background:var(--bg); border:1px solid var(--line); border-radius:11px; padding:24px; text-align:center; box-shadow:var(--shadow); }
+  .goal .gv{ font-size:38px; font-weight:800; color:var(--red); line-height:1; }
+  .goal .gk{ margin-top:10px; font-size:13px; color:var(--muted); font-weight:600; }
+
+  /* charts */
+  .charts{ margin-top:26px; display:grid; gap:20px; }
+  .chart{ background:var(--bg); border:1px solid var(--line); border-radius:11px; padding:24px 24px 18px; box-shadow:var(--shadow); }
+  .chart svg{ width:100%; height:auto; display:block; }
+  .chart .ct{ font-size:15px; font-weight:800; color:var(--ink-strong); }
+  .chart .cs{ font-size:12.5px; color:var(--faint); margin-top:3px; }
+  .chart svg text.lbl{ paint-order:stroke; stroke:var(--bg); stroke-width:3.2px; stroke-linejoin:round; }
+  .legend{ display:flex; flex-wrap:wrap; gap:8px 18px; margin:14px 0 6px; font-size:12px; color:var(--muted); font-weight:600; }
+  .legend span{ display:inline-flex; align-items:center; gap:7px; }
+  .legend i{ width:14px; height:4px; border-radius:2px; display:inline-block; }
+  .legend i.dash{ height:0; border-top:2px dashed currentColor; width:16px; }
+  .tabs{ display:inline-flex; gap:2px; background:var(--surface-2); padding:3px; border-radius:9px; margin-top:18px; }
+  .tabs button{ border:0; background:transparent; font-family:inherit; font-size:13px; font-weight:700; color:var(--muted); padding:7px 16px; border-radius:7px; cursor:pointer; transition:all .16s; }
+  .tabs button.active{ background:var(--bg); color:var(--red); box-shadow:var(--shadow); }
+  .tabpane{ display:none; }
+  .tabpane.active{ display:block; }
+
+  /* heat table */
+  .heat{ display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:12px; }
+  .heat .sq{ width:11px; height:11px; border-radius:3px; }
+  .h-high{ background:color-mix(in srgb,var(--red) 16%, transparent); color:var(--red); }
+  .h-high .sq{ background:var(--red); }
+  .h-med{ background:color-mix(in srgb,var(--yellow) 22%, transparent); color:#9a7400; }
+  .h-med .sq{ background:var(--yellow); }
+  [data-theme="dark"] .h-med{ color:var(--yellow); }
+  .h-low{ background:color-mix(in srgb,var(--green) 16%, transparent); color:var(--green); }
+  .h-low .sq{ background:var(--green); }
+  .itrel{ font-size:10.5px; font-weight:800; letter-spacing:.04em; padding:2px 7px; border-radius:5px; background:var(--chip); color:var(--muted); }
+  .itrel.hi{ background:color-mix(in srgb,var(--red) 14%, transparent); color:var(--red); }
+
+  /* digital / opp cards */
+  .topicgrid{ margin-top:22px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .topic{ background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:22px; box-shadow:var(--shadow); }
+  .topic .tn{ font-size:16px; font-weight:800; color:var(--ink-strong); }
+  .topic .field{ margin-top:12px; }
+  .topic .fl{ font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); }
+  .topic .fv{ font-size:13.5px; color:var(--ink); margin-top:2px; }
+  .topic .kpiline{ margin-top:12px; font-size:12px; color:var(--blue); font-weight:700; }
+  [data-theme="dark"] .topic .kpiline{ color:#7fb0e6; }
+
+  /* digital — upgraded topic cards */
+  .digi-band{ margin-top:24px; display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--line); border-radius:11px; overflow:hidden; box-shadow:var(--shadow); }
+  .digi-band .db{ padding:18px 22px; border-right:1px solid var(--line); }
+  .digi-band .db:last-child{ border-right:none; }
+  .digi-band .db .v{ font-size:24px; font-weight:800; color:var(--red); line-height:1; }
+  .digi-band .db .k{ margin-top:7px; font-size:12.5px; color:var(--muted); font-weight:600; }
+  .dgrid{ margin-top:18px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .dtopic{ background:var(--bg); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column; transition:transform .2s, box-shadow .2s, border-color .2s; }
+  .dtopic:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lift); border-color:color-mix(in srgb,var(--red) 35%, var(--line)); }
+  .dtopic .dhead{ display:flex; align-items:center; gap:11px; padding:15px 18px; border-bottom:1px solid var(--line-soft); background:var(--surface); }
+  .dtopic .dix{ font-family:ui-monospace,Menlo,monospace; font-size:11px; font-weight:700; color:#fff; background:var(--red); padding:3px 8px; border-radius:6px; letter-spacing:.03em; }
+  .dtopic .dname{ font-size:15px; font-weight:800; color:var(--ink-strong); flex:1; }
+  .dtopic .dbody{ padding:16px 18px; display:flex; flex-direction:column; gap:13px; flex:1; }
+  .dtopic .dctx{ font-size:12.5px; color:var(--muted); line-height:1.55; }
+  .dflow{ display:grid; grid-template-columns:1fr 20px 1fr; align-items:stretch; gap:8px; }
+  .dflow .fcell{ border-radius:8px; padding:10px 12px; }
+  .dflow .fcell.risk{ background:color-mix(in srgb,var(--yellow) 13%, transparent); border:1px solid color-mix(in srgb,var(--yellow) 30%, transparent); }
+  .dflow .fcell.cap{ background:color-mix(in srgb,var(--green) 11%, transparent); border:1px solid color-mix(in srgb,var(--green) 26%, transparent); }
+  .dflow .fl2{ font-size:9px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; }
+  .dflow .risk .fl2{ color:#9a7400; }
+  [data-theme="dark"] .dflow .risk .fl2{ color:var(--yellow); }
+  .dflow .cap .fl2{ color:var(--green); }
+  .dflow .fv2{ font-size:11.5px; color:var(--ink); margin-top:4px; line-height:1.5; }
+  .dflow .arrow{ align-self:center; justify-self:center; color:var(--faint); font-size:15px; }
+  .dtopic .dimp{ font-size:12.5px; color:var(--ink); border-left:3px solid var(--red); padding-left:11px; line-height:1.55; }
+  .dtopic .dimp .il{ display:block; font-size:9px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; color:var(--faint); margin-bottom:2px; }
+  .dtopic .dkpi{ margin-top:auto; font-size:11.5px; font-weight:700; color:var(--blue); background:var(--surface); border-radius:7px; padding:9px 12px; }
+  [data-theme="dark"] .dtopic .dkpi{ color:#7fb0e6; }
+
+  /* korea */
+  .korea-grid{ margin-top:22px; display:grid; grid-template-columns:1.2fr 1fr; gap:18px; }
+  .kbox{ background:var(--bg); border:1px solid var(--line); border-radius:11px; padding:26px; box-shadow:var(--shadow); }
+  .kbox .kt{ font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); font-weight:700; margin-bottom:14px; }
+  .kbox .addr{ font-size:18px; font-weight:700; color:var(--ink-strong); line-height:1.5; }
+  .kbox dl{ margin:10px 0 0; display:grid; grid-template-columns:auto 1fr; gap:10px 20px; font-size:14px; }
+  .kbox dt{ color:var(--muted); font-weight:600; }
+  .kbox dd{ margin:0; color:var(--ink-strong); font-weight:600; }
+  .kbox dd.tel{ color:var(--red); font-weight:800; }
+  .klist{ margin:8px 0 0; padding:0; list-style:none; display:grid; gap:9px; }
+  .klist li{ position:relative; padding-left:18px; font-size:13.5px; color:var(--ink); }
+  .klist li::before{ content:""; position:absolute; left:0; top:9px; width:6px; height:6px; border-radius:50%; background:var(--red); }
+  .klist.warn li::before{ background:var(--yellow); border-radius:1px; }
+  .kchips{ display:flex; flex-wrap:wrap; gap:7px; margin-top:6px; }
+  .kchips span{ font-size:12px; font-weight:600; background:var(--chip); color:var(--ink); padding:4px 10px; border-radius:6px; }
+
+  /* korea — upgraded */
+  .kbox.affil{ position:relative; overflow:hidden; }
+  .kbox.affil .pin{ position:absolute; top:-14px; right:-10px; width:118px; height:118px; opacity:.07; color:var(--red); }
+  .kbox .entity{ font-size:12.5px; font-weight:800; color:var(--red); letter-spacing:.02em; position:relative; z-index:1; }
+  .kcontacts{ display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; position:relative; z-index:1; }
+  .kpill{ display:inline-flex; flex-direction:column; gap:2px; border:1px solid var(--line); border-radius:9px; padding:10px 16px; background:var(--surface); }
+  .kpill .pl{ font-size:10px; font-weight:700; color:var(--faint); letter-spacing:.04em; text-transform:uppercase; }
+  .kpill .pv{ font-size:15px; font-weight:800; color:var(--red); }
+  .khours{ margin-top:14px; font-size:13px; color:var(--muted); position:relative; z-index:1; }
+  .khours b{ color:var(--ink-strong); font-weight:700; }
+  .kpanel{ background:var(--bg); border:1px solid var(--line); border-radius:11px; padding:24px; box-shadow:var(--shadow); }
+  .kpanel.confirmed{ border-top:3px solid var(--green); }
+  .kpanel.unconfirmed{ border-top:3px solid var(--yellow); }
+  .kpanel.checks{ border-top:3px solid var(--red); }
+  .kgrid2{ margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .kstatus{ margin:8px 0 0; padding:0; list-style:none; display:grid; gap:10px; }
+  .kstatus li{ display:flex; gap:10px; align-items:flex-start; font-size:13.5px; color:var(--ink); }
+  .kstatus li .mk{ flex:0 0 18px; width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; margin-top:1px; }
+  .kstatus li .mk.ok{ background:color-mix(in srgb,var(--green) 18%, transparent); color:var(--green); }
+  .kstatus li .mk.q{ background:color-mix(in srgb,var(--yellow) 22%, transparent); color:#9a7400; }
+  [data-theme="dark"] .kstatus li .mk.q{ color:var(--yellow); }
+  .kchecks{ margin:8px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  .kchecks li{ display:flex; gap:9px; align-items:flex-start; font-size:12.5px; color:var(--ink); }
+  .kchecks li .nn{ flex:0 0 22px; width:22px; height:22px; border-radius:6px; background:var(--chip); color:var(--red); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .kcallout{ margin-top:18px; background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--red); border-radius:9px; padding:18px 20px; font-size:13.5px; color:var(--ink); line-height:1.6; }
+
+  /* esg — upgraded */
+  .esg-strip{ margin-top:22px; display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--line); border-radius:11px; overflow:hidden; box-shadow:var(--shadow); }
+  .esg-strip .es{ padding:18px 22px; border-right:1px solid var(--line); }
+  .esg-strip .es:last-child{ border-right:none; }
+  .esg-strip .es .v{ font-size:26px; font-weight:800; color:var(--red); line-height:1; }
+  .esg-strip .es .k{ margin-top:7px; font-size:12px; color:var(--muted); font-weight:600; }
+  .esg-grid{ margin-top:18px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .ecard{ background:var(--bg); border:1px solid var(--line); border-radius:11px; padding:22px; box-shadow:var(--shadow); display:flex; flex-direction:column; transition:transform .2s, box-shadow .2s, border-color .2s; }
+  .ecard:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lift); border-color:color-mix(in srgb,var(--red) 30%, var(--line)); }
+  .ecard .eh{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .ecat{ font-size:10px; font-weight:800; letter-spacing:.06em; padding:3px 9px; border-radius:6px; }
+  .ecat.s{ background:color-mix(in srgb,var(--blue) 13%, transparent); color:var(--blue); }
+  [data-theme="dark"] .ecat.s{ color:#7fb0e6; }
+  .ecat.g{ background:color-mix(in srgb,var(--purple) 14%, transparent); color:var(--purple); }
+  [data-theme="dark"] .ecat.g{ color:#d98ac4; }
+  .ecard .eix{ font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--faint); font-weight:700; }
+  .ecard .etopic{ font-size:15.5px; font-weight:800; color:var(--ink-strong); margin-top:14px; }
+  .ecard .esum{ font-size:13px; color:var(--muted); margin-top:8px; line-height:1.6; flex:1; }
+
+  /* sources */
+  .srcgrid{ margin-top:22px; display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  .src{ background:var(--bg); border:1px solid var(--line); border-radius:9px; padding:16px 18px; box-shadow:var(--shadow); }
+  .src .sid{ font-size:10.5px; font-weight:800; color:var(--red); letter-spacing:.03em; }
+  .src .stitle{ font-size:14px; font-weight:700; color:var(--ink-strong); margin-top:4px; }
+  .src .surl{ font-size:12px; color:var(--blue); margin-top:6px; word-break:break-all; display:inline-block; }
+  [data-theme="dark"] .src .surl{ color:#7fb0e6; }
+  .src .smeta{ font-size:11.5px; color:var(--faint); margin-top:6px; }
+  .src:target{ border-color:var(--red); box-shadow:0 0 0 2px color-mix(in srgb,var(--red) 30%, transparent); }
+
+  /* disclaimer / footer */
+  footer.foot{ background:var(--ink-strong); color:#cfd0d2; padding:54px 0; }
+  [data-theme="dark"] footer.foot{ background:#0e1012; }
+  footer.foot .fname{ font-size:20px; color:#fff; font-weight:300; letter-spacing:.05em; }
+  footer.foot ul{ margin:22px 0 0; padding:0; list-style:none; display:grid; gap:11px; max-width:96ch; }
+  footer.foot li{ position:relative; padding-left:18px; font-size:12.5px; line-height:1.6; color:#b9babc; }
+  footer.foot li::before{ content:""; position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--red); }
+
+  /* tooltip */
+  #tooltip{ position:fixed; z-index:300; background:var(--tooltip-bg); color:var(--tooltip-fg); font-size:12px; font-weight:600; padding:7px 11px; border-radius:7px; pointer-events:none; opacity:0; transform:translateY(4px); transition:opacity .14s, transform .14s; max-width:280px; box-shadow:0 6px 20px rgba(0,0,0,.25); }
+  #tooltip.show{ opacity:1; transform:translateY(0); }
+
+  /* reveal */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1024px){
+    .kpis{ grid-template-columns:repeat(3,1fr); }
+    .g4{ grid-template-columns:repeat(2,1fr); }
+    .pipegrid{ grid-template-columns:repeat(2,1fr); }
+    .goals{ grid-template-columns:repeat(3,1fr); }
+    .dgrid,.esg-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:760px){
+    .container{ padding:0 20px; }
+    .topbar .container{ padding:14px 20px; flex-wrap:wrap; gap:12px; }
+    .hero .container{ padding-top:48px; padding-bottom:44px; }
+    section.block{ padding:52px 0; }
+    .kpis{ grid-template-columns:repeat(2,1fr); }
+    /* charts: keep a legible min width and let them swipe horizontally inside the card */
+    .chart{ overflow-x:auto; -webkit-overflow-scrolling:touch; padding:20px 18px 16px; }
+    .chart svg{ min-width:520px; }
+    .chart .ct,.chart .cs,.chart .legend{ position:sticky; left:0; }
+    /* scroll-edge affordance on wide tables */
+    .tbl-wrap::after{ content:""; position:absolute; top:1px; right:1px; bottom:1px; width:30px; background:linear-gradient(to right, transparent, var(--bg)); pointer-events:none; }
+    .g2,.g3,.g4,.prodgrid,.pillars,.topicgrid,.srcgrid,.pipegrid,.goals{ grid-template-columns:1fr; }
+    .dgrid,.esg-grid,.kgrid2,.kchecks{ grid-template-columns:1fr; }
+    .digi-band,.esg-strip{ grid-template-columns:1fr; }
+    .digi-band .db,.esg-strip .es{ border-right:none; border-bottom:1px solid var(--line); }
+    .digi-band .db:last-child,.esg-strip .es:last-child{ border-bottom:none; }
+    .dflow{ grid-template-columns:1fr; }
+    .dflow .arrow{ transform:rotate(90deg); }
+    .snap{ grid-template-columns:1fr; gap:0; }
+    .korea-grid{ grid-template-columns:1fr; }
+    .hero .motif svg{ width:440px; height:440px; top:-100px; right:-160px; }
+    .kpi .kval{ font-size:26px; }
+  }
+  @media (max-width:480px){
+    .container{ padding:0 16px; }
+    .kpis{ grid-template-columns:1fr; }
+    .hero h1{ font-size:clamp(30px,9vw,44px); }
+    .nav a{ padding:0 11px; font-size:12.5px; }
+    .tabs button{ padding:7px 13px; }
+    .kcontacts{ flex-direction:column; }
+    .kpill{ width:100%; }
+  }
+
+  /* ============ PRINT ============ */
+  @media print{
+    #progress,.nav,.topbar .tools,#tooltip{ display:none !important; }
+    body{ font-size:11px; background:#fff; color:#000; }
+    .reveal{ opacity:1 !important; transform:none !important; }
+    .pcard.hide{ display:block !important; }
+    .bcard .detail{ max-height:none !important; }
+    .tabpane{ display:block !important; }
+    section.block{ padding:24px 0; page-break-inside:avoid; border-bottom:1px solid #ccc; }
+    .card,.kpi,.bcard,.pcard,.topic,.chart,.src{ box-shadow:none !important; break-inside:avoid; }
+    .hero .motif{ display:none; }
+    a[href]{ color:#000; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+    .reveal{ opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
+<div id="tooltip" role="status" aria-hidden="true"></div>
+
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+  <div class="container">
+    <div class="brand-lock">
+      <img src="assets/astellas-logo.png" alt="Astellas" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'ph\'>Astellas</span>')">
+    </div>
+    <div class="tools">
+      <button class="iconbtn" id="themeToggle" aria-label="다크 모드 전환"><span id="themeIcon">◐</span><span id="themeLabel">다크</span></button>
+      <button class="iconbtn" onclick="window.print()" aria-label="인쇄 또는 PDF 저장">⎙ 인쇄</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="motif" aria-hidden="true">
+    <svg viewBox="0 0 780 780" fill="none">
+      <path d="M780,40 C470,90 300,230 250,500 C410,420 600,380 780,420 Z" fill="var(--red)" opacity="0.06"></path>
+      <path d="M780,90 C500,140 330,270 285,530" stroke="var(--red)" stroke-width="2.5" fill="none" opacity="0.30"></path>
+      <path d="M780,160 C540,200 400,300 360,500" stroke="var(--gray)" stroke-width="2" fill="none" opacity="0.35"></path>
+      <path d="M780,240 C580,275 460,355 430,500" stroke="var(--red)" stroke-width="1.5" fill="none" opacity="0.18"></path>
+    </svg>
+  </div>
+  <div class="container">
+    <div class="kicker">Company Briefing · 비공식 · 개인 열람용</div>
+    <h1>Astellas Pharma Inc.</h1>
+    <p class="sub">혁신적 과학을 환자 가치(VALUE)로 전환하는 글로벌 생명과학 기업</p>
+    <div class="meta" id="heroMeta"></div>
+    <div class="summary" id="execTop"></div>
+    <p class="hero-note" id="heroNote"></p>
+  </div>
+</header>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" aria-label="섹션 바로가기">
+  <div class="container">
+    <ul id="navList"></ul>
+  </div>
+</nav>
+
+<main>
+  <section class="block" id="overview"></section>
+  <section class="block alt" id="timeline"></section>
+  <section class="block" id="business"></section>
+  <section class="block alt" id="products"></section>
+  <section class="block" id="brands"></section>
+  <section class="block alt" id="pipeline"></section>
+  <section class="block" id="csp2026"></section>
+  <section class="block alt" id="financials"></section>
+  <section class="block" id="market"></section>
+  <section class="block alt" id="manufacturing"></section>
+  <section class="block" id="digital"></section>
+  <section class="block alt" id="korea"></section>
+  <section class="block" id="esg"></section>
+  <section class="block alt" id="risks"></section>
+  <section class="block" id="opportunities"></section>
+  <section class="block alt" id="sources"></section>
+</main>
+
+<footer class="foot">
+  <div class="container">
+    <div class="fname">Astellas Pharma Inc. — Company Briefing</div>
+    <ul id="disclaimerList"></ul>
+  </div>
+</footer>
+
+<script>
+const DATA = {
+ meta:{ research_date:"2026-06-04", data_cutoff:"2026-06-04", currency:"JPY", unit:"JPY billion" },
+ snapshot:{
+   official_name:"Astellas Pharma Inc.", hq:"일본 도쿄 (Tokyo, Japan)",
+   listing:"도쿄증권거래소 · 증권코드 4503", fiscal_year_end:"3월 31일 (FY 종료)",
+   ceo:"Naoki Okamura — Representative Director, President & CEO",
+   chairman:"Kenji Yasukawa — Representative Director, Chairman of the Board",
+   footprint:"70개국 이상 사업 전개", employees:"13,643명 (FY2024, 정규직)",
+   vision:"On the forefront of healthcare change to turn innovative science into VALUE for patients.",
+   areas:["Oncology","Ophthalmology","Urology","Immunology","Women's Health"],
+   leadership_asof:"2026-05"
+ },
+ kpis:[
+  {l:"FY2025 매출",v:2139.2,u:"십억엔",fy:"FY2025",t:"fact",s:"AST-P0-FY2025-RESULTS",c:"High"},
+  {l:"FY2025 Core OP",v:555.7,u:"십억엔",fy:"FY2025",t:"fact",s:"AST-P0-FY2025-RESULTS",c:"High"},
+  {l:"FY2025 Core OP 마진",v:26.0,u:"%",fy:"FY2025",t:"fact",s:"AST-P0-FY2025-PRES",c:"High"},
+  {l:"FY2025 전략브랜드 매출",v:480.3,u:"십억엔",fy:"FY2025",t:"fact",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {l:"전략브랜드 YoY 성장",v:42.8,u:"%",fy:"FY2025",t:"fact",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {l:"FY2025 XTANDI 매출",v:960.8,u:"십억엔",fy:"FY2025",t:"fact",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {l:"FY2025 PADCEV 매출",v:221.2,u:"십억엔",fy:"FY2025",t:"fact",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {l:"FY2026 매출 전망",v:2220.0,u:"십억엔",fy:"FY2026",t:"forecast",s:"AST-P0-FY2025-RESULTS",c:"High"},
+  {l:"FY2026 Core OP 전망",v:620.0,u:"십억엔",fy:"FY2026",t:"forecast",s:"AST-P0-FY2025-RESULTS",c:"High"},
+  {l:"FY2026 전략브랜드 전망",v:610.0,u:"십억엔",fy:"FY2026",t:"forecast",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {l:"FY2026 XTANDI 전망",v:910.0,u:"십억엔",fy:"FY2026",t:"forecast",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {l:"전략브랜드 매출 2배 목표",v:2.0,u:"× vs FY2025",fy:"FY2030",t:"ambition",s:"AST-P0-CSP2026",c:"High"},
+  {l:"반복적 비용 최적화 목표",v:200.0,u:"십억엔",fy:"FY26–30",t:"ambition",s:"AST-P0-CSP2026",c:"High"},
+  {l:"전 세계 임직원",v:13643,u:"명",fy:"FY2024",t:"fact",s:"AST-P0-ESG-SOCIAL",c:"High"}
+ ],
+ exec:[
+  {m:"FY2025 매출 2조 1,392억엔(2,139.2십억엔), Core OP 5,557억엔(555.7십억엔)을 기록했습니다.",t:"fact",s:"AST-P0-FY2025-RESULTS",c:"High"},
+  {m:"전략 브랜드는 FY2025 4,803억엔(480.3십억엔)을 달성했고 FY2026에는 6,100억엔(610.0십억엔)으로 전망됩니다.",t:"fact",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {m:"XTANDI는 FY2025 매출 9,608억엔(960.8십억엔)으로 최대 품목이며, FY2026 전망은 9,100억엔(910.0십억엔)입니다.",t:"forecast",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {m:"CSP2026은 파이프라인 주도 성장으로의 통제된 전환을 제시하며, FY2030까지 전략브랜드 매출 2배·반복비용 2,000억엔 최적화를 목표로 합니다.",t:"ambition",s:"AST-P0-CSP2026",c:"High"},
+  {m:"파이프라인 주도 성장은 setidegrasib·ASP2138·VIR-5500·ASP2957·ASP7317 등 후기/초기 자산에 달려 있습니다.",t:"interp",s:"AST-P0-PIPELINE",c:"High"},
+  {m:"디지털 전환은 독립 기술 프로젝트가 아니라 운영 모델의 동력(enabler)으로 제시되어야 합니다.",t:"interp",s:"AST-P0-DIGITAL",c:"Medium"}
+ ],
+ timeline:[
+  {y:"2005",e:"야마노우치제약과 후지사와약품 합병으로 아스텔라스 설립",m:"비뇨기·이식/면역·글로벌 스페셜티 역량을 결합한 통합 플랫폼 형성.",s:"AST-P0-ABOUT",c:"High"},
+  {y:"2012",e:"XTANDI 미국 출시",m:"글로벌 항암 핵심 매출 엔진 확립.",s:"AST-P0-MEDICINES",c:"Medium"},
+  {y:"2016",e:"Ganymed 인수",m:"CLDN18.2 VYLOY 프랜차이즈의 기반 마련.",s:"AST-P0-CSP2026",c:"Medium"},
+  {y:"2017",e:"Ogeda 인수",m:"여성건강 fezolinetant(VEOZAH)의 토대 확보.",s:"AST-P0-CSP2026",c:"Medium"},
+  {y:"2023",e:"Iveric Bio 인수 및 IZERVAY 미국 출시",m:"안과 플랫폼과 지도형 위축(GA) 시장 참여 확대.",s:"AST-P0-MEDICINES",c:"Medium"},
+  {y:"2026",e:"CSP2026 발표",m:"post-XTANDI 전환·전략브랜드 확장·비용 최적화·파이프라인 주도 성장 공식화.",s:"AST-P0-CSP2026",c:"High"}
+ ],
+ business:[
+  {topic:"수익 모델",sum:"항암·안과·비뇨기·면역·여성건강 전반의 글로벌 스페셜티 의약품 포트폴리오를 운영합니다.",t:"fact",s:"AST-P0-MEDICINES",c:"High"},
+  {topic:"현재 매출 집중도",sum:"XTANDI가 FY2025 매출 960.8십억엔으로 여전히 최대 단일 품목입니다.",t:"fact",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {topic:"성장 브리지",sum:"전략 브랜드가 XTANDI 감소를 상쇄하고 FY2026 매출·이익 성장을 견인할 전망입니다.",t:"forecast",s:"AST-P0-FY2025-PRES",c:"High"},
+  {topic:"post-XTANDI 전환",sum:"CSP2026은 전략브랜드·파이프라인 주도 성장·비용 최적화를 전환 프레임으로 제시합니다.",t:"interp",s:"AST-P0-CSP2026",c:"High"}
+ ],
+ products:[
+  {b:"XTANDI",g:"enzalutamide",ta:"Oncology",role:"핵심 매출 엔진 / 성숙 대형 브랜드",ind:"진행성 전립선암 (국가별 라벨 확인 필요)",rev:960.8,fy:"FY2025",risk:"LOE·IRA·약가 압력",s:"AST-P0-FY2025-SUPP",c:"High",sb:false},
+  {b:"PADCEV",g:"enfortumab vedotin",ta:"Oncology",role:"전략 브랜드",ind:"국소진행성/전이성 요로상피암 (MIBC 생애주기 프로그램은 국가·세팅별 분리)",rev:221.2,fy:"FY2025",risk:"규제 타이밍·급여·ADC 제조 복잡성",s:"AST-P0-FY2025-SUPP",c:"High",sb:true},
+  {b:"IZERVAY",g:"avacincaptad pegol",ta:"Ophthalmology",role:"전략 브랜드",ind:"AMD 이차 지도형 위축(GA) (국가별 라벨 확인 필요)",rev:77.6,fy:"FY2025",risk:"도입 속도·경쟁적 GA 시장",s:"AST-P0-FY2025-SUPP",c:"High",sb:true},
+  {b:"VYLOY",g:"zolbetuximab",ta:"Oncology",role:"전략 브랜드",ind:"1차 CLDN18.2+ HER2- 위/위식도접합부 선암 (국가별 라벨 상이 가능)",rev:63.1,fy:"FY2025",risk:"CLDN18.2 검사 도입·접근성",s:"AST-P0-FY2025-SUPP",c:"High",sb:true},
+  {b:"VEOZAH / VEOZA",g:"fezolinetant",ta:"Women's Health",role:"전략 브랜드",ind:"폐경 관련 중등도–중증 혈관운동증상 (VEOZA는 미국 외 브랜드)",rev:46.6,fy:"FY2025",risk:"시장 창출·급여 접근·안전성 인식",s:"AST-P0-FY2025-SUPP",c:"High",sb:true},
+  {b:"XOSPATA",g:"gilteritinib",ta:"Oncology / Hematology",role:"전략 브랜드",ind:"재발/불응성 FLT3 변이 AML (국가별 라벨 확인 필요)",rev:71.8,fy:"FY2025",risk:"AML 경쟁·생애주기 임상 리스크",s:"AST-P0-FY2025-SUPP",c:"High",sb:true},
+  {b:"PROGRAF / ADVAGRAF 계열",g:"tacrolimus",ta:"Immunology / Transplant",role:"성숙 캐시플로우 제품",ind:"장기이식 후 거부반응 예방 (병용)",rev:207.7,fy:"FY2025",risk:"성숙 브랜드 침식·공급 연속성",s:"AST-P0-FY2025-SUPP",c:"High",sb:false},
+  {b:"BETANIS / MYRBETRIQ / BETMIGA",g:"mirabegron",ta:"Urology",role:"성숙 비뇨기 프랜차이즈",ind:"과민성 방광(OAB)",rev:189.7,fy:"FY2025",risk:"성숙 제품 침식",s:"AST-P0-FY2025-SUPP",c:"High",sb:false},
+  {b:"VESICARE",g:"solifenacin succinate",ta:"Urology",role:"한국/로컬 성숙 제품",ind:"한국 페이지상 베시케어 5/10mg 확인. 글로벌 매출 별도 미검증.",rev:null,fy:"FY2025",risk:"성숙 브랜드 침식·로컬 경쟁",s:"AST-P0-KOREA",c:"High",sb:false},
+  {b:"VESOMNI",g:"solifenacin/tamsulosin",ta:"Urology",role:"한국/로컬 성숙 제품",ind:"한국 페이지상 베솜니 서방정 확인.",rev:null,fy:"FY2025",risk:"성숙 브랜드 침식·로컬 경쟁",s:"AST-P0-KOREA",c:"High",sb:false},
+  {b:"HARNAL-D",g:"tamsulosin",ta:"Urology",role:"한국/로컬 성숙 제품",ind:"한국 페이지상 하루날D 확인.",rev:null,fy:"FY2025",risk:"성숙 브랜드 침식",s:"AST-P0-KOREA",c:"High",sb:false},
+  {b:"CRESEMBA",g:"isavuconazole",ta:"Anti-infective / Other",role:"FY2025 지역 매출 내 비핵심",ind:"FY2025 regional sales table 포함. 코어 포트폴리오에선 optional.",rev:null,fy:"FY2025",risk:"포트폴리오 우선순위",s:"AST-P0-FY2025-SUPP",c:"Medium",sb:false}
+ ],
+ brands:[
+  {b:"PADCEV",g:"enfortumab vedotin",fy25:"221.2십억엔",yoy:"+34.8%",why:"FY2025 최대 전략브랜드이자 핵심 성장 동력.",fy26:"전략브랜드 성장 선도 지속 예상 (개별 FY2026 수치 미공개)",driver:"1차 mUC 침투, MIBC 생애주기 확장, 급여 모멘텀",risk:"규제 타이밍·급여·ADC 제조 복잡성",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {b:"IZERVAY",g:"avacincaptad pegol",fy25:"77.6십억엔",yoy:"+33.2%",why:"안과 핵심 성장 자산.",fy26:"보체억제제 시장 확장·신규 환자 유입 (개별 수치 미공개)",driver:"GA 시장 침투, 일본 출시, 생애주기 편의성",risk:"도입 속도·경쟁 압력",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {b:"VYLOY",g:"zolbetuximab",fy25:"63.1십억엔",yoy:"+415.6%",why:"CLDN18.2 바이오마커 기반 위암 프랜차이즈 핵심.",fy26:"검사율·점유율 확대 모멘텀 (개별 수치 미공개)",driver:"CLDN18.2 검사 도입, 중국 기회, 3제 병용 생애주기",risk:"진단 도입·접근성",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {b:"VEOZAH / VEOZA",g:"fezolinetant",fy25:"46.6십억엔",yoy:"+37.7%",why:"여성건강 시장 창출 자산.",fy26:"일본·중국 기회, 유방암 VMS 프로그램 (개별 수치 미공개)",driver:"지역 확장, 질환 인지도, 생애주기 확장",risk:"교육·급여·안전성 인식",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {b:"XOSPATA",g:"gilteritinib",fy25:"71.8십억엔",yoy:"+5.7%",why:"안정적 혈액암 프랜차이즈 + 생애주기 옵션.",fy26:"완만한 성장 예상 (개별 수치 미공개)",driver:"AML 생애주기 프로그램·글로벌 기여",risk:"AML 경쟁·임상 결과 리스크",s:"AST-P0-FY2025-SUPP",c:"High"}
+ ],
+ pipeline:[
+  {code:"setidegrasib / ASP3082",ind:"췌관선암(PDAC)",ph:3,moa:"저분자 · KRAS G12D 분해제",rel:"표적 단백질 분해 플래그십, 파이프라인 주도 성장 핵심.",note:"광범위 암종 P-I 프로그램과 별개.",s:"AST-P0-PIPELINE",c:"High"},
+  {code:"ASP2138",ind:"위/위식도접합부 선암 · 췌장선암",ph:1,moa:"항-CLDN18.2 / 항-CD3 이중특이항체",rel:"차세대 면역항암·CLDN18.2 프랜차이즈 자산.",note:"현행 Phase 3로 기술 금지; CSP2026 예상 마일스톤은 별개.",s:"AST-P0-PIPELINE",c:"High"},
+  {code:"VIR-5500",ind:"전립선암",ph:1,moa:"항-PSMA / 항-CD3 T세포 인게이저",rel:"기존 XTANDI 프랜차이즈 너머의 전립선암 옵션.",note:"초기 단계.",s:"AST-P0-PIPELINE",c:"High"},
+  {code:"ASP2998",ind:"암(Cancer)",ph:1,moa:"TROP2 표적 이중 페이로드 iADC",rel:"차세대 ADC 플랫폼 옵션.",note:"초기 단계.",s:"AST-P0-PIPELINE",c:"High"},
+  {code:"ASP5834",ind:"암(Cancer)",ph:1,moa:"Pan-KRAS 분해제",rel:"표적 단백질 분해 후속 옵션.",note:"초기 단계.",s:"AST-P0-PIPELINE",c:"High"},
+  {code:"AT845",ind:"폼페병(Pompe disease)",ph:2,moa:"AAV 유전자 치료 · GAA 유전자 대체",rel:"진보 모달리티·유전자 조절 자산.",note:"높은 CMC·임상 리스크.",s:"AST-P0-PIPELINE",c:"High"},
+  {code:"ASP2957",ind:"X-연관 근세관성 근병증",ph:1,moa:"AAV MTM1 유전자 대체",rel:"유전자 조절 플래그십 프로그램.",note:"초기 단계.",s:"AST-P0-PIPELINE",c:"High"},
+  {code:"ASP7317",ind:"AMD 이차 지도형 위축(GA)",ph:1,moa:"세포 치료 · 망막색소상피세포",rel:"실명·재생 플랫폼 자산.",note:"높은 개발·제조 복잡성.",s:"AST-P0-PIPELINE",c:"High"},
+  {code:"ASP546C",ind:"암(Cancer)",ph:1,moa:"Claudin 18.2 표적 ADC",rel:"CLDN18.2 프랜차이즈 인접 자산.",note:"중국 본토·홍콩·마카오·대만 권리 제외.",s:"AST-P0-PIPELINE",c:"High"},
+  {code:"PADCEV LCM",ind:"근육침윤성 방광암(MIBC) 등",ph:3,moa:"Nectin-4 ADC 병용",rel:"높은 상업 인접성.",note:"국가·세팅별 상태(filed/P-II/P-III) 분리 표기.",s:"AST-P0-FY2025-PRES",c:"High",lcm:true},
+  {code:"VYLOY LCM",ind:"위/위식도접합부암 병용",ph:3,moa:"CLDN18.2 항체 병용",rel:"생애주기 확장.",note:"LUCERNA/triplet 기회.",s:"AST-P0-CSP2026",c:"High",lcm:true},
+  {code:"VEOZAH LCM",ind:"일본/중국 VMS·유방암 VMS",ph:3,moa:"NK3 수용체 길항제",rel:"women's health 확장.",note:"승인 함의 금지·지역별.",s:"AST-P0-CSP2026",c:"High",lcm:true},
+  {code:"XOSPATA LCM",ind:"AML 세팅",ph:2,moa:"FLT3 억제제",rel:"혈액암 생애주기.",note:"안정 성장, 핵심 step-change 자산 아님.",s:"AST-P0-PIPELINE",c:"High",lcm:true}
+ ],
+ csp_pillars:[
+  {t:"수익성 있는 성장",c:"고마진 전략 브랜드를 통한 매출·현금 창출 극대화.",s:"AST-P0-CSP2026"},
+  {t:"파이프라인 주도 성장",c:"FY2029부터 파이프라인 자산으로 성장, 2030년대 중반 기록적 매출 목표.",s:"AST-P0-CSP2026"},
+  {t:"규율 있는 현금 배분",c:"전략브랜드 매출 FY2030까지 FY2025 대비 2배 목표.",s:"AST-P0-CSP2026"},
+  {t:"기업 생산성",c:"Global Capability Center·AI·디지털·운영모델 진화로 생산성 향상.",s:"AST-P0-CSP2026"}
+ ],
+ csp_goals:[
+  {v:"2×",k:"전략브랜드 매출 (FY2030 vs FY2025)"},
+  {v:"¥200B",k:"반복적 비용 최적화 (FY26–30)"},
+  {v:"10+",k:"Phase 3 / pivotal 시험 신규 착수 (5+ by FY2027)"},
+  {v:"~20%+5%",k:"R&D 매출 대비 기본 비중 + 추가 투자 (다년 목표)"}
+ ],
+ financials:[
+  {fy:"FY2021",af:"actual",rev:1296.2,op:244.7,opo:155.7,profit:124.1,rnd:246.0,sga:548.8,m:18.9,sb:null,xt:534.3,padcev:21.7,izervay:null,vyloy:null,veozah:null,xospata:34.1},
+  {fy:"FY2022",af:"actual",rev:1518.6,op:286.9,opo:133.0,profit:98.7,rnd:276.1,sga:630.3,m:18.9,sb:null,xt:661.1,padcev:44.4,izervay:null,vyloy:null,veozah:null,xospata:46.6},
+  {fy:"FY2023",af:"actual",rev:1603.7,op:276.9,opo:25.5,profit:17.0,rnd:294.2,sga:740.1,m:17.3,sb:159.9,xt:750.5,padcev:85.4,izervay:12.1,vyloy:null,veozah:7.3,xospata:55.1},
+  {fy:"FY2024",af:"actual",rev:1912.3,op:392.4,opo:41.0,profit:50.7,rnd:327.7,sga:843.0,m:20.5,sb:336.4,xt:912.3,padcev:164.1,izervay:58.3,vyloy:12.2,veozah:33.8,xospata:68.0},
+  {fy:"FY2025",af:"actual",rev:2139.2,op:555.7,opo:382.6,profit:291.6,rnd:314.8,sga:860.3,m:26.0,sb:480.3,xt:960.8,padcev:221.2,izervay:77.6,vyloy:63.1,veozah:46.6,xospata:71.8},
+  {fy:"FY2026",af:"forecast",rev:2220.0,op:620.0,opo:395.0,profit:300.0,rnd:355.0,sga:800.0,m:27.9,sb:610.0,xt:910.0,padcev:null,izervay:null,vyloy:null,veozah:null,xospata:null}
+ ],
+ fy23_note:"FY2023 전략브랜드(159.9)는 현행 5개 브랜드 중 4종 합산 계산값입니다 (VYLOY 미발매).",
+ market:[
+  {topic:"일본계 글로벌 제약 peer 맥락",sum:"FY2025 공식 peer 자료 기준 Takeda보다 매출 규모가 작고 Daiichi Sankyo와 유사한 규모이나, 회계 차이로 완전 정규화된 비교는 아닙니다.",t:"interp",s:"PEER-P3-TAKEDA/DAIICHI",c:"Medium"},
+  {topic:"항암(Oncology)",sum:"XTANDI 회복력, PADCEV 확장, VYLOY 도입, 차세대 파이프라인 실행에 성장이 좌우됩니다.",t:"interp",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {topic:"안과(Ophthalmology)",sum:"IZERVAY가 주요 상업 성장 자산이며 ASP7317이 장기 세포치료 옵션을 제공합니다.",t:"interp",s:"AST-P0-FY2025-SUPP",c:"High"},
+  {topic:"여성건강(Women's Health)",sum:"VEOZAH/VEOZA 성장은 카테고리 창출·지역 확장·생애주기 근거를 필요로 합니다.",t:"interp",s:"AST-P0-CSP2026",c:"Medium"}
+ ],
+ manufacturing:{
+   philosophy:"제조·공급은 Speed to Patient, Patient-Centered Innovation, Reliable Supply with Quality, Optimized COG & Efficiency를 강조합니다.",
+   sites:[
+    {site:"Yaizu",country:"일본",role:"최대 제제(formulation) 사이트 · 경구/무균 제제 · 임상시험용(CTM) 및 상업 생산"},
+    {site:"Toyama",country:"일본",role:"항체 제품 및 발효 유래 저분자 생산 · DS/제제/포장 역량"},
+    {site:"Tralee, Kerry",country:"아일랜드",role:"바이오의약품 충전·마감(fill-finish) 시설 건설 중 · 2028년 초 첫 상업 생산 예상"},
+    {site:"Sanford",country:"미국",role:"유전자 치료(gene therapy) 제조 역량"}
+   ]
+ },
+ digital:[
+  {t:"클라우드 / 인프라",bc:"FY2024 미국·일본·EMEA의 주요 데이터센터 6곳을 클라우드 환경으로 이전.",imp:"글로벌 랜딩존·워크로드 분류·검증 내재화(validation-by-design) 패턴 적용.",risk:"클라우드 비용 초과, GxP 분류 오류, 장애.",cap:"Cloud CoE, FinOps, 검증된 워크로드 블루프린트.",kpi:"클라우드 이전율·검증 워크로드 커버리지·비용 편차",c:"High"},
+  {t:"사이버보안",bc:"Astellas 정보보안 프로그램은 NIST CSF 기반.",imp:"신원 중심 보안·SOC·랜섬웨어 회복력·경영 보고 유지.",risk:"시스템 장애, IP·PII 유출.",cap:"Zero Trust, SOC, EDR/XDR, 불변 백업.",kpi:"MTTR·피싱 실패율·복구 테스트 통과율",c:"High"},
+  {t:"데이터 거버넌스",bc:"정보 민주화(Information democratization)는 공식 디지털 중점 영역.",imp:"데이터 카탈로그·데이터 프로덕트·계보(lineage)·거버넌스 셀프서비스 분석 구축.",risk:"데이터 품질 저하·무단 접근.",cap:"데이터 프로덕트 운영모델·스튜어드십.",kpi:"데이터 품질 점수·카탈로그 커버리지",c:"High"},
+  {t:"AI 거버넌스",bc:"AI 기반 지능형 운영(Intelligent operations)은 공식 중점 영역.",imp:"규제 워크플로에서 승인된 AI 유스케이스와 shadow AI 분리.",risk:"환각·프라이버시 유출·GxP 오용.",cap:"AI 거버넌스 위원회·모델 리스크·데이터 사용 정책.",kpi:"승인된 AI 유스케이스·정책 준수율",c:"Medium"},
+  {t:"네트워크",bc:"글로벌 운영·제조·CMO/CDMO·affiliate 간 연결성 확대.",imp:"분할 WAN/SD-WAN·사이트 회복력·ZTNA 정렬 필요.",risk:"수평 이동(lateral movement)·플랜트/사이트 장애·지연.",cap:"보안 SD-WAN·네트워크 분할·핵심 사이트 HA.",kpi:"핵심 사이트 가용성·분할 준수율",c:"Medium"},
+  {t:"IAM / PAM",bc:"클라우드·벤더·제조 시스템 확대.",imp:"신원 중심 접근통제·특권 세션 거버넌스 필요.",risk:"고아 계정·과도 권한·벤더 접근 남용.",cap:"IAM 라이프사이클·PAM·JIT/JEA·조건부 접근.",kpi:"특권 접근 검토 완료율·고아 계정 수",c:"Medium"},
+  {t:"GxP / CSV",bc:"제조·품질·임상·PV 시스템은 규제 환경.",imp:"CSA/CSV 현대화·증거 자동 수집 필요.",risk:"검증 적체·감사 지적·데이터 무결성 이슈.",cap:"리스크 기반 CSV/CSA·검증 팩토리·전자서명/감사추적 통제.",kpi:"검증 사이클 타임·기한 초과 정기검토",c:"Medium"},
+  {t:"사업연속성 / DR",bc:"사이버·공급망·제조 중단이 공식 리스크.",imp:"계층적 애플리케이션 복구·제조 사이트 DR 정렬 필요.",risk:"장기 업무중단·제품 공급부족.",cap:"DR 오케스트레이션·불변 백업·핵심 프로세스 BIA.",kpi:"RTO/RPO 달성·복구 테스트 통과율",c:"High"},
+  {t:"벤더 관리",bc:"외부 조직·CMO/CDMO·디지털 파트너 활용.",imp:"제3자 리스크·사이버 실사·GxP 벤더 적격성 필요.",risk:"숨은 벤더 노출·CMO/CDMO 컴플라이언스 갭.",cap:"TPRM·벤더 스코어카드·품질협약 통합.",kpi:"핵심 벤더 평가율·벤더 감사 종결",c:"High"},
+  {t:"제조 IT/OT 보안",bc:"ADC·무균·세포/유전자 제조 복잡성 증가.",imp:"OT 자산 인벤토리·분할·패치 거버넌스·클린룸/플랜트 모니터링 필요.",risk:"생산 중단·데이터 무결성 침해·비안전 변경.",cap:"OT SOC·수동(passive) 모니터링·ISA/IEC 정렬 통제.",kpi:"OT 자산 가시성·핵심 패치 SLA·OT 사고 수",c:"Medium-High"},
+  {t:"감사 대응(Audit Readiness)",bc:"거버넌스·내부감사·컴플라이언스 위원회 구조 확인.",imp:"on-demand 증거 아키텍처·통제 자동화 필요.",risk:"증거 누락·감사 피로·시정 지연.",cap:"GRC 자동화·통제 라이브러리·지속 통제 모니터링.",kpi:"증거 수집 시간·통제 자동화율",c:"Medium-High"},
+  {t:"자동화 / AIOps",bc:"AI/디지털 역량이 생산성·비용 최적화와 연결.",imp:"관측성·런북 자동화·사고 상관분석 필요.",risk:"수작업 운영·느린 사고 해결·생산성 누수.",cap:"AIOps·이벤트 상관·self-healing 런북.",kpi:"사고 자동화율·MTTR 감소",c:"Medium"}
+ ],
+ korea:{
+   confirmed:{
+     entity:"한국아스텔라스",
+     address:"서울특별시 강남구 테헤란로 521 파르나스타워 7층",
+     hours:"09:00–18:00 (주말·공휴일·창립기념일 휴무)",
+     phone:"+82-2-3448-0504",
+     tollfree:"+82-80-920-5388 (제품 문의)",
+     products:["Vesomni","Vesicare","Betmiga","VYLOY","Advagraf","XTANDI","XOSPATA","PADCEV","Harnal-D","PROGRAF"]
+   },
+   not_confirmed:["한국 법인 대표자명","한국 임직원 수","한국 매출","한국 전략브랜드 출시 전망","제품별 최종 급여 상태"],
+   meaning:"한국은 확인된 제품정보·의학정보 라우팅·이상사례 보고·컴플라이언스 통제를 글로벌 전략 주장과 분리하여 제시해야 하는 로컬 법인입니다.",
+   checkpoints:["PV/AE 라우팅 및 SLA","제품정보 거버넌스","의학정보 케이스 관리","개인정보·접근통제","벤더 리스크 관리","감사 증거 준비","연락 채널 BCP/DR"]
+ },
+ esg:[
+  {topic:"인권(Human Rights)",sum:"R&D부터 제품정보 제공까지 사업활동 전반에서 인권을 존중한다고 명시.",s:"AST-P0-SUST-BIZ"},
+  {topic:"지속가능 조달",sum:"지속가능 조달 서약 및 비즈니스 파트너 행동강령 유지.",s:"AST-P0-SUST-BIZ"},
+  {topic:"컴플라이언스 구조",sum:"Global Compliance Committee 및 지역별 Compliance Committee 운영.",s:"AST-P0-GOV-2025"},
+  {topic:"내부 통제",sum:"감사·감독위원회, 내부감사, 재무감사인 협력을 거버넌스 보고서에 기술.",s:"AST-P0-GOV-2025"},
+  {topic:"FDA 점검 및 리콜",sum:"FY2024 ESG Social 데이터: FDA 점검 1건, 제품 리콜 2건 공개.",s:"AST-P0-ESG-SOCIAL"},
+  {topic:"사이버보안",sum:"사이버보안은 NIST CSF 기반 통제를 갖춘 공식 리스크 영역.",s:"AST-P0-INTEGRATED-2025"}
+ ],
+ risks:[
+  {id:"R-01",cat:"Commercial",risk:"XTANDI 감소·IRA·LOE 압력",imp:"High",lik:"High",mit:"전략브랜드 확대·규율 있는 포트폴리오 전환",it:"Medium",s:"AST-P0-FY2025-PRES"},
+  {id:"R-02",cat:"Portfolio",risk:"전략브랜드 성장 실행 계획 미달",imp:"High",lik:"Medium",mit:"출시 우수성·접근성·분석·공급 준비",it:"Medium",s:"AST-P0-CSP2026"},
+  {id:"R-03",cat:"Pipeline",risk:"후기 파이프라인 실패 또는 지연",imp:"High",lik:"Medium",mit:"포트폴리오 거버넌스·스테이지게이트 규율",it:"Low",s:"AST-P0-PIPELINE"},
+  {id:"R-04",cat:"Clinical",risk:"Phase 3/pivotal 시험 착수·등록 지연",imp:"High",lik:"Medium",mit:"임상운영 가속·마일스톤 거버넌스",it:"Medium",s:"AST-P0-CSP2026"},
+  {id:"R-05",cat:"Regulatory",risk:"PADCEV·VYLOY 등 LCM 규제 차질",imp:"High",lik:"Medium",mit:"제출 품질·규제 시나리오 계획",it:"Low",s:"AST-P0-FY2025-PRES"},
+  {id:"R-06",cat:"Market Access",risk:"급여·접근성 지연",imp:"High",lik:"Medium",mit:"HEOR 근거·지불자 engagement",it:"Medium",s:"AST-P0-FY2025-PRES"},
+  {id:"R-07",cat:"Diagnostic",risk:"VYLOY CLDN18.2 검사 침투 기대 미달",imp:"High",lik:"Medium",mit:"검사 생태계·의학 교육",it:"Low",s:"AST-P0-CSP2026"},
+  {id:"R-08",cat:"Manufacturing",risk:"ADC·무균·세포/유전자 치료 제조 복잡성",imp:"High",lik:"High",mit:"디지털 QMS·기술이전 엄격성·공급 계획",it:"High",s:"AST-P0-MANUFACTURING"},
+  {id:"R-09",cat:"Supply Chain",risk:"공급망 중단·CMO/CDMO·지정학 리스크",imp:"High",lik:"Medium",mit:"대체 공급처·CMO 거버넌스·안전재고",it:"Medium",s:"AST-P0-INTEGRATED-2025"},
+  {id:"R-10",cat:"Quality",risk:"GMP 지적·제품 리콜·CAPA 지연",imp:"High",lik:"Medium",mit:"점검 준비·품질 데이터 거버넌스",it:"High",s:"AST-P0-ESG-SOCIAL"},
+  {id:"R-11",cat:"Cybersecurity",risk:"사이버공격에 의한 시스템 중단·데이터 유출",imp:"High",lik:"High",mit:"NIST CSF 통제·SOC·Zero Trust·백업 회복력",it:"High",s:"AST-P0-INTEGRATED-2025"},
+  {id:"R-12",cat:"Data Integrity",risk:"규제 데이터 무결성 위반",imp:"High",lik:"Medium",mit:"감사추적·역할기반 접근·ALCOA+ 통제",it:"High",s:"AST-P0-MANUFACTURING"},
+  {id:"R-13",cat:"GxP / CSV",risk:"검증 시스템 증거 공백·CSV 백로그",imp:"High",lik:"Medium",mit:"CSA/CSV 현대화·자동 증거 수집",it:"High",s:"분석적 해석 (규제 제조 맥락 기반)"},
+  {id:"R-14",cat:"AI Governance",risk:"규제 워크플로 내 통제되지 않은 GenAI 사용",imp:"High",lik:"Medium",mit:"AI 거버넌스 위원회·승인 유스케이스·정책 통제",it:"High",s:"AST-P0-DIGITAL"},
+  {id:"R-15",cat:"Privacy",risk:"국경 간 데이터·프라이버시 파편화",imp:"High",lik:"Medium",mit:"프라이버시 바이 디자인·국가별 준수 모니터링",it:"High",s:"AST-P0-INTEGRATED-2025"},
+  {id:"R-16",cat:"Third-party",risk:"벤더·CMO·CDMO 통제 공백",imp:"High",lik:"High",mit:"TPRM·계약 보고·리스크 기반 감사",it:"High",s:"AST-P0-INTEGRATED-2025"},
+  {id:"R-17",cat:"Cost Optimization",risk:"SMT·¥200B 비용 최적화 미달성",imp:"High",lik:"Medium",mit:"전환 PMO·효익 추적",it:"Medium",s:"AST-P0-CSP2026"},
+  {id:"R-18",cat:"Korea",risk:"국내 규제·제품정보·PV 준비 공백",imp:"Medium",lik:"Medium",mit:"로컬 RA/MA/PV 거버넌스·콘텐츠 통제",it:"Medium",s:"AST-P0-KOREA"},
+  {id:"R-19",cat:"BCP/DR",risk:"핵심 연락·PV·제조·상업 시스템 장애",imp:"High",lik:"Medium",mit:"BIA·DR 테스트·인시던트 플레이북",it:"High",s:"AST-P0-INTEGRATED-2025"},
+  {id:"R-20",cat:"Change Mgmt",risk:"전환 피로·운영모델 교란",imp:"Medium",lik:"Medium",mit:"변화 거버넌스·역량 구축",it:"Medium",s:"AST-P0-INTEGRATED-2025"},
+  {id:"R-21",cat:"Market Creation",risk:"VEOZAH/VEOZA 도입이 기대보다 느림",imp:"Medium",lik:"Medium",mit:"HCP/환자 교육·지불자 전략",it:"Medium",s:"AST-P0-FY2025-PRES"},
+  {id:"R-22",cat:"Competition",risk:"GA·요로상피암·위암 경쟁 압력",imp:"Medium",lik:"Medium",mit:"차별화 근거·생애주기·시장 분석",it:"Low",s:"AST-P0-MEDICINES"},
+  {id:"R-23",cat:"Pharmacovigilance",risk:"이상사례 보고 지연 또는 routing 실패",imp:"High",lik:"Medium",mit:"PV 워크플로 자동화·SLA 모니터링",it:"High",s:"AST-P0-KOREA / AST-P0-GOV-2025"},
+  {id:"R-24",cat:"Product Complaint",risk:"제품 불만 접수·triage 갭",imp:"Medium",lik:"Medium",mit:"불만 시스템 통합·SOP 교육",it:"High",s:"AST-P0-KOREA"},
+  {id:"R-25",cat:"FX",risk:"JPY/USD/EUR 환변동",imp:"Medium",lik:"High",mit:"헤지·민감도 계획",it:"Low",s:"AST-P0-FY2025-RESULTS"}
+ ],
+ opportunities:[
+  {id:"O-01",op:"PADCEV 1차 mUC 확대",val:"매출 성장",hz:"단기",en:"필드 분석·접근성 대시보드",kpi:"1차 점유율·매출 성장",s:"AST-P0-FY2025-PRES"},
+  {id:"O-02",op:"PADCEV MIBC 생애주기 확장",val:"추가 적응 환자군",hz:"단/중기",en:"규제·출시 준비 PMO",kpi:"승인-출시 사이클",s:"AST-P0-FY2025-PRES"},
+  {id:"O-03",op:"IZERVAY 시장 침투",val:"안과 성장",hz:"단기",en:"환자 여정 분석",kpi:"신규 환자 유입",s:"AST-P0-FY2025-PRES"},
+  {id:"O-04",op:"VYLOY 검사 생태계",val:"바이오마커 주도 성장",hz:"단/중기",en:"진단 데이터 통합",kpi:"CLDN18.2 검사율",s:"AST-P0-CSP2026"},
+  {id:"O-05",op:"VEOZAH 지역·생애주기 확장",val:"여성건강 성장",hz:"중기",en:"디지털 교육·시장접근 분석",kpi:"출시 준비·처방 성장",s:"AST-P0-CSP2026"},
+  {id:"O-06",op:"setidegrasib Phase 3 PDAC",val:"파이프라인 주도 성장 핵심",hz:"중/장기",en:"중개연구 데이터 플랫폼",kpi:"P-III 마일스톤 달성",s:"AST-P0-PIPELINE"},
+  {id:"O-07",op:"ASP2138 CLDN18.2 이중특이",val:"차세대 면역항암 옵션",hz:"장기",en:"임상·바이오로직스 데이터 스택",kpi:"POC·단계 전환 마일스톤",s:"AST-P0-PIPELINE"},
+  {id:"O-08",op:"클라우드 표준화",val:"운영비 절감·회복력 향상",hz:"중기",en:"클라우드 플랫폼 엔지니어링·FinOps",kpi:"이전율·비용편차·가용성",s:"AST-P0-INTEGRATED-2025"},
+  {id:"O-09",op:"AI 기반 운영",val:"생산성·비용 최적화",hz:"중기",en:"AI 거버넌스·AIOps·자동화",kpi:"자동화율·실현 절감액",s:"AST-P0-DIGITAL"},
+  {id:"O-10",op:"데이터 민주화",val:"의사결정 가속",hz:"단/중기",en:"데이터 카탈로그·마켓플레이스",kpi:"데이터 프로덕트 도입률",s:"AST-P0-DIGITAL"},
+  {id:"O-11",op:"제조 디지털화",val:"품질·수율·사이클타임 개선",hz:"중기",en:"MES·LIMS·eBR·디지털 QMS",kpi:"배치 출하 사이클",s:"AST-P0-MANUFACTURING"},
+  {id:"O-12",op:"감사 준비 자동화",val:"컴플라이언스 효율",hz:"단/중기",en:"GRC 자동화",kpi:"증거 수집 시간",s:"AST-P0-GOV-2025"},
+  {id:"O-13",op:"한국 PV·의학정보 디지털화",val:"안전·컴플라이언스",hz:"단기",en:"PV 워크플로·MI 케이스 관리",kpi:"케이스 적시성",s:"AST-P0-KOREA"},
+  {id:"O-14",op:"제3자 리스크 관리 플랫폼",val:"벤더·CMO·CDMO 통제",hz:"단/중기",en:"TPRM 플랫폼",kpi:"핵심 벤더 평가율",s:"AST-P0-INTEGRATED-2025"},
+  {id:"O-15",op:"IZERVAY 사전충전형 주사기(PFS)",val:"편의성·생애주기 차별화",hz:"중기",en:"QMS/디바이스 라이프사이클 데이터",kpi:"채택·유지율",s:"AST-P0-CSP2026"},
+  {id:"O-16",op:"VYLOY 중국 기회",val:"지역 확장",hz:"중기",en:"런치 PMO·접근성 분석",kpi:"중국 출시 마일스톤",s:"AST-P0-CSP2026"},
+  {id:"O-17",op:"VEOZAH 유방암 VMS",val:"인접 적응증 upside",hz:"중기",en:"임상 데이터 운영",kpi:"시험 마일스톤 정시 달성",s:"AST-P0-CSP2026"},
+  {id:"O-18",op:"XOSPATA 생애주기",val:"혈액암 프랜차이즈 확장",hz:"중기",en:"임상운영 플랫폼",kpi:"등록률·마일스톤",s:"AST-P0-PIPELINE"},
+  {id:"O-19",op:"ASP7317 세포치료",val:"차별화된 안과 플랫폼",hz:"장기",en:"chain-of-identity·제조 데이터",kpi:"배치 성공률",s:"AST-P0-PIPELINE"},
+  {id:"O-20",op:"OT 보안 강화",val:"제조 회복력",hz:"중기",en:"OT 자산 인벤토리·OT SOC",kpi:"OT 자산 가시성",s:"AST-P0-MANUFACTURING"}
+ ],
+ sources:[
+  {id:"AST-P0-FY2025-RESULTS",title:"FY2025 Financial Results",date:"2026-04-27",url:"https://www.astellas.com/content/dam/astellas-com/global/en/confidential-documents/financial-results/4q2025_en.pdf",rel:"High"},
+  {id:"AST-P0-FY2025-SUPP",title:"FY2025 Supplementary Documents",date:"2026-04-27",url:"https://www.astellas.com/content/dam/astellas-com/global/en/confidential-documents/financial-results/4q2025_sup_en.pdf",rel:"High"},
+  {id:"AST-P0-FY2025-PRES",title:"FY2025 Presentation Material",date:"2026-04-27",url:"https://www.astellas.com/content/dam/astellas-com/global/en/confidential-documents/financial-results/4q2025_pre_en.pdf",rel:"High"},
+  {id:"AST-P0-CSP2026",title:"CSP2026 Presentation",date:"2026-05-26",url:"https://www.astellas.com/content/dam/astellas-com/global/en/confidential-documents/Investors-Meeting/astellas_csp2026_presentation_20260526_en.pdf",rel:"High"},
+  {id:"AST-P0-ABOUT",title:"About Astellas",date:"—",url:"https://www.astellas.com/en/about",rel:"High"},
+  {id:"AST-P0-LEADERSHIP",title:"Astellas Leadership",date:"2026-05",url:"https://www.astellas.com/en/about/leadership",rel:"High"},
+  {id:"AST-P0-MEDICINES",title:"Medicines and Disease Areas",date:"—",url:"https://www.astellas.com/en/science/medicines-and-disease-areas",rel:"High"},
+  {id:"AST-P0-PIPELINE",title:"Pipeline",date:"2026-04-27",url:"https://www.astellas.com/en/science/research-and-development/pipeline",rel:"High"},
+  {id:"AST-P0-DIGITAL",title:"Digital Transformation",date:"—",url:"https://www.astellas.com/en/about/digital-transformation",rel:"High"},
+  {id:"AST-P0-INTEGRATED-2025",title:"Integrated Report 2025",date:"2025",url:"https://www.astellas.com/content/dam/astellas-com/global/en/documents/integrated-reports/integrated-report-2025-en.pdf",rel:"High"},
+  {id:"AST-P0-MANUFACTURING",title:"Manufacturing and Supply",date:"—",url:"https://www.astellas.com/en/science/manufacturing-and-supply",rel:"High"},
+  {id:"AST-P0-KOREA",title:"한국아스텔라스 홈페이지",date:"—",url:"https://www.astellas.com/kr/",rel:"High"},
+  {id:"AST-P0-ESG-SOCIAL",title:"ESG Data – Social",date:"—",url:"https://www.astellas.com/en/sustainability/esg/esg-data-social",rel:"High"},
+  {id:"AST-P0-SUST-BIZ",title:"Sustainability in Business Practice",date:"—",url:"https://www.astellas.com/en/sustainability/astellas-and-society/sustainability-in-business-practice",rel:"High"},
+  {id:"AST-P0-GOV-2025",title:"Corporate Governance Report",date:"2025-07-11",url:"https://www.astellas.com/content/dam/astellas-com/global/en/documents/corporate-governance-report-en-250711.pdf",rel:"High"}
+ ],
+ disclaimer:[
+  "본 자료는 2026-06-04 기준 공개자료를 기반으로 작성한 정보 목적의 기업분석 문서이며, 투자판단·의학적 처방·법률자문을 대체하지 않습니다.",
+  "재무 수치는 별도 표기가 없는 한 JPY billion(십억엔) 기준이며, 실적(fact)·전망(forecast)·목표(ambition)·분석적 해석(interpretation)을 구분했습니다.",
+  "국가별 허가·급여·제품정보는 상이할 수 있으므로, 최종 외부 배포 전 FDA·EMA·PMDA·MFDS·HIRA 등 규제·급여 자료를 재확인해야 합니다.",
+  "파이프라인 자산은 모두 임상시험 단계(investigational)이며 규제 승인·상업화를 보장하지 않습니다.",
+  "원화 환산은 1 JPY ≈ 9.4원(2026-06-04 기준) 가정의 개념적 참고치이며, Astellas 공식 수치가 아니고 환율 변동에 따라 달라집니다.",
+  "IT/디지털 권고는 공식 전략·리스크 공시에 기반한 분석가 해석이며, 회사가 발표한 실행 약속이 아닙니다."
+ ]
+};
+/*__RENDER__*/
+(function(){
+  "use strict";
+  var D = DATA;
+  var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s,r){ return (r||document).querySelector(s); };
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // ---- shared bits ----
+  var TAGLABEL = { fact:'실적', forecast:'전망', ambition:'목표', interp:'분석적 해석' };
+  function tagHtml(t){ if(!t||!TAGLABEL[t]) return ''; return '<span class="tag '+t+'">'+TAGLABEL[t]+'</span>'; }
+  function confHtml(c){ if(!c) return ''; var hi=/^high/i.test(c); return '<span class="conf '+(hi?'high':'med')+'"><span class="dot"></span>'+esc(c)+'</span>'; }
+  function schip(id){ if(!id) return ''; return '<span class="schip" data-src="'+esc(id)+'" tabindex="0" role="link">'+esc(id)+'</span>'; }
+  function fmt(v){ if(v==null) return null; return (Math.round(v*10)/10).toLocaleString('en-US',{minimumFractionDigits:(v%1?1:0),maximumFractionDigits:1}); }
+  // 환율 검증: 2026-06-04 — Wise 미드마켓 ¥1≈9.40원 / Investing.com 종가 ¥1≈9.54원 (52주 9.09~9.67). 필요 시 이 값만 수정.
+  var JPY_KRW = 9.4;
+  function toKRW(jpyBn){ if(jpyBn==null||isNaN(jpyBn)) return ''; var jo=(jpyBn*JPY_KRW)/1000; return '≈ ₩'+jo.toFixed(jo<10?2:1)+'조'; }
+  function krwLine(jpyBn){ var t=toKRW(jpyBn); return t? '<div class="krw">'+t+' <span class="krw-lbl">환산(개념용)</span></div>':''; }
+  function head(ix,lbl,title,lead){
+    return '<div class="container reveal"><div class="eyebrow"><span class="ix">'+ix+'</span><span class="lbl">'+lbl+'</span></div>'+
+      '<h2 class="sec-title">'+title+'</h2>'+(lead?'<p class="sec-lead">'+lead+'</p>':'')+'</div>';
+  }
+
+  // ---- NAV ----
+  var NAV = [
+    ['overview','Overview'],['timeline','Timeline'],['business','Business'],['products','Products'],
+    ['brands','전략브랜드'],['pipeline','Pipeline'],['csp2026','CSP2026'],['financials','Financials'],
+    ['market','Market'],['manufacturing','Manufacturing'],['digital','Digital & IT'],['korea','한국'],
+    ['esg','ESG'],['risks','Risks'],['opportunities','Opportunities'],['sources','Sources']
+  ];
+  $('#navList').innerHTML = NAV.map(function(n){ return '<li><a href="#'+n[0]+'">'+n[1]+'</a></li>'; }).join('');
+
+  // ---- HERO ----
+  $('#heroMeta').innerHTML =
+    '<span><b>Last updated</b> '+esc(D.meta.research_date)+'</span>'+
+    '<span><b>Data cutoff</b> '+esc(D.meta.data_cutoff)+'</span>'+
+    '<span><b>통화</b> JPY (십억엔 기준)</span>'+
+    '<span><b>상장</b> TSE 4503</span>';
+  $('#execTop').innerHTML = D.exec.slice(0,4).map(function(e){
+    return '<div class="sum-card"><div class="meta-row" style="margin-top:0;margin-bottom:8px">'+tagHtml(e.t)+confHtml(e.c)+'</div><p>'+esc(e.m)+'</p></div>';
+  }).join('');
+  $('#heroNote').textContent = D.disclaimer[0];
+  $('#disclaimerList').innerHTML = D.disclaimer.map(function(d){ return '<li>'+esc(d)+'</li>'; }).join('');
+
+  // ---- OVERVIEW (KPI + exec + snapshot) ----
+  var kpiHtml = D.kpis.map(function(k,i){
+    var disp = (k.u==='%'||k.u.indexOf('×')>-1)? fmt(k.v) : (k.v>=1000? fmt(k.v): fmt(k.v));
+    return '<div class="kpi reveal" style="transition-delay:'+(i*40)+'ms">'+
+      '<div class="klabel">'+esc(k.l)+'</div>'+
+      '<div class="kval"><span class="cv" data-to="'+k.v+'" data-dec="'+((k.v%1)?1:0)+'">0</span><span class="u">'+esc(k.u)+'</span></div>'+
+      (k.u==='십억엔'? krwLine(k.v) : '')+
+      '<div class="kfoot"><span class="kfy">'+esc(k.fy)+'</span>'+tagHtml(k.t)+'</div>'+
+      '<div class="meta-row" style="margin-top:10px">'+schip(k.s)+confHtml(k.c)+'</div></div>';
+  }).join('');
+  var execHtml = D.exec.map(function(e){
+    return '<div class="e reveal"><div class="bar"></div><div><p>'+esc(e.m)+'</p><div class="meta-row">'+tagHtml(e.t)+confHtml(e.c)+schip(e.s)+'</div></div></div>';
+  }).join('');
+  var s = D.snapshot;
+  function row(dt,dd){ return '<div class="row"><dt>'+dt+'</dt><dd>'+dd+'</dd></div>'; }
+  var snapHtml =
+    '<div class="snap"><dl>'+
+      row('공식 명칭', esc(s.official_name))+ row('본사', esc(s.hq))+
+      row('상장', esc(s.listing))+ row('회계연도 종료', esc(s.fiscal_year_end))+
+      row('임직원', esc(s.employees))+
+    '</dl><dl>'+
+      row('President & CEO', esc(s.ceo))+ row('Chairman', esc(s.chairman))+
+      row('글로벌 footprint', esc(s.footprint))+
+      row('핵심 치료영역', '<div class="ta-chips">'+s.areas.map(function(a){return '<span>'+esc(a)+'</span>';}).join('')+'</div>')+
+      row('리더십 기준', esc(s.leadership_asof))+
+    '</dl></div>';
+  $('#overview').innerHTML =
+    head('01','Overview · KPI','핵심 지표 <span class="em">한눈에</span>','FY2025 실적과 FY2026 전망, CSP2026 목표를 실적·전망·목표로 구분해 표시합니다.')+
+    '<div class="container"><div class="kpis">'+kpiHtml+'</div>'+
+    '<div style="margin-top:48px" class="reveal"><h3 style="font-size:18px">Executive Summary</h3></div><div class="exec">'+execHtml+'</div>'+
+    '<div style="margin-top:48px" class="reveal"><h3 style="font-size:18px">Company Snapshot</h3>'+
+    '<p class="sec-lead" style="margin-top:6px;font-style:italic">"'+esc(s.vision)+'"</p>'+snapHtml+'</div></div>';
+
+  // ---- TIMELINE ----
+  $('#timeline').innerHTML = head('02','History','연혁 — <span class="em">합병에서 전환까지</span>','두 일본 제약사의 대등 합병으로 출범해 20년에 걸쳐 글로벌 스페셜티 제약기업으로 전환했습니다.')+
+    '<div class="container"><div class="tl">'+ D.timeline.map(function(t){
+      return '<div class="node reveal"><div class="yr">'+esc(t.y)+'</div><div class="ev">'+esc(t.e)+'</div><div class="mn">'+esc(t.m)+'</div><div class="meta-row">'+confHtml(t.c)+schip(t.s)+'</div></div>';
+    }).join('')+'</div></div>';
+
+  // ---- BUSINESS MODEL ----
+  $('#business').innerHTML = head('03','Business Model','비즈니스 모델','XTANDI 의존 구조에서 전략브랜드·파이프라인 주도 성장으로의 전환이 핵심 서사입니다.')+
+    '<div class="container"><div class="grid g2">'+ D.business.map(function(b){
+      return '<div class="card reveal"><div class="meta-row" style="margin-top:0;margin-bottom:10px">'+tagHtml(b.t)+confHtml(b.c)+'</div>'+
+        '<h3 style="font-size:17px">'+esc(b.topic)+'</h3><p style="margin-top:8px;color:var(--muted);font-size:14.5px">'+esc(b.sum)+'</p>'+
+        '<div class="meta-row">'+schip(b.s)+'</div></div>';
+    }).join('')+'</div></div>';
+
+  // ---- PRODUCTS ----
+  $('#products').innerHTML = head('04','Product Portfolio','제품 <span class="em">포트폴리오</span>','전략 브랜드(badge)와 성숙 제품을 구분해 표기합니다. 적응증은 글로벌 기준이며 국가별 허가·급여·제품정보는 상이할 수 있어 별도 확인이 필요합니다.')+
+    '<div class="container"><div class="tbl-wrap reveal"><div class="tbl-scroll"><table><thead><tr>'+
+    '<th>제품 · 브랜드</th><th>성분명</th><th>치료영역</th><th>구분</th><th class="num-cell">FY2025 매출</th><th>주요 리스크</th><th>출처</th></tr></thead><tbody>'+
+    D.products.map(function(p){
+      return '<tr><td><span class="b">'+esc(p.b)+'</span><div style="font-size:12px;color:var(--faint);margin-top:3px">'+esc(p.ind)+'</div></td>'+
+        '<td style="font-style:italic;color:var(--muted)">'+esc(p.g)+'</td>'+
+        '<td>'+esc(p.ta)+'</td>'+
+        '<td>'+(p.sb?'<span class="tag ambition">전략브랜드</span>':'<span style="font-size:12px;color:var(--muted)">'+esc(p.role.split(' / ')[0])+'</span>')+'</td>'+
+        '<td class="num-cell">'+(p.rev==null?'<span class="na">N/A</span>':'<span class="b">'+fmt(p.rev)+'</span><div style="font-size:11px;color:var(--faint)">십억엔</div>')+'</td>'+
+        '<td style="font-size:12.5px;color:var(--muted);max-width:200px">'+esc(p.risk)+'</td>'+
+        '<td>'+schip(p.s)+'</td></tr>';
+    }).join('')+'</tbody></table></div></div>'+
+    '<p class="sec-lead" style="font-size:13px;margin-top:14px;font-style:italic">단위: 십억엔(JPY billion). 적응증은 글로벌 제품 페이지 기준이며 한국 정보와 혼합하지 않습니다.</p></div>';
+
+  // ---- STRATEGIC BRANDS ----
+  $('#brands').innerHTML = head('05','Strategic Brands','전략 브랜드 <span class="em">딥다이브</span>','5개 전략 브랜드는 post-XTANDI 전환의 핵심 성장 동력입니다. 카드를 클릭하면 성장 동력·리스크가 펼쳐집니다.')+
+    '<div class="container"><div class="brand-acc">'+ D.brands.map(function(b){
+      return '<div class="bcard reveal" tabindex="0" role="button" aria-expanded="false">'+
+        '<div class="bh"><div><div class="bn">'+esc(b.b)+'</div><div class="gen">'+esc(b.g)+'</div></div><span class="tag ambition">전략브랜드</span></div>'+
+        '<div class="stat"><span class="v">'+esc(b.fy25)+'</span><span class="yoy">'+esc(b.yoy)+' YoY</span></div>'+
+        '<div class="why">'+esc(b.why)+'</div>'+
+        '<div class="detail"><div class="detail-inner">'+
+          '<div><div class="dl">FY2026 전망</div><div class="dv">'+esc(b.fy26)+'</div></div>'+
+          '<div><div class="dl">성장 동력</div><div class="dv">'+esc(b.driver)+'</div></div>'+
+          '<div><div class="dl">핵심 리스크</div><div class="dv">'+esc(b.risk)+'</div></div>'+
+          '<div class="meta-row">'+confHtml(b.c)+schip(b.s)+'</div>'+
+        '</div></div>'+
+        '<div class="toggle">상세 보기 <span class="ar">▾</span></div></div>';
+    }).join('')+'</div></div>';
+
+  // ---- PIPELINE ----
+  $('#pipeline').innerHTML = head('06','R&D Pipeline','파이프라인 — <span class="em">Focus Area Approach</span>','4개 중점 영역(실명·재생 / 유전자 조절 / 면역항암 / 표적 단백질 분해)에서 자산을 구축합니다. 모든 자산은 임상시험 단계(investigational)이며 승인·상업화를 보장하지 않습니다.')+
+    '<div class="container">'+
+    '<div class="filterbar" role="group" aria-label="단계 필터">'+
+      ['전체','P-I','P-II','P-III'].map(function(f,i){ return '<button class="fbtn'+(i===0?' active':'')+'" data-phase="'+(i===0?'all':(4-i===1?'1':(4-i)))+'">'+f+'</button>'; }).join('')+
+    '</div>'+
+    '<div class="pipegrid">'+ D.pipeline.map(function(p){
+      var steps=[1,2,3].map(function(n){ return '<div class="st'+(p.ph>=n?' on':'')+'"><span class="d"></span><span class="pl">P'+n+'</span></div>'; }).join('');
+      return '<div class="pcard reveal" data-phase="'+p.ph+'">'+
+        '<div class="pcode">'+esc(p.lcm? p.code.replace(/\s*LCM$/,'') : p.code)+(p.lcm?' <span class="tag" style="background:var(--chip);color:var(--muted);font-weight:700">LCM</span>':'')+'</div><div class="pind">'+esc(p.ind)+'</div><div class="pmoa">'+esc(p.moa)+'</div>'+
+        '<div class="stepper">'+steps+'</div>'+
+        '<p class="pnote">'+esc(p.rel)+' '+esc(p.note)+'</p>'+
+        '<div class="meta-row">'+confHtml(p.c)+schip(p.s)+'</div></div>';
+    }).join('')+'</div></div>';
+
+  // map data-phase button: P-I=1, P-II=2, P-III=3
+  // (fix button values)
+  Array.prototype.forEach.call(document.querySelectorAll('#pipeline .fbtn'), function(b,i){
+    b.dataset.phase = i===0?'all':String(i); // 전체, P-I→1, P-II→2, P-III→3
+    b.textContent = ['전체','P-I','P-II','P-III'][i];
+  });
+
+  // ---- CSP2026 ----
+  $('#csp2026').innerHTML = head('07','CSP2026','중장기 전략 <span class="em">CSP2026</span>','2026년부터의 5개년 경영계획. 아래 수치는 전부 다년 <strong>목표(ambition)</strong>이며 실적이 아닙니다.')+
+    '<div class="container"><div class="pillars">'+ D.csp_pillars.map(function(p){
+      return '<div class="pillar reveal"><div class="pt">'+esc(p.t)+'</div><div class="pc">'+esc(p.c)+'</div><div class="meta-row"><span class="tag ambition">목표</span>'+schip(p.s)+'</div></div>';
+    }).join('')+'</div>'+
+    '<div class="goals">'+ D.csp_goals.map(function(g){
+      return '<div class="goal reveal"><div class="gv">'+esc(g.v)+'</div><div class="gk">'+esc(g.k)+'</div><div style="margin-top:10px"><span class="tag ambition">목표</span></div></div>';
+    }).join('')+'</div>'+
+    '<p class="sec-lead" style="font-size:13px;margin-top:18px;font-style:italic">주의: FY2025 실제 R&D/매출 ≈ 14.7%, FY2026F ≈ 16.0%. CSP2026의 "기본 ~20% + 추가 최대 5%"는 다년 목표로, 실적 비중과 동일 선상에서 비교하지 않습니다.</p></div>';
+
+  // ---- FINANCIALS (charts + table) ----
+  renderFinancials();
+
+  // ---- MARKET ----
+  $('#market').innerHTML = head('08','Market & Competitive','시장 · <span class="em">경쟁 맥락</span>','peer 정량 비교는 회계 차이로 제한적이며 분석적 해석으로 표기합니다.')+
+    '<div class="container"><div class="grid g2">'+ D.market.map(function(m){
+      return '<div class="card reveal"><div class="meta-row" style="margin-top:0;margin-bottom:10px">'+tagHtml(m.t)+confHtml(m.c)+'</div><h3 style="font-size:16px">'+esc(m.topic)+'</h3><p style="margin-top:8px;color:var(--muted);font-size:14px">'+esc(m.sum)+'</p><div class="meta-row">'+schip(m.s)+'</div></div>';
+    }).join('')+'</div></div>';
+
+  // ---- MANUFACTURING ----
+  var mf=D.manufacturing;
+  $('#manufacturing').innerHTML = head('09','Manufacturing & Supply','제조 · <span class="em">공급망</span>',esc(mf.philosophy))+
+    '<div class="container"><div class="grid g2">'+ mf.sites.map(function(st){
+      return '<div class="card reveal"><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:800">'+esc(st.country)+'</div>'+
+        '<h3 style="font-size:19px;margin-top:5px">'+esc(st.site)+'</h3><p style="margin-top:10px;color:var(--muted);font-size:14px">'+esc(st.role)+'</p></div>';
+    }).join('')+'</div>'+
+    '<p class="sec-lead" style="font-size:13px;margin-top:16px">ADC·무균·세포/유전자 치료 모달리티 복잡성은 IT/OT·GxP·CSV·데이터 무결성 관점에서 높은 통제 수준을 요구합니다.</p></div>';
+
+  // ---- DIGITAL ----
+  $('#digital').innerHTML = head('10','Digital Transformation & IT','디지털 전환 <span class="em">& IT 시사점</span>','각 토픽을 비즈니스 맥락 → 리스크 → 권장 역량 → IT 시사점 → KPI로 구조화했습니다. IT 권고는 공식 전략·리스크 공시에 기반한 분석가 해석입니다.')+
+    '<div class="container">'+
+    '<div class="digi-band reveal">'+
+      '<div class="db"><div class="v">12</div><div class="k">IT · 디지털 토픽 (운영모델 동력)</div></div>'+
+      '<div class="db"><div class="v">6<span style="font-size:.55em;color:var(--faint);font-weight:600">곳</span></div><div class="k">FY2024 데이터센터 클라우드 이전</div></div>'+
+      '<div class="db"><div class="v">NIST CSF</div><div class="k">정보보안 프로그램 기반 프레임워크</div></div>'+
+    '</div>'+
+    '<div class="dgrid">'+ D.digital.map(function(t,i){
+      var ix='D'+('0'+(i+1)).slice(-2);
+      return '<div class="dtopic reveal">'+
+        '<div class="dhead"><span class="dix">'+ix+'</span><span class="dname">'+esc(t.t)+'</span>'+confHtml(t.c)+'</div>'+
+        '<div class="dbody">'+
+          '<div class="dctx">'+esc(t.bc)+'</div>'+
+          '<div class="dflow">'+
+            '<div class="fcell risk"><div class="fl2">리스크</div><div class="fv2">'+esc(t.risk)+'</div></div>'+
+            '<div class="arrow">→</div>'+
+            '<div class="fcell cap"><div class="fl2">권장 역량</div><div class="fv2">'+esc(t.cap)+'</div></div>'+
+          '</div>'+
+          '<div class="dimp"><span class="il">IT 시사점</span>'+esc(t.imp)+'</div>'+
+          '<div class="dkpi">KPI · '+esc(t.kpi)+'</div>'+
+        '</div></div>';
+    }).join('')+'</div></div>';
+
+  // ---- KOREA ----
+  var k=D.korea, kc=k.confirmed;
+  $('#korea').innerHTML = head('11','Astellas Korea','한국아스텔라스','확인된 공개정보와 확인 필요 항목을 분리해 표시하며, 글로벌 전략과 국내 허가·급여·제품정보를 혼합하지 않습니다.')+
+    '<div class="container">'+
+    '<div class="korea-grid">'+
+    '<div class="kbox affil reveal">'+
+      '<svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"></path></svg>'+
+      '<div class="entity"><span class="mk ok" style="display:inline-flex;width:16px;height:16px;border-radius:50%;background:color-mix(in srgb,var(--green) 18%, transparent);color:var(--green);align-items:center;justify-content:center;font-size:10px;vertical-align:middle;margin-right:7px">✓</span>확인된 공개 정보 · '+esc(kc.entity)+'</div>'+
+      '<div class="addr" style="margin-top:12px">'+esc(kc.address)+'</div>'+
+      '<div class="kcontacts">'+
+        '<div class="kpill"><span class="pl">대표전화</span><span class="pv">'+esc(kc.phone)+'</span></div>'+
+        '<div class="kpill"><span class="pl">제품문의</span><span class="pv">'+esc(kc.tollfree)+'</span></div>'+
+      '</div>'+
+      '<div class="khours"><b>업무시간</b> · '+esc(kc.hours)+'</div>'+
+    '</div>'+
+    '<div class="kbox reveal"><div class="kt">국내 공급 제품 (공개 예시)</div><div class="kchips">'+kc.products.map(function(p){return '<span>'+esc(p)+'</span>';}).join('')+'</div>'+
+      '<div class="khours" style="margin-top:16px">상세 적응증·급여 여부는 국내 허가사항(MFDS)·급여 고시 기준으로 별도 확인이 필요합니다.</div>'+
+    '</div></div>'+
+    '<div class="kgrid2">'+
+      '<div class="kpanel unconfirmed reveal"><div class="kt">확인 불가 (공개자료 기준)</div><ul class="kstatus">'+
+        k.not_confirmed.map(function(n){return '<li><span class="mk q">?</span>'+esc(n)+'</li>';}).join('')+'</ul></div>'+
+      '<div class="kpanel checks reveal"><div class="kt">IT · 컴플라이언스 체크포인트</div><ul class="kchecks">'+
+        k.checkpoints.map(function(c,i){return '<li><span class="nn">'+(i+1)+'</span>'+esc(c)+'</li>';}).join('')+'</ul></div>'+
+    '</div>'+
+    '<div class="kcallout reveal">'+esc(k.meaning)+' <span class="meta-row" style="display:inline-flex;margin-top:8px">'+schip('AST-P0-KOREA')+'</span></div>'+
+    '</div>';
+
+  // ---- ESG ----
+  function esgCat(topic){ return /컴플라이언스|내부 통제|FDA|사이버/.test(topic) ? ['g','Governance'] : ['s','Social']; }
+  $('#esg').innerHTML = head('12','ESG · Compliance · Governance','ESG · 컴플라이언스 · <span class="em">거버넌스</span>','정성 중심으로 정리했습니다 (환경 정량 KPI 제외). 토픽은 Social / Governance로 구분 표기합니다.')+
+    '<div class="container">'+
+    '<div class="esg-strip reveal">'+
+      '<div class="es"><div class="v">1<span style="font-size:.5em;color:var(--faint);font-weight:600">건</span></div><div class="k">FDA 점검 (FY2024 ESG Social)</div></div>'+
+      '<div class="es"><div class="v">2<span style="font-size:.5em;color:var(--faint);font-weight:600">건</span></div><div class="k">제품 리콜 (FY2024 ESG Social)</div></div>'+
+      '<div class="es"><div class="v">Global + 지역</div><div class="k">Compliance Committee 거버넌스 구조</div></div>'+
+    '</div>'+
+    '<div class="esg-grid">'+ D.esg.map(function(e,i){
+      var cat=esgCat(e.topic);
+      return '<div class="ecard reveal"><div class="eh"><span class="ecat '+cat[0]+'">'+cat[1]+'</span><span class="eix">E'+('0'+(i+1)).slice(-2)+'</span></div>'+
+        '<div class="etopic">'+esc(e.topic)+'</div><div class="esum">'+esc(e.sum)+'</div>'+
+        '<div class="meta-row">'+schip(e.s)+'</div></div>';
+    }).join('')+'</div></div>';
+
+  // ---- RISKS ----
+  function heat(level){ var m={High:'h-high',Medium:'h-med',Low:'h-low'}; return '<span class="heat '+(m[level]||'h-med')+'"><span class="sq"></span>'+esc(level)+'</span>'; }
+  var riskCats=['전체'].concat(D.risks.map(function(r){return r.cat;}).filter(function(v,i,a){return a.indexOf(v)===i;}));
+  $('#risks').innerHTML = head('13','Risk Register','리스크 <span class="em">레지스터</span>','Impact × Likelihood를 색상(heat)으로, IT 연관도를 별도 강조합니다. 카테고리로 필터할 수 있습니다.')+
+    '<div class="container"><div class="filterbar" id="riskFilter" role="group" aria-label="리스크 카테고리 필터">'+
+      riskCats.map(function(c,i){return '<button class="fbtn'+(i===0?' active':'')+'" data-cat="'+(i===0?'all':esc(c))+'">'+esc(c)+'</button>';}).join('')+
+    '</div><div class="tbl-wrap reveal"><div class="tbl-scroll"><table><thead><tr>'+
+    '<th>ID</th><th>카테고리</th><th>리스크</th><th>Impact</th><th>Likelihood</th><th>완화 방안</th><th>IT 연관</th><th>출처</th></tr></thead><tbody id="riskBody">'+
+    riskRows('all')+'</tbody></table></div></div></div>';
+
+  function riskRows(cat){
+    return D.risks.filter(function(r){return cat==='all'||r.cat===cat;}).map(function(r){
+      return '<tr><td><span class="b">'+esc(r.id)+'</span></td><td style="font-size:12.5px">'+esc(r.cat)+'</td>'+
+        '<td style="max-width:240px">'+esc(r.risk)+'</td><td>'+heat(r.imp)+'</td><td>'+heat(r.lik)+'</td>'+
+        '<td style="font-size:12.5px;color:var(--muted);max-width:240px">'+esc(r.mit)+'</td>'+
+        '<td><span class="itrel'+(/high/i.test(r.it)?' hi':'')+'">'+esc(r.it)+'</span></td><td>'+schip(r.s)+'</td></tr>';
+    }).join('');
+  }
+
+  // ---- OPPORTUNITIES ----
+  $('#opportunities').innerHTML = head('14','Opportunity Map','기회 <span class="em">맵</span>','시간 지평(time horizon)과 디지털 동력(enabler), 측정 KPI를 함께 제시합니다.')+
+    '<div class="container"><div class="tbl-wrap reveal"><div class="tbl-scroll"><table><thead><tr>'+
+    '<th>ID</th><th>기회</th><th>비즈니스 가치</th><th>시간 지평</th><th>디지털 Enabler</th><th>KPI</th><th>출처</th></tr></thead><tbody>'+
+    D.opportunities.map(function(o){
+      return '<tr><td><span class="b">'+esc(o.id)+'</span></td><td style="max-width:200px"><span class="b">'+esc(o.op)+'</span></td>'+
+        '<td style="font-size:12.5px;color:var(--muted)">'+esc(o.val)+'</td><td><span class="itrel">'+esc(o.hz)+'</span></td>'+
+        '<td style="font-size:12.5px">'+esc(o.en)+'</td><td style="font-size:12.5px;color:var(--blue)">'+esc(o.kpi)+'</td><td>'+schip(o.s)+'</td></tr>';
+    }).join('')+'</tbody></table></div></div></div>';
+
+  // ---- SOURCES ----
+  $('#sources').innerHTML = head('15','Source Appendix','출처 <span class="em">부록</span>','본문의 출처 칩을 클릭하면 해당 출처로 이동합니다. 모든 URL은 클릭 가능합니다.')+
+    '<div class="container"><div class="srcgrid">'+ D.sources.map(function(s){
+      return '<div class="src" id="src-'+esc(s.id)+'"><div class="sid">'+esc(s.id)+'</div><div class="stitle">'+esc(s.title)+'</div>'+
+        '<a class="surl" href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.url)+'</a>'+
+        '<div class="smeta">발행 '+esc(s.date)+' · 신뢰도 '+esc(s.rel)+'</div></div>';
+    }).join('')+'</div></div>';
+
+  /* ============ CHARTS ============ */
+  function renderFinancials(){
+    var F=D.financials;
+    var trend = chartRevenueMargin(F) + chartXtandiVsSb(F);
+    var mix = chartRevenueMix();
+    var sb = chartSbComposition();
+    var table = financialTable(F);
+    $('#financials').innerHTML = head('—','Financial Dashboard','재무 <span class="em">대시보드</span>','단위: 십억엔(JPY billion). 실적(solid)과 전망(점선·반투명)을 구분합니다. 개별 전략브랜드의 FY2026 전망은 미공개이므로 N/A로 표기합니다.')+
+      '<div class="container">'+
+      '<div class="tabs" role="tablist">'+
+        '<button class="active" data-tab="trend" role="tab">추세</button>'+
+        '<button data-tab="mix" role="tab">제품별 구성</button>'+
+        '<button data-tab="sb" role="tab">전략브랜드</button>'+
+      '</div>'+
+      '<div class="tabpane active" data-pane="trend"><div class="charts">'+trend+'</div>'+table+'</div>'+
+      '<div class="tabpane" data-pane="mix"><div class="charts">'+mix+'</div></div>'+
+      '<div class="tabpane" data-pane="sb"><div class="charts">'+sb+'</div></div>'+
+      '</div>';
+  }
+
+  function axisColor(){ return 'var(--line)'; }
+  function chartRevenueMargin(F){
+    var W=760,H=344,pL=46,pR=52,pB=44,pT=42;
+    var pw=W-pL-pR, ph=H-pT-pB, n=F.length, band=pw/n, bw=band*0.46;
+    var revMax=2400, marMax=30;
+    function yR(v){ return pT+ph-(v/revMax)*ph; }
+    function yM(v){ return pT+ph-(v/marMax)*ph; }
+    var bars='', i, f, x, cx;
+    for(i=0;i<n;i++){ f=F[i]; x=pL+band*i+(band-bw)/2; var y=yR(f.rev); var fc=f.af==='forecast';
+      bars+='<rect class="bar-rect" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(pT+ph-y).toFixed(1)+'" rx="2" fill="'+(fc?'color-mix(in srgb,var(--red) 32%, transparent)':'var(--red)')+'"'+(fc?' stroke="var(--red)" stroke-width="1.3" stroke-dasharray="4 3"':'')+' style="transition-delay:'+(i*70)+'ms"></rect>';
+      bars+='<text class="'+(fc?'lbl':'')+'" x="'+(x+bw/2).toFixed(1)+'" y="'+(pT+ph-14).toFixed(1)+'" text-anchor="middle" font-size="12" font-weight="800" fill="'+(fc?'var(--red)':'#fff')+'">'+fmt(f.rev)+'</text>';
+    }
+    var pts=F.map(function(f,i){ return (pL+band*i+band/2).toFixed(1)+','+yM(f.m).toFixed(1); }).join(' ');
+    // revenue values sit inside bar tops; margin % labels clear BOTH the dot and the bar top (min y) so they never collide with the inside-bar value
+    var dots=F.map(function(f,i){ var ly=Math.min(yM(f.m)-12, yR(f.rev)-14); return '<circle cx="'+(pL+band*i+band/2).toFixed(1)+'" cy="'+yM(f.m).toFixed(1)+'" r="3.6" fill="var(--blue)" stroke="var(--bg)" stroke-width="1.5"></circle><text class="lbl" x="'+(pL+band*i+band/2).toFixed(1)+'" y="'+ly.toFixed(1)+'" text-anchor="middle" font-size="10.5" font-weight="800" fill="var(--blue)">'+fmt(f.m)+'%</text>'; }).join('');
+    var yticksR='',v; for(v=0;v<=revMax;v+=800){ yticksR+='<line x1="'+pL+'" y1="'+yR(v)+'" x2="'+(W-pR)+'" y2="'+yR(v)+'" stroke="'+axisColor()+'" stroke-width="1"></line><text x="'+(pL-8)+'" y="'+(yR(v)+3)+'" text-anchor="end" font-size="9.5" fill="var(--faint)">'+v+'</text>'; }
+    var yticksM=''; for(v=0;v<=marMax;v+=10){ yticksM+='<text x="'+(W-pR+8)+'" y="'+(yM(v)+3)+'" text-anchor="start" font-size="9.5" fill="var(--blue)">'+v+'%</text>'; }
+    var xlab=F.map(function(f,i){ return '<text x="'+(pL+band*i+band/2).toFixed(1)+'" y="'+(H-pB+18)+'" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--muted)">'+f.fy+'</text>'; }).join('');
+    return '<div class="chart reveal"><div class="ct">매출 & Core OP 마진 (FY2021–FY2026)</div><div class="cs">막대 = 매출(좌, 십억엔) · 라인 = Core OP 마진%(우). FY2026은 전망(점선)</div>'+
+      '<div class="legend"><span style="color:var(--red)"><i style="background:var(--red)"></i>매출(실적)</span><span style="color:var(--red)"><i class="dash"></i>매출(전망)</span><span style="color:var(--blue)"><i style="background:var(--blue)"></i>Core OP 마진%</span></div>'+
+      '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="FY2021부터 FY2026까지 매출과 Core OP 마진 추세 차트">'+
+      yticksR+yticksM+bars+'<polyline class="draw" points="'+pts+'" fill="none" stroke="var(--blue)" stroke-width="2.5"></polyline>'+dots+xlab+'</svg>'+
+      tableFallback(['FY','매출','Core OP 마진%'], F.map(function(f){return [f.fy, fmt(f.rev), fmt(f.m)+'%'];}))+'</div>';
+  }
+
+  function chartXtandiVsSb(F){
+    var W=760,H=300,pL=46,pR=24,pB=44,pT=18;
+    var pw=W-pL-pR, ph=H-pT-pB, n=F.length, band=pw/(n-1), max=1000;
+    function y(v){ return pT+ph-(v/max)*ph; }
+    function cx(i){ return pL+band*i; }
+    // XTANDI: split actual (i 0..4) and forecast (4..5)
+    var xtA=[],xtF=[]; F.forEach(function(f,i){ if(i<=4) xtA.push(cx(i)+','+y(f.xt)); if(i>=4) xtF.push(cx(i)+','+y(f.xt)); });
+    // SB starts at i=2 (FY2023)
+    var sbA=[],sbF=[]; F.forEach(function(f,i){ if(f.sb!=null){ if(i<=4) sbA.push(cx(i)+','+y(f.sb)); if(i>=4) sbF.push(cx(i)+','+y(f.sb)); } });
+    function dots(arr,color){ return F.map(function(f,i){ var val=arr==='xt'?f.xt:f.sb; if(val==null) return ''; return '<circle cx="'+cx(i)+'" cy="'+y(val)+'" r="3.4" fill="'+color+'" stroke="var(--bg)" stroke-width="1.5"></circle>'; }).join(''); }
+    var labels=''; F.forEach(function(f,i){ labels+='<text class="lbl" x="'+cx(i)+'" y="'+(y(f.xt)-10)+'" text-anchor="middle" font-size="10" font-weight="800" fill="var(--red)">'+fmt(f.xt)+'</text>'; if(f.sb!=null) labels+='<text class="lbl" x="'+cx(i)+'" y="'+(y(f.sb)+17)+'" text-anchor="middle" font-size="10" font-weight="800" fill="var(--dark-red)">'+fmt(f.sb)+'</text>'; });
+    var yt='',v; for(v=0;v<=max;v+=200){ yt+='<line x1="'+pL+'" y1="'+y(v)+'" x2="'+(W-pR)+'" y2="'+y(v)+'" stroke="'+axisColor()+'"></line><text x="'+(pL-8)+'" y="'+(y(v)+3)+'" text-anchor="end" font-size="9.5" fill="var(--faint)">'+v+'</text>'; }
+    var xlab=F.map(function(f,i){ return '<text x="'+cx(i)+'" y="'+(H-pB+18)+'" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--muted)">'+f.fy+'</text>'; }).join('');
+    return '<div class="chart reveal"><div class="ct">전환 서사: XTANDI vs 전략 브랜드 (FY2021–FY2026)</div><div class="cs">XTANDI 하강과 전략브랜드 상승 — post-XTANDI 전환. 십억엔 · FY2026 전망(점선) <span class="tag forecast" style="margin-left:6px">전망</span></div>'+
+      '<div class="legend"><span style="color:var(--red)"><i style="background:var(--red)"></i>XTANDI</span><span style="color:var(--dark-red)"><i style="background:var(--dark-red)"></i>전략 브랜드 합계</span><span><i class="dash"></i>전망 구간</span></div>'+
+      '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="XTANDI와 전략브랜드 매출 전환 차트">'+
+      yt+'<polyline class="draw" points="'+xtA.join(' ')+'" fill="none" stroke="var(--red)" stroke-width="2.8"></polyline>'+
+      '<polyline points="'+xtF.join(' ')+'" fill="none" stroke="var(--red)" stroke-width="2.8" stroke-dasharray="6 4" opacity="0.7"></polyline>'+
+      '<polyline class="draw" points="'+sbA.join(' ')+'" fill="none" stroke="var(--dark-red)" stroke-width="2.8"></polyline>'+
+      '<polyline points="'+sbF.join(' ')+'" fill="none" stroke="var(--dark-red)" stroke-width="2.8" stroke-dasharray="6 4" opacity="0.7"></polyline>'+
+      dots('xt','var(--red)')+dots('sb','var(--dark-red)')+labels+xlab+'</svg>'+
+      tableFallback(['FY','XTANDI','전략브랜드'], F.map(function(f){return [f.fy, fmt(f.xt), f.sb==null?'N/A':fmt(f.sb)];}))+'</div>';
+  }
+
+  function chartRevenueMix(){
+    var segs=[
+      {l:'XTANDI',v:960.8,c:'var(--red)'},
+      {l:'전략 브랜드',v:480.3,c:'var(--dark-red)'},
+      {l:'PROGRAF 계열',v:207.7,c:'var(--blue)'},
+      {l:'mirabegron',v:189.7,c:'var(--gray)'},
+      {l:'기타 (잔여)',v:300.7,c:'var(--light-gray)'}
+    ];
+    var total=2139.2, W=760,H=120, x=46, bh=58, y=30, scale=(W-92)/total;
+    var rects='',labels='',cum=x;
+    segs.forEach(function(sg,i){ var w=sg.v*scale; rects+='<rect class="grow-x" x="'+cum.toFixed(1)+'" y="'+y+'" width="'+w.toFixed(1)+'" height="'+bh+'" fill="'+sg.c+'" style="transition-delay:'+(i*90)+'ms"></rect>'; if(w>42) rects+='<text x="'+(cum+w/2).toFixed(1)+'" y="'+(y+bh/2+4)+'" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">'+(sg.v/total*100).toFixed(0)+'%</text>'; cum+=w; });
+    var leg=segs.map(function(sg){ return '<span style="color:var(--ink)"><i style="background:'+sg.c+';height:12px;width:12px;border-radius:3px"></i>'+sg.l+' · '+fmt(sg.v)+'십억엔</span>'; }).join('');
+    return '<div class="chart reveal"><div class="ct">FY2025 매출 구성 (100% 스택)</div><div class="cs">총 매출 2,139.2십억엔. "기타"는 매출에서 명시 제품 합계를 제외한 잔여(약 300.7).</div>'+
+      '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="FY2025 매출 구성 스택 바">'+rects+'</svg>'+
+      '<div class="legend" style="gap:10px 20px">'+leg+'</div>'+
+      tableFallback(['구성','십억엔'], segs.map(function(sg){return [sg.l, fmt(sg.v)];}))+'</div>';
+  }
+
+  function chartSbComposition(){
+    var b=[
+      {l:'PADCEV',v:221.2,yoy:'+34.8%'},
+      {l:'IZERVAY',v:77.6,yoy:'+33.2%'},
+      {l:'XOSPATA',v:71.8,yoy:'+5.7%'},
+      {l:'VYLOY',v:63.1,yoy:'+415.6%'},
+      {l:'VEOZAH',v:46.6,yoy:'+37.7%'}
+    ];
+    var W=760,H=300,pL=46,pR=20,pB=58,pT=20, pw=W-pL-pR, ph=H-pT-pB, n=b.length, band=pw/n, bw=band*0.5, max=240;
+    function yv(v){ return pT+ph-(v/max)*ph; }
+    var bars=b.map(function(d,i){ var x=pL+band*i+(band-bw)/2, y=yv(d.v);
+      return '<rect class="bar-rect" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(pT+ph-y).toFixed(1)+'" rx="2" fill="var(--dark-red)" style="transition-delay:'+(i*70)+'ms"></rect>'+
+        '<text x="'+(x+bw/2).toFixed(1)+'" y="'+(y-20).toFixed(1)+'" text-anchor="middle" font-size="12" font-weight="800" fill="var(--ink-strong)">'+fmt(d.v)+'</text>'+
+        '<text x="'+(x+bw/2).toFixed(1)+'" y="'+(y-6).toFixed(1)+'" text-anchor="middle" font-size="10" font-weight="700" fill="var(--green)">'+d.yoy+'</text>'+
+        '<text x="'+(pL+band*i+band/2).toFixed(1)+'" y="'+(H-pB+20)+'" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted)">'+d.l+'</text>'; }).join('');
+    var yt='',v; for(v=0;v<=max;v+=60){ yt+='<line x1="'+pL+'" y1="'+yv(v)+'" x2="'+(W-pR)+'" y2="'+yv(v)+'" stroke="'+axisColor()+'"></line><text x="'+(pL-8)+'" y="'+(yv(v)+3)+'" text-anchor="end" font-size="9.5" fill="var(--faint)">'+v+'</text>'; }
+    return '<div class="chart reveal"><div class="ct">전략 브랜드 구성 (FY2025) · 합계 480.3십억엔</div><div class="cs">막대 위 라벨은 YoY 성장률 (비반올림 원수치 기준)</div>'+
+      '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="전략 브랜드 FY2025 매출 구성">'+yt+bars+'</svg>'+
+      tableFallback(['브랜드','십억엔','YoY'], b.map(function(d){return [d.l, fmt(d.v), d.yoy];}))+'</div>';
+  }
+
+  function financialTable(F){
+    function c(v){ return v==null?'<span class="na">N/A</span>':fmt(v); }
+    return '<div class="tbl-wrap reveal" style="margin-top:24px"><div class="tbl-scroll"><table><thead><tr>'+
+      '<th>FY</th><th>구분</th><th class="num-cell">매출</th><th class="num-cell">Core OP</th><th class="num-cell">영업이익</th><th class="num-cell">순이익</th><th class="num-cell">R&D</th><th class="num-cell">Core OP 마진</th><th class="num-cell">전략브랜드</th><th class="num-cell">XTANDI</th></tr></thead><tbody>'+
+      F.map(function(f){ return '<tr><td class="b">'+f.fy+'</td><td>'+(f.af==='forecast'?'<span class="tag forecast">전망</span>':'<span class="tag fact">실적</span>')+'</td>'+
+        '<td class="num-cell">'+c(f.rev)+(f.rev!=null?'<div class="krw-cell">'+toKRW(f.rev)+'</div>':'')+'</td><td class="num-cell">'+c(f.op)+(f.op!=null?'<div class="krw-cell">'+toKRW(f.op)+'</div>':'')+'</td><td class="num-cell">'+c(f.opo)+'</td><td class="num-cell">'+c(f.profit)+'</td><td class="num-cell">'+c(f.rnd)+'</td><td class="num-cell">'+c(f.m)+'%</td><td class="num-cell">'+c(f.sb)+'</td><td class="num-cell">'+c(f.xt)+'</td></tr>'; }).join('')+
+      '</tbody></table></div></div>'+
+      '<p class="sec-lead" style="font-size:12.5px;margin-top:12px;font-style:italic">단위: 십억엔. 매출·Core OP 행의 ₩ 값은 1 JPY ≈ 9.4원 가정의 개념적 참고치(공식 수치 아님). '+esc(D.fy23_note)+' 개별 전략브랜드의 FY2026 전망은 미공개(N/A).</p>';
+  }
+
+  function tableFallback(headers, rows){
+    return '<table class="sr-only"><thead><tr>'+headers.map(function(h){return '<th>'+esc(h)+'</th>';}).join('')+'</tr></thead><tbody>'+
+      rows.map(function(r){ return '<tr>'+r.map(function(c){return '<td>'+esc(c)+'</td>';}).join('')+'</tr>'; }).join('')+'</tbody></table>';
+  }
+
+  /* ============ INTERACTIONS ============ */
+  // count-up
+  function countUp(el){
+    var to=parseFloat(el.getAttribute('data-to')), dec=parseInt(el.getAttribute('data-dec'),10)||0;
+    if(RM){ el.textContent=to.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec}); return; }
+    var dur=900, st=null;
+    function step(ts){ if(!st) st=ts; var p=Math.min((ts-st)/dur,1); var e=1-Math.pow(1-p,3); var val=to*e;
+      el.textContent=val.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec}); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  // reveal + chart draw + countup observer
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(!en.isIntersecting) return; var el=en.target;
+      el.classList.add('in');
+      Array.prototype.forEach.call(el.querySelectorAll('.cv'), countUp);
+      Array.prototype.forEach.call(el.querySelectorAll('svg .draw'), function(p){
+        if(RM) return; try{ var len=p.getTotalLength(); p.style.strokeDasharray=len; p.style.strokeDashoffset=len; p.getBoundingClientRect(); p.style.transition='stroke-dashoffset 1.1s ease'; requestAnimationFrame(function(){ p.style.strokeDashoffset=0; }); }catch(e){}
+      });
+      io.unobserve(el);
+    });
+  },{ rootMargin:'0px 0px -8% 0px', threshold:0.08 });
+  Array.prototype.forEach.call(document.querySelectorAll('.reveal'), function(el){ io.observe(el); });
+
+  // chart bar grow (CSS handles via .in on .chart)
+  // add style for bar-rect + grow-x
+  var st=document.createElement('style');
+  st.textContent='.chart svg .bar-rect{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);transition:transform .8s cubic-bezier(.2,.7,.2,1);}'+
+    '.chart.in svg .bar-rect{transform:scaleY(1);}'+
+    '.chart svg .grow-x{transform-box:fill-box;transform-origin:left;transform:scaleX(0);transition:transform .8s cubic-bezier(.2,.7,.2,1);}'+
+    '.chart.in svg .grow-x{transform:scaleX(1);}';
+  document.head.appendChild(st);
+  if(RM){ var s2=document.createElement('style'); s2.textContent='.chart svg .bar-rect{transform:scaleY(1)!important}.chart svg .grow-x{transform:scaleX(1)!important}'; document.head.appendChild(s2); }
+
+  // scrollspy
+  var navLinks=Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+  var linkMap={}; navLinks.forEach(function(a){ linkMap[a.getAttribute('href').slice(1)]=a; });
+  var spy=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ navLinks.forEach(function(a){a.classList.remove('active');}); var l=linkMap[en.target.id]; if(l){ l.classList.add('active'); var nr=l.parentNode.parentNode.getBoundingClientRect(), r=l.getBoundingClientRect(); if(r.left<nr.left||r.right>nr.right){ l.parentNode.parentNode.scrollLeft+=(r.left-nr.left)-16; } } } });
+  },{ rootMargin:'-48% 0px -50% 0px' });
+  Array.prototype.forEach.call(document.querySelectorAll('main section[id]'), function(s){ spy.observe(s); });
+
+  // progress bar
+  var prog=$('#progress');
+  function onScroll(){ var h=document.documentElement; var max=h.scrollHeight-h.clientHeight; prog.style.width=(max>0?(h.scrollTop/max*100):0)+'%'; }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // brand accordion
+  document.addEventListener('click', function(e){
+    var card=e.target.closest && e.target.closest('.bcard'); if(card){ var open=card.classList.toggle('open'); card.setAttribute('aria-expanded', open?'true':'false'); }
+  });
+  document.addEventListener('keydown', function(e){ if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('bcard')){ e.preventDefault(); e.target.classList.toggle('open'); } });
+
+  // pipeline filter
+  document.querySelector('#pipeline .filterbar').addEventListener('click', function(e){
+    var b=e.target.closest('.fbtn'); if(!b) return; var ph=b.dataset.phase;
+    Array.prototype.forEach.call(this.querySelectorAll('.fbtn'), function(x){x.classList.remove('active');}); b.classList.add('active');
+    Array.prototype.forEach.call(document.querySelectorAll('#pipeline .pcard'), function(c){ c.classList.toggle('hide', !(ph==='all'||c.dataset.phase===ph)); });
+  });
+
+  // risk filter
+  $('#riskFilter').addEventListener('click', function(e){
+    var b=e.target.closest('.fbtn'); if(!b) return; var cat=b.dataset.cat;
+    Array.prototype.forEach.call(this.querySelectorAll('.fbtn'), function(x){x.classList.remove('active');}); b.classList.add('active');
+    $('#riskBody').innerHTML=riskRows(cat);
+  });
+
+  // finance tabs
+  document.querySelector('#financials .tabs').addEventListener('click', function(e){
+    var b=e.target.closest('button'); if(!b) return; var t=b.dataset.tab;
+    Array.prototype.forEach.call(this.querySelectorAll('button'), function(x){x.classList.toggle('active', x===b);});
+    Array.prototype.forEach.call(document.querySelectorAll('#financials .tabpane'), function(p){
+      var on=p.dataset.pane===t; p.classList.toggle('active', on);
+      if(on){ Array.prototype.forEach.call(p.querySelectorAll('.chart'), function(c){ c.classList.add('in'); }); }
+    });
+  });
+
+  // source chip tooltip + click
+  var tip=$('#tooltip'); var srcTitle={}; D.sources.forEach(function(s){ srcTitle[s.id]=s.title; });
+  function showTip(el){ var id=el.dataset.src; tip.textContent=srcTitle[id]||id; var r=el.getBoundingClientRect(); tip.style.left=Math.min(window.innerWidth-300, r.left)+'px'; tip.style.top=(r.bottom+8)+'px'; tip.classList.add('show'); }
+  function hideTip(){ tip.classList.remove('show'); }
+  document.addEventListener('mouseover', function(e){ var c=e.target.closest && e.target.closest('.schip'); if(c) showTip(c); });
+  document.addEventListener('mouseout', function(e){ if(e.target.closest && e.target.closest('.schip')) hideTip(); });
+  document.addEventListener('focusin', function(e){ var c=e.target.closest && e.target.closest('.schip'); if(c) showTip(c); });
+  document.addEventListener('focusout', hideTip);
+  document.addEventListener('click', function(e){ var c=e.target.closest && e.target.closest('.schip'); if(!c) return; var id=c.dataset.src; var t=document.getElementById('src-'+id); if(t){ hideTip(); location.hash='src-'+id; } });
+
+  // dark mode (default light; dark is opt-in via toggle to preserve the editorial light design)
+  var root=document.documentElement;
+  function syncTheme(){ var dark=root.getAttribute('data-theme')==='dark'; $('#themeLabel').textContent=dark?'라이트':'다크'; $('#themeIcon').textContent=dark?'☀':'◐'; }
+  syncTheme();
+  $('#themeToggle').addEventListener('click', function(){ root.setAttribute('data-theme', root.getAttribute('data-theme')==='dark'?'light':'dark'); syncTheme(); });
+
+})();
+</script>
+</body>
+</html>
