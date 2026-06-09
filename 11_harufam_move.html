@@ -1,0 +1,1845 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>가족회의용 의사결정 보고서 · 2027~2029 김해 이주 전략</title>
+<style>
+:root{
+  --bg:#f5f3ee;
+  --surface:#ffffff;
+  --surface-2:#fbfaf6;
+  --surface-3:#f1ede4;
+  --ink:#1b2331;
+  --ink-soft:#3c4658;
+  --navy:#1f3556;
+  --navy-deep:#152743;
+  --slate:#5a6678;
+  --slate-light:#8a93a2;
+  --blue:#3f6aa3;
+  --blue-soft:#6f93c2;
+  --blue-bg:#e9f0f8;
+  --blue-line:#cdddf0;
+  --amber:#9d6510;
+  --amber-bg:#f7efdf;
+  --amber-line:#ead6ad;
+  --sage:#456f51;
+  --sage-bg:#e7efe8;
+  --sage-line:#cadfce;
+  --rose:#a93540;
+  --rose-bg:#f8e8ea;
+  --rose-line:#eccbd0;
+  --line:#e3ded3;
+  --line-soft:#ece8df;
+  --shadow-sm:0 1px 2px rgba(28,40,64,.05),0 1px 1px rgba(28,40,64,.04);
+  --shadow:0 2px 4px rgba(28,40,64,.05),0 6px 16px rgba(28,40,64,.06);
+  --shadow-lg:0 8px 28px rgba(21,39,67,.12);
+  --radius:14px;
+  --radius-sm:9px;
+  --maxw:1080px;
+  --sans:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:84px;}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;line-height:1.72;letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{line-height:1.3;letter-spacing:-.02em;color:var(--navy-deep);margin:0;font-weight:700;}
+p{margin:0 0 .9em;text-wrap:pretty;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+strong{font-weight:700;color:var(--ink);}
+ul,ol{margin:.2em 0 1em;padding-left:1.25em;}
+li{margin:.3em 0;}
+em{font-style:normal;background:var(--amber-bg);padding:.05em .3em;border-radius:4px;color:var(--amber);font-weight:600;}
+
+/* ===== Top toolbar ===== */
+.toolbar{
+  position:sticky;top:0;z-index:60;
+  background:rgba(245,243,238,.86);backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.toolbar-inner{
+  max-width:var(--maxw);margin:0 auto;padding:9px 22px;
+  display:flex;align-items:center;gap:14px;
+}
+.tb-brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--navy-deep);font-size:14.5px;letter-spacing:-.02em;}
+.tb-mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(150deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800;flex-shrink:0;}
+.tb-progress{flex:1;height:4px;border-radius:99px;background:var(--surface-3);overflow:hidden;margin:0 4px;min-width:40px;}
+.tb-progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--navy));border-radius:99px;transition:width .15s ease;}
+.tb-actions{display:flex;gap:8px;flex-shrink:0;}
+.btn{
+  font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:-.01em;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);
+  padding:7px 13px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+  transition:all .15s ease;white-space:nowrap;box-shadow:var(--shadow-sm);
+}
+.btn:hover{border-color:var(--blue-soft);color:var(--navy);background:var(--blue-bg);}
+.btn svg{width:14px;height:14px;}
+.btn-primary{background:var(--navy);color:#fff;border-color:var(--navy);}
+.btn-primary:hover{background:var(--navy-deep);color:#fff;}
+.tb-menu-toggle{display:none;}
+
+/* ===== Layout shell ===== */
+.shell{max-width:var(--maxw);margin:0 auto;padding:0 22px;display:grid;grid-template-columns:228px 1fr;gap:34px;align-items:start;}
+nav.toc{position:sticky;top:74px;align-self:start;padding:18px 0 40px;max-height:calc(100vh - 84px);overflow-y:auto;}
+.toc-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--slate-light);padding:0 12px 10px;}
+.toc a{
+  display:block;padding:6.5px 12px;border-radius:7px;font-size:13.5px;color:var(--slate);
+  border-left:2px solid transparent;line-height:1.4;transition:all .12s ease;
+}
+.toc a:hover{background:var(--surface);color:var(--navy);text-decoration:none;}
+.toc a.active{background:var(--blue-bg);color:var(--navy-deep);font-weight:600;border-left-color:var(--blue);}
+.toc a .n{color:var(--slate-light);font-variant-numeric:tabular-nums;margin-right:7px;font-size:12px;}
+.toc a.active .n{color:var(--blue);}
+.toc-sep{height:1px;background:var(--line);margin:10px 12px;}
+
+main{min-width:0;padding-bottom:80px;}
+
+/* ===== Section wrapper ===== */
+section.doc{scroll-margin-top:80px;margin-top:46px;}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--line);}
+.sec-num{font-size:13px;font-weight:800;color:#fff;background:var(--navy);width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;align-self:flex-start;margin-top:3px;letter-spacing:0;}
+.sec-titles{min-width:0;}
+.sec-head h2{font-size:25px;}
+.sec-kicker{font-size:12.5px;font-weight:600;letter-spacing:.04em;color:var(--blue);text-transform:uppercase;margin-bottom:3px;}
+h3.sub{font-size:18.5px;margin:30px 0 12px;color:var(--navy);display:flex;align-items:center;gap:9px;}
+h3.sub::before{content:"";width:4px;height:17px;border-radius:3px;background:var(--blue);display:inline-block;flex-shrink:0;}
+h4.sub4{font-size:15.5px;margin:20px 0 9px;color:var(--navy-deep);font-weight:700;}
+
+/* ===== Cards ===== */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow-sm);margin:14px 0;}
+.card-soft{background:var(--surface-2);}
+.grid{display:grid;gap:14px;}
+.g2{grid-template-columns:repeat(2,1fr);}
+.g3{grid-template-columns:repeat(3,1fr);}
+
+/* ===== Badges / pills ===== */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;letter-spacing:.01em;padding:2.5px 9px;border-radius:99px;line-height:1.5;white-space:nowrap;vertical-align:middle;border:1px solid transparent;}
+.badge::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.b-fact{color:var(--blue);background:var(--blue-bg);border-color:var(--blue-line);}
+.b-est{color:var(--amber);background:var(--amber-bg);border-color:var(--amber-line);}
+.b-judge{color:var(--slate);background:var(--surface-3);border-color:var(--line);}
+.b-expert{color:var(--rose);background:var(--rose-bg);border-color:var(--rose-line);}
+.legend{display:flex;flex-wrap:wrap;gap:16px;padding:14px 18px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);margin:14px 0;font-size:13px;}
+.legend > div{display:flex;align-items:center;gap:7px;color:var(--slate);}
+.legend b{color:var(--ink-soft);font-weight:600;}
+
+/* ===== Rank cards (Hero summary) ===== */
+.ranks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0;}
+.rank{border-radius:var(--radius);padding:20px;border:1px solid var(--line);background:var(--surface);position:relative;overflow:hidden;box-shadow:var(--shadow);}
+.rank::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;}
+.rank .tag{font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;}
+.rank h4{font-size:19px;margin:8px 0 6px;}
+.rank p{font-size:13.5px;color:var(--slate);margin:0;line-height:1.6;}
+.rank.r1::before{background:var(--sage);}
+.rank.r1 .tag{color:var(--sage);}
+.rank.r2::before{background:var(--amber);}
+.rank.r2 .tag{color:var(--amber);}
+.rank.r3::before{background:var(--rose);}
+.rank.r3 .tag{color:var(--rose);}
+.rank .when{font-size:13px;color:var(--slate-light);font-weight:600;margin-top:10px;display:flex;align-items:center;gap:6px;}
+
+/* ===== Callout ===== */
+.callout{border-radius:var(--radius);padding:18px 20px 18px 22px;margin:16px 0;border:1px solid;position:relative;display:flex;gap:14px;}
+.callout .ico{flex-shrink:0;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;}
+.callout .body{min-width:0;}
+.callout .body h4{font-size:14.5px;margin:0 0 5px;}
+.callout .body p{font-size:13.8px;margin:0;line-height:1.62;}
+.callout .body p + p{margin-top:7px;}
+.co-expert{background:var(--rose-bg);border-color:var(--rose-line);}
+.co-expert .ico{background:var(--rose);}
+.co-expert h4{color:var(--rose);}
+.co-law{background:var(--amber-bg);border-color:var(--amber-line);}
+.co-law .ico{background:var(--amber);}
+.co-law h4{color:var(--amber);}
+.co-info{background:var(--blue-bg);border-color:var(--blue-line);}
+.co-info .ico{background:var(--blue);}
+.co-info h4{color:var(--blue);}
+.co-key{background:var(--sage-bg);border-color:var(--sage-line);}
+.co-key .ico{background:var(--sage);}
+.co-key h4{color:var(--sage);}
+
+/* ===== Quote / conclusion ===== */
+blockquote.pull{margin:16px 0;padding:18px 22px;background:var(--navy-deep);color:#eaf0f8;border-radius:var(--radius);font-size:15.5px;line-height:1.7;box-shadow:var(--shadow);}
+blockquote.pull strong{color:#fff;}
+blockquote.soft{margin:14px 0;padding:14px 20px;border-left:4px solid var(--blue);background:var(--blue-bg);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:14.5px;color:var(--ink-soft);}
+blockquote.soft p:last-child{margin-bottom:0;}
+
+/* ===== Tables ===== */
+.table-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);-webkit-overflow-scrolling:touch;background:var(--surface);}
+table{border-collapse:collapse;width:100%;font-size:13.8px;min-width:520px;}
+caption{text-align:left;font-size:13.5px;font-weight:700;color:var(--navy);padding:14px 18px 4px;caption-side:top;letter-spacing:-.01em;}
+caption .cap-tag{display:inline-block;font-size:11px;font-weight:800;color:var(--blue);background:var(--blue-bg);padding:2px 8px;border-radius:6px;margin-right:8px;letter-spacing:.02em;border:1px solid var(--blue-line);}
+thead th{background:var(--navy);color:#eef3fa;font-weight:600;text-align:left;padding:11px 15px;font-size:13px;letter-spacing:-.01em;vertical-align:middle;border-right:1px solid rgba(255,255,255,.08);}
+thead th:last-child{border-right:none;}
+tbody td,tbody th{padding:11px 15px;border-top:1px solid var(--line-soft);vertical-align:top;line-height:1.55;}
+tbody th{text-align:left;font-weight:700;color:var(--navy);background:var(--surface-2);white-space:nowrap;}
+tbody tr:nth-child(even) td{background:var(--surface-2);}
+tbody tr:hover td{background:var(--blue-bg);}
+td .badge,th .badge{margin-top:1px;}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.tbl-note{font-size:12.5px;color:var(--slate-light);margin:6px 2px 0;}
+.scroll-hint{font-size:11.5px;color:var(--slate-light);display:none;margin:0 0 4px 2px;}
+
+/* recommendation cell coloring */
+.cell-best{color:var(--sage);font-weight:700;}
+.cell-mid{color:var(--amber);font-weight:700;}
+.cell-bad{color:var(--rose);font-weight:700;}
+
+/* ===== Risk matrix ===== */
+.rm-sev{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:12.5px;white-space:nowrap;}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.sev-high .dot{background:var(--rose);}
+.sev-high{color:var(--rose);}
+.sev-mid .dot{background:var(--amber);}
+.sev-mid{color:var(--amber);}
+.sev-low .dot{background:var(--sage);}
+.sev-low{color:var(--sage);}
+tr.risk-high td:first-child{box-shadow:inset 3px 0 0 var(--rose);}
+tr.risk-mid td:first-child{box-shadow:inset 3px 0 0 var(--amber);}
+tr.risk-low td:first-child{box-shadow:inset 3px 0 0 var(--sage);}
+
+/* ===== Decision tree ===== */
+.tree{margin:18px 0;}
+.tnode{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 15px;box-shadow:var(--shadow-sm);}
+.tstart{background:var(--navy-deep);color:#fff;border-color:var(--navy-deep);font-weight:700;text-align:center;font-size:15px;padding:14px;max-width:420px;margin:0 auto 6px;}
+.tbranch{border-left:2px solid var(--blue-line);margin-left:18px;padding-left:20px;position:relative;margin-top:10px;}
+.tbranch > .titem{position:relative;margin:12px 0;}
+.tbranch > .titem::before{content:"";position:absolute;left:-22px;top:20px;width:18px;height:2px;background:var(--blue-line);}
+.tlabel{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:13.5px;color:var(--navy);background:var(--blue-bg);border:1px solid var(--blue-line);padding:7px 13px;border-radius:8px;}
+.tlabel .qn{background:var(--blue);color:#fff;width:18px;height:18px;border-radius:5px;font-size:11px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+.toutcome{display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:7px 13px;border-radius:8px;font-weight:600;margin-top:4px;}
+.out-2028{background:var(--sage-bg);color:var(--sage);border:1px solid var(--sage-line);}
+.out-2027{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line);}
+.out-check{background:var(--surface-3);color:var(--slate);border:1px solid var(--line);}
+.tarrow{color:var(--slate-light);margin:0 4px;font-weight:700;}
+
+/* ===== Timeline ===== */
+.timeline{position:relative;margin:20px 0 8px;padding-left:0;}
+.tl-year{font-size:13px;font-weight:800;color:#fff;background:var(--navy);display:inline-block;padding:4px 14px;border-radius:8px;margin:20px 0 4px;letter-spacing:.02em;}
+.tl-year:first-child{margin-top:0;}
+.tl-items{border-left:2px solid var(--line);margin-left:9px;padding-left:24px;}
+.tl-item{position:relative;padding:11px 0;border-bottom:1px dashed var(--line-soft);display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:baseline;}
+.tl-item:last-child{border-bottom:none;}
+.tl-item::before{content:"";position:absolute;left:-30px;top:17px;width:11px;height:11px;border-radius:50%;background:var(--surface);border:2.5px solid var(--blue-soft);}
+.tl-item.key::before{background:var(--amber);border-color:var(--amber);box-shadow:0 0 0 4px var(--amber-bg);}
+.tl-item.goal::before{background:var(--sage);border-color:var(--sage);box-shadow:0 0 0 4px var(--sage-bg);}
+.tl-when{font-size:13px;font-weight:700;color:var(--navy);}
+.tl-item.key .tl-when{color:var(--amber);}
+.tl-item.goal .tl-when{color:var(--sage);}
+.tl-what{font-size:13.8px;color:var(--ink-soft);}
+.tl-what .why{display:block;font-size:12.5px;color:var(--slate-light);margin-top:2px;}
+.tl-keychip{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.04em;color:var(--amber);background:var(--amber-bg);border:1px solid var(--amber-line);padding:1px 7px;border-radius:5px;margin-left:7px;vertical-align:middle;}
+
+/* ===== Checklist ===== */
+.checklist{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:6px 4px;box-shadow:var(--shadow-sm);margin:12px 0;}
+.cl-item{display:flex;align-items:flex-start;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line-soft);}
+.cl-item:last-child{border-bottom:none;}
+.cl-box{width:19px;height:19px;border:2px solid var(--slate-light);border-radius:5px;flex-shrink:0;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s ease;background:var(--surface);}
+.cl-box svg{width:12px;height:12px;opacity:0;transition:opacity .12s ease;color:#fff;}
+.cl-item.done .cl-box{background:var(--sage);border-color:var(--sage);}
+.cl-item.done .cl-box svg{opacity:1;}
+.cl-item.done .cl-text{color:var(--slate-light);text-decoration:line-through;}
+.cl-text{flex:1;font-size:14px;color:var(--ink-soft);line-height:1.5;}
+.cl-who{font-size:11.5px;color:var(--slate-light);background:var(--surface-3);padding:2px 8px;border-radius:6px;white-space:nowrap;align-self:flex-start;margin-top:2px;border:1px solid var(--line-soft);}
+
+/* details */
+details{margin:12px 0;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow-sm);overflow:hidden;}
+details > summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--navy);font-size:15px;list-style:none;display:flex;align-items:center;gap:10px;user-select:none;background:var(--surface-2);}
+details > summary::-webkit-details-marker{display:none;}
+details > summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--blue);border-bottom:2px solid var(--blue);transform:rotate(-45deg);transition:transform .18s ease;flex-shrink:0;margin-left:2px;}
+details[open] > summary::before{transform:rotate(45deg);}
+.det-body{padding:4px 18px 18px;}
+
+/* misc helpers */
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14px;}
+.kv dt{font-weight:700;color:var(--navy);white-space:nowrap;}
+.kv dd{margin:0;color:var(--ink-soft);}
+.calc{background:var(--navy-deep);color:#dbe6f2;border-radius:var(--radius);padding:16px 20px;font-size:13.5px;line-height:1.85;margin:12px 0;font-variant-numeric:tabular-nums;overflow-x:auto;}
+.calc .ct{color:#9ec1e8;font-weight:700;display:block;margin-bottom:6px;font-size:13px;letter-spacing:.02em;}
+.calc .op{color:#e8a87c;}
+.role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0;}
+.role{border-radius:var(--radius);padding:18px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow-sm);}
+.role h4{font-size:16px;margin-bottom:4px;}
+.role .role-tag{font-size:12px;font-weight:600;color:var(--blue);margin-bottom:12px;}
+.role ul{padding-left:1.1em;font-size:13px;margin:0;}
+.final-line{background:linear-gradient(155deg,var(--navy),var(--navy-deep));color:#fff;border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow-lg);margin:18px 0;}
+.final-line .fl-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-soft);margin-bottom:10px;}
+.final-line p{font-size:16.5px;line-height:1.68;margin:0;color:#eef3fa;}
+.final-line strong{color:#fff;}
+
+/* print summary card */
+.print-card{border:2px solid var(--navy);border-radius:var(--radius);padding:22px;background:var(--surface);margin:16px 0;}
+.print-card h4{font-size:17px;margin-bottom:12px;color:var(--navy-deep);}
+.pc-row{display:grid;grid-template-columns:130px 1fr;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px;}
+.pc-row:last-child{border-bottom:none;}
+.pc-row .pc-k{font-weight:700;color:var(--navy);}
+
+/* footer */
+footer.foot{margin-top:60px;border-top:2px solid var(--line);padding:26px 0 10px;color:var(--slate-light);font-size:12.5px;line-height:1.7;}
+
+/* ===== Cover ===== */
+.cover{background:linear-gradient(160deg,#1f3556 0%,#152743 60%,#101e34 100%);color:#eaf0f8;border-radius:0 0 26px 26px;margin:0 -22px 8px;padding:50px 44px 42px;position:relative;overflow:hidden;}
+.cover::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(111,147,194,.22),transparent 70%);}
+.cover-eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#9ec1e8;margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+.cover-eyebrow .line{height:1px;width:34px;background:#6f93c2;}
+.cover h1{color:#fff;font-size:34px;line-height:1.22;letter-spacing:-.025em;margin-bottom:14px;max-width:720px;}
+.cover .sub{font-size:16px;color:#c5d6ec;max-width:680px;line-height:1.55;margin-bottom:24px;}
+.cover-meta{display:flex;flex-wrap:wrap;gap:10px 26px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);font-size:13.5px;position:relative;z-index:1;}
+.cover-meta .m{display:flex;flex-direction:column;gap:2px;}
+.cover-meta .mk{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7e9fc8;}
+.cover-meta .mv{color:#e4edf7;font-weight:600;}
+.concl3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 4px;position:relative;z-index:1;}
+.concl3 .c{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:15px 16px;}
+.concl3 .c .cn{font-size:11px;font-weight:800;letter-spacing:.06em;margin-bottom:6px;}
+.concl3 .c.r1 .cn{color:#9fd4b1;}
+.concl3 .c.r2 .cn{color:#e8c98a;}
+.concl3 .c.r3 .cn{color:#e6a3aa;}
+.concl3 .c p{font-size:13px;color:#d6e2f0;margin:0;line-height:1.5;}
+
+/* disclosure box at top */
+.disclosure{display:flex;gap:13px;background:#fbfaf6;border:1px solid var(--amber-line);border-left:4px solid var(--amber);border-radius:var(--radius-sm);padding:15px 18px;margin:18px 0;}
+.disclosure .ico{flex-shrink:0;width:24px;height:24px;color:var(--amber);}
+.disclosure p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.6;}
+.disclosure strong{color:var(--amber);}
+
+/* anchor link on headings */
+.anchor{opacity:0;color:var(--slate-light);font-size:.7em;margin-left:8px;font-weight:400;text-decoration:none;transition:opacity .12s;}
+.sec-head:hover .anchor,h3.sub:hover .anchor{opacity:1;}
+
+/* responsive */
+@media (max-width:920px){
+  .shell{grid-template-columns:1fr;gap:0;}
+  nav.toc{position:static;max-height:none;overflow:visible;padding:0;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0;box-shadow:var(--shadow-sm);}
+  nav.toc.collapsed .toc-body{display:none;}
+  .toc-title{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;cursor:pointer;border-bottom:1px solid var(--line);}
+  nav.toc.collapsed .toc-title{border-bottom:none;}
+  .toc-body{padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:1px;}
+  .toc-sep{display:none;}
+  .tb-menu-toggle{display:inline-flex;}
+  .ranks,.g2,.g3,.concl3,.role-grid{grid-template-columns:1fr;}
+  .cover h1{font-size:27px;}
+  .cover{padding:38px 26px 32px;margin:0 -22px 8px;}
+  .scroll-hint{display:block;}
+}
+@media (max-width:560px){
+  body{font-size:15px;}
+  .shell{padding:0 14px;}
+  .cover{margin:0 -14px 8px;padding:32px 20px 26px;}
+  .tb-brand span.full{display:none;}
+  .sec-head h2{font-size:21px;}
+  .tl-item{grid-template-columns:1fr;gap:2px;}
+  .pc-row{grid-template-columns:1fr;gap:2px;}
+}
+
+/* ===== PRINT ===== */
+@media print{
+  :root{--bg:#fff;}
+  body{background:#fff;font-size:10.5pt;line-height:1.5;}
+  .toolbar,nav.toc,.scroll-hint,.anchor,.cl-who{display:none !important;}
+  .shell{display:block;max-width:none;padding:0;margin:0;}
+  main{padding:0;}
+  .cover{margin:0 0 12px;border-radius:0;padding:26px 24px;-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#152743 !important;}
+  section.doc{margin-top:20px;break-inside:auto;}
+  .sec-head{break-after:avoid;}
+  h3.sub,h4.sub4{break-after:avoid;}
+  .card,.callout,.rank,.role,.print-card,.tnode,.tl-item,.cl-item,blockquote,.calc,details,.final-line{break-inside:avoid;}
+  .table-wrap{overflow:visible;break-inside:auto;box-shadow:none;}
+  table{min-width:0;font-size:9pt;}
+  thead{display:table-header-group;}
+  tr{break-inside:avoid;}
+  details{border:1px solid var(--line) !important;}
+  details:not([open]) > .det-body{display:block !important;}
+  details > summary::before{display:none;}
+  .ranks,.g2,.g3,.role-grid,.concl3{display:grid !important;}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  @page{margin:14mm 12mm;}
+  .pagebreak{break-before:page;}
+  section.doc .sec-num,section.doc thead th,.tl-year,.stat::before{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+
+/* ============================================================
+   섹터별 색상 테마 (per-section accent)
+   ============================================================ */
+section.doc{--acc:#233a5e;--acc-deep:#16263f;--acc-bg:#e8edf5;--acc-line:#c8d4e6;}
+section.doc.acc-blue{--acc:#2563a8;--acc-deep:#17456f;--acc-bg:#e7f0fa;--acc-line:#c4dcf2;}
+section.doc.acc-teal{--acc:#0e7c74;--acc-deep:#0a564f;--acc-bg:#e0f1ef;--acc-line:#b7e0da;}
+section.doc.acc-cyan{--acc:#0d6f93;--acc-deep:#094f6a;--acc-bg:#e2f0f6;--acc-line:#bce0ee;}
+section.doc.acc-indigo{--acc:#4b4fae;--acc-deep:#34357d;--acc-bg:#ebecf9;--acc-line:#d0d2f0;}
+section.doc.acc-violet{--acc:#7a46a0;--acc-deep:#57316f;--acc-bg:#f2eaf8;--acc-line:#ddc9ec;}
+section.doc.acc-plum{--acc:#9c3f74;--acc-deep:#6f2b52;--acc-bg:#f8e9f1;--acc-line:#edc9dd;}
+section.doc.acc-green{--acc:#2f7d4f;--acc-deep:#1e5836;--acc-bg:#e6f2ea;--acc-line:#c2e0cd;}
+section.doc.acc-amber{--acc:#a96a12;--acc-deep:#7a4c0c;--acc-bg:#f7eedb;--acc-line:#ead4a6;}
+section.doc.acc-rose{--acc:#bb3a48;--acc-deep:#8a2733;--acc-bg:#f9e8ea;--acc-line:#f0c9ce;}
+section.doc.acc-slate{--acc:#4a5568;--acc-deep:#2f3849;--acc-bg:#eceef1;--acc-line:#d2d7de;}
+section.doc.acc-navy{--acc:#233a5e;--acc-deep:#16263f;--acc-bg:#e8edf5;--acc-line:#c8d4e6;}
+
+section.doc .sec-num{background:linear-gradient(155deg,var(--acc),var(--acc-deep));box-shadow:0 3px 9px -2px var(--acc-line);}
+section.doc .sec-kicker{color:var(--acc);}
+section.doc .sec-head{border-bottom-color:var(--acc-line);position:relative;}
+section.doc .sec-head::after{content:"";position:absolute;left:0;bottom:-2px;height:3px;width:46px;border-radius:3px;background:var(--acc);}
+section.doc h3.sub{color:var(--acc-deep);}
+section.doc h3.sub::before{background:linear-gradient(var(--acc),var(--acc-deep));}
+section.doc thead th{background:var(--acc-deep);}
+section.doc tbody th{color:var(--acc-deep);}
+section.doc caption .cap-tag{color:#fff;background:var(--acc);border-color:var(--acc-deep);}
+section.doc tbody tr:hover td{background:var(--acc-bg);}
+section.doc blockquote.soft{border-left-color:var(--acc);background:var(--acc-bg);}
+section.doc .anchor:hover{color:var(--acc);}
+/* 섹터 칩 (kicker 옆 색 점) */
+.sec-kicker{display:inline-flex;align-items:center;gap:7px;}
+.sec-kicker::before{content:"";width:8px;height:8px;border-radius:2.5px;background:var(--acc);box-shadow:0 0 0 3px var(--acc-bg);}
+
+/* ============================================================
+   핵심 수치 stat strip
+   ============================================================ */
+.statstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0;}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px 15px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
+.stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--sc,var(--blue));}
+.stat::after{content:"";position:absolute;right:-18px;top:-18px;width:60px;height:60px;border-radius:50%;background:var(--sc,var(--blue));opacity:.07;}
+.stat .sv{font-size:25px;font-weight:800;letter-spacing:-.03em;line-height:1.1;color:var(--navy-deep);}
+.stat .sv small{font-size:14px;font-weight:700;color:var(--slate);letter-spacing:-.01em;}
+.stat .sl{font-size:12.5px;color:var(--slate);margin-top:5px;line-height:1.4;}
+.stat .su{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.03em;color:var(--sc,var(--blue));margin-bottom:6px;text-transform:uppercase;}
+@media(max-width:720px){.statstrip{grid-template-columns:repeat(2,1fr);}}
+
+/* ============================================================
+   TOC 그룹 + 섹터 색 점
+   ============================================================ */
+.toc-group{font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--slate-light);padding:14px 12px 5px;}
+.toc-group:first-child{padding-top:4px;}
+.toc a{display:flex;align-items:center;}
+.toc a::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--d,#c8d4e6);margin-right:9px;flex-shrink:0;transition:transform .12s ease;}
+.toc a:hover::before{transform:scale(1.4);}
+.toc a.active{border-left-color:var(--d,var(--blue));background:var(--surface);}
+.toc a.active::before{background:var(--d,var(--blue));}
+
+/* ============================================================
+   타임라인 그래픽 강화
+   ============================================================ */
+.tl-year{position:relative;display:flex;align-items:baseline;gap:12px;font-size:19px;font-weight:800;color:#fff;letter-spacing:.01em;
+  padding:11px 20px;border-radius:11px;margin:26px 0 0;box-shadow:var(--shadow);
+  background:linear-gradient(135deg,var(--yc,#2563a8),var(--yc2,#17456f));}
+.tl-year:first-child{margin-top:6px;}
+.tl-year .yr-sub{font-size:12.5px;font-weight:600;opacity:.9;letter-spacing:.02em;}
+.tl-year::before{content:"";position:absolute;left:20px;bottom:-14px;width:2px;height:14px;background:var(--yc-line,#cfd8e3);}
+.y26{--yc:#2563a8;--yc2:#163f66;--yc-line:#bcd3ec;}
+.y27{--yc:#5a52b8;--yc2:#332e78;--yc-line:#cfccef;}
+.y28{--yc:#8a47a0;--yc2:#5a2c6e;--yc-line:#e1c9ec;}
+.y29{--yc:#2f8a54;--yc2:#1c5a36;--yc-line:#bfe2cc;}
+.tl-items{border-left:2px solid var(--yc-line,#dfe5ec);margin-left:20px;padding:8px 0 8px 28px;}
+.tl-item{position:relative;padding:11px 0;border-bottom:1px dashed var(--line-soft);display:grid;grid-template-columns:118px 1fr;gap:14px;align-items:baseline;}
+.tl-item:last-child{border-bottom:none;}
+.tl-item::before{content:"";position:absolute;left:-35px;top:15px;width:13px;height:13px;border-radius:50%;background:var(--surface);border:3px solid var(--yc,#2563a8);box-shadow:0 0 0 3px var(--surface);}
+.tl-item .tl-when{font-size:13px;font-weight:700;color:var(--yc,#2563a8);}
+.tl-item.key{background:linear-gradient(100deg,var(--amber-bg),#fff);border:1px solid var(--amber-line);border-radius:11px;padding:13px 16px;margin:8px 0;border-bottom:1px solid var(--amber-line);box-shadow:var(--shadow-sm);}
+.tl-item.key::before{left:-35px;background:var(--amber);border-color:#fff;box-shadow:0 0 0 3px var(--amber-bg),0 2px 6px rgba(157,101,16,.4);}
+.tl-item.key .tl-when{color:var(--amber);}
+.tl-item.goal{background:linear-gradient(100deg,var(--sage-bg),#fff);border:1px solid var(--sage-line);border-radius:11px;padding:14px 16px;margin:8px 0;box-shadow:var(--shadow);}
+.tl-item.goal::before{background:var(--sage);border-color:#fff;box-shadow:0 0 0 3px var(--sage-bg),0 2px 6px rgba(69,111,81,.4);}
+.tl-item.goal .tl-when{color:var(--sage);}
+.tl-item.goal .tl-what{font-size:15px;font-weight:700;}
+
+/* ============================================================
+   인라인 강조 마커
+   ============================================================ */
+mark.hl{background:linear-gradient(180deg,transparent 58%,var(--amber-line) 58%);color:inherit;padding:0 1px;font-weight:600;}
+mark.hl-b{background:linear-gradient(180deg,transparent 58%,var(--blue-line) 58%);color:inherit;padding:0 1px;font-weight:600;}
+mark.hl-g{background:linear-gradient(180deg,transparent 58%,var(--sage-line) 58%);color:inherit;padding:0 1px;font-weight:600;}
+</style>
+</head>
+<body>
+
+<!-- ===== Toolbar ===== -->
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div class="tb-brand"><span class="tb-mark">家</span><span class="full">가족회의 의사결정 보고서</span></div>
+    <div class="tb-progress"><i id="progbar"></i></div>
+    <div class="tb-actions">
+      <button class="btn tb-menu-toggle" id="menuBtn" aria-label="목차 열기">목차</button>
+      <button class="btn" id="expandBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg><span class="full">전체 펼치기</span></button>
+      <button class="btn btn-primary" id="printBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg><span class="full">인쇄 / PDF</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+  <!-- ===== TOC ===== -->
+  <nav class="toc" id="toc" aria-label="목차">
+    <div class="toc-title" id="tocTitle"><span>목차 · CONTENTS</span><span aria-hidden="true" style="font-size:14px">☰</span></div>
+    <div class="toc-body">
+      <div class="toc-group">전략 개요</div>
+      <a href="#sec-0" style="--d:#233a5e"><span class="n">00</span>표지 · 핵심 결론</a>
+      <a href="#sec-1" style="--d:#2563a8"><span class="n">01</span>Executive Summary</a>
+      <div class="toc-group">현황 · 분석</div>
+      <a href="#sec-2" style="--d:#0e7c74"><span class="n">02</span>현재 가족 상황</a>
+      <a href="#sec-3" style="--d:#4b4fae"><span class="n">03</span>확인된 사실·추가 확인</a>
+      <a href="#sec-4" style="--d:#7a46a0"><span class="n">04</span>2027 vs 2028 비교</a>
+      <a href="#sec-5" style="--d:#2f7d4f"><span class="n">05</span>교육·적응 분석</a>
+      <a href="#sec-6" style="--d:#0d6f93"><span class="n">06</span>김해 율하2지구 생활권</a>
+      <a href="#sec-7" style="--d:#a96a12"><span class="n">07</span>경주 유지·임대 운용</a>
+      <a href="#sec-8" style="--d:#bb3a48"><span class="n">08</span>임대차 리스크·협상</a>
+      <div class="toc-group">사람 · 실행</div>
+      <a href="#sec-9" style="--d:#9c3f74"><span class="n">09</span>아내 관점 장단점</a>
+      <a href="#sec-10" style="--d:#2563a8"><span class="n">10</span>세입자 커뮤니케이션</a>
+      <a href="#sec-11" style="--d:#7a46a0"><span class="n">11</span>부부 대화 스크립트</a>
+      <a href="#sec-12" style="--d:#4b4fae"><span class="n">12</span>월별 실행 타임라인</a>
+      <div class="toc-group">장기 · 결론</div>
+      <a href="#sec-13" style="--d:#0d6f93"><span class="n">13</span>울산 옥동 전환 로드맵</a>
+      <a href="#sec-14" style="--d:#233a5e"><span class="n">14</span>최종 추천안</a>
+      <a href="#sec-15" style="--d:#2f7d4f"><span class="n">15</span>확인 체크리스트</a>
+      <a href="#sec-16" style="--d:#4a5568"><span class="n">16</span>참고 출처 목록</a>
+      <a href="#sec-17" style="--d:#4b4fae"><span class="n">17</span>부록</a>
+    </div>
+  </nav>
+
+  <main>
+<!-- CONTENT-START -->
+
+<!-- ============ 0. COVER ============ -->
+<section class="doc" id="sec-0" data-screen-label="00 표지">
+  <div class="cover">
+    <div class="cover-eyebrow"><span class="line"></span>FAMILY STRATEGY REPORT · 가족 전략 컨설팅</div>
+    <h1>가족회의용 의사결정 보고서</h1>
+    <p class="sub">2027~2029년 김해 이주 전략 및 초등 고학년~중학교 시점 울산 옥동 전환 가능성 검토</p>
+    <div class="concl3">
+      <div class="c r1"><div class="cn">핵심 결론 ①</div><p>초등 입학 전후 <strong style="color:#fff">기본 베이스는 김해 율하자이힐스테이트 실거주</strong>가 가장 합리적이다.</p></div>
+      <div class="c r2"><div class="cn">핵심 결론 ②</div><p>이사 시점은 감정이 아니라 <strong style="color:#fff">세입자 협상 결과와 법적 안정성</strong>에 따라 2027/2028로 분기한다.</p></div>
+      <div class="c r3"><div class="cn">핵심 결론 ③</div><p>울산 옥동은 확정이 아니라 <strong style="color:#fff">초5~초6 이후 재평가할 장기 옵션</strong>으로 남긴다.</p></div>
+    </div>
+    <div class="cover-meta">
+      <div class="m"><span class="mk">기준일</span><span class="mv">2026년 6월 9일</span></div>
+      <div class="m"><span class="mk">대상 가족</span><span class="mv">3인 가구 · 자녀 하루(2022년 4월생)</span></div>
+      <div class="m"><span class="mk">현재 생활 기반</span><span class="mv">경주</span></div>
+      <div class="m"><span class="mk">보유·옵션</span><span class="mv">김해 율하자이힐스테이트 · 경주 해링턴플레이스 · 울산 옥동현대</span></div>
+    </div>
+  </div>
+
+  <div class="disclosure" role="note">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <p><strong>법률·세무·학군 고지.</strong> 본 문서는 가족 의사결정을 돕기 위한 <strong>일반 정보 및 참고자료</strong>이며, 법률자문·세무자문·공인중개 자문·교육청 공식 판단이 아닙니다. 임대차·세무·학군·유치원·중학교 배정 관련 내용은 일반 정보이므로, 실행 전 반드시 <strong>변호사·세무사·공인중개사·관할 교육지원청·해당 학교·유치원</strong>의 확인을 받아야 합니다. 본 보고서는 세법·임대차법상 최종 판단을 단정하지 않습니다.</p>
+  </div>
+
+  <p style="font-size:13.5px;color:var(--slate);background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 16px;">본 문서는 기존 초안을 바탕으로, 검수 과정에서 확인된 수정사항(2027년 조기 이사의 적법 절차 전제, 유치원 모집 일정 보완, 세컨드홈·준공후미분양 세무 구분, 미래 인프라의 업사이드 처리 등)을 반영해 다시 정리한 최종본입니다.</p>
+</section>
+
+<!-- ============ 1. EXECUTIVE SUMMARY ============ -->
+<section class="doc acc-blue" id="sec-1" data-screen-label="01 Executive Summary">
+  <div class="sec-head">
+    <div class="sec-num">01</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Executive Summary</div>
+      <h2>핵심 결론과 1페이지 요약<a class="anchor" href="#sec-1" aria-label="이 섹션 링크">#</a></h2>
+    </div>
+  </div>
+
+  <p>현재 가족의 장기 주거·교육 전략에서 <strong>가장 합리적인 기본 베이스는 김해 율하자이힐스테이트 실거주</strong>입니다. 이미 보유한 주택이며, 김해교육지원청 통학구역 자료상 율하자이힐스테이트 1구·2구가 김해모산초등학교 통학구역에 포함되는 것으로 확인됩니다 <span class="badge b-fact">사실</span> <a href="#sec-16" style="font-size:12px">[EDU-03]</a>. 김해모산초는 2026년 3월 1일 기준 50(3)학급·1,097명 규모의 대형 초등학교이고 <a href="#sec-16" style="font-size:12px">[EDU-04]</a>, 병설유치원과 김해율하유치원·장유유치원 등 공립 백업이 존재합니다 <a href="#sec-16" style="font-size:12px">[EDU-05]</a>.</p>
+
+  <p>다만 <strong>이사 시점은 하나로 단정하면 안 됩니다.</strong> 현실적인 결론은 다음과 같이 조건부로 분기합니다.</p>
+
+  <h3 class="sub" id="rank-cards">핵심 결론 — 조건부 우선순위</h3>
+  <div class="ranks">
+    <div class="rank r1">
+      <div class="tag">조건부 1순위</div>
+      <h4>2028년 2월 김해 이사</h4>
+      <p>세입자가 2028년 1~2월 퇴거에 명확히 협조하고, 계약갱신요구권·묵시적 갱신·퇴거합의 구조가 전문가 검토상 안정적인 경우.</p>
+      <div class="when">가족 만족도 최적화형 · 적응기간 약 1년</div>
+    </div>
+    <div class="rank r2">
+      <div class="tag">조건부 2순위</div>
+      <h4>2027년 2월 조기 이사</h4>
+      <p>세입자 협조가 불확실하거나 갱신권 리스크가 큰 경우. 단, <strong>적법한 실거주 갱신거절 절차</strong>를 전제로 한다.</p>
+      <div class="when">리스크 통제형 · 적응기간 약 2년</div>
+    </div>
+    <div class="rank r3">
+      <div class="tag">비추천</div>
+      <h4>2029년 입학 직전 이사</h4>
+      <p>새 세입자 1년 단기 임대, 불명확한 구두합의, 묵시적 갱신 방치도 함께 비추천. 행정·정서 부담이 한꺼번에 겹친다.</p>
+      <div class="when">지연형 · 적응기간 매우 짧음</div>
+    </div>
+  </div>
+
+  <div class="statstrip">
+    <div class="stat" style="--sc:#2f8a54"><span class="su">1차 목표</span><div class="sv">2029.3</div><div class="sl">김해모산초 입학 시점</div></div>
+    <div class="stat" style="--sc:#2563a8"><span class="su">적응기간</span><div class="sv">약 2년<small> / 1년</small></div><div class="sl">2027년 / 2028년 이사 기준</div></div>
+    <div class="stat" style="--sc:#4b4fae"><span class="su">통학구역 학교</span><div class="sv">1,097<small>명</small></div><div class="sl">김해모산초 50(3)학급 규모</div></div>
+    <div class="stat" style="--sc:#a96a12"><span class="su">자산 구조</span><div class="sv">3거점</div><div class="sl">김해 베이스 · 경주 운용 · 옥동 옵션</div></div>
+  </div>
+
+  <div class="callout co-expert">
+    <div class="ico">!</div>
+    <div class="body">
+      <h4>2027년 이사도 “자동으로 안전한 선택”이 아닙니다 <span class="badge b-expert" style="margin-left:4px">전문가 확인 필요</span></h4>
+      <p>주택임대차보호법상 임차인은 일정 요건에서 계약갱신요구권을 행사할 수 있고, 임대인의 실거주 목적 갱신거절도 법정 요건과 통지기한을 충족해야 합니다. 따라서 2027년 이사도 <strong>실제 거주 필요성·통지기한·증거관리·전문가 검토</strong>가 전제되어야 합니다. <a href="#sec-16">[LAW-01]</a></p>
+    </div>
+  </div>
+
+  <h3 class="sub" id="exec-why">왜 김해인가 · 왜 두 플랜인가</h3>
+  <div class="grid g2">
+    <div class="card card-soft">
+      <h4 class="sub4">왜 김해를 기본 베이스로 두는가</h4>
+      <p style="font-size:14px;margin-bottom:0">이미 보유한 실거주 후보이고, 공식 통학구역상 김해모산초 구역으로 확인됩니다. 초등학교·유치원 백업·공원·도서관·문화시설·의료·창원/부산 접근성을 함께 활용할 수 있는 신도시 생활권 조합이 핵심입니다. 초등 저학년은 동네 기반으로 안정적으로 키우고, 고학년 이후 김해·창원·부산·울산 옵션을 단계적으로 검토할 수 있습니다.</p>
+    </div>
+    <div class="card card-soft">
+      <h4 class="sub4">왜 2027 / 2028 두 플랜을 모두 열어두는가</h4>
+      <p style="font-size:14px;margin-bottom:0">2028년 이사는 가족 정서상 가장 부드럽지만 <strong>세입자 협조와 법적 안정성</strong>이 필요합니다. 2027년 이사는 생활 변화가 앞당겨지지만 임대차 불확실성을 줄이고 하루의 김해 적응기간을 더 길게 확보합니다. 어느 한쪽을 지금 확정하기보다, 협상 결과를 보고 분기하는 것이 가족 전체 리스크 관리에 맞습니다.</p>
+    </div>
+    <div class="card card-soft">
+      <h4 class="sub4">하루에게 어떤 이점인가</h4>
+      <p style="font-size:14px;margin-bottom:0">2027년 이사는 약 <strong>2년</strong>, 2028년 이사는 약 <strong>1년</strong>의 김해 적응기간을 확보한 뒤 2029년 3월 초등학교에 입학할 수 있습니다 <span class="badge b-judge">판단</span>. 두 플랜 모두 입학 전 생활권을 안정시키는 것을 목표로 합니다.</p>
+    </div>
+    <div class="card card-soft">
+      <h4 class="sub4">아내 입장 부담과 완화책</h4>
+      <p style="font-size:14px;margin-bottom:0">경주 생활을 일찍 정리하는 아쉬움, 생활 루틴 변경, 김해 기관 탐색, 경주 집 임대 전환, 새로운 인간관계 부담이 있습니다. 완화책은 <strong>지금 당장 이사월을 감정적으로 확정하지 않는 것</strong>입니다. 2026년 하반기에는 세입자 협상·법적 기한·유치원 모집·경주 집 운용만 단계적으로 정리합니다.</p>
+    </div>
+  </div>
+
+  <h3 class="sub" id="now-later">지금 결정할 것 vs 나중에 결정할 것</h3>
+  <div class="table-wrap">
+    <table aria-label="지금 결정할 것과 나중에 결정할 것">
+      <thead><tr><th style="width:50%">지금 결정할 것</th><th>나중에 결정할 것</th></tr></thead>
+      <tbody>
+        <tr><td>세입자 협상 원칙, 묵시적 갱신 방지</td><td>실제 이사월 (2027 vs 2028)</td></tr>
+        <tr><td>2027/2028 동시 플랜 유지</td><td>최종 유치원 선택</td></tr>
+        <tr><td>세입자 보상 한도</td><td>경주 집 전세 / 월세 선택</td></tr>
+        <tr><td>법률·세무 확인 일정</td><td>울산 옥동 전환 여부</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <details>
+    <summary>아내에게 보여줄 1페이지 요약 (질문·답변)</summary>
+    <div class="det-body">
+      <div class="table-wrap">
+        <table aria-label="아내에게 보여줄 1페이지 요약">
+          <thead><tr><th style="width:32%">질문</th><th>핵심 답변</th></tr></thead>
+          <tbody>
+            <tr><th>왜 김해 이사를 검토하는가</th><td>김해 율하자이힐스테이트는 이미 보유한 실거주 후보이고, 공식 통학구역상 김해모산초 구역으로 확인된다. 초등학교·유치원 백업·공원·도서관·문화시설·의료·창원/부산 접근성을 함께 활용할 수 있다.</td></tr>
+            <tr><th>왜 2027·2028 두 가능성을 모두 열어두는가</th><td>2028년 이사는 가족 정서상 가장 부드럽지만 세입자 협조와 법적 안정성이 필요하다. 2027년 이사는 생활 변화가 앞당겨지지만 임대차 불확실성을 줄이고 하루의 적응기간을 더 길게 확보한다.</td></tr>
+            <tr><th>하루에게 어떤 이점이 있는가</th><td>2027년 이사는 약 2년, 2028년 이사는 약 1년의 김해 적응기간을 확보한 뒤 2029년 3월 초등학교에 입학할 수 있다.</td></tr>
+            <tr><th>아내 입장에서 부담되는 부분</th><td>경주 생활을 일찍 정리하는 아쉬움, 생활 루틴 변경, 김해 기관 탐색, 경주 집 임대 전환, 새로운 인간관계 부담.</td></tr>
+            <tr><th>부담을 어떻게 줄일 것인가</th><td>지금 당장 이사월을 감정적으로 확정하지 않고, 2026년 하반기에는 세입자 협상·법적 기한·유치원 모집·경주 집 운용만 단계적으로 정리한다.</td></tr>
+            <tr><th>지금 결정할 것</th><td>세입자 협상 원칙, 묵시적 갱신 방지, 2027/2028 동시 플랜 유지, 보상 한도, 법률·세무 확인 일정.</td></tr>
+            <tr><th>나중에 결정할 것</th><td>실제 이사월, 최종 유치원 선택, 경주 집 전세/월세 선택, 울산 옥동 전환 여부.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ============ 2. 현재 가족 상황 ============ -->
+<section class="doc acc-teal" id="sec-2" data-screen-label="02 가족 상황">
+  <div class="sec-head">
+    <div class="sec-num">02</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Context</div>
+      <h2>현재 가족 상황과 의사결정 핵심<a class="anchor" href="#sec-2">#</a></h2>
+    </div>
+  </div>
+
+  <h3 class="sub">2-1. 가족 기본 상황</h3>
+  <div class="table-wrap">
+    <table aria-label="가족 기본 상황">
+      <tbody>
+        <tr><th style="width:30%">가족 구성</th><td>부부 + 자녀 1명, 총 3인 가구</td></tr>
+        <tr><th>자녀</th><td>하루, 남아, 2022년 4월생</td></tr>
+        <tr><th>현재 생활 기반</th><td>경주</td></tr>
+        <tr><th>직장 변수</th><td>한국아스텔라스제약 IT 직무, 서울 본사이나 현재 풀재택근무</td></tr>
+        <tr><th>핵심 의사결정 변수</th><td>출퇴근보다 자녀 교육, 초등 입학 전 생활권 안정, 보유주택 운용</td></tr>
+        <tr><th>김해 자산</th><td>김해 율하자이힐스테이트 보유 · 향후 실거주 후보 1순위</td></tr>
+        <tr><th>경주 자산</th><td>해링턴플레이스 신경주역 보유 · 향후 임대 운용 가능성</td></tr>
+        <tr><th>울산 옵션</th><td>옥동현대 할머니집 · 초등 고학년~중학교 시점 실제 거주 가능 옵션</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">2-2. 의사결정의 핵심 세 가지</h3>
+  <p>현재 구조는 단순히 “어느 동네가 좋은가”의 문제가 아닙니다. 핵심은 다음 세 가지입니다.</p>
+  <div class="grid g3">
+    <div class="card"><div style="font-size:24px;font-weight:800;color:var(--blue);margin-bottom:6px">①</div><p style="font-size:14px;margin:0">하루가 <strong>2029년 3월 초등학교 입학 전에 생활권을 안정</strong>시킬 것인가</p></div>
+    <div class="card"><div style="font-size:24px;font-weight:800;color:var(--blue);margin-bottom:6px">②</div><p style="font-size:14px;margin:0">김해 집 <strong>세입자 문제를 어떻게 법적으로 안전하게 정리</strong>할 것인가</p></div>
+    <div class="card"><div style="font-size:24px;font-weight:800;color:var(--blue);margin-bottom:6px">③</div><p style="font-size:14px;margin:0">경주 집과 울산 옥동 옵션을 <strong>장기적으로 어떻게 역할 분담</strong>시킬 것인가</p></div>
+  </div>
+
+  <blockquote class="pull">
+    <strong>초등 입학 전후 기본 베이스는 김해.</strong><br>
+    경주는 자산 운용 또는 현재 생활 유예 옵션.<br>
+    울산 옥동은 초5~초6 이후 재평가할 장기 교육 옵션.
+  </blockquote>
+</section>
+
+<!-- ============ 3. 확인된 사실 ============ -->
+<section class="doc acc-indigo" id="sec-3" data-screen-label="03 확인된 사실">
+  <div class="sec-head">
+    <div class="sec-num">03</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Facts &amp; Open Items</div>
+      <h2>확인된 사실과 추가 확인 필요사항<a class="anchor" href="#sec-3">#</a></h2>
+    </div>
+  </div>
+
+  <div class="legend" aria-label="배지 범례">
+    <div><span class="badge b-fact">사실</span><b>공식자료로 확인된 내용</b></div>
+    <div><span class="badge b-est">추정</span><b>일정 패턴·미래 가능성</b></div>
+    <div><span class="badge b-judge">판단</span><b>가족 전략상 해석</b></div>
+    <div><span class="badge b-expert">전문가 확인 필요</span><b>법률·세무·학군 주의</b></div>
+  </div>
+
+  <h3 class="sub">3-1. 확인된 사실</h3>
+  <div class="table-wrap">
+    <table aria-label="확인된 사실">
+      <thead><tr><th style="width:24%">항목</th><th>확인 내용</th><th style="width:18%">구분</th></tr></thead>
+      <tbody>
+        <tr><th>하루 초등 입학 연도</th><td>2022년 4월생은 일반 취학 흐름상 2029년 3월 초등학교 입학으로 보는 것이 타당하다.</td><td><span class="badge b-fact">사실</span> <span class="badge b-judge">법령해석</span></td></tr>
+        <tr><th>취학 관련 행정</th><td>초등학교 취학은 초·중등교육법 및 시행령 체계에 따라 주소지와 취학 절차가 관리된다. <a href="#sec-16">[EDU-01]</a></td><td><span class="badge b-fact">사실</span></td></tr>
+        <tr><th>김해교육지원청 취학 안내</th><td>김해교육지원청은 초등학교 취학 안내와 통학구역 자료를 별도 제공한다. <a href="#sec-16">[EDU-02]</a></td><td><span class="badge b-fact">사실</span></td></tr>
+        <tr><th>율하자이힐스테이트 통학구역</th><td>김해교육지원청 통학구역표상 율하자이힐스테이트 1구·2구는 김해모산초 통학구역으로 기재되어 있다. <a href="#sec-16">[EDU-03]</a></td><td><span class="badge b-fact">사실</span></td></tr>
+        <tr><th>김해모산초 규모</th><td>2026년 3월 1일 기준 50(3)학급, 1,097명. <a href="#sec-16">[EDU-04]</a></td><td><span class="badge b-fact">사실</span></td></tr>
+        <tr><th>김해모산초 병설유치원</th><td>2026년 3월 1일 기준 1학급, 원아 5명. <a href="#sec-16">[EDU-05]</a></td><td><span class="badge b-fact">사실</span></td></tr>
+        <tr><th>김해율하유치원</th><td>2026년 3월 1일 기준 8학급, 원아 142명. <a href="#sec-16">[EDU-05]</a></td><td><span class="badge b-fact">사실</span></td></tr>
+        <tr><th>장유유치원</th><td>2026년 3월 1일 기준 11(2)학급, 원아 156명. <a href="#sec-16">[EDU-05]</a></td><td><span class="badge b-fact">사실</span></td></tr>
+        <tr><th>주택임대차</th><td>계약갱신요구권, 묵시적 갱신, 실거주 갱신거절은 주택임대차보호법 검토가 필요하다. <a href="#sec-16">[LAW-01]</a></td><td><span class="badge b-fact">사실</span></td></tr>
+        <tr><th>울산 옥동 옵션</th><td>옥동 실제 거주가 가능하더라도 특정 중학교 배정이 자동 보장된다고 전제하면 안 된다.</td><td><span class="badge b-judge">판단</span> <span class="badge b-expert">제도상 주의</span></td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">초·중등교육법 시행령과 주택임대차보호법은 각각 취학 절차와 임대차 갱신·거절 구조의 기본 법령입니다. 실제 적용은 주소, 만기일, 통지일, 계약 이력, 교육지원청 시행계획에 따라 달라질 수 있습니다. <a href="#sec-16">[EDU-01]</a> <a href="#sec-16">[LAW-01]</a></p>
+  </div>
+
+  <h3 class="sub">3-2. 추가 확인 필요사항</h3>
+  <div class="table-wrap">
+    <table aria-label="추가 확인 필요사항">
+      <thead><tr><th style="width:22%">항목</th><th>확인해야 할 내용</th><th style="width:24%">확인처</th></tr></thead>
+      <tbody>
+        <tr><th>김해 집 임대차</th><td>계약 만기일, 갱신권 사용 여부, 과거 연장 이력, 월세 조건, 특약</td><td>계약서 원본, 공인중개사, 변호사</td></tr>
+        <tr><th>실거주 갱신거절</th><td>통지기한, 통지 문안, 실제 거주 입증 방법</td><td>변호사, 주택임대차분쟁조정위원회</td></tr>
+        <tr><th>2027학년도 유치원/어린이집</th><td>2027년 2월 조기 이사 대비 2026년 가을 모집 여부</td><td>처음학교로, 해당 유치원, 어린이집</td></tr>
+        <tr><th>2028학년도 유치원</th><td>2028년 2월 이사 대비 2027년 가을 모집 일정</td><td>처음학교로, 해당 유치원</td></tr>
+        <tr><th>모산초 병설유치원</th><td>통학차량, 방과후과정 시간, 2027/2028 모집 가능성</td><td>유치원알리미, 김해모산초병설</td></tr>
+        <tr><th>경주 집 세제</th><td>준공후미분양·세컨드홈 특례가 각 세목에 어떻게 적용되는지</td><td>세무사</td></tr>
+        <tr><th>경주 집 임대 시세</th><td>전세/월세 실거래, 공실률, 수요층</td><td>현지 공인중개사, 실거래 자료</td></tr>
+        <tr><th>울산 옥동 중학교</th><td>최신 학교군, 배정방식, 실제 거주 요건</td><td>울산교육청, 울산강남교육지원청</td></tr>
+        <tr><th>미래 인프라</th><td>모산유아체육센터, 스타필드 창원, 더현대 부산의 실제 착공·개관 일정</td><td>김해시, 창원시, 부산시, 사업자 공지</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 4. 2027 vs 2028 비교 ============ -->
+<section class="doc acc-violet" id="sec-4" data-screen-label="04 비교">
+  <div class="sec-head">
+    <div class="sec-num">04</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Scenario Comparison</div>
+      <h2>2027년 2월 이사 vs 2028년 2월 이사<a class="anchor" href="#sec-4">#</a></h2>
+    </div>
+  </div>
+
+  <p class="scroll-hint">→ 표를 좌우로 스크롤하여 전체 항목을 확인하세요.</p>
+  <div class="table-wrap">
+    <table aria-label="표 1. 2027년 이사 vs 2028년 이사 비교">
+      <caption><span class="cap-tag">표 1</span>2027년 이사 vs 2028년 이사 비교</caption>
+      <thead><tr>
+        <th style="width:16%">비교 항목</th>
+        <th>시나리오 1<br>2027년 2월 조기 이사</th>
+        <th>시나리오 2<br>2028년 2월 이사</th>
+        <th>시나리오 3<br>2029년 입학 직전/이후</th>
+      </tr></thead>
+      <tbody>
+        <tr><th>핵심 성격</th><td>리스크 통제형</td><td>가족 만족도 최적화형</td><td class="cell-bad">지연형, 비추천</td></tr>
+        <tr><th>전제 조건</th><td>실거주 갱신거절 또는 퇴거가 적법하게 정리되어야 함</td><td>세입자가 2028년 1~2월 퇴거에 명확히 협조해야 함</td><td>세입자·취학·유치원·생활권 문제가 모두 늦게 정리됨</td></tr>
+        <tr><th>하루 적응기간</th><td>약 2년</td><td>약 1년</td><td>매우 짧음</td></tr>
+        <tr><th>교육 안정성</th><td class="cell-best">높음</td><td class="cell-mid">중~높음</td><td class="cell-bad">낮음</td></tr>
+        <tr><th>임대차 리스크</th><td>가장 낮출 수 있음 (적법한 절차 전제)</td><td>세입자 협조와 서면합의 품질에 의존</td><td class="cell-bad">높음</td></tr>
+        <tr><th>아내 부담</th><td>경주 생활 조기 종료 부담 큼</td><td>경주 생활 1년 연장 가능</td><td>입학 직전 혼선으로 부담 큼</td></tr>
+        <tr><th>경주 집 운용</th><td>임대 전환을 빨리 해야 함</td><td>1년 준비기간 확보</td><td>임대 전환은 늦지만 전체 계획 불안정</td></tr>
+        <tr><th>유치원 전략</th><td>2026년 가을 2027학년도 모집 확인 필요</td><td>2027년 가을 2028학년도 모집 확인 필요</td><td>입학 전 기관 연계 약함</td></tr>
+        <tr><th>법적 안정성</th><td>절차가 맞으면 가장 안정적</td><td>합의 구조가 불안하면 취약</td><td class="cell-bad">낮음</td></tr>
+        <tr><th>추천도</th><td class="cell-mid">조건부 2순위</td><td class="cell-best">조건부 1순위</td><td class="cell-bad">비추천</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">시나리오별 상세 판단</h3>
+  <div class="grid g3">
+    <div class="card" style="border-top:3px solid var(--amber)">
+      <div style="font-size:11.5px;font-weight:800;color:var(--amber);letter-spacing:.04em">시나리오 1 · 조건부 2순위</div>
+      <h4 class="sub4" style="margin-top:6px">2027년 2월 조기 이사</h4>
+      <p style="font-size:13.5px;margin:0">생활 변화가 앞당겨지는 단점이 있지만, 하루가 김해에서 약 2년 적응한 뒤 입학할 수 있고 세입자 리스크를 조기에 정리할 수 있습니다. 단, <strong>실거주 갱신거절이 적법하게 이루어져야</strong> 하며 “그냥 2027년에 들어가면 된다”고 보면 안 됩니다.</p>
+      <div style="margin-top:10px;font-size:12.5px;color:var(--sage);font-weight:700">유리한 조건 ▸ 세입자 불확실 · 갱신권 리스크 큼</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--sage)">
+      <div style="font-size:11.5px;font-weight:800;color:var(--sage);letter-spacing:.04em">시나리오 2 · 조건부 1순위</div>
+      <h4 class="sub4" style="margin-top:6px">2028년 2월 이사</h4>
+      <p style="font-size:13.5px;margin:0">가족 정서와 준비기간 측면에서 가장 좋습니다. 경주 생활을 1년 더 유지하고, 하루는 2028년 3월부터 김해 유치원·어린이집에서 1년 적응 후 2029년 3월 입학을 준비합니다. 다만 <strong>세입자가 2028년 1~2월 실제 퇴거</strong>한다는 전제가 필요합니다.</p>
+      <div style="margin-top:10px;font-size:12.5px;color:var(--sage);font-weight:700">유리한 조건 ▸ 퇴거합의 명확 · 법률검토 안정적</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--rose)">
+      <div style="font-size:11.5px;font-weight:800;color:var(--rose);letter-spacing:.04em">시나리오 3 · 비추천</div>
+      <h4 class="sub4" style="margin-top:6px">2029년 입학 직전/이후 이사</h4>
+      <p style="font-size:13.5px;margin:0">가능한 한 피해야 합니다. 초등 취학 행정, 주소지 반영, 유치원-초등 연결, 친구관계, 부모 스트레스가 <strong>한꺼번에 겹치기</strong> 때문입니다.</p>
+      <div style="margin-top:10px;font-size:12.5px;color:var(--rose);font-weight:700">권고 ▸ 회피</div>
+    </div>
+  </div>
+
+  <div class="callout co-key">
+    <div class="ico">✓</div>
+    <div class="body">
+      <h4>판단 요약 <span class="badge b-judge" style="margin-left:4px">판단</span></h4>
+      <p><strong>2028년 2월</strong>이 가족 정서·준비기간 측면에서 가장 좋으나 세입자 퇴거 전제가 불확실하면 오히려 가족 전체 리스크를 키웁니다. <strong>2027년 2월</strong>은 적법한 실거주 갱신거절을 전제로 임대차 리스크를 조기 정리하는 안전판입니다. 주택임대차보호법상 갱신요구권과 실거주 갱신거절은 법정 요건이 있는 영역입니다. <a href="#sec-16">[LAW-01]</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. 교육·적응 ============ -->
+<section class="doc acc-green" id="sec-5" data-screen-label="05 교육">
+  <div class="sec-head">
+    <div class="sec-num">05</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Education &amp; Adaptation</div>
+      <h2>자녀 교육·적응 관점 분석<a class="anchor" href="#sec-5">#</a></h2>
+    </div>
+  </div>
+
+  <h3 class="sub">5-1. 하루의 초등 입학 로드맵</h3>
+  <div class="table-wrap">
+    <table aria-label="표 2. 하루 연령·학년별 로드맵">
+      <caption><span class="cap-tag">표 2</span>하루 연령·학년별 로드맵</caption>
+      <thead><tr><th>연도</th><th>하루 연령대</th><th>일반적 교육 단계</th><th>가족 전략상 의미</th></tr></thead>
+      <tbody>
+        <tr><th>2026년</th><td>만 4세</td><td>유치원/어린이집 연령대</td><td>이사 전략, 임대차, 유치원 후보 조사 시작</td></tr>
+        <tr><th>2027년</th><td>만 5세</td><td>유치원/어린이집</td><td>조기 이사 시 김해 적응 1년차</td></tr>
+        <tr><th>2028년</th><td>만 6세</td><td>초등 입학 전 마지막 해</td><td>2028년 이사 시 김해 적응 핵심 1년</td></tr>
+        <tr><th>2028년 가을</th><td>만 6세</td><td>취학 준비</td><td>주소지 안정화, 취학통지 확인</td></tr>
+        <tr class="risk-low"><th>2029년 3월</th><td>만 6세 후반~7세</td><td>초등 1학년</td><td><strong>김해모산초 입학 목표</strong></td></tr>
+        <tr><th>2033~34년 전후</th><td>초5~초6</td><td>고학년</td><td>울산 옥동 전환 여부 1차 평가</td></tr>
+        <tr><th>2035년 전후</th><td>중학교 입학</td><td>중등 시작</td><td>실제 거주와 중학교 배정 재확인 필요</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">초등 취학은 초·중등교육법 및 시행령 체계에 따라 진행됩니다. 정확한 취학통지와 학교 배정은 해당 연도 관할 주민센터와 교육지원청의 안내가 기준입니다. <a href="#sec-16">[EDU-01]</a></p>
+  </div>
+
+  <h3 class="sub">5-2. 취학통지와 주소지 반영</h3>
+  <p>2029년 3월 김해모산초 입학을 안정적으로 준비하려면, 실무적으로는 <em>2028년 10월 1일 이전에 김해 주소를 안정화</em>하는 것이 가장 안전합니다. 단, “10월 1일 이후 전입하면 절대 불가능”으로 이해하면 안 됩니다. 이후 전입도 절차적으로 처리될 수 있으나 취학통지·학교 배정 변경·서류 처리·기관 확인이 늘어 가족 스트레스가 커질 수 있습니다 <span class="badge b-judge">판단</span>.</p>
+  <div class="grid g3">
+    <div class="card card-soft" style="border-left:3px solid var(--sage)"><div style="font-size:12px;font-weight:800;color:var(--sage)">권장</div><p style="font-size:13.5px;margin:6px 0 0">2028년 10월 1일 전 김해 주소 안정화</p></div>
+    <div class="card card-soft" style="border-left:3px solid var(--amber)"><div style="font-size:12px;font-weight:800;color:var(--amber)">최소</div><p style="font-size:13.5px;margin:6px 0 0">2028년 12월 취학통지 전후 혼선 없도록 주민센터·교육지원청 확인</p></div>
+    <div class="card card-soft" style="border-left:3px solid var(--rose)"><div style="font-size:12px;font-weight:800;color:var(--rose)">비추천</div><p style="font-size:13.5px;margin:6px 0 0">2029년 1~2월 입학 직전 주소 변경</p></div>
+  </div>
+
+  <h3 class="sub">5-3. 유치원·어린이집 전략 — 핵심 누락 보완</h3>
+  <div class="callout co-law">
+    <div class="ico">!</div>
+    <div class="body">
+      <h4>2027년 조기 이사를 옵션으로 열어둔다면, 2027학년도 모집을 2026년 가을에 확인해야 합니다</h4>
+      <p>2028년 2월 이사만 고려하면 2027년 가을의 2028학년도 모집 확인으로 충분할 수 있습니다. 하지만 2027년 2월 이사 가능성이 있다면 하루가 2027년 3월부터 김해 유치원·어린이집을 다닐 수 있어야 하므로, <strong>2026년 9~11월에 2027학년도 모집·대기·차량·방과후를 확인</strong>해야 합니다. 유치원알리미는 정보공시 자료와 통학차량 운영 여부 등 조회 항목을 제공합니다. <a href="#sec-16">[EDU-06]</a></p>
+    </div>
+  </div>
+
+  <h3 class="sub">5-4. 김해 유치원 후보군</h3>
+  <div class="table-wrap">
+    <table aria-label="유치원 후보 현황">
+      <caption><span class="cap-tag">참고표</span>유치원 후보 현황 (2026년 3월 1일 기준)</caption>
+      <thead><tr><th>후보</th><th style="width:30%">현황</th><th>전략적 해석</th></tr></thead>
+      <tbody>
+        <tr><th>김해모산초병설유치원</th><td>1학급, 원아 5명</td><td>가장 가까운 후보. 소규모 안정감은 장점이나 또래 풀이 작음</td></tr>
+        <tr><th>김해율산초병설유치원</th><td>3(1)학급, 원아 15명</td><td>공립 병설 백업</td></tr>
+        <tr><th>수남초병설유치원</th><td>1학급, 원아 5명</td><td>소규모 백업</td></tr>
+        <tr><th>율하초병설유치원</th><td>2학급, 원아 18명</td><td>율하1권 백업</td></tr>
+        <tr><th>김해율하유치원</th><td>8학급, 원아 142명</td><td>공립 단설, 규모 안정성 높음</td></tr>
+        <tr><th>장유유치원</th><td>11(2)학급, 원아 156명</td><td>장유권 대형 공립 단설 백업</td></tr>
+        <tr><th>사립 유치원 후보</th><td>아람나무·스펀지창의·아이숲·아인유치원 등</td><td>통학차량·프로그램 다양성 확인 필요</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">실제 모집 정원, 우선모집 조건, 차량운행, 방과후 시간은 해당 연도 모집요강이 기준입니다. <a href="#sec-16">[EDU-05]</a></p>
+  </div>
+
+  <details>
+    <summary>5-5. 김해모산초 병설유치원 소규모 운영의 장단점</summary>
+    <div class="det-body">
+      <div class="table-wrap">
+        <table aria-label="병설유치원 소규모 운영 장단점">
+          <thead><tr><th>구분</th><th>장점</th><th>단점</th></tr></thead>
+          <tbody>
+            <tr><th>적응</th><td>조용하고 안정적인 환경 가능</td><td>또래 자극이 부족할 수 있음</td></tr>
+            <tr><th>교사 관심</th><td>교사 대 아동 비율이 좋을 가능성</td><td>운영 형태가 연도별로 달라질 수 있음</td></tr>
+            <tr><th>초등 연계</th><td>모산초 공간·생활권에 익숙해질 수 있음</td><td>병설 재원과 모산초 입학이 자동 연계되는 것은 아님</td></tr>
+            <tr><th>부모 동선</th><td>단지·초등학교 중심 동선이 단순함</td><td>통학차량 미운영이면 등하원 부담 가능</td></tr>
+            <tr><th>아이 성향</th><td>낯가림·안정형 아이에게 유리</td><td>활동량 많고 또래 자극 필요한 아이에게는 부족 가능</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <blockquote class="soft"><p><strong>하루가 작은 집단에서 안정감을 얻는 성향이면</strong> 김해모산초 병설유치원은 좋은 1순위 후보가 될 수 있습니다. 반대로 또래 자극·다양한 프로그램·차량운행·방과후 운영시간이 중요하면 김해율하유치원·장유유치원·사립 유치원까지 동시에 검토해야 합니다.</p></blockquote>
+    </div>
+  </details>
+</section>
+
+<!-- ============ 6. 생활권 ============ -->
+<section class="doc acc-cyan" id="sec-6" data-screen-label="06 생활권">
+  <div class="sec-head">
+    <div class="sec-num">06</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Neighborhood</div>
+      <h2>김해 율하2지구 생활권 분석<a class="anchor" href="#sec-6">#</a></h2>
+    </div>
+  </div>
+
+  <h3 class="sub">6-1. 김해모산초 통학구역</h3>
+  <p>김해교육지원청 통학구역표상 김해모산초 통학구역에는 장유동 53통 율하자이힐스테이트 1구와 54통 율하자이힐스테이트 2구가 포함되어 있습니다 <span class="badge b-fact">사실</span>. 이는 현재 가족의 김해 실거주 후보지와 초등학교 배정 전략을 연결하는 가장 중요한 공식 근거입니다. <a href="#sec-16">[EDU-03]</a></p>
+  <div class="table-wrap">
+    <table aria-label="통학구역 최종 확인 항목">
+      <thead><tr><th style="width:42%">확인 항목</th><th>이유</th></tr></thead>
+      <tbody>
+        <tr><th>율하자이힐스테이트 정확한 동·통·반</th><td>통학구역표가 통·반 단위로 기재됨</td></tr>
+        <tr><th>2028 또는 2029학년도 통학구역 변동 여부</th><td>학구 조정 가능성 배제 불가</td></tr>
+        <tr><th>전입 시점과 취학통지 처리</th><td>주민등록과 취학통지 연계 필요</td></tr>
+        <tr><th>광역통학구역 선택 가능성</th><td>김해모산초 구역 학생의 선택권 여부 확인 필요</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">6-2. 김해모산초 규모와 성격</h3>
+  <p>김해모산초는 2026년 3월 1일 기준 <em>50(3)학급, 학생 1,097명</em>의 대형 학교입니다 <span class="badge b-fact">사실</span> <a href="#sec-16">[EDU-04]</a>.</p>
+  <div class="table-wrap">
+    <table aria-label="김해모산초 규모 해석">
+      <tbody>
+        <tr><th style="width:24%">학교 규모</th><td>대형 신도시 초등학교</td></tr>
+        <tr><th>장점</th><td>또래 풀이 크고, 방과후·돌봄·학교 운영 체계가 안정적일 가능성</td></tr>
+        <tr><th>단점</th><td>조용한 소규모 학교 분위기와는 다를 수 있음</td></tr>
+        <tr><th>과밀 판단</th><td>단순 학생수만으로 단정 불가. 학급당 학생수, 특별학급 포함 여부, 학년별 편차 확인 필요 <span class="badge b-est">추정</span></td></tr>
+        <tr><th>부모 관점</th><td>학교 규모보다 통학 안전, 담임·학년 분위기, 돌봄 접근성, 친구관계가 더 중요</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">실제 과밀 여부는 해당 학년도 학년별 편성과 교육지원청 판단을 확인해야 합니다. <a href="#sec-16">[EDU-02]</a></p>
+  </div>
+
+  <details>
+    <summary>6-3. 돌봄·방과후 체크 포인트</summary>
+    <div class="det-body">
+      <p style="font-size:13.5px">김해모산초 홈페이지에는 방과후학교·돌봄교실·초1~2 맞춤형 프로그램 메뉴가 운영됩니다. 실제 이용 가능 여부는 매년 달라집니다. <a href="#sec-16">[EDU-07]</a></p>
+      <div class="table-wrap">
+        <table aria-label="돌봄 방과후 확인 항목">
+          <thead><tr><th>확인 항목</th><th>확인 시점</th></tr></thead>
+          <tbody>
+            <tr><th>초1 돌봄교실 신청 기준</th><td>2028년 말~2029년 초</td></tr>
+            <tr><th>방과후 프로그램 종류</th><td>입학 전 학교 공지</td></tr>
+            <tr><th>맞벌이·한부모·저학년 우선 기준</th><td>해당 연도 안내문</td></tr>
+            <tr><th>대기 가능성</th><td>입학설명회 또는 학교 문의</td></tr>
+            <tr><th>하교 후 학원·돌봄 동선</th><td>입학 전 실사 필요</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <h3 class="sub">6-4. 율하2지구 생활 인프라</h3>
+  <p>율하2지구의 장점은 <strong>단일 시설 하나가 아니라 생활권의 조합</strong>입니다.</p>
+  <div class="table-wrap">
+    <table aria-label="율하2지구 생활 인프라">
+      <thead><tr><th style="width:18%">영역</th><th>활용 방식</th></tr></thead>
+      <tbody>
+        <tr><th>초등학교</th><td>김해모산초 중심</td></tr>
+        <tr><th>유치원</th><td>모산초병설, 김해율하유치원, 장유유치원, 병설·사립 백업</td></tr>
+        <tr><th>공원</th><td>모산공원, 단지 내 놀이터, 율하천·뜰천 축 활용</td></tr>
+        <tr><th>도서관</th><td>율하도서관, 김해기적의도서관 등</td></tr>
+        <tr><th>문화·체육</th><td>김해서부문화센터, 서부스포츠센터 등</td></tr>
+        <tr><th>의료</th><td>율하권 소아청소년과, 장유권 병원, 필요 시 창원·부산 확장</td></tr>
+        <tr><th>학원</th><td>율하1지구·관동동·장유권 학원가 흡수</td></tr>
+        <tr><th>광역생활</th><td>창원·부산·명지·에코델타시티·해운대·기장 등 주말형 활용</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">김해시 공식 포털은 분야별 행정·생활 정보를 제공하므로, 이사 전 공공시설·예약·교통·문화시설 정보를 확인하는 기본 출처로 활용할 수 있습니다. <a href="#sec-16">[CITY-01]</a></p>
+  </div>
+
+  <h3 class="sub">6-5. 학원가 현실성</h3>
+  <p>냉정하게 보면 <strong>율하2지구 단독 학원가만으로 초등 고학년~중등 최상위 입시까지 완결된다고 보기는 어렵습니다</strong> <span class="badge b-judge">판단</span>.</p>
+  <div class="table-wrap">
+    <table aria-label="단계별 현실적 학원권">
+      <thead><tr><th style="width:26%">단계</th><th>현실적 학원권</th></tr></thead>
+      <tbody>
+        <tr><th>유아~초등 저학년</th><td>율하2지구, 단지 인근, 차량운행 유치원·예체능</td></tr>
+        <tr><th>초등 저학년~중학년</th><td>율하1지구, 관동동, 장유권</td></tr>
+        <tr><th>초등 고학년</th><td>김해권 심화학원 + 필요 시 창원 일부 활용</td></tr>
+        <tr><th>중등 이후</th><td>아이 성향에 따라 김해 유지, 창원 확장, 울산 옥동 옵션 검토</td></tr>
+        <tr><th>최상위 입시</th><td>김해만으로 충분한지 별도 검증 필요</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <blockquote class="soft"><p>김해 율하는 <strong>초등 전후 베이스로는 충분히 합리적</strong>입니다. 다만 중등 이후 최상위 입시까지 김해만으로 완결하겠다는 전략은 아직 검증이 필요합니다. 그래서 울산 옥동 옵션을 초5~초6 이후 재평가 카드로 남기는 것이 합리적입니다.</p></blockquote>
+
+  <h3 class="sub">6-6. 모산유아체육센터와 미래 인프라</h3>
+  <div class="callout co-info">
+    <div class="ico">i</div>
+    <div class="body">
+      <h4>미래 인프라는 핵심 근거가 아니라 “업사이드”입니다</h4>
+      <p>모산유아체육센터·스타필드 창원·더현대 부산·에코델타시티 등은 생활권에 긍정적 영향을 줄 수 있으나, 최종 의사결정에서는 <strong>핵심 근거가 아니라 업사이드(가점 요인)</strong>로 보는 것이 안전합니다. 개별 상업시설의 착공·개장 일정은 해당 사업자·지자체 최신 공지를 확인해야 합니다.</p>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table aria-label="현재 존재 인프라 vs 미래 업사이드">
+      <caption><span class="cap-tag">참고표</span>현재 존재 인프라 vs 미래 업사이드</caption>
+      <thead><tr><th style="width:26%">구분</th><th>내용 / 반영 방식</th></tr></thead>
+      <tbody>
+        <tr class="risk-low"><th>이미 존재하는 인프라 <span class="badge b-fact">사실</span></th><td>초등학교, 유치원 후보, 도서관, 공원, 병원, 기존 학원가 — 의사결정의 핵심 근거</td></tr>
+        <tr class="risk-mid"><th>개관·완공 예정 인프라 <span class="badge b-est">추정</span></th><td>모산유아체육센터, 스타필드 창원, 더현대 부산 — 가점 요인으로만 반영</td></tr>
+        <tr class="risk-mid"><th>리스크</th><td>착공 지연, 개관 지연, 운영 내용 변경</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">부산시는 에코델타 스마트시티를 핵심 정책으로 제공하며, 서부산 확장축은 장기적으로 율하 생활권에 긍정적일 수 있습니다. <a href="#sec-16">[CITY-02]</a></p>
+  </div>
+</section>
+
+<!-- ============ 7. 경주 운용 ============ -->
+<section class="doc acc-amber" id="sec-7" data-screen-label="07 경주 운용">
+  <div class="sec-head">
+    <div class="sec-num">07</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Gyeongju Asset</div>
+      <h2>경주 유지/임대 운용 분석<a class="anchor" href="#sec-7">#</a></h2>
+    </div>
+  </div>
+
+  <h3 class="sub">7-1. 경주 집의 전략적 역할</h3>
+  <p>경주 해링턴플레이스 신경주역은 현재 생활 기반이자, 김해 이사 후에는 임대 운용 자산이 될 수 있습니다. 다만 행정·철도 검색상 예전 “신경주역”은 현재 <strong>경주역</strong> 명칭을 사용한다는 점을 유의해야 합니다 <span class="badge b-fact">사실</span>. SRT 공식 예매 화면에서도 역 목록에 “경주”가 표시됩니다. <a href="#sec-16">[TRANS-01]</a></p>
+
+  <div class="grid g2">
+    <div class="card">
+      <h4 class="sub4" style="color:var(--sage)">7-2. 경주의 장점</h4>
+      <div class="table-wrap" style="margin:8px 0 0;box-shadow:none;border:none">
+        <table style="min-width:0"><tbody>
+          <tr><th style="width:38%">KTX/SRT 접근성</th><td>서울·수도권 이동에 유리</td></tr>
+          <tr><th>신축 역세권</th><td>주거 쾌적성, 주차, 단지 환경</td></tr>
+          <tr><th>생활 밀도</th><td>김해·창원·부산권보다 조용할 가능성</td></tr>
+          <tr><th>가족 정서</th><td>현재 만족도 높다면 심리적 안정감 큼</td></tr>
+          <tr><th>임대 자산성</th><td>역세권 신축 수요 기대 여지</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+    <div class="card">
+      <h4 class="sub4" style="color:var(--rose)">7-3. 경주의 한계</h4>
+      <div class="table-wrap" style="margin:8px 0 0;box-shadow:none;border:none">
+        <table style="min-width:0"><tbody>
+          <tr><th style="width:38%">유아~초등 또래 풀</th><td>율하 신도시권보다 좁을 수 있음</td></tr>
+          <tr><th>유치원·학원 다양성</th><td>장기적 선택폭 차이 가능</td></tr>
+          <tr><th>의료·소아과 접근</th><td>대도시권 대비 제한 가능</td></tr>
+          <tr><th>엄마 생활 동선</th><td>교육·문화·쇼핑·병원 복합 이용에서 단조로울 수 있음</td></tr>
+          <tr><th>초등 입학 생활권</th><td>유지 기간이 길수록 전환 부담 증가</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub">7-4. 전세 vs 월세 비교 프레임</h3>
+  <div class="table-wrap">
+    <table aria-label="전세 vs 월세 비교">
+      <thead><tr><th style="width:18%">항목</th><th>전세</th><th>월세</th></tr></thead>
+      <tbody>
+        <tr><th>핵심 장점</th><td>큰 보증금 확보, 현금 유동성 확보</td><td>매월 현금흐름 확보</td></tr>
+        <tr><th>핵심 단점</th><td>보증금 반환 리스크, 금리 변화 영향</td><td>공실·수선·관리 부담, 임대소득 과세</td></tr>
+        <tr><th>적합한 경우</th><td>김해 이사비·대출상환·유동성 확보가 중요할 때</td><td>안정적 월수입이 중요할 때</td></tr>
+        <tr><th>리스크</th><td>반환 시점 자금계획 필요</td><td>공실과 체납, 관리 스트레스</td></tr>
+        <tr><th>가족 전략상 의미</th><td>큰돈 확보형</td><td>현금흐름형</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">7-5. 계산식</h3>
+  <div class="grid g3">
+    <div class="calc"><span class="ct">월세 순현금흐름</span>(월세 × 12)<br><span class="op">−</span> 예상 공실손실<br><span class="op">−</span> 임대인 부담 관리비<br><span class="op">−</span> 수선비<br><span class="op">−</span> 대출이자<br><span class="op">−</span> 중개보수/광고비<br><span class="op">−</span> 임대소득 세금 증가분</div>
+    <div class="calc"><span class="ct">전세 활용효율</span>(전세보증금 × 운용수익률<br>　또는 대출상환 이자절감률)<br><span class="op">−</span> 보증금 반환 리스크 비용<br><span class="op">−</span> 공실/재계약 리스크<br><span class="op">−</span> 세금 및 부대비용</div>
+    <div class="calc"><span class="ct">2주택 운영 점검식</span>김해 보유비용<br><span class="op">+</span> 경주 보유비용<br><span class="op">+</span> 대출이자<br><span class="op">+</span> 보유세 증가분<br><span class="op">+</span> 임대소득 신고 부담<br><span class="op">+</span> 보증금 반환 리스크<br><span class="op">−</span> 임대수입</div>
+  </div>
+
+  <h3 class="sub">7-6. 세컨드홈·준공후미분양 세무 리스크</h3>
+  <div class="callout co-expert">
+    <div class="ico">!</div>
+    <div class="body">
+      <h4>“1주택 혜택”은 모든 세목에 동일하게 적용되는 단일 개념이 아닙니다 <span class="badge b-expert" style="margin-left:4px">전문가 확인 필요</span></h4>
+      <p>경주 해링턴플레이스의 준공후미분양·세컨드홈 “1주택 혜택”은 반드시 별도 세무 검토가 필요합니다. <strong>취득세·재산세·종합부동산세·양도소득세·대출 규제·임대소득 신고에서 주택 수 판단과 특례 요건이 각각 다를 수 있습니다.</strong> 김해 이사 시점을 확정하기 전, 세무사에게 김해·경주 2주택 구조 기준으로 한 번에 검토받아야 합니다. 본 보고서는 세법상 최종 판단을 단정하지 않습니다.</p>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table aria-label="세컨드홈 준공후미분양 세무 체크표">
+      <caption><span class="cap-tag">참고표</span>세컨드홈·준공후미분양 세무 체크표</caption>
+      <thead><tr><th style="width:24%">세목 / 영역</th><th>확인 질문</th></tr></thead>
+      <tbody>
+        <tr><th>취득세</th><td>경주 주택 취득 당시 적용된 감면 또는 특례가 무엇이었는가</td></tr>
+        <tr><th>재산세</th><td>보유 중 지방세 특례가 있는가, 적용 기간은 언제까지인가</td></tr>
+        <tr><th>종합부동산세</th><td>경주 주택이 주택 수 산정에서 어떻게 반영되는가</td></tr>
+        <tr><th>양도소득세</th><td>김해 또는 경주 매각 시 1세대 1주택 비과세 판단에 어떤 영향이 있는가</td></tr>
+        <tr><th>대출</th><td>주택 수 산정이 DSR, 주택담보대출, 전세보증금 반환대출에 어떤 영향을 주는가</td></tr>
+        <tr><th>임대소득</th><td>경주 집 임대 전환 시 임대소득 신고·과세 의무가 발생하는가</td></tr>
+        <tr><th>건강보험료</th><td>임대소득이 지역가입자/직장가입자 피부양자 판단 등에 영향을 주는가</td></tr>
+        <tr><th>특례 유지 조건</th><td>실거주, 보유기간, 지역요건, 취득시점, 가격요건 등 유지 조건이 있는가</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 8. 임대차 리스크 ============ -->
+<section class="doc acc-rose" id="sec-8" data-screen-label="08 임대차">
+  <div class="sec-head">
+    <div class="sec-num">08</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Lease Risk &amp; Negotiation</div>
+      <h2>임대차 리스크 및 세입자 협상 전략<a class="anchor" href="#sec-8">#</a></h2>
+    </div>
+  </div>
+
+  <h3 class="sub">8-1. 핵심 법률 구조</h3>
+  <p>김해 집의 현재 월세 계약 만기가 2027년 1월경이라면, 핵심은 다음 네 가지입니다.</p>
+  <ol style="font-size:14px">
+    <li>세입자가 <strong>계약갱신요구권을 이미 사용했는가</strong></li>
+    <li>아직 사용하지 않았다면, 세입자가 갱신요구권을 행사할 가능성이 있는가</li>
+    <li>임대인이 실거주 목적으로 갱신거절을 할 수 있는 요건과 통지기한은 무엇인가</li>
+    <li>2028년 1~2월 퇴거 합의를 문서화해도 분쟁 위험이 얼마나 남는가</li>
+  </ol>
+  <p style="font-size:13.5px;color:var(--slate)">주택임대차보호법은 계약갱신요구권과 실거주 목적 갱신거절 사유를 규정합니다. 실제 사안에서는 계약 만기일, 과거 갱신 이력, 통지 시점, 실거주 필요성, 증거자료가 모두 중요합니다. <a href="#sec-16">[LAW-01]</a></p>
+
+  <h3 class="sub">8-2. 2027년 조기 이사에 대한 수정된 법적 표현</h3>
+  <div class="callout co-expert">
+    <div class="ico">!</div>
+    <div class="body">
+      <h4>2027년 플랜은 “안전한 방향”이지 “자동 실행 가능한 권리”가 아닙니다 <span class="badge b-expert" style="margin-left:4px">전문가 확인 필요</span></h4>
+      <p>2027년 2월 조기 이사는 임대차 리스크를 가장 줄일 수 있는 방향이지만, 이는 임대인이 <strong>실제 거주할 계획을 가지고 법정 기간 내에 갱신거절 의사를 명확히 통지하고, 실제 입주·전입·거주 실체를 갖추는 것을 전제</strong>로 합니다. 따라서 2027년 플랜도 계약서, 갱신권 사용 여부, 통지기한, 실거주 요건을 변호사 또는 공인중개사와 확인한 뒤 실행해야 합니다.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">8-3. 1년 연장 특약의 한계</h3>
+  <div class="table-wrap">
+    <table aria-label="1년 연장 특약의 쟁점">
+      <thead><tr><th style="width:26%">쟁점</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr><th>구두합의</th><td>분쟁 시 입증이 약함</td></tr>
+        <tr><th>단순 특약</th><td>임차인 보호 법리와 충돌하거나 해석 분쟁 가능</td></tr>
+        <tr><th>갱신권 미사용 상태</th><td>임차인이 갱신권을 행사하면 2년 구조가 문제될 수 있음</td></tr>
+        <tr><th>갱신권 사용 완료 상태</th><td>1년 합의 가능성이 높아지지만 문서화 필요</td></tr>
+        <tr><th>퇴거 합의</th><td>날짜, 조건, 보상, 보증금 정산, 원상복구를 구체화해야 함</td></tr>
+        <tr><th>전문가 검토</th><td>합의서 문안은 변호사 또는 임대차 전문 중개사 검토 필요</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <blockquote class="soft"><p><strong>1년 특약은 보조 수단이지 안전장치의 전부가 아닙니다.</strong> 안전한 구조는 “갱신권 상태 확인 + 명확한 서면합의 + 퇴거일 특정 + 대가관계 명시 + 증거관리”입니다.</p></blockquote>
+
+  <h3 class="sub">8-4. 묵시적 갱신 리스크</h3>
+  <div class="table-wrap">
+    <table aria-label="묵시적 갱신이 위험한 이유">
+      <thead><tr><th style="width:26%">왜 위험한가</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr class="risk-high"><th>이사 시점 통제 불가</th><td>임대인이 원하는 2028년 1~2월 퇴거와 맞지 않을 수 있음</td></tr>
+        <tr class="risk-high"><th>임차인 보호 구조</th><td>동일 조건 갱신과 해지 통지 구조가 임차인에게 유리</td></tr>
+        <tr class="risk-high"><th>가족계획 흔들림</th><td>유치원, 취학, 이사, 경주 집 임대가 동시에 지연될 수 있음</td></tr>
+        <tr class="risk-high"><th>증거 부족</th><td>“말로는 나가기로 했다”는 구조가 가장 위험</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout co-law">
+    <div class="ico">!</div>
+    <div class="body">
+      <h4>원칙</h4>
+      <p>2026년 하반기에는 반드시 <strong>만기일을 기준으로 통지기한을 역산</strong>하고, 구두 대화가 아니라 <strong>문서화된 의사표시</strong>를 남겨야 합니다.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">8-5. 세입자 협상 시나리오별 대응</h3>
+  <div class="table-wrap">
+    <table aria-label="표 3. 세입자 협상 시나리오별 대응">
+      <caption><span class="cap-tag">표 3</span>세입자 협상 시나리오별 대응</caption>
+      <thead><tr><th style="width:26%">세입자 반응</th><th style="width:22%">해석</th><th>권고 대응</th></tr></thead>
+      <tbody>
+        <tr class="risk-low"><th>2028년 1~2월 퇴거에 명확히 동의</th><td>2028년 이사 가능성 높음</td><td>갱신권 사용 여부 확인, 퇴거합의서 작성, 보상 조건 명확화</td></tr>
+        <tr class="risk-mid"><th>“1년만 더 살겠다”고 말함</th><td>방향은 좋지만 법적 불안정</td><td>구두합의 금지, 법률검토 후 서면화</td></tr>
+        <tr class="risk-high"><th>2년 갱신 희망</th><td>2028년 이사 플랜 위험</td><td>2027년 실거주 이사 플랜 가동 검토</td></tr>
+        <tr class="risk-high"><th>답변이 애매함</th><td>묵시적 갱신 위험</td><td>법정 통지기한 전 확정 요구</td></tr>
+        <tr class="risk-low"><th>2027년 1월 퇴거 가능</th><td>가장 단순한 구조</td><td>2027년 이사 또는 경주 유지 대안 비교</td></tr>
+        <tr class="risk-high"><th>새 세입자를 1년만 구하자는 생각</th><td>반복 리스크 발생</td><td>비추천. 임대차보호법상 분쟁 가능성 큼</td></tr>
+        <tr class="risk-mid"><th>구두 약속만 있음</th><td>증거 취약</td><td>문자·카톡도 보조일 뿐, 핵심은 서면합의</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <details>
+    <summary>8-6. 세입자에게 제안 가능한 옵션 · 증거관리</summary>
+    <div class="det-body">
+      <div class="table-wrap">
+        <table aria-label="세입자에게 제안 가능한 옵션">
+          <thead><tr><th style="width:22%">옵션</th><th>활용 방식</th><th>주의점</th></tr></thead>
+          <tbody>
+            <tr><th>월세 동결</th><td>2028년 1~2월 퇴거 협조 조건</td><td>퇴거일과 연계해 문서화</td></tr>
+            <tr><th>월세 소폭 인하</th><td>확실한 퇴거 합의를 얻기 위한 비용</td><td>보상 한도 사전 설정</td></tr>
+            <tr><th>이사비 일부 지원</th><td>정해진 날짜 퇴거 시 지급</td><td>선지급보다 퇴거 완료 조건부가 안전</td></tr>
+            <tr><th>보증금 정산 일정 명확화</th><td>세입자 불안 완화</td><td>원상복구 범위 포함</td></tr>
+            <tr><th>합의서 작성</th><td>분쟁 예방</td><td>문안 전문가 검토 필요</td></tr>
+            <tr><th>내용증명</th><td>통지 증거 확보</td><td>협상 결렬 또는 법적 기한 관리 시 활용</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <h3 class="sub" id="risk-matrix">8-7. 통합 리스크 매트릭스</h3>
+  <p>가족 전체 전략에서 관리해야 할 핵심 리스크를 발생가능성·영향도·대응방안으로 정리했습니다. 높은 영향도(<span class="rm-sev sev-high"><span class="dot"></span>높음</span>) 항목은 왼쪽 강조 막대로 표시했습니다.</p>
+  <div class="table-wrap">
+    <table aria-label="표 6. 리스크 매트릭스">
+      <caption><span class="cap-tag">표 6</span>리스크 매트릭스</caption>
+      <thead><tr><th style="width:24%">리스크</th><th style="width:13%">발생가능성</th><th style="width:13%">영향도</th><th>대응방안</th></tr></thead>
+      <tbody>
+        <tr class="risk-high"><th>세입자 1년 연장 불발</th><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td><span class="rm-sev sev-high"><span class="dot"></span>높음</span></td><td>2027년 실거주 조기 이사 플랜을 백업으로 가동, 통지기한 사전 역산</td></tr>
+        <tr class="risk-high"><th>계약갱신청구권 행사</th><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td><span class="rm-sev sev-high"><span class="dot"></span>높음</span></td><td>갱신권 사용 여부 사전 확인, 실거주 갱신거절 요건·통지기한 변호사 검토</td></tr>
+        <tr class="risk-high"><th>1년 특약 무력화 가능성</th><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td><span class="rm-sev sev-high"><span class="dot"></span>높음</span></td><td>구두·단순특약 의존 금지, 갱신권 상태 확인 후 서면 퇴거합의로 구조화</td></tr>
+        <tr class="risk-high"><th>묵시적 갱신</th><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td><span class="rm-sev sev-high"><span class="dot"></span>높음</span></td><td>만기일 기준 통지기한 캘린더 등록, 법정 기한 전 문서화된 의사표시</td></tr>
+        <tr class="risk-high"><th>유치원 신청 시점 놓침</th><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td><span class="rm-sev sev-high"><span class="dot"></span>높음</span></td><td>2026년 가을 2027학년도·2027년 가을 2028학년도 모집 이중 체크</td></tr>
+        <tr class="risk-mid"><th>모산유아체육센터 개관 지연</th><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td><span class="rm-sev sev-low"><span class="dot"></span>낮음</span></td><td>업사이드로만 반영, 의사결정 핵심 근거에서 제외</td></tr>
+        <tr class="risk-mid"><th>김해 적응 실패</th><td><span class="rm-sev sev-low"><span class="dot"></span>낮음</span></td><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td>2027년 이사 시 약 2년 적응기간 확보, 2026년 하반기부터 월 1회 실사</td></tr>
+        <tr class="risk-mid"><th>아내의 생활만족도 저하</th><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td>이사월 감정적 확정 금지, 장단점·리스크 투명 공유, 역할 분담</td></tr>
+        <tr class="risk-mid"><th>경주 집 공실/임대 실패</th><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td>김해 이사와 별도로 임대 운용 계획 선행, 전세/월세 시세·공실 사전 조사</td></tr>
+        <tr class="risk-mid"><th>옥동 중학교 배정 오해</th><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td>“거주=특정 중학교 보장” 전제 금지, 교육청 학교군·배정방식 재확인</td></tr>
+        <tr class="risk-mid"><th>초6 옥동 이전 시 친구관계 충격</th><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td><span class="rm-sev sev-mid"><span class="dot"></span>중</span></td><td>초5 말 가족회의에서 아이 성향 평가, 초5말~초6초 전환으로 적응 완충</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 9. 아내 관점 ============ -->
+<section class="doc acc-plum" id="sec-9" data-screen-label="09 아내 관점">
+  <div class="sec-head">
+    <div class="sec-num">09</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Spouse Perspective</div>
+      <h2>아내 관점의 장단점<a class="anchor" href="#sec-9">#</a></h2>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table aria-label="표 5. 아내 입장 부담요소와 완화책">
+      <caption><span class="cap-tag">표 5</span>아내 입장 부담요소와 완화책</caption>
+      <thead><tr><th style="width:24%">부담요소</th><th style="width:32%">왜 부담인가</th><th>완화책</th></tr></thead>
+      <tbody>
+        <tr><th>경주 생활 1년 조기 종료</th><td>현재 생활 만족도와 정서적 안정감이 있을 수 있음</td><td>2027년 이사는 강행안이 아니라 리스크 대응안으로 설명</td></tr>
+        <tr><th>김해 생활권 재구성</th><td>병원·마트·유치원·놀이터·인간관계를 새로 찾아야 함</td><td>2026년 하반기부터 월 1회 김해 실사</td></tr>
+        <tr><th>하루 적응 걱정</th><td>기관 변경, 친구관계 변화</td><td>2027년이면 2년, 2028년이면 1년 적응기간 확보</td></tr>
+        <tr><th>경주 집 임대 부담</th><td>전세/월세, 공실, 수선, 세금 부담</td><td>김해 이사와 별도로 임대 운용 계획 선행</td></tr>
+        <tr><th>세입자 협상 스트레스</th><td>법률 문제와 감정 문제가 섞임</td><td>남편이 계약·법률·중개사 커뮤니케이션 주도</td></tr>
+        <tr><th>울산 옥동까지 생각하는 부담</th><td>“또 이사 가야 하나”라는 피로감</td><td>옥동은 확정이 아니라 초5~초6 재평가 옵션으로 명시</td></tr>
+        <tr><th>김해가 무조건 정답처럼 들릴 위험</th><td>설득당한다는 느낌 가능</td><td>장단점·리스크를 모두 공유하고 조건부 의사결정으로 접근</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <blockquote class="pull">
+    <strong>아내에게 전달할 핵심 메시지</strong><br>
+    “김해로 무조건 빨리 가자는 뜻이 아니다. 김해를 기본 베이스로 보는 것은 맞지만, 2027년과 2028년 중 어느 시점이 좋은지는 세입자 협상 결과와 법적 안정성을 보고 정하자는 의미다. 하루 입학 전 생활권 안정이 목표이고, 아내와 하루의 부담을 줄이는 방식으로 순차 결정하자는 것이다.”
+  </blockquote>
+
+  <div class="callout co-info">
+    <div class="ico">i</div>
+    <div class="body">
+      <h4>방어적으로 느껴지지 않게 설명하는 원칙</h4>
+      <p>설득의 목적이 있더라도 강요하지 않습니다. 장점만이 아니라 리스크와 한계를 먼저 투명하게 공유하고, “지금 확정하는 것이 아니라 함께 단계적으로 결정하자”는 조건부 접근을 유지합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. 세입자 커뮤니케이션 ============ -->
+<section class="doc acc-blue" id="sec-10" data-screen-label="10 커뮤니케이션">
+  <div class="sec-head">
+    <div class="sec-num">10</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Tenant Communication</div>
+      <h2>세입자 커뮤니케이션 전략<a class="anchor" href="#sec-10">#</a></h2>
+    </div>
+  </div>
+
+  <h3 class="sub">10-1. 기본 원칙</h3>
+  <p>세입자와의 커뮤니케이션은 압박형보다 <strong>협의형</strong>이 유리합니다. 목표는 몰아붙이는 것이 아니라 다음 네 가지를 명확히 하는 것입니다.</p>
+  <div class="grid g2">
+    <div class="card card-soft"><p style="margin:0;font-size:14px"><strong>①</strong> 세입자의 실제 거주 희망 기간</p></div>
+    <div class="card card-soft"><p style="margin:0;font-size:14px"><strong>②</strong> 계약갱신요구권 사용 여부</p></div>
+    <div class="card card-soft"><p style="margin:0;font-size:14px"><strong>③</strong> 2028년 1~2월 퇴거 가능성</p></div>
+    <div class="card card-soft"><p style="margin:0;font-size:14px"><strong>④</strong> 합의 시 어떤 조건과 문서로 정리할지</p></div>
+  </div>
+
+  <h3 class="sub">10-2. 첫 대화 예시</h3>
+  <blockquote class="soft"><p>“저희가 아이 초등학교 입학 전 실거주 계획을 세우고 있어서, 김해 집 거주 시점을 2027년 또는 2028년으로 검토하고 있습니다. 세입자님 계획도 존중해서 조율하고 싶습니다. 혹시 2027년 1월 만기 이후 거주 계획이 어떻게 되시는지, 그리고 2028년 1~2월 퇴거 조건으로 1년 정도 연장이 가능한지 확인하고 싶습니다. 서로 오해가 없도록 가능하면 일정과 조건은 서면으로 정리했으면 합니다.”</p></blockquote>
+
+  <h3 class="sub">10-3. 협상 전 부부 합의사항</h3>
+  <div class="table-wrap">
+    <table aria-label="협상 전 부부 합의사항">
+      <thead><tr><th style="width:30%">항목</th><th>부부 합의 필요 내용</th></tr></thead>
+      <tbody>
+        <tr><th>최우선 목표</th><td>하루의 2029년 초등 입학 전 생활권 안정</td></tr>
+        <tr><th>2027년 이사를 받아들일 조건</th><td>세입자 협조 불확실, 갱신권 리스크 큼, 묵시적 갱신 위험</td></tr>
+        <tr><th>2028년 이사를 고수할 조건</th><td>퇴거합의가 명확하고 법률검토상 안정적</td></tr>
+        <tr><th>세입자 보상 한도</th><td>월세 인하 또는 이사비 지원의 최대 금액</td></tr>
+        <tr class="risk-high"><th>피해야 할 선택</th><td>구두합의, 묵시적 갱신, 새 1년 단기 세입자</td></tr>
+        <tr><th>역할 분담</th><td>남편: 계약·법률·중개사 / 아내: 생활권·유치원·아이 적응 의견</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 11. 스크립트 ============ -->
+<section class="doc acc-violet" id="sec-11" data-screen-label="11 스크립트">
+  <div class="sec-head">
+    <div class="sec-num">11</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Couple Talk Script</div>
+      <h2>부부 대화용 스크립트<a class="anchor" href="#sec-11">#</a></h2>
+    </div>
+  </div>
+  <p style="font-size:13.5px;color:var(--slate)">말투는 차분하고 실무적이며 강요하지 않게. 핵심 문장은 강조했습니다.</p>
+
+  <h3 class="sub">11-1. 3분 버전</h3>
+  <div class="card">
+    <p>내가 무조건 김해로 빨리 가자고 말하는 건 아니야. 지금 우리한테 중요한 건 하루가 2029년에 초등학교 들어가기 전에 어느 생활권에서 안정적으로 적응하느냐야.</p>
+    <p>김해는 우리가 이미 집을 가지고 있고, 모산초 통학구역도 공식 자료로 확인됐고, 유치원 후보도 여러 개 있어. 그래서 <strong>기본 베이스로는 김해가 가장 합리적</strong>이라고 봐.</p>
+    <p>다만 시점은 세입자 문제 때문에 조심해야 해. 2028년에 가는 그림은 가장 부드럽고 좋아. 경주 생활도 1년 더 할 수 있고, 하루도 초등학교 전 1년을 김해에서 적응하면 되니까. 그런데 세입자가 2028년 초에 확실히 나간다는 보장이 없으면 이 계획이 흔들릴 수 있어. 그래서 2027년 이사 가능성도 같이 열어둬야 해.</p>
+    <p style="margin-bottom:0"><strong>내 생각은 무조건 2027년도 아니고, 무조건 2028년도 아니야. 세입자 협상이 안정적으로 되면 2028년, 불안하면 2027년으로 가자는 거야.</strong> 옥동은 지금 결정할 문제가 아니라, 하루가 초5~초6쯤 됐을 때 아이 성향을 보고 다시 판단하자.</p>
+  </div>
+
+  <details>
+    <summary>11-2. 10분 버전 (전체 펼쳐 읽기)</summary>
+    <div class="det-body">
+      <p>지금 우리 상황에서 제일 중요한 건 서울 출근보다 하루 교육하고 생활권이잖아. 그 기준으로 보면 김해는 우리가 이미 집이 있고, 최신 통학구역상 모산초 구역으로 확인됐고, 유치원 후보도 있어. 공원, 도서관, 병원, 장유권, 창원, 부산까지 활용할 수 있어서 초등 전후 베이스로는 가장 합리적이라고 봐.</p>
+      <p>그런데 문제는 이사 시점이야. 2028년 2월에 가면 그림이 제일 자연스러워. 경주 생활을 1년 더 누릴 수 있고, 하루도 초등학교 들어가기 전 마지막 1년을 김해에서 보내면 되니까. 아내 입장에서도 갑자기 생활을 바꾸는 부담이 덜할 거야.</p>
+      <p>다만 2028년 플랜은 세입자가 2028년 1~2월에 실제로 나간다는 전제가 있어야 해. 그냥 말로만 “1년 더 살고 나가겠다”는 건 법적으로 위험할 수 있어. 계약갱신요구권이나 묵시적 갱신 문제가 생기면 우리가 원하는 시점에 못 들어갈 수도 있어.</p>
+      <p>반대로 2027년 2월에 가면 아쉬움은 있어. 경주 생활을 1년 빨리 정리해야 하고, 하루와 당신의 루틴도 빨리 바뀌어. 그 부담은 나도 인정해. 하지만 2027년에 들어가면 임대차 문제를 빨리 정리할 수 있고, 하루가 김해에서 2년 정도 적응한 뒤 초등학교에 들어갈 수 있어. 교육 안정성만 보면 나쁘지 않고, 오히려 더 안정적일 수도 있어.</p>
+      <p>그래서 내가 말하고 싶은 건 하나야. 지금 당장 2027년으로 확정하자는 것도 아니고, 무조건 2028년만 고집하자는 것도 아니야. 2026년 하반기에 세입자 의향, 갱신권 상태, 법적 통지기한을 확인하고, 안정적으로 2028년이 가능하면 2028년으로 가자. 그런데 그게 불안하면 2027년 이사를 선택할 수 있도록 준비해두자는 거야.</p>
+      <p>그리고 옥동은 지금 확정하지 말자. 옥동이 교육적으로 장점이 있는 건 맞지만, 거기 산다고 특정 중학교가 보장되는 것도 아니고, 하루가 그 경쟁 분위기에 맞을지도 아직 몰라. 초등학교는 김해에서 보내고, 초5~초6쯤 하루 성향과 학업 상태를 보고 다시 판단하는 게 맞다고 봐.</p>
+      <p style="margin-bottom:0">결국 이건 김해를 강요하는 얘기가 아니라, 우리 가족이 흔들리지 않도록 두 개의 안전한 플랜을 준비하자는 얘기야.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ 12. 타임라인 ============ -->
+<section class="doc acc-indigo" id="sec-12" data-screen-label="12 타임라인">
+  <div class="sec-head">
+    <div class="sec-num">12</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Execution Timeline</div>
+      <h2>2026~2029 월별 실행 타임라인<a class="anchor" href="#sec-12">#</a></h2>
+    </div>
+  </div>
+  <div class="legend">
+    <div><span class="dot" style="background:var(--blue-soft);width:11px;height:11px"></span><b>일반 실행 항목</b></div>
+    <div><span class="dot" style="background:var(--amber);width:11px;height:11px"></span><b>핵심 분기점 (유치원 모집·주소 안정화)</b></div>
+    <div><span class="dot" style="background:var(--sage);width:11px;height:11px"></span><b>목표 달성</b></div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-year y26">2026년 <span class="yr-sub">준비 · 확인기 — 세입자 협상, 세무, 2027학년도 유치원 모집</span></div>
+    <div class="tl-items y26">
+      <div class="tl-item"><div class="tl-when">6~7월</div><div class="tl-what">김해 임대차 계약서 원본 확인, 만기일 확정, 갱신권 사용 이력 확인<span class="why">2027/2028 플랜 가능성 판단</span></div></div>
+      <div class="tl-item"><div class="tl-when">6~7월</div><div class="tl-what">세무사에게 경주 세컨드홈·준공후미분양 특례 문의<span class="why">2주택 세무 리스크 확인</span></div></div>
+      <div class="tl-item"><div class="tl-when">7~8월</div><div class="tl-what">만기일 기준 통지기한 역산, 변호사/중개사 상담<span class="why">묵시적 갱신 방지</span></div></div>
+      <div class="tl-item"><div class="tl-when">8~9월</div><div class="tl-what">세입자 의향 1차 확인<span class="why">2028년 퇴거 가능성 탐색</span></div></div>
+      <div class="tl-item key"><div class="tl-when">9~10월</div><div class="tl-what">2027학년도 김해 유치원·어린이집 모집 일정 확인 <span class="tl-keychip">핵심</span><span class="why">2027년 조기 이사 대비</span></div></div>
+      <div class="tl-item key"><div class="tl-when">10~11월</div><div class="tl-what">2027학년도 유치원/어린이집 지원 또는 대기 검토<span class="why">조기 이사 시 교육 공백 방지</span></div></div>
+      <div class="tl-item"><div class="tl-when">9~11월</div><div class="tl-what">세입자 갱신거절/조건변경/연장합의 통지 필요 여부 결정<span class="why">법적 기한 관리</span></div></div>
+      <div class="tl-item"><div class="tl-when">11~12월</div><div class="tl-what">2027년 조기 이사 견적, 경주 집 임대 시세 조사<span class="why">백업플랜 현실화</span></div></div>
+    </div>
+
+    <div class="tl-year y27">2027년 <span class="yr-sub">분기 · 결정기 — 만기 대응, 2028학년도 유치원 모집</span></div>
+    <div class="tl-items y27">
+      <div class="tl-item"><div class="tl-when">1월</div><div class="tl-what">세입자 만기 대응, 퇴거 또는 연장합의 최종 확인<span class="why">핵심 분기점</span></div></div>
+      <div class="tl-item"><div class="tl-when">2월</div><div class="tl-what">조기 이사 플랜 실행 가능성<span class="why">2027 플랜 선택 시 김해 입주</span></div></div>
+      <div class="tl-item"><div class="tl-when">3~6월</div><div class="tl-what">김해 적응 또는 경주 유지 중 2028 플랜 관리<span class="why">생활권·교육기관 조정</span></div></div>
+      <div class="tl-item"><div class="tl-when">7~8월</div><div class="tl-what">2028년 이사 가능성 재점검, 세입자 퇴거합의 상태 확인<span class="why">리스크 재평가</span></div></div>
+      <div class="tl-item key"><div class="tl-when">9~11월</div><div class="tl-what">2028학년도 유치원 모집 확인 및 신청 <span class="tl-keychip">핵심</span><span class="why">2028년 이사 플랜 핵심</span></div></div>
+      <div class="tl-item"><div class="tl-when">12월</div><div class="tl-what">2028년 1~2월 퇴거·이사 최종 점검<span class="why">베스트 시나리오 실행 준비</span></div></div>
+    </div>
+
+    <div class="tl-year y28">2028년 <span class="yr-sub">정착기 — 김해 적응, 주소 안정화, 취학통지</span></div>
+    <div class="tl-items y28">
+      <div class="tl-item"><div class="tl-when">1~2월</div><div class="tl-what">김해 이사, 전입, 유치원/어린이집 시작 준비<span class="why">초등 전 1년 적응 시작</span></div></div>
+      <div class="tl-item"><div class="tl-when">3월</div><div class="tl-what">김해 유치원/어린이집 적응<span class="why">생활권 정착</span></div></div>
+      <div class="tl-item"><div class="tl-when">4~8월</div><div class="tl-what">모산초 주변 동선, 병원, 학원, 돌봄 정보 수집<span class="why">초등 입학 준비</span></div></div>
+      <div class="tl-item"><div class="tl-when">9월</div><div class="tl-what">취학 관련 주민센터·교육지원청 문의<span class="why">주소·취학통지 확인</span></div></div>
+      <div class="tl-item key"><div class="tl-when">10월 1일 전</div><div class="tl-what">김해 주소 안정화 권장 <span class="tl-keychip">권장</span><span class="why">취학명부 반영 안정성</span></div></div>
+      <div class="tl-item"><div class="tl-when">10~12월</div><div class="tl-what">취학통지 확인, 모산초 입학 준비<span class="why">행정 마무리</span></div></div>
+    </div>
+
+    <div class="tl-year y29">2029년 <span class="yr-sub">목표 — 김해모산초 입학</span></div>
+    <div class="tl-items y29">
+      <div class="tl-item"><div class="tl-when">1~2월</div><div class="tl-what">입학 준비물, 돌봄, 방과후, 등하교 루틴 확정<span class="why">초등 입학 실행</span></div></div>
+      <div class="tl-item goal"><div class="tl-when">3월</div><div class="tl-what"><strong>김해모산초 입학</strong> <span class="tl-keychip" style="color:var(--sage);background:var(--sage-bg);border-color:var(--sage-line)">1차 목표 달성</span></div></div>
+    </div>
+  </div>
+
+  <details>
+    <summary>표 7. 월별 실행 체크리스트 (표 형태로 보기)</summary>
+    <div class="det-body">
+      <div class="table-wrap">
+        <table aria-label="표 7. 월별 실행 체크리스트">
+          <caption><span class="cap-tag">표 7</span>월별 실행 체크리스트</caption>
+          <thead><tr><th style="width:16%">시기</th><th>실행 항목</th><th style="width:24%">목적</th></tr></thead>
+          <tbody>
+            <tr><th>2026.6~7</th><td>김해 임대차 계약서 원본 확인, 만기일 확정, 갱신권 사용 이력 확인</td><td>2027/2028 플랜 가능성 판단</td></tr>
+            <tr><th>2026.6~7</th><td>세무사에게 경주 세컨드홈·준공후미분양 특례 문의</td><td>2주택 세무 리스크 확인</td></tr>
+            <tr><th>2026.7~8</th><td>만기일 기준 통지기한 역산, 변호사/중개사 상담</td><td>묵시적 갱신 방지</td></tr>
+            <tr><th>2026.8~9</th><td>세입자 의향 1차 확인</td><td>2028년 퇴거 가능성 탐색</td></tr>
+            <tr class="risk-mid"><th>2026.9~10</th><td>2027학년도 김해 유치원·어린이집 모집 일정 확인</td><td>2027년 조기 이사 대비</td></tr>
+            <tr class="risk-mid"><th>2026.10~11</th><td>2027학년도 유치원/어린이집 지원 또는 대기 검토</td><td>조기 이사 시 교육 공백 방지</td></tr>
+            <tr><th>2026.9~11</th><td>세입자 갱신거절/조건변경/연장합의 통지 필요 여부 결정</td><td>법적 기한 관리</td></tr>
+            <tr><th>2026.11~12</th><td>2027년 조기 이사 견적, 경주 집 임대 시세 조사</td><td>백업플랜 현실화</td></tr>
+            <tr><th>2027.1</th><td>세입자 만기 대응, 퇴거 또는 연장합의 최종 확인</td><td>핵심 분기점</td></tr>
+            <tr><th>2027.2</th><td>조기 이사 플랜 실행 가능성</td><td>2027 플랜 선택 시 김해 입주</td></tr>
+            <tr><th>2027.3~6</th><td>김해 적응 또는 경주 유지 중 2028 플랜 관리</td><td>생활권·교육기관 조정</td></tr>
+            <tr><th>2027.7~8</th><td>2028년 이사 가능성 재점검, 세입자 퇴거합의 상태 확인</td><td>리스크 재평가</td></tr>
+            <tr class="risk-mid"><th>2027.9~11</th><td>2028학년도 유치원 모집 확인 및 신청</td><td>2028년 이사 플랜 핵심</td></tr>
+            <tr><th>2027.12</th><td>2028년 1~2월 퇴거·이사 최종 점검</td><td>베스트 시나리오 실행 준비</td></tr>
+            <tr><th>2028.1~2</th><td>김해 이사, 전입, 유치원/어린이집 시작 준비</td><td>초등 전 1년 적응 시작</td></tr>
+            <tr><th>2028.3</th><td>김해 유치원/어린이집 적응</td><td>생활권 정착</td></tr>
+            <tr><th>2028.4~8</th><td>모산초 주변 동선, 병원, 학원, 돌봄 정보 수집</td><td>초등 입학 준비</td></tr>
+            <tr><th>2028.9</th><td>취학 관련 주민센터·교육지원청 문의</td><td>주소·취학통지 확인</td></tr>
+            <tr class="risk-mid"><th>2028.10.1 전</th><td>김해 주소 안정화 권장</td><td>취학명부 반영 안정성</td></tr>
+            <tr><th>2028.10~12</th><td>취학통지 확인, 모산초 입학 준비</td><td>행정 마무리</td></tr>
+            <tr><th>2029.1~2</th><td>입학 준비물, 돌봄, 방과후, 등하교 루틴 확정</td><td>초등 입학 실행</td></tr>
+            <tr class="risk-low"><th>2029.3</th><td>김해모산초 입학</td><td>1차 목표 달성</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ============ 13. 옥동 ============ -->
+<section class="doc acc-cyan" id="sec-13" data-screen-label="13 옥동">
+  <div class="sec-head">
+    <div class="sec-num">13</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Ulsan Okdong Option</div>
+      <h2>초5~초6 이후 울산 옥동 전환 로드맵<a class="anchor" href="#sec-13">#</a></h2>
+    </div>
+  </div>
+
+  <h3 class="sub">13-1. 기본 원칙</h3>
+  <blockquote class="pull"><strong>울산 옥동은 확정 전략이 아니라 장기 옵션입니다.</strong><br>초등학교는 김해모산초를 기본 베이스로 하고, 하루가 초5~초6이 되었을 때 학업 성향·친구관계·경쟁 적응력·부모 운영 가능성을 종합 평가해 옥동 전환 여부를 결정한다.</blockquote>
+  <div class="callout co-expert">
+    <div class="ico">!</div>
+    <div class="body">
+      <h4>반드시 주의할 점 <span class="badge b-expert" style="margin-left:4px">전문가 확인 필요</span></h4>
+      <p>① 옥동에 산다고 특정 중학교가 보장되는 것은 아닙니다. ② 중학교 배정 방식은 해당 연도 교육청 고시가 기준입니다. ③ 위장전입이 아니라 실제 거주가 전제되어야 합니다. ④ 아내와 하루가 실제로 옥동현대 할머니집에서 생활할 수 있어야 합니다. ⑤ 학원가 밀도는 장점이지만 아이에게 스트레스가 될 수도 있습니다.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">13-2. 옥동 전환 평가 항목</h3>
+  <div class="table-wrap">
+    <table aria-label="옥동 전환 평가표">
+      <caption><span class="cap-tag">참고표</span>옥동 전환 평가표</caption>
+      <thead><tr><th style="width:24%">평가 항목</th><th>김해 유지가 유리한 신호</th><th>옥동 전환 검토 신호</th></tr></thead>
+      <tbody>
+        <tr><th>학업 경쟁 적응력</th><td>경쟁 상황에서 위축, 회복 지연</td><td>경쟁이 동기부여로 작동</td></tr>
+        <tr><th>수학 선행/심화</th><td>선행보다 개념 안정이 우선</td><td>심화·선행을 흡수하고 흥미 유지</td></tr>
+        <tr><th>영어 독해/쓰기</th><td>집 루틴과 안정적 학습이 중요</td><td>외부 훈련과 피드백에 반응 좋음</td></tr>
+        <tr><th>친구관계</th><td>친밀한 친구관계 유지가 중요</td><td>새 환경 적응이 빠름</td></tr>
+        <tr><th>정서 안정</th><td>이동과 변화에 민감</td><td>변화 대응력이 좋음</td></tr>
+        <tr><th>아내 생활 운영</th><td>울산 생활 피로가 큼</td><td>할머니집 지원과 학원 동선이 실질적 도움</td></tr>
+        <tr><th>비용</th><td>김해 유지 비용이 효율적</td><td>옥동 이동 비용을 감당할 가치가 있음</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">13-3. 옥동 이동 권장 시점</h3>
+  <div class="table-wrap">
+    <table aria-label="옥동 이동 권장 시점">
+      <thead><tr><th style="width:28%">시점</th><th>평가</th></tr></thead>
+      <tbody>
+        <tr class="risk-mid"><th>초4 이전</th><td>너무 빠를 수 있음. 김해 기반을 충분히 써보지 못함</td></tr>
+        <tr class="risk-low"><th>초5 말</th><td>1차 평가 적기</td></tr>
+        <tr class="risk-low"><th>초6 시작 전</th><td>가장 현실적인 전환 시점</td></tr>
+        <tr class="risk-mid"><th>초6 1학기 초</th><td>가능하지만 빠른 적응 관리 필요</td></tr>
+        <tr class="risk-high"><th>중학교 배정 직전</th><td>행정·정서 부담 큼</td></tr>
+        <tr class="risk-high"><th>중학교 입학 후</th><td>전학 스트레스와 학업 적응 부담 큼</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <blockquote class="soft"><p><strong>권고:</strong> 옥동을 실제로 검토한다면 <strong>초5 말~초6 시작 전</strong>에 판단하는 것이 가장 좋습니다.</p></blockquote>
+
+  <details>
+    <summary>13-4. 실제 거주 증빙과 위장전입 오해 방지</summary>
+    <div class="det-body">
+      <p style="font-size:13.5px">옥동 전환은 반드시 실제 거주를 전제로 해야 합니다.</p>
+      <div class="table-wrap">
+        <table aria-label="실제 거주 증빙">
+          <thead><tr><th style="width:24%">증빙/실체</th><th>예시</th></tr></thead>
+          <tbody>
+            <tr><th>주민등록</th><td>아내와 하루의 실제 전입</td></tr>
+            <tr><th>생활 실체</th><td>실제 수면, 식사, 등하교, 학원 이동</td></tr>
+            <tr><th>교육 실체</th><td>울산 내 학교, 학원, 도서관 이용</td></tr>
+            <tr><th>의료·생활</th><td>병원, 약국, 마트, 생활 소비</td></tr>
+            <tr><th>가족 운영</th><td>아내와 하루가 실제로 옥동에서 생활</td></tr>
+            <tr class="risk-high"><th>부재 리스크</th><td>김해에 계속 생활기반이 남아 있으면 오해 가능</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <blockquote class="soft"><p><strong>주소만 옮기는 것이 아니라 생활 중심이 옥동으로 옮겨져야 합니다.</strong></p></blockquote>
+    </div>
+  </details>
+</section>
+
+<!-- ============ 14. 최종 추천안 ============ -->
+<section class="doc acc-navy pagebreak" id="sec-14" data-screen-label="14 최종 추천">
+  <div class="sec-head">
+    <div class="sec-num">14</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Final Recommendation</div>
+      <h2>최종 추천안<a class="anchor" href="#sec-14">#</a></h2>
+    </div>
+  </div>
+
+  <h3 class="sub" style="color:var(--sage)">14-1. 조건부 1순위 — 2028년 2월 김해 이사</h3>
+  <div class="table-wrap">
+    <table aria-label="2028년 이사 조건">
+      <thead><tr><th style="width:24%">조건</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><th>세입자 협조</th><td>기존 세입자가 2028년 1~2월 퇴거에 명확히 동의</td></tr>
+        <tr><th>갱신권 상태</th><td>계약갱신요구권 사용 여부가 명확히 정리</td></tr>
+        <tr><th>서면합의</th><td>퇴거일, 보상, 보증금 정산, 원상복구가 문서화</td></tr>
+        <tr><th>법률검토</th><td>변호사 또는 임대차 전문 중개사 검토상 안정적</td></tr>
+        <tr><th>유치원</th><td>2027년 가을 2028학년도 모집 신청 가능</td></tr>
+        <tr><th>가족 정서</th><td>아내와 하루가 경주 생활 1년 연장을 원함</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <blockquote class="soft"><p><strong>장점:</strong> 경주 생활을 1년 더 누리고, 하루는 초등학교 전 마지막 1년을 김해에서 적응. 가족 준비기간도 가장 충분합니다.</p></blockquote>
+
+  <h3 class="sub" style="color:var(--amber)">14-2. 조건부 2순위 — 2027년 2월 김해 조기 이사</h3>
+  <div class="table-wrap">
+    <table aria-label="2027년 이사 조건">
+      <thead><tr><th style="width:24%">조건</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><th>세입자 불확실</th><td>2028년 퇴거 합의가 애매하거나 불명확</td></tr>
+        <tr><th>갱신권 리스크</th><td>계약갱신요구권 행사 가능성이 큼</td></tr>
+        <tr><th>1년 특약 불안</th><td>1년만 연장하는 구조가 법적으로 불안</td></tr>
+        <tr><th>가족 리스크</th><td>2028년 입주 실패를 감당하기 어려움</td></tr>
+        <tr><th>교육 우선</th><td>하루의 김해 적응기간을 길게 확보하고 싶음</td></tr>
+        <tr><th>법적 절차</th><td>실거주 갱신거절 통지와 실제 입주가 가능</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <blockquote class="soft"><p><strong>장점:</strong> 김해 적응기간을 약 2년 확보하고 입학 전 생활권을 가장 안정적으로 만들 수 있습니다. <strong>주의:</strong> 적법한 실거주 갱신거절과 증거관리가 필요하며, 법률 검토 없이 실행하면 안 됩니다.</p></blockquote>
+
+  <h3 class="sub" style="color:var(--rose)">14-3. 비추천 선택</h3>
+  <div class="table-wrap">
+    <table aria-label="비추천 선택">
+      <thead><tr><th style="width:32%">선택</th><th>비추천 이유</th></tr></thead>
+      <tbody>
+        <tr class="risk-high"><th>새 세입자를 1년만 들이기</th><td>주택임대차보호법상 갱신권·묵시적 갱신 리스크 반복</td></tr>
+        <tr class="risk-high"><th>구두합의 의존</th><td>분쟁 시 입증 취약</td></tr>
+        <tr class="risk-high"><th>묵시적 갱신 방치</th><td>원하는 이사 시점 통제 어려움</td></tr>
+        <tr class="risk-high"><th>2029년 입학 직전 이사</th><td>취학통지, 친구관계, 유치원-초등 연계, 부모 스트레스 증가</td></tr>
+        <tr class="risk-high"><th>옥동 특정 중학교 보장 전제</th><td>실제 배정은 교육청 기준과 학교군에 따름</td></tr>
+        <tr class="risk-high"><th>미래 인프라를 핵심 근거로 삼기</th><td>개관·완공 지연 가능성 존재</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">14-4. 최종 결론 문장</h3>
+  <div class="final-line">
+    <div class="fl-label">Final Conclusion · 최종 결론</div>
+    <p><strong>김해가 가족의 초등 입학 전후 베이스로 가장 합리적이다.</strong> 다만 이사 시점은 감정적으로 확정할 문제가 아니라 세입자 협상 결과와 법적 안정성에 따라 분기해야 한다. 세입자가 2028년 1~2월 퇴거에 명확히 협조하고 법률검토상 안정적이면 2028년 2월 이사가 1순위다. 협조가 불확실하거나 갱신권·묵시적 갱신 리스크가 크면, 적법한 실거주 절차를 전제로 2027년 2월 조기 이사를 선택하는 것이 가족 전체 리스크 관리에 더 맞다. 2029년 입학 직전 이사, 새 1년 단기 세입자, 구두합의 의존은 피해야 한다.</p>
+  </div>
+</section>
+
+<!-- ============ 15. 체크리스트 ============ -->
+<section class="doc acc-green" id="sec-15" data-screen-label="15 체크리스트">
+  <div class="sec-head">
+    <div class="sec-num">15</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Checklists</div>
+      <h2>반드시 확인해야 할 체크리스트<a class="anchor" href="#sec-15">#</a></h2>
+    </div>
+  </div>
+  <p style="font-size:13.5px;color:var(--slate)">항목을 클릭하면 완료 표시됩니다. 인쇄 시에도 체크박스가 함께 출력됩니다.</p>
+
+  <h3 class="sub">15-1. 임대차 체크리스트</h3>
+  <div class="checklist">
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">김해 집 정확한 계약 만기일 — 계약서 원본</span><span class="cl-who">계약서</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">기존 세입자의 갱신권 사용 여부 — 계약서, 중개사, 변호사</span><span class="cl-who">변호사</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">과거 계약 연장 이력 — 계약서, 입금 내역</span><span class="cl-who">계약서</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">실거주 갱신거절 가능 여부 — 변호사</span><span class="cl-who">변호사</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">통지기한 역산 — 변호사, 공인중개사</span><span class="cl-who">변호사</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">통지 방식 — 내용증명, 문자, 카톡, 녹취, 서면</span><span class="cl-who">증거관리</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">2028년 퇴거합의서 문안 — 변호사</span><span class="cl-who">변호사</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">보상 한도 — 부부 합의</span><span class="cl-who">부부</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">묵시적 갱신 방지 일정 — 캘린더 등록</span><span class="cl-who">캘린더</span></div>
+  </div>
+
+  <h3 class="sub">15-2. 교육 체크리스트</h3>
+  <div class="checklist">
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">2027학년도 유치원/어린이집 모집 일정 — 처음학교로, 각 기관</span><span class="cl-who">처음학교로</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">2028학년도 유치원 모집 일정 — 처음학교로, 각 기관</span><span class="cl-who">처음학교로</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">김해모산초병설유치원 모집 가능성 — 유치원, 유치원알리미</span><span class="cl-who">유치원알리미</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">통학차량 운영 여부 — 각 유치원</span><span class="cl-who">유치원</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">방과후과정 시간 — 각 유치원</span><span class="cl-who">유치원</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">김해모산초 취학 안내 — 김해교육지원청, 모산초</span><span class="cl-who">교육지원청</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">돌봄교실 기준 — 김해모산초</span><span class="cl-who">모산초</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">방과후 프로그램 — 김해모산초</span><span class="cl-who">모산초</span></div>
+    <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">2028년 10월 주소 안정화 — 주민센터</span><span class="cl-who">주민센터</span></div>
+  </div>
+
+  <details>
+    <summary>15-3 · 15-4 · 15-5. 김해 생활권 · 경주 집 운용 · 울산 옥동 체크리스트</summary>
+    <div class="det-body">
+      <h4 class="sub4">김해 생활권 체크리스트</h4>
+      <div class="checklist">
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">단지에서 모산초까지 도보 동선 — 현장 실사</span><span class="cl-who">실사</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">횡단보도·차량통행 위험 — 등교 시간 실사</span><span class="cl-who">실사</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">소아과 후보 — 평일/주말 진료 확인</span><span class="cl-who">병원</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">응급/야간 병원 — 장유·김해·창원권 확인</span><span class="cl-who">병원</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">도서관 — 율하도서관, 기적의도서관 방문</span><span class="cl-who">방문</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">수영/체육 — 서부스포츠센터, 모산유아체육센터 확인</span><span class="cl-who">방문</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">태권도/축구/미술/음악 — 차량운행과 시간표 확인</span><span class="cl-who">학원</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">학원가 — 율하1·관동동 현장 확인</span><span class="cl-who">실사</span></div>
+      </div>
+      <h4 class="sub4">경주 집 운용 체크리스트</h4>
+      <div class="checklist">
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">전세 시세 — 현지 중개사 2~3곳</span><span class="cl-who">중개사</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">월세 시세 — 현지 중개사 2~3곳</span><span class="cl-who">중개사</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">공실 기간 예상 — 중개사</span><span class="cl-who">중개사</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">수요층 — KTX/SRT, 직장인, 가족 수요</span><span class="cl-who">조사</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">대출 이자 — 금융기관</span><span class="cl-who">금융</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">임대소득 신고 — 세무사</span><span class="cl-who">세무사</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">보증금 반환 계획 — 가계 현금흐름표</span><span class="cl-who">현금흐름</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">세컨드홈 특례 — 세무사</span><span class="cl-who">세무사</span></div>
+      </div>
+      <h4 class="sub4">울산 옥동 체크리스트</h4>
+      <div class="checklist">
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">최신 중학교 학교군 — 울산교육청, 울산강남교육지원청</span><span class="cl-who">교육청</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">배정 방식 — 교육지원청</span><span class="cl-who">교육청</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">실제 거주 요건 — 교육지원청, 주민센터</span><span class="cl-who">교육청</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">위장전입 점검 기준 — 교육지원청</span><span class="cl-who">교육청</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">옥동 학원가 — 현장 방문</span><span class="cl-who">방문</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">하루 성향 평가 — 초5 말 가족회의</span><span class="cl-who">가족</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">아내 생활 가능성 — 실제 동선 시뮬레이션</span><span class="cl-who">가족</span></div>
+        <div class="cl-item"><span class="cl-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-text">할머니집 거주 가능성 — 가족 합의</span><span class="cl-who">가족</span></div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ============ 16. 출처 ============ -->
+<section class="doc acc-slate" id="sec-16" data-screen-label="16 출처">
+  <div class="sec-head">
+    <div class="sec-num">16</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">References</div>
+      <h2>참고 출처 목록<a class="anchor" href="#sec-16">#</a></h2>
+    </div>
+  </div>
+  <p style="font-size:13.5px;color:var(--slate)">URL이 있는 출처는 새 창으로 연결됩니다. 모든 수치·통학구역·법령 적용은 실행 전 각 출처의 최신 자료로 재확인이 필요합니다.</p>
+  <div class="table-wrap">
+    <table aria-label="참고 출처 목록">
+      <thead><tr><th style="width:11%">출처 ID</th><th style="width:30%">출처</th><th>확인·활용 내용</th><th style="width:10%">링크</th></tr></thead>
+      <tbody>
+        <tr><th>EDU-01</th><td>국가법령정보센터 · 초·중등교육법 시행령</td><td>초등학교 취학 절차의 법적 근거</td><td><a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%B4%88%C2%B7%EC%A4%91%EB%93%B1%EA%B5%90%EC%9C%A1%EB%B2%95%EC%8B%9C%ED%96%89%EB%A0%B9" target="_blank" rel="noopener">바로가기 ↗</a></td></tr>
+        <tr><th>EDU-02</th><td>경상남도김해교육지원청 · 초등학교 취학 안내</td><td>김해 지역 취학 안내 및 통학구역 관련 메뉴, 과대·과밀 판단 기준</td><td><a href="https://ghedu.gne.go.kr/ghedu/cm/cntnts/cntntsView.do?cntntsId=7001&mi=13499" target="_blank" rel="noopener">바로가기 ↗</a></td></tr>
+        <tr><th>EDU-03</th><td>경상남도김해교육지원청 · 초등학교 통학구역표</td><td>율하자이힐스테이트 1·2구의 김해모산초 통학구역 확인</td><td><a href="https://ghedu.gne.go.kr/ghedu/cm/cntnts/cntntsView.do?cntntsId=2937&mi=5159" target="_blank" rel="noopener">바로가기 ↗</a></td></tr>
+        <tr><th>EDU-04</th><td>경상남도김해교육지원청 · 초등학교 현황</td><td>김해모산초 학급수·학생수(50(3)학급, 1,097명) 확인</td><td><a href="https://ghedu.gne.go.kr/ghedu/cm/cntnts/cntntsView.do?cntntsId=370&mi=2620" target="_blank" rel="noopener">바로가기 ↗</a></td></tr>
+        <tr><th>EDU-05</th><td>경상남도김해교육지원청 · 유치원 현황</td><td>김해모산초병설·김해율하유치원·장유유치원 등 학급·원아 현황 확인</td><td><a href="https://ghedu.gne.go.kr/ghedu/cm/cntnts/cntntsView.do?cntntsId=369&mi=2617" target="_blank" rel="noopener">바로가기 ↗</a></td></tr>
+        <tr><th>EDU-06</th><td>유치원알리미</td><td>유치원 정보공시, 통학차량·방과후 등 조회 가능 항목 확인</td><td><a href="https://e-childschoolinfo.moe.go.kr/" target="_blank" rel="noopener">바로가기 ↗</a></td></tr>
+        <tr><th>EDU-07</th><td>김해모산초등학교 홈페이지</td><td>방과후학교·돌봄교실 관련 메뉴 확인</td><td><a href="https://ghmosan-p.gne.go.kr/" target="_blank" rel="noopener">바로가기 ↗</a></td></tr>
+        <tr><th>LAW-01</th><td>국가법령정보센터 · 주택임대차보호법</td><td>계약갱신요구권, 실거주 갱신거절, 묵시적 갱신 검토 근거</td><td><a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A3%BC%ED%83%9D%EC%9E%84%EB%8C%80%EC%B0%A8%EB%B3%B4%ED%98%B8%EB%B2%95" target="_blank" rel="noopener">바로가기 ↗</a></td></tr>
+        <tr><th>CITY-01</th><td>김해시청</td><td>김해 생활·행정·공공시설 정보 확인 기본 출처</td><td><a href="https://www.gimhae.go.kr/main.web" target="_blank" rel="noopener">바로가기 ↗</a></td></tr>
+        <tr><th>CITY-02</th><td>부산광역시 · 에코델타 스마트시티 관련 공식 정보</td><td>서부산 확장축 및 에코델타시티 관련 확인</td><td><a href="https://www.busan.go.kr/" target="_blank" rel="noopener">바로가기 ↗</a></td></tr>
+        <tr><th>TRANS-01</th><td>SRT 공식 예매 시스템</td><td>경주역 SRT 노선·역명 확인</td><td><a href="https://etk.srail.kr/" target="_blank" rel="noopener">바로가기 ↗</a></td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">학급수·원아수·통학구역 등 수치는 2026년 3월 1일 기준 공시 자료에 근거하며, 모집 정원·우선순위·차량·통학구역 변동은 해당 연도 공식 자료로 <strong>재확인이 필요</strong>합니다. 미래 인프라 일정은 사업자·지자체 공지로 별도 확인이 필요합니다.</p>
+  </div>
+</section>
+
+<!-- ============ 17. 부록 ============ -->
+<section class="doc acc-indigo pagebreak" id="sec-17" data-screen-label="17 부록">
+  <div class="sec-head">
+    <div class="sec-num">17</div>
+    <div class="sec-titles">
+      <div class="sec-kicker">Appendix</div>
+      <h2>부록<a class="anchor" href="#sec-17">#</a></h2>
+    </div>
+  </div>
+
+  <h3 class="sub">부록 A. 의사결정 트리</h3>
+  <p style="font-size:13.5px;color:var(--slate)">시작점: 2026년 하반기 세입자 의향 확인</p>
+  <div class="tree">
+    <div class="tstart">2026년 하반기 · 세입자 의향 확인</div>
+    <div class="tbranch">
+      <div class="titem">
+        <div class="tlabel"><span class="qn">1</span>세입자가 2028년 1~2월 퇴거에 명확히 동의</div>
+        <div class="tbranch">
+          <div class="titem"><div class="tnode"><strong>갱신권 사용 여부 확인</strong></div>
+            <div class="tbranch">
+              <div class="titem"><span class="toutcome out-check">법률검토상 안정적</span> <span class="tarrow">→</span> <span class="toutcome out-2028">2028년 2월 김해 이사 플랜 유지</span></div>
+              <div class="titem"><span class="toutcome out-check">법률검토상 불안정</span> <span class="tarrow">→</span> <span class="toutcome out-2027">2027년 2월 조기 이사 검토</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="titem">
+        <div class="tlabel"><span class="qn">2</span>세입자가 2년 갱신 희망</div>
+        <div class="tbranch"><div class="titem"><span class="toutcome out-check">2028년 이사 플랜 위험</span> <span class="tarrow">→</span> <span class="toutcome out-2027">실거주 갱신거절 가능성 검토 후 2027년 이사 가동</span></div></div>
+      </div>
+      <div class="titem">
+        <div class="tlabel"><span class="qn">3</span>세입자 답변이 애매함 (묵시적 갱신 위험)</div>
+        <div class="tbranch">
+          <div class="titem"><div class="tnode">법정 통지기한 전 서면 확정 필요</div>
+            <div class="tbranch">
+              <div class="titem"><span class="toutcome out-check">확정 가능</span> <span class="tarrow">→</span> <span class="toutcome out-2028">2028년 플랜 조건부 유지</span></div>
+              <div class="titem"><span class="toutcome out-check">확정 불가</span> <span class="tarrow">→</span> <span class="toutcome out-2027">2027년 플랜 우선 검토</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="titem">
+        <div class="tlabel"><span class="qn">4</span>세입자가 2027년 1월 퇴거 가능</div>
+        <div class="tbranch">
+          <div class="titem"><div class="tnode">가족 내부 결정</div>
+            <div class="tbranch">
+              <div class="titem"><span class="toutcome out-check">김해 조기 적응 중시</span> <span class="tarrow">→</span> <span class="toutcome out-2027">2027년 2월 이사</span></div>
+              <div class="titem"><span class="toutcome out-check">경주 1년 연장 강력 선호</span> <span class="tarrow">→</span> <span class="toutcome out-check">단기 공실/임대 리스크 계산 후 재판단</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="titem">
+        <div class="tlabel"><span class="qn">5</span>가족이 경주 1년 연장을 강하게 원함</div>
+        <div class="tbranch">
+          <div class="titem"><div class="tnode">세입자 법적 안정성 + 유치원 모집 + 경주 운용 비용 계산</div>
+            <div class="tbranch">
+              <div class="titem"><span class="toutcome out-check">감당 가능</span> <span class="tarrow">→</span> <span class="toutcome out-2028">2028년 플랜 유지</span></div>
+              <div class="titem"><span class="toutcome out-check">감당 불가</span> <span class="tarrow">→</span> <span class="toutcome out-2027">2027년 플랜 전환</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub">부록 B. 김해·경주·옥동 역할 분담</h3>
+  <div class="role-grid">
+    <div class="role" style="border-top:3px solid var(--sage)">
+      <h4>김해 율하</h4>
+      <div class="role-tag">초등 입학 전후 기본 베이스</div>
+      <ul>
+        <li><strong>장점</strong> 모산초 통학구역, 유치원 후보, 생활 인프라, 창원·부산 연계</li>
+        <li><strong>한계</strong> 세입자 문제 해결 필요</li>
+        <li><strong>전략</strong> 2027/2028 중 안정적 시점에 실거주</li>
+      </ul>
+    </div>
+    <div class="role" style="border-top:3px solid var(--blue)">
+      <h4>경주 역세권</h4>
+      <div class="role-tag">현재 생활 기반 또는 임대 운용 자산</div>
+      <ul>
+        <li><strong>장점</strong> 쾌적성, KTX/SRT, 신축 역세권</li>
+        <li><strong>한계</strong> 유아~초등 교육·학원 선택폭 제한 가능</li>
+        <li><strong>전략</strong> 김해 이사 시 전세/월세 운용</li>
+      </ul>
+    </div>
+    <div class="role" style="border-top:3px solid var(--amber)">
+      <h4>울산 옥동</h4>
+      <div class="role-tag">초5~초6 이후 장기 교육 옵션</div>
+      <ul>
+        <li><strong>장점</strong> 학원가, 교육 분위기, 가족 지원 가능</li>
+        <li><strong>한계</strong> 특정 중학교 보장 아님, 실제 거주 필요</li>
+        <li><strong>전략</strong> 초5 말 평가 후 선택</li>
+      </ul>
+    </div>
+  </div>
+  <p class="tbl-note">표 4. 김해/경주/옥동 역할 분담</p>
+
+  <h3 class="sub">부록 C. 가족회의용 최종 문장</h3>
+  <div class="final-line">
+    <div class="fl-label">가족회의 한 문장 정리</div>
+    <p><strong>우리 가족의 기본 베이스는 김해가 가장 합리적이다.</strong> 하지만 이사 시점은 2028년을 목표로 하되, 세입자 협상과 법적 안정성이 불확실하면 2027년으로 전환한다. 하루의 초등 입학 전 생활권 안정이 최우선이며, 경주와 옥동은 각각 자산 운용과 장기 교육 옵션으로 남긴다.</p>
+  </div>
+
+  <h3 class="sub">부록 D. 인쇄용 요약 카드</h3>
+  <div class="print-card">
+    <h4>가족회의 의사결정 요약 카드</h4>
+    <div class="pc-row"><div class="pc-k">기본 베이스</div><div>김해 율하자이힐스테이트 (모산초 통학구역 · 유치원 백업 · 생활 인프라)</div></div>
+    <div class="pc-row"><div class="pc-k">조건부 1순위</div><div>2028년 2월 이사 — 세입자 퇴거 협조 명확 + 법률검토 안정 시</div></div>
+    <div class="pc-row"><div class="pc-k">조건부 2순위</div><div>2027년 2월 조기 이사 — 적법한 실거주 갱신거절 절차 전제</div></div>
+    <div class="pc-row"><div class="pc-k">비추천</div><div>2029년 입학 직전 이사 · 새 1년 단기 세입자 · 구두합의 · 묵시적 갱신 방치</div></div>
+    <div class="pc-row"><div class="pc-k">2026 가을 필수</div><div>2027학년도 유치원/어린이집 모집 확인 + 세입자 통지기한 역산</div></div>
+    <div class="pc-row"><div class="pc-k">반드시 전문가</div><div>임대차(변호사) · 2주택 세무(세무사) · 통학구역·중학교 배정(교육지원청)</div></div>
+    <div class="pc-row"><div class="pc-k">장기 옵션</div><div>울산 옥동 — 초5 말~초6 시작 전 재평가 (특정 중학교 보장 아님)</div></div>
+  </div>
+</section>
+
+<!-- ============ 최종 확인 필요 ============ -->
+<section class="doc" id="sec-final" data-screen-label="최종 확인 필요">
+  <div class="callout co-expert" style="margin-top:40px">
+    <div class="ico">!</div>
+    <div class="body">
+      <h4>최종 확인 필요</h4>
+      <p>본 보고서의 모든 수치·통학구역·법령 적용·세무 판단·중학교 배정은 <strong>일반 정보이자 가족 의사결정 참고자료</strong>입니다. 실행 전 반드시 다음을 확인하십시오.</p>
+      <p>① 임대차(만기일·갱신권·통지기한·실거주 요건) — <strong>변호사·공인중개사</strong> · ② 경주 2주택 세무(취득세·재산세·종부세·양도세·대출·임대소득·세컨드홈 특례) — <strong>세무사</strong> · ③ 통학구역·취학통지·과밀 — <strong>김해교육지원청·주민센터·해당 학교</strong> · ④ 유치원/어린이집 모집(2027·2028학년도) — <strong>처음학교로·해당 기관</strong> · ⑤ 울산 옥동 중학교 학교군·배정·실거주 요건 — <strong>울산교육청·울산강남교육지원청</strong> · ⑥ 미래 인프라 착공·개관 일정 — <strong>해당 사업자·지자체 공지</strong>.</p>
+    </div>
+  </div>
+  <footer class="foot">
+    <p><strong>가족회의용 의사결정 보고서</strong> · 2027~2029 김해 이주 전략 및 울산 옥동 전환 가능성 검토 · 기준일 2026년 6월 9일</p>
+    <p>본 문서는 법률자문·세무자문·공인중개 자문·교육청 공식 판단이 아니며, 가족 내부 의사결정을 돕기 위한 참고자료입니다. 최종 판단과 실행 책임은 가족에게 있으며, 각 분야 전문가 확인을 거쳐야 합니다.</p>
+  </footer>
+</section>
+
+<!-- CONTENT-END -->
+  </main>
+</div>
+
+<script>
+/* progress bar */
+var progbar=document.getElementById('progbar');
+function updProg(){
+  var h=document.documentElement;
+  var sc=h.scrollTop||document.body.scrollTop;
+  var max=h.scrollHeight-h.clientHeight;
+  progbar.style.width=(max>0?(sc/max*100):0)+'%';
+}
+window.addEventListener('scroll',updProg,{passive:true});
+window.addEventListener('resize',updProg);updProg();
+
+/* print */
+document.getElementById('printBtn').addEventListener('click',function(){window.print();});
+
+/* expand / collapse all */
+var expandBtn=document.getElementById('expandBtn');
+var allOpen=false;
+expandBtn.addEventListener('click',function(){
+  allOpen=!allOpen;
+  document.querySelectorAll('details').forEach(function(d){d.open=allOpen;});
+  expandBtn.querySelector('.full').textContent=allOpen?'전체 접기':'전체 펼치기';
+});
+
+/* mobile TOC toggle */
+var toc=document.getElementById('toc');
+function isMobile(){return window.matchMedia('(max-width:920px)').matches;}
+if(isMobile())toc.classList.add('collapsed');
+document.getElementById('tocTitle').addEventListener('click',function(){if(isMobile())toc.classList.toggle('collapsed');});
+document.getElementById('menuBtn').addEventListener('click',function(){toc.classList.toggle('collapsed');toc.scrollIntoView({block:'nearest'});});
+toc.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(isMobile())toc.classList.add('collapsed');});});
+
+/* scrollspy */
+var links=Array.prototype.slice.call(toc.querySelectorAll('a'));
+var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+function spy(){
+  var pos=(document.documentElement.scrollTop||document.body.scrollTop)+120;
+  var cur=secs[0];
+  for(var i=0;i<secs.length;i++){if(secs[i]&&secs[i].offsetTop<=pos)cur=secs[i];}
+  links.forEach(function(a){a.classList.toggle('active',cur&&a.getAttribute('href')==='#'+cur.id);});
+}
+window.addEventListener('scroll',spy,{passive:true});spy();
+
+/* checklist toggles */
+document.addEventListener('click',function(e){
+  var item=e.target.closest('.cl-item');
+  if(item){item.classList.toggle('done');}
+});
+</script>
+</body>
+</html>
