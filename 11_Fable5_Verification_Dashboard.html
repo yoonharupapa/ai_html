@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Fable 5 / Mythos 5 — 종합 검증 리포트</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg0:#0a0e14; --bg1:#11161f; --card:#161c26; --card2:#1a2130; --border:#232b38; --border2:#2e3949;
+  --txt:#dde4ee; --txt2:#9aa7ba; --txt3:#6b7787;
+  --coral:#d97757; --coral-dim:#d9775726;
+  --info:#4a9eff; --info-dim:#4a9eff1f;
+  --ok:#3fb68b; --ok-dim:#3fb68b1f;
+  --warn:#e8b339; --warn-dim:#e8b3391f;
+  --risk:#e05252; --risk-dim:#e052521f;
+  --mono:'SF Mono','Cascadia Code','JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:auto;}
+body{
+  background:linear-gradient(180deg,var(--bg0) 0%,var(--bg1) 100%);
+  background-attachment:fixed;
+  color:var(--txt);
+  font-family:Pretendard,-apple-system,BlinkMacSystemFont,'Noto Sans KR','Segoe UI',sans-serif;
+  font-size:14px; line-height:1.55;
+  min-height:100vh;
+}
+.num,td.n,.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;}
+a{color:var(--info);text-decoration:none;}
+strong{color:var(--txt);}
+code{font-family:var(--mono);font-size:.92em;background:var(--card2);border:1px solid var(--border);border-radius:4px;padding:1px 5px;color:var(--coral);}
+
+/* ===== Header ===== */
+header.site{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,14,20,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.hd-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 24px 10px;max-width:1480px;margin:0 auto;}
+.hd-logo{display:flex;align-items:center;gap:10px;}
+.hd-logo .dot{width:10px;height:10px;border-radius:50%;background:var(--coral);box-shadow:0 0 10px var(--coral);}
+.hd-logo h1{font-size:16px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;}
+.hd-logo h1 span{color:var(--txt2);font-weight:500;}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;background:var(--coral-dim);color:var(--coral);border:1px solid #d9775745;border-radius:6px;padding:3px 9px;white-space:nowrap;}
+.chip.gray{background:var(--card2);color:var(--txt2);border-color:var(--border2);}
+.hd-spacer{flex:1;}
+.hd-date{font-family:var(--mono);font-size:12px;color:var(--txt3);white-space:nowrap;}
+.hd-date b{color:var(--txt2);font-weight:600;}
+
+/* badge legend */
+.legend{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:0 24px 10px;max-width:1480px;margin:0 auto;}
+.legend .lg-label{font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;margin-right:2px;}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;border-radius:20px;padding:2px 10px 2px 7px;border:1px solid;cursor:default;white-space:nowrap;line-height:1.5;}
+.badge .b-dot{width:7px;height:7px;border-radius:50%;flex:none;}
+.badge.t1{color:var(--ok);border-color:#3fb68b4d;background:var(--ok-dim);}   .badge.t1 .b-dot{background:var(--ok);}
+.badge.t2{color:var(--info);border-color:#4a9eff4d;background:var(--info-dim);} .badge.t2 .b-dot{background:var(--info);}
+.badge.pt{color:var(--warn);border-color:#e8b3394d;background:var(--warn-dim);} .badge.pt .b-dot{background:var(--warn);}
+.badge.un{color:var(--risk);border-color:#e052524d;background:var(--risk-dim);} .badge.un .b-dot{background:var(--risk);}
+.legend .badge{cursor:pointer;transition:transform .1s,box-shadow .15s;}
+.legend .badge:hover{transform:translateY(-1px);}
+.legend .badge.active{box-shadow:0 0 0 2px currentColor;}
+.lg-hint{font-size:11px;color:var(--txt3);}
+.lg-clear{display:none;font-size:11px;color:var(--coral);cursor:pointer;border:none;background:none;font-weight:600;}
+.lg-clear.show{display:inline;}
+
+/* tabs nav */
+nav.tabs{display:flex;gap:2px;overflow-x:auto;padding:0 24px;max-width:1480px;margin:0 auto;scrollbar-width:thin;}
+nav.tabs button{
+  appearance:none;border:none;background:none;color:var(--txt2);
+  font:inherit;font-size:13px;font-weight:600;padding:9px 14px 11px;cursor:pointer;
+  border-bottom:2px solid transparent;white-space:nowrap;display:flex;gap:7px;align-items:center;
+}
+nav.tabs button .tn{font-family:var(--mono);font-size:10.5px;color:var(--txt3);background:var(--card2);border-radius:4px;padding:0 5px;line-height:1.7;}
+nav.tabs button:hover{color:var(--txt);}
+nav.tabs button.active{color:var(--coral);border-bottom-color:var(--coral);}
+nav.tabs button.active .tn{color:var(--coral);background:var(--coral-dim);}
+
+/* ===== Layout ===== */
+main{max-width:1480px;margin:0 auto;padding:26px 24px 40px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;animation:fadeIn .22s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+h2.sec{font-size:20px;font-weight:700;letter-spacing:-.01em;margin:0 0 4px;}
+h3.sub{font-size:15px;font-weight:700;margin:30px 0 10px;display:flex;align-items:center;gap:9px;}
+h3.sub .bar{width:3px;height:16px;background:var(--coral);border-radius:2px;flex:none;}
+p.desc{color:var(--txt2);font-size:13px;margin-bottom:16px;max-width:880px;text-wrap:pretty;}
+.section-gap{margin-top:34px;}
+
+/* cards */
+.cards{display:grid;gap:12px;}
+.cards.c6{grid-template-columns:repeat(3,1fr);}
+.cards.c4{grid-template-columns:repeat(4,1fr);}
+.cards.c3{grid-template-columns:repeat(3,1fr);}
+.cards.c2{grid-template-columns:repeat(2,1fr);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
+.card .k-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--txt3);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.card .k-value{font-family:var(--mono);font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.2;}
+.card .k-value small{font-size:13px;color:var(--txt2);font-weight:500;}
+.card .k-sub{font-size:12px;color:var(--txt2);margin-top:7px;text-wrap:pretty;}
+.card.accent{border-color:#d9775740;background:linear-gradient(135deg,#d977570d,var(--card) 55%);}
+.card.risk-c{border-color:#e0525240;}
+.card.info-c{border-color:#4a9eff33;}
+
+/* alert/warning boxes */
+.alert{border:1px solid;border-radius:10px;padding:14px 16px;display:flex;gap:12px;margin:14px 0;font-size:13px;}
+.alert .a-icon{flex:none;width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.alert.warn{border-color:#e8b33945;background:var(--warn-dim);}
+.alert.warn .a-icon{background:#e8b33926;color:var(--warn);}
+.alert.risk{border-color:#e0525245;background:var(--risk-dim);}
+.alert.risk .a-icon{background:#e0525226;color:var(--risk);}
+.alert.info{border-color:#4a9eff45;background:var(--info-dim);}
+.alert.info .a-icon{background:#4a9eff26;color:var(--info);}
+.alert b{display:block;margin-bottom:3px;}
+.alert .a-body{color:var(--txt2);}
+.alert .a-body b{color:var(--txt);}
+
+/* ===== Tables ===== */
+.tbl-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:10px 0 6px;}
+.tbl-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.tbl-bar .t-title{font-size:13px;font-weight:700;}
+.tbl-bar .t-count{font-family:var(--mono);font-size:11px;color:var(--txt3);}
+.tbl-bar .t-spacer{flex:1;}
+.tbl-search{background:var(--bg0);border:1px solid var(--border2);color:var(--txt);border-radius:6px;font:inherit;font-size:12px;padding:5px 10px;width:200px;}
+.tbl-search:focus{outline:none;border-color:var(--coral);}
+.tbl-search::placeholder{color:var(--txt3);}
+.tbl-scroll{overflow-x:auto;}
+table.dt{width:100%;border-collapse:collapse;font-size:12.5px;min-width:640px;}
+table.dt th{
+  text-align:left;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--txt3);background:var(--card2);padding:8px 12px;border-bottom:1px solid var(--border);
+  cursor:pointer;user-select:none;white-space:nowrap;position:relative;
+}
+table.dt th:hover{color:var(--txt2);}
+table.dt th .arrow{font-size:9px;margin-left:4px;opacity:.0;}
+table.dt th.sorted .arrow{opacity:1;color:var(--coral);}
+table.dt th.no-sort{cursor:default;}
+table.dt td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--txt2);}
+table.dt td:first-child{color:var(--txt);font-weight:600;}
+table.dt tr:last-child td{border-bottom:none;}
+table.dt tbody tr:hover{background:#ffffff06;}
+table.dt td.n{text-align:right;white-space:nowrap;color:var(--txt);}
+table.dt td.c{text-align:center;}
+table.dt tr.hl-risk{background:#e0525210;box-shadow:inset 3px 0 0 var(--risk);}
+table.dt tr.hidden-row{display:none;}
+.t-note{font-size:11.5px;color:var(--txt3);margin:6px 2px 0;}
+
+/* cell tags */
+.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:5px;padding:1px 8px;white-space:nowrap;border:1px solid transparent;}
+.tag.ok{color:var(--ok);background:var(--ok-dim);border-color:#3fb68b38;}
+.tag.warn{color:var(--warn);background:var(--warn-dim);border-color:#e8b33938;}
+.tag.risk{color:var(--risk);background:var(--risk-dim);border-color:#e0525238;}
+.tag.info{color:var(--info);background:var(--info-dim);border-color:#4a9eff38;}
+.tag.gray{color:var(--txt2);background:var(--card2);border-color:var(--border2);}
+.tag.coral{color:var(--coral);background:var(--coral-dim);border-color:#d9775738;}
+.tag.crit{color:#fff;background:var(--risk);border-color:var(--risk);}
+
+/* heat cells (suitability) */
+.heat{display:inline-block;min-width:52px;text-align:center;font-weight:700;font-size:11.5px;border-radius:5px;padding:2px 8px;}
+.heat.h5{background:#3fb68b33;color:#5fd6ab;}
+.heat.h4{background:#3fb68b1f;color:var(--ok);}
+.heat.h3{background:#e8b33922;color:var(--warn);}
+.heat.h2{background:#e0525222;color:#e87f7f;}
+.heat.h1{background:#e0525236;color:var(--risk);}
+
+/* ===== Diagrams ===== */
+.diagram{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin:12px 0;}
+.dg-flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;justify-content:center;}
+.dg-node{background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:14px 18px;min-width:200px;text-align:center;}
+.dg-node .dn-title{font-weight:700;font-size:14px;}
+.dg-node .dn-id{font-family:var(--mono);font-size:11px;color:var(--coral);margin-top:3px;}
+.dg-node .dn-sub{font-size:11.5px;color:var(--txt2);margin-top:6px;text-wrap:pretty;}
+.dg-node.root{border-color:#d9775760;background:linear-gradient(180deg,#d977571a,var(--card2));}
+.dg-node.safe{border-color:#3fb68b55;}
+.dg-node.open{border-color:#e8b33955;}
+
+/* fallback flow */
+.fb-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+.fb-col{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
+.fb-col h4{font-size:13px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.fb-col .fb-sub{font-size:11.5px;color:var(--txt3);margin-bottom:12px;}
+.fb-chain{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;}
+.fb-chain .fb-m{background:var(--card2);border:1px solid var(--border2);border-radius:6px;padding:4px 10px;color:var(--txt);}
+.fb-chain .fb-m.primary{border-color:#d9775760;color:var(--coral);}
+.fb-chain .fb-arr{color:var(--txt3);}
+.fb-note{font-size:12px;color:var(--txt2);margin-top:10px;text-wrap:pretty;}
+
+/* timeline */
+.timeline{position:relative;margin:16px 0 6px;padding-left:22px;}
+.timeline::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--border2);border-radius:2px;}
+.tl-item{position:relative;padding:0 0 20px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{content:'';position:absolute;left:-21px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--bg0);border:2px solid var(--coral);}
+.tl-item .tl-date{font-family:var(--mono);font-size:11.5px;color:var(--coral);font-weight:700;}
+.tl-item .tl-title{font-weight:700;font-size:13.5px;margin:2px 0;}
+.tl-item .tl-body{font-size:12.5px;color:var(--txt2);max-width:760px;text-wrap:pretty;}
+
+/* code blocks */
+.code-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+.codeblock{background:#0c1018;border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.codeblock .cb-head{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--border);background:var(--card);}
+.codeblock .cb-lang{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--coral);}
+.codeblock .cb-title{font-size:11.5px;color:var(--txt3);}
+.codeblock pre{padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12px;line-height:1.65;color:#c4cede;}
+.cy{color:#e8b339;} .cg{color:#3fb68b;} .cb{color:#4a9eff;} .cp{color:#c792ea;} .cm{color:#5d6b7e;} .co{color:#d97757;}
+
+/* charts */
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;margin:12px 0;}
+.chart-card h4{font-size:13px;font-weight:700;margin-bottom:2px;}
+.chart-card .ch-sub{font-size:11.5px;color:var(--txt3);margin-bottom:12px;}
+.chart-box{position:relative;}
+
+/* multiplier viz */
+.mult-row{display:flex;flex-direction:column;gap:10px;margin:14px 0;}
+.mult-item{display:grid;grid-template-columns:170px 1fr 64px;align-items:center;gap:14px;}
+.mult-item .m-name{font-size:12.5px;color:var(--txt2);}
+.mult-item .m-name b{color:var(--txt);}
+.mult-track{height:14px;background:var(--card2);border-radius:7px;overflow:hidden;border:1px solid var(--border);}
+.mult-fill{height:100%;background:linear-gradient(90deg,#d9775788,var(--coral));border-radius:7px;}
+.mult-item .m-x{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--coral);text-align:right;}
+
+/* D-day widget */
+.dday{display:flex;align-items:center;gap:22px;background:linear-gradient(120deg,#d9775714,var(--card) 60%);border:1px solid #d9775745;border-radius:12px;padding:18px 22px;margin:14px 0;flex-wrap:wrap;}
+.dday .dd-num{font-family:var(--mono);font-size:46px;font-weight:800;color:var(--coral);letter-spacing:-.03em;line-height:1;}
+.dday .dd-num small{font-size:18px;font-weight:700;}
+.dday .dd-body{flex:1;min-width:260px;}
+.dday .dd-title{font-weight:700;font-size:14px;}
+.dday .dd-sub{font-size:12.5px;color:var(--txt2);margin-top:4px;text-wrap:pretty;}
+.dd-steps{display:flex;gap:0;align-items:center;flex-wrap:wrap;margin-top:10px;}
+.dd-step{font-size:11.5px;background:var(--card2);border:1px solid var(--border2);border-radius:6px;padding:3px 10px;color:var(--txt2);white-space:nowrap;}
+.dd-step.on{border-color:#d9775755;color:var(--coral);background:var(--coral-dim);}
+.dd-sep{color:var(--txt3);margin:0 7px;font-size:11px;}
+
+/* roadmap */
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0;}
+.phase{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;position:relative;}
+.phase .ph-n{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--coral);letter-spacing:.08em;}
+.phase h4{font-size:14px;font-weight:700;margin:4px 0 8px;}
+.phase ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--txt2);}
+.phase li{margin-bottom:5px;text-wrap:pretty;}
+
+/* filter buttons */
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;}
+.fbtn{appearance:none;font:inherit;font-size:11.5px;font-weight:600;background:var(--card2);color:var(--txt2);border:1px solid var(--border2);border-radius:6px;padding:4px 12px;cursor:pointer;}
+.fbtn:hover{color:var(--txt);}
+.fbtn.active{background:var(--coral-dim);border-color:#d9775560;color:var(--coral);}
+
+/* misc lists */
+.src-list{columns:2;column-gap:28px;font-size:12.5px;color:var(--txt2);margin:8px 0;}
+.src-list li{margin-bottom:5px;break-inside:avoid;}
+ul.plain{padding-left:18px;font-size:13px;color:var(--txt2);}
+ul.plain li{margin-bottom:6px;text-wrap:pretty;}
+
+footer.site{border-top:1px solid var(--border);margin-top:34px;padding:18px 24px 30px;text-align:center;font-size:12px;color:var(--txt3);font-family:var(--mono);}
+
+/* ===== Responsive ===== */
+@media (max-width:1100px){
+  .cards.c6{grid-template-columns:repeat(2,1fr);}
+  .cards.c4{grid-template-columns:repeat(2,1fr);}
+  .code-grid,.fb-grid{grid-template-columns:1fr;}
+  .phases{grid-template-columns:1fr;}
+}
+@media (max-width:640px){
+  main{padding:18px 14px 30px;}
+  .hd-top,.legend,nav.tabs{padding-left:14px;padding-right:14px;}
+  .cards.c6,.cards.c4,.cards.c3,.cards.c2{grid-template-columns:1fr;}
+  .dday .dd-num{font-size:34px;}
+  .mult-item{grid-template-columns:110px 1fr 50px;}
+  .src-list{columns:1;}
+  .tbl-search{width:100%;}
+}
+
+/* ===== Print ===== */
+@media print{
+  body{background:#fff;color:#111;font-size:10.5pt;}
+  header.site{position:static;background:#fff;border-color:#ccc;}
+  nav.tabs,.tbl-search,.filter-row,.lg-hint,.lg-clear{display:none !important;}
+  .tab-panel{display:block !important;page-break-before:always;}
+  .tab-panel:first-of-type{page-break-before:avoid;}
+  .tab-panel::before{content:attr(data-print-title);display:block;font-size:14pt;font-weight:800;margin:0 0 10pt;color:#000;border-bottom:2px solid #d97757;padding-bottom:4pt;}
+  .card,.tbl-wrap,.diagram,.chart-card,.alert,.fb-col,.phase,.dday,.codeblock{background:#fff;border-color:#bbb;box-shadow:none;break-inside:avoid;}
+  body, .card .k-sub,.alert .a-body,table.dt td,p.desc,.tl-item .tl-body,.fb-note,.phase ul,ul.plain,.t-note{color:#333;}
+  table.dt th{background:#f0f0f0;color:#333;}
+  table.dt td:first-child,h2.sec,h3.sub,.card .k-value,.dg-node .dn-title{color:#000;}
+  .codeblock pre{color:#222;}
+  .tbl-scroll{overflow:visible;}
+  table.dt{min-width:0;}
+  a{color:#1a56b0;}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="hd-top">
+    <div class="hd-logo">
+      <div class="dot"></div>
+      <h1>Claude Fable 5 <span>/ Mythos 5 종합 검증 리포트</span></h1>
+    </div>
+    <span class="chip mono">claude-fable-5</span>
+    <span class="chip gray mono">claude-mythos-5</span>
+    <div class="hd-spacer"></div>
+    <div class="hd-date">발표 <b>2026-06-09</b> · 기준일 <b>2026-06-10</b></div>
+  </div>
+  <div class="legend" id="badge-legend">
+    <span class="lg-label">검증 배지</span>
+    <span class="badge t1" data-badge="t1"><span class="b-dot"></span>T1 검증 · Anthropic 공식 1차 출처</span>
+    <span class="badge t2" data-badge="t2"><span class="b-dot"></span>T2 독립검증 · AISI / Artificial Analysis</span>
+    <span class="badge pt" data-badge="pt"><span class="b-dot"></span>부분확인 · 1차 문구 미확인/불일치</span>
+    <span class="badge un" data-badge="un"><span class="b-dot"></span>확인불가/추정 · 비용 추정·분석 판단</span>
+    <span class="lg-hint">배지 클릭 → 해당 등급 행만 필터</span>
+    <button class="lg-clear" id="badge-clear">필터 해제 ×</button>
+  </div>
+  <nav class="tabs" id="tabs-nav">
+    <button data-tab="0" class="active"><span class="tn">0</span>요약</button>
+    <button data-tab="1"><span class="tn">1</span>모델 구조</button>
+    <button data-tab="2"><span class="tn">2</span>스펙 &amp; API</button>
+    <button data-tab="3"><span class="tn">3</span>성능 벤치마크</button>
+    <button data-tab="4"><span class="tn">4</span>가격 &amp; 비용</button>
+    <button data-tab="5"><span class="tn">5</span>거버넌스</button>
+    <button data-tab="6"><span class="tn">6</span>실무 도입</button>
+    <button data-tab="7"><span class="tn">7</span>검증 대장</button>
+  </nav>
+</header>
+<main>
+
+<!-- ============ TAB 0 : Executive Summary ============ -->
+<section class="tab-panel active" id="tab-0" data-screen-label="TAB 0 요약" data-print-title="TAB 0 — 요약 (Executive Summary)">
+  <h2 class="sec">요약 <span style="color:var(--txt3);font-weight:500;font-size:14px;">Executive Summary</span></h2>
+  <p class="desc">Anthropic이 2026-06-09 발표한 <strong>“Anthropic's most capable widely released model”</strong> — Fable 5는 Mythos 5와 동일한 underlying model에 safety classifiers를 적용한 GA(일반 공개) 버전입니다. 본 리포트는 ChatGPT Pro Deep Research 결과를 Claude가 교차검증한 종합 검증 대시보드입니다.</p>
+
+  <div class="dday">
+    <div>
+      <div class="dd-num"><span id="dday-n">—</span><small>일</small></div>
+    </div>
+    <div class="dd-body">
+      <div class="dd-title">구독 플랜 무료 포함 종료까지 <span id="dday-n2" class="mono" style="color:var(--coral);">—</span>일 <span class="tag ok" style="margin-left:6px;">T1/언론교차</span></div>
+      <div class="dd-sub">2026-06-22까지 Pro / Max / Team / 시트형 Enterprise 플랜에 무료 포함 → <strong>2026-06-23부터 사용량 크레딧 전환</strong> → 추후 표준 구독 기능 복원 예정.</div>
+      <div class="dd-steps">
+        <span class="dd-step on">~6/22 구독 무료 포함</span><span class="dd-sep">→</span>
+        <span class="dd-step">6/23~ 사용량 크레딧 전환</span><span class="dd-sep">→</span>
+        <span class="dd-step">추후 표준 구독 기능 복원</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub"><span class="bar"></span>핵심 지표 6</h3>
+  <div class="cards c6">
+    <div class="card accent">
+      <div class="k-label">가격 (per MTok) <span class="tag ok">T1</span></div>
+      <div class="k-value">$10 <small>in</small> / $50 <small>out</small></div>
+      <div class="k-sub">Fable 5 · Mythos 5 동일 단가. Mythos Preview 대비 절반 이하.</div>
+    </div>
+    <div class="card">
+      <div class="k-label">컨텍스트 / 출력 <span class="tag ok">T1</span></div>
+      <div class="k-value">1M <small>context</small> / 128k <small>output</small></div>
+      <div class="k-sub">1M context 기본 제공, 128k max output. adaptive thinking 항상 on.</div>
+    </div>
+    <div class="card">
+      <div class="k-label">폴백 구조 <span class="tag ok">T1</span></div>
+      <div class="k-value" style="font-size:19px;">Fable 5 → Opus 4.8</div>
+      <div class="k-sub">classifier 차단 시 폴백. server-side(beta) / client-side SDK middleware, chain 최대 3개.</div>
+    </div>
+    <div class="card risk-c">
+      <div class="k-label">Covered Model 정책 <span class="tag ok">T1</span></div>
+      <div class="k-value" style="font-size:19px;">30일 보존 · ZDR 불가</div>
+      <div class="k-sub">최소 30일 데이터 보존, Zero Data Retention 비호환 — 전 채널 적용.</div>
+    </div>
+    <div class="card info-c">
+      <div class="k-label">UK AISI TLO 시뮬레이션 <span class="tag info">T2</span></div>
+      <div class="k-value">3/10 <small>완주</small></div>
+      <div class="k-sub">32단계 기업망 공격 시뮬레이션 10회 중 3회 완주, 평균 22/32단계.</div>
+    </div>
+    <div class="card">
+      <div class="k-label">최종 권고 <span class="tag risk">분석</span></div>
+      <div class="k-value" style="font-size:19px;">특정 업무에만 도입</div>
+      <div class="k-sub">long-context·고난도 업무 한정 도입. 전면 전환 비권장 — TAB 6 참조.</div>
+    </div>
+  </div>
+
+  <h3 class="sub"><span class="bar"></span>3대 리스크</h3>
+  <div class="cards c3">
+    <div class="card risk-c">
+      <div class="k-label"><span class="tag risk">RISK 1</span></div>
+      <div class="k-value" style="font-size:16px;">Retention / ZDR 비호환</div>
+      <div class="k-sub">30일 최소 보존이 모델 정책으로 강제 — ZDR 요건 조직(금융·의료·공공)은 채널 우회 불가. 데이터 거버넌스 수용성 심사 필수.</div>
+    </div>
+    <div class="card risk-c">
+      <div class="k-label"><span class="tag risk">RISK 2</span></div>
+      <div class="k-value" style="font-size:16px;">cyber/bio 인접 false positive 폴백</div>
+      <div class="k-sub">보안 분석·취약점 triage 등 인접 업무에서 classifier가 정상 요청을 차단해 Opus 4.8로 폴백 → 품질·일관성 변동.</div>
+    </div>
+    <div class="card risk-c">
+      <div class="k-label"><span class="tag risk">RISK 3</span></div>
+      <div class="k-value" style="font-size:16px;">초기 채널 문서 불완전성</div>
+      <div class="k-sub">폴백 카테고리 명세가 출처 간 불일치(TAB 1), 채널별 quota·model ID 미공개 — 초기 도입 시 문서 재확인 필요.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 1 : Model Structure ============ -->
+<section class="tab-panel" id="tab-1" data-screen-label="TAB 1 모델 구조" data-print-title="TAB 1 — 모델 구조 (Fable vs Mythos)">
+  <h2 class="sec">모델 구조 <span style="color:var(--txt3);font-weight:500;font-size:14px;">Fable 5 vs Mythos 5</span></h2>
+  <p class="desc">두 모델은 <strong>동일한 underlying model</strong>을 공유합니다. 차이는 safety classifiers 적용 여부와 공개 범위뿐입니다.</p>
+
+  <div class="diagram">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+      <div class="dg-node root">
+        <div class="dn-title">동일 Underlying Model</div>
+        <div class="dn-sub">single shared frontier model · RSP v3.3 적용</div>
+      </div>
+      <svg width="320" height="46" viewBox="0 0 320 46" aria-hidden="true" style="display:block;">
+        <path d="M160 0 V14 M160 14 C160 30 60 24 60 46 M160 14 C160 30 260 24 260 46" stroke="#2e3949" stroke-width="2" fill="none"></path>
+      </svg>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center;">
+        <div class="dg-node safe">
+          <div class="dn-title">Fable 5 <span class="tag ok" style="margin-left:4px;">GA</span></div>
+          <div class="dn-id">claude-fable-5</div>
+          <div class="dn-sub">safety classifiers 적용<br>전 채널 일반 공개</div>
+        </div>
+        <div class="dg-node open">
+          <div class="dn-title">Mythos 5 <span class="tag warn" style="margin-left:4px;">Limited</span></div>
+          <div class="dn-id">claude-mythos-5</div>
+          <div class="dn-sub">classifier 없음<br>Project Glasswing 승인 고객 전용</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert warn">
+    <div class="a-icon">⚠</div>
+    <div class="a-body"><b>검증 경고 — 폴백 카테고리 명세 불일치 <span class="tag warn">부분확인 🟡</span></b>
+    딥리서치는 API 공식 카테고리를 <code>cyber</code>/<code>bio</code>/<code>reasoning_extraction</code>으로 기재. TechCrunch는 사이버보안·생물학·화학·<strong>distillation</strong>, AWS 블로그는 사이버보안·생물학·화학·<strong>건강</strong>으로 표기. <strong>platform.claude.com 원문 재확인 필요.</strong></div>
+  </div>
+
+  <h3 class="sub"><span class="bar"></span>Fable 5 vs Mythos 5 비교</h3>
+  <div id="tbl-model-compare"></div>
+
+  <h3 class="sub"><span class="bar"></span>Project Glasswing 타임라인</h3>
+  <div class="diagram">
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2026-04-07</div>
+        <div class="tl-title">Mythos Preview 발표</div>
+        <div class="tl-body">classifier 미적용 프런티어 모델을 승인 파트너에 한정 공개. 초기 파트너: AWS, Apple, Broadcom, Cisco, CrowdStrike, Google, JPMorganChase, Linux Foundation, Microsoft, NVIDIA, Palo Alto Networks.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-06-02</div>
+        <div class="tl-title">Glasswing 확대</div>
+        <div class="tl-body">약 150개 조직 · 15개국으로 trusted access 확대.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-06-09</div>
+        <div class="tl-title">Fable 5 GA + Mythos 5 Limited</div>
+        <div class="tl-body">Fable 5 일반 공개(GA), Mythos 5는 Glasswing 승인 고객 대상 limited 공개.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 2 : Spec & API ============ -->
+<section class="tab-panel" id="tab-2" data-screen-label="TAB 2 스펙 &amp; API" data-print-title="TAB 2 — 스펙 &amp; API">
+  <h2 class="sec">스펙 &amp; API</h2>
+  <p class="desc">2026-06 시점 라인업 5모델의 스펙 비교와 Fable 5 고유의 API 동작(refusal·thinking·과금)·폴백 아키텍처입니다.</p>
+
+  <h3 class="sub"><span class="bar"></span>5모델 스펙 비교</h3>
+  <div id="tbl-spec"></div>
+
+  <h3 class="sub"><span class="bar"></span>API 동작 4가지</h3>
+  <div class="cards c4">
+    <div class="card">
+      <div class="k-label">① Refusal 응답 <span class="tag ok">T1</span></div>
+      <div class="k-value" style="font-size:15px;"><code>HTTP 200</code> + <code>stop_reason:"refusal"</code></div>
+      <div class="k-sub">에러가 아닌 정상 응답으로 반환되며 <code>stop_details</code>가 함께 제공됨. 클라이언트는 stop_reason 분기 처리 필수.</div>
+    </div>
+    <div class="card">
+      <div class="k-label">② Thinking 표시 <span class="tag ok">T1</span></div>
+      <div class="k-value" style="font-size:15px;">raw CoT 미반환</div>
+      <div class="k-sub"><code>thinking.display:"summarized"</code>만 가능 — 요약된 thinking만 노출.</div>
+    </div>
+    <div class="card">
+      <div class="k-label">③ Thinking 비활성화 <span class="tag ok">T1</span></div>
+      <div class="k-value" style="font-size:15px;"><code>{"type":"disabled"}</code> 미지원</div>
+      <div class="k-sub">adaptive thinking이 항상 on — thinking을 끌 수 없음.</div>
+    </div>
+    <div class="card">
+      <div class="k-label">④ Classifier 차단 과금 <span class="tag ok">T1</span></div>
+      <div class="k-value" style="font-size:15px;">무과금 · rate limit 미카운트</div>
+      <div class="k-sub">output 생성 전 classifier block은 과금·rate limit에 미포함. <code>fallback_credit_token</code>으로 cache-write→cache-read 재가격.</div>
+    </div>
+  </div>
+
+  <h3 class="sub"><span class="bar"></span>폴백 아키텍처</h3>
+  <div class="fb-grid">
+    <div class="fb-col">
+      <h4>Server-side Fallback <span class="tag coral">beta</span></h4>
+      <div class="fb-sub">Claude API · Claude Platform on AWS만 지원</div>
+      <div class="fb-chain">
+        <span class="fb-m primary">claude-fable-5</span><span class="fb-arr">→</span>
+        <span class="fb-m">claude-opus-4-8</span><span class="fb-arr">→</span>
+        <span class="fb-m" style="opacity:.55;">(chain 최대 3)</span>
+      </div>
+      <div class="fb-note">API가 서버에서 자동 폴백. <strong>streaming은 partial output 유지</strong>, non-streaming은 폴백 모델이 새로 응답.</div>
+    </div>
+    <div class="fb-col">
+      <h4>Client-side SDK Middleware</h4>
+      <div class="fb-sub">Bedrock / Vertex AI / Microsoft Foundry — 클라이언트 측 처리 필요</div>
+      <div class="fb-chain">
+        <span class="fb-m primary">SDK middleware</span><span class="fb-arr">→</span>
+        <span class="fb-m">refusal 감지</span><span class="fb-arr">→</span>
+        <span class="fb-m">claude-opus-4-8 재호출</span>
+      </div>
+      <div class="fb-note">3rd-party 채널은 server-side fallback 미지원 — <code>BetaRefusalFallbackMiddleware</code>로 클라이언트에서 처리.</div>
+    </div>
+  </div>
+
+  <div class="code-grid">
+    <div class="codeblock">
+      <div class="cb-head"><span class="cb-lang">PYTHON</span><span class="cb-title">client-side SDK middleware (Bedrock/Vertex/Foundry)</span></div>
+      <pre><span class="cp">from</span> anthropic <span class="cp">import</span> Anthropic
+<span class="cp">from</span> anthropic.beta.fallback <span class="cp">import</span> BetaRefusalFallbackMiddleware
+
+client = <span class="cb">Anthropic</span>(
+    middleware=[<span class="cb">BetaRefusalFallbackMiddleware</span>([{<span class="cg">"model"</span>: <span class="cg">"claude-opus-4-8"</span>}])]
+)
+
+resp = client.beta.messages.<span class="cb">create</span>(
+    model=<span class="cg">"claude-fable-5"</span>,
+    max_tokens=<span class="cy">2048</span>,
+    messages=[{<span class="cg">"role"</span>: <span class="cg">"user"</span>, <span class="cg">"content"</span>: <span class="cg">"Analyze this large architecture document"</span>}],
+)</pre>
+    </div>
+    <div class="codeblock">
+      <div class="cb-head"><span class="cb-lang">TYPESCRIPT</span><span class="cb-title">server-side fallback (Claude API, beta)</span></div>
+      <pre><span class="cp">const</span> response = <span class="cp">await</span> client.beta.messages.<span class="cb">create</span>({
+  model: <span class="cg">"claude-fable-5"</span>,
+  max_tokens: <span class="cy">2048</span>,
+  messages,
+  betas: [<span class="cg">"server-side-fallback-2026-06-01"</span>],
+  fallbacks: [{ model: <span class="cg">"claude-opus-4-8"</span> }]
+});</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 3 : Benchmarks ============ -->
+<section class="tab-panel" id="tab-3" data-screen-label="TAB 3 성능 벤치마크" data-print-title="TAB 3 — 성능 벤치마크">
+  <h2 class="sec">성능 벤치마크</h2>
+
+  <div class="alert warn">
+    <div class="a-icon">⚠</div>
+    <div class="a-body"><b>읽기 전 주의</b>
+    공식 표는 <strong>Mythos 5 / Fable 5 중 높은 점수</strong> — Fable 단독 성능표가 아닙니다. cyber/bio 벤치는 classifier로 인해 Fable이 <strong>Opus 4.8 수준으로 하락 가능</strong>합니다.</div>
+  </div>
+
+  <div class="chart-card">
+    <h4>주요 벤치마크 (%) — Fable계 vs Opus 4.8 vs GPT 5.5 vs Gemini 3.1 Pro <span class="tag warn" style="margin-left:6px;">🟡 상한치</span></h4>
+    <div class="ch-sub">SWE-Bench Pro · Terminal-Bench 2.1 · FrontierCode Diamond · OSWorld-Verified · HLE (no tools) · ExploitBench Cap%</div>
+    <div class="chart-box" style="height:430px;"><canvas id="chart-bench"></canvas></div>
+  </div>
+
+  <div class="chart-card">
+    <h4>GDPval-AA (Elo 스케일) <span class="tag warn" style="margin-left:6px;">🟡 상한치</span></h4>
+    <div class="ch-sub">별도 스케일 — 점수가 클수록 우위</div>
+    <div class="chart-box" style="height:190px;"><canvas id="chart-gdpval"></canvas></div>
+  </div>
+
+  <h3 class="sub"><span class="bar"></span>전체 벤치마크 표 (13종)</h3>
+  <div id="tbl-bench"></div>
+
+  <h3 class="sub"><span class="bar"></span>독립 검증 <span class="tag info">T2 🔵</span></h3>
+  <div class="cards c2">
+    <div class="card info-c">
+      <div class="k-label">UK AISI — Mythos Preview (2026-04)</div>
+      <ul class="plain" style="margin-top:4px;">
+        <li>전문가급 CTF <strong class="mono">73%</strong> 해결 — 2025-04 이전 어떤 모델도 불가했던 수준.</li>
+        <li>TLO 32단계 기업망 공격 시뮬레이션: <strong class="mono">10회 중 3회 완주</strong>, 평균 <strong class="mono">22/32</strong>단계 (인간 약 20시간 분량 작업).</li>
+        <li>비교: Opus 4.6 평균 <strong class="mono">16</strong>단계.</li>
+        <li>런당 최대 <strong class="mono">1억 토큰</strong> 소모.</li>
+        <li>Cooling Tower(OT 환경) 레인지는 <strong>실패</strong>.</li>
+        <li>캐비앗: 무방어 환경 기준 — 실제 방어 환경 일반화 불가.</li>
+      </ul>
+    </div>
+    <div class="card info-c">
+      <div class="k-label">Artificial Analysis — Fable 5</div>
+      <ul class="plain" style="margin-top:4px;">
+        <li>Intelligence Index <strong class="mono">64.9</strong> — 종합 <strong>1위</strong>.</li>
+        <li>HLE <strong class="mono">53%</strong> (AA 자체 수행 기준).</li>
+        <li>fallback routing: 전체 task 약 <strong class="mono">8%</strong>, HLE에서 <strong class="mono">9%</strong>.</li>
+        <li>HLE 수행 총비용 약 <strong class="mono">$2.2k</strong> — 평가 모델 중 최고.</li>
+        <li class="mono" style="font-size:12px;color:var(--warn);">⚠ 이해상충 표기: AA는 Anthropic으로부터 prerelease access를 지원받음.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub"><span class="bar"></span>미확인 벤치마크 <span class="tag risk">🔴 2026-06 시점 공식값 미공개</span></h3>
+  <div class="card">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="tag gray">SWE-bench Verified</span>
+      <span class="tag gray">GPQA Diamond</span>
+      <span class="tag gray">AIME</span>
+      <span class="tag gray">MMMU</span>
+      <span class="tag gray">ARC-AGI</span>
+      <span class="tag gray">BrowseComp</span>
+      <span class="tag gray">Tau-bench 계열</span>
+      <span class="tag gray">OSS-Fuzz</span>
+    </div>
+    <div class="k-sub" style="margin-top:10px;">위 벤치마크는 2026-06 기준 공식값이 공개되지 않음 — 타사 비교·내부 의사결정에 인용 금지.</div>
+  </div>
+</section>
+
+<!-- ============ TAB 4 : Pricing & Cost ============ -->
+<section class="tab-panel" id="tab-4" data-screen-label="TAB 4 가격 &amp; 비용" data-print-title="TAB 4 — 가격 &amp; 비용">
+  <h2 class="sec">가격 &amp; 비용</h2>
+  <p class="desc">Fable 5 / Mythos 5는 <strong>$10 input / $50 output per MTok</strong> 동일 단가이며 1M context에도 표준 단가가 적용됩니다. <span class="tag ok">T1</span> <span style="color:var(--txt3);">— “Mythos Preview 대비 절반 이하”</span></p>
+
+  <h3 class="sub"><span class="bar"></span>가격표 (5모델, per MTok)</h3>
+  <div id="tbl-price"></div>
+
+  <h3 class="sub"><span class="bar"></span>단가 배수 — Fable 5 output 기준</h3>
+  <div class="card">
+    <div class="mult-row">
+      <div class="mult-item"><div class="m-name"><b>Opus 4.8</b> 대비</div><div class="mult-track"><div class="mult-fill" style="width:20%;"></div></div><div class="m-x">2.0×</div></div>
+      <div class="mult-item"><div class="m-name"><b>Sonnet 4.6</b> 대비</div><div class="mult-track"><div class="mult-fill" style="width:33%;"></div></div><div class="m-x">3.3×</div></div>
+      <div class="mult-item"><div class="m-name"><b>Haiku 4.5</b> 대비</div><div class="mult-track"><div class="mult-fill" style="width:100%;"></div></div><div class="m-x">10×</div></div>
+    </div>
+  </div>
+
+  <h3 class="sub"><span class="bar"></span>월간 비용 시나리오 10종 <span class="tag risk">🔴 추정</span></h3>
+  <div class="alert risk">
+    <div class="a-icon">!</div>
+    <div class="a-body"><b>Budgetary estimate — 실견적 아님</b>
+    아래 수치는 사용 패턴 가정에 기반한 예산 추정치입니다. 실제 비용은 cache hit·fallback ratio·토큰 분포에 따라 달라집니다.</div>
+  </div>
+  <div id="tbl-cost"></div>
+
+  <div class="alert info">
+    <div class="a-icon">💡</div>
+    <div class="a-body"><b>인사이트 — 토큰 단가 ≠ task completion cost</b>
+    iteration 절감 효과가 큰 업무(코드 마이그레이션·장기 리서치)는 단가가 높아도 총비용이 유리할 수 있습니다. 반대로 고빈도 정형 작업은 Sonnet/Haiku가 우위입니다.</div>
+  </div>
+</section>
+
+<!-- ============ TAB 5 : Governance & Compliance ============ -->
+<section class="tab-panel" id="tab-5" data-screen-label="TAB 5 거버넌스" data-print-title="TAB 5 — 거버넌스 &amp; 컴플라이언스">
+  <h2 class="sec">거버넌스 &amp; 컴플라이언스</h2>
+
+  <div class="cards c3">
+    <div class="card risk-c">
+      <div class="k-label">Covered Models — 보존 <span class="tag ok">T1</span></div>
+      <div class="k-value" style="font-size:18px;">30일 최소 보존</div>
+      <div class="k-sub">입력·출력 데이터 최소 30일 보존 — 모델 단위 정책.</div>
+    </div>
+    <div class="card risk-c">
+      <div class="k-label">Covered Models — ZDR <span class="tag ok">T1</span></div>
+      <div class="k-value" style="font-size:18px;">ZDR 불가</div>
+      <div class="k-sub">workspace · Enterprise org · 3rd party <strong>전 채널</strong> ZDR 비호환.</div>
+    </div>
+    <div class="card risk-c">
+      <div class="k-label">우회 가능성 <span class="tag ok">T1</span></div>
+      <div class="k-value" style="font-size:18px;">채널 우회 불가</div>
+      <div class="k-sub">“모델 정책이므로 채널 우회 불가” — Bedrock·Vertex·Foundry 어디서도 동일 적용.</div>
+    </div>
+  </div>
+
+  <h3 class="sub"><span class="bar"></span>채널별 Retention 책임 경계</h3>
+  <div id="tbl-channel"></div>
+
+  <h3 class="sub"><span class="bar"></span>컴플라이언스 체크리스트</h3>
+  <div id="tbl-compliance"></div>
+
+  <div class="alert warn">
+    <div class="a-icon">⚠</div>
+    <div class="a-body"><b>RSP v3.3 (effective 2026-05-26) · System Card</b>
+    RSP v3.3이 발효 중이며 system card PDF가 존재함은 확인. 단, <strong>ASL level 문구의 직접 추출에는 실패</strong> — ASL 등급은 확인불가(🔴) 상태로 유지.</div>
+  </div>
+</section>
+
+<!-- ============ TAB 6 : Adoption ============ -->
+<section class="tab-panel" id="tab-6" data-screen-label="TAB 6 실무 도입" data-print-title="TAB 6 — 실무 도입 (IT 인프라 관점)">
+  <h2 class="sec">실무 도입 <span style="color:var(--txt3);font-weight:500;font-size:14px;">IT 인프라 관점</span></h2>
+  <p class="desc">25개 실무 시나리오 적합도, 전환 판단 매트릭스, 3단계 도입 로드맵, PoC 테스트 플랜 25건, 조직 유형별 스코어링입니다. 적합도·리스크 평가는 분석적 판단(🔴)입니다.</p>
+
+  <h3 class="sub"><span class="bar"></span>시나리오 적합도 (25) <span class="tag risk">🔴 분석</span></h3>
+  <div id="tbl-scenario"></div>
+  <div class="t-note">적합도: <span class="heat h5">매우 높음</span> <span class="heat h4">높음</span> <span class="heat h3">중간</span> <span class="heat h2">낮음</span> — safeguard 영향이 큰 행은 좌측 적색 표시.</div>
+
+  <h3 class="sub"><span class="bar"></span>전환 판단 매트릭스 (8)</h3>
+  <div id="tbl-transition"></div>
+
+  <h3 class="sub"><span class="bar"></span>3단계 도입 로드맵</h3>
+  <div class="phases">
+    <div class="phase">
+      <div class="ph-n">PHASE 1</div>
+      <h4>Controlled PoC</h4>
+      <ul>
+        <li>non-regulated docs · code modernization <strong>만</strong> 대상</li>
+        <li>cyber triage <strong>제외</strong></li>
+        <li>T-01~T-25 테스트 플랜 실행, fallback·비용 데이터 수집</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="ph-n">PHASE 2</div>
+      <h4>Limited Production</h4>
+      <ul>
+        <li>Sonnet 기본 + Fable은 <strong>long-context only</strong> 라우팅</li>
+        <li>HITL(human-in-the-loop) 필수</li>
+        <li>fallback telemetry 상시 수집</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="ph-n">PHASE 3</div>
+      <h4>Scaled</h4>
+      <ul>
+        <li>gateway · RBAC · audit · DLP</li>
+        <li>eval pipeline 상시화</li>
+        <li>chargeback(부서별 비용 배부)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub"><span class="bar"></span>PoC 테스트 플랜 (T-01 ~ T-25)</h3>
+  <div class="filter-row" id="poc-filters" style="margin-bottom:8px;">
+    <button class="fbtn active" data-risk="all">전체</button>
+    <button class="fbtn" data-risk="낮음">낮음 리스크</button>
+    <button class="fbtn" data-risk="중간">중간 리스크</button>
+    <button class="fbtn" data-risk="높음">높음 리스크</button>
+  </div>
+  <div id="tbl-poc"></div>
+  <div class="t-note">적색 강조 행(T-11 · T-12 · T-22) = fallback risk 높음. <span class="tag crit">critical control</span> = T-22 fallback observability · T-24 retention acceptance.</div>
+
+  <h3 class="sub"><span class="bar"></span>스코어링 모델 — 배점 11항목 (총 100점)</h3>
+  <div id="tbl-scoring"></div>
+
+  <div class="chart-card">
+    <h4>조직 유형별 종합 점수 <span class="tag risk" style="margin-left:6px;">🔴 분석</span></h4>
+    <div class="ch-sub">70점 이상 녹색(도입 권장) · 60점대 황색(조건부) — 100점 만점</div>
+    <div class="chart-box" style="height:340px;"><canvas id="chart-org"></canvas></div>
+  </div>
+</section>
+
+<!-- ============ TAB 7 : Verification Ledger ============ -->
+<section class="tab-panel" id="tab-7" data-screen-label="TAB 7 검증 대장" data-print-title="TAB 7 — 검증 대장 (Verification Ledger)">
+  <h2 class="sec">검증 대장 <span style="color:var(--txt3);font-weight:500;font-size:14px;">Verification Ledger</span></h2>
+  <p class="desc">ChatGPT Pro Deep Research 결과를 항목 단위로 게이트 검증하고, Claude 교차검증(2026-06-10)에서 발견된 추가분을 별도 기록합니다.</p>
+
+  <h3 class="sub"><span class="bar"></span>검증 게이트 (15)</h3>
+  <div id="tbl-gates"></div>
+
+  <h3 class="sub"><span class="bar"></span>불확실 주장 (6) <span class="tag warn">🟡</span></h3>
+  <div id="tbl-uncertain"></div>
+
+  <h3 class="sub"><span class="bar"></span>추가 확인 필요 (8)</h3>
+  <div id="tbl-followup"></div>
+
+  <h3 class="sub"><span class="bar"></span>2차 검증 추가분 — Claude 검증 단계 (2026-06-10)</h3>
+  <div class="cards c2">
+    <div class="card">
+      <div class="k-label">① 폴백 카테고리 불일치 발견 <span class="tag warn">🟡</span></div>
+      <div class="k-sub" style="margin-top:0;">딥리서치 <code>cyber/bio/reasoning_extraction</code> vs TechCrunch(사이버보안·생물학·화학·distillation) vs AWS 블로그(사이버보안·생물학·화학·건강) — 출처 간 표현 불일치. API 원문 재확인 필요.</div>
+    </div>
+    <div class="card">
+      <div class="k-label">② 구독 전환 일정 신규 확인 <span class="tag ok">신규</span></div>
+      <div class="k-sub" style="margin-top:0;">6/22까지 구독 플랜 무료 포함 윈도우 → 6/23 사용량 크레딧 전환 — 딥리서치에서 누락되었던 항목을 Claude 교차검증에서 신규 확인.</div>
+    </div>
+    <div class="card">
+      <div class="k-label">③ AISI 수치 독립 재확인 완료 <span class="tag info">🔵</span></div>
+      <div class="k-sub" style="margin-top:0;">CTF 73% · TLO 3/10 완주 · 평균 22/32 · Opus 4.6 평균 16단계 · 런당 최대 1억 토큰 — UK AISI 블로그 원문 기준 전 수치 일치.</div>
+    </div>
+    <div class="card">
+      <div class="k-label">④ 핵심 스펙 1차 출처 재확인 완료 <span class="tag ok">🟢</span></div>
+      <div class="k-sub" style="margin-top:0;">$10/$50 단가 · 1M context / 128k output · 30일 보존 — Anthropic 공식 docs/pricing 1차 출처에서 재확인.</div>
+    </div>
+  </div>
+
+  <h3 class="sub"><span class="bar"></span>출처 등급 정의</h3>
+  <div id="tbl-tiers"></div>
+
+  <h3 class="sub"><span class="bar"></span>전체 출처 목록</h3>
+  <div class="card">
+    <ul class="src-list">
+      <li><strong>T1</strong> — Anthropic News (발표문)</li>
+      <li><strong>T1</strong> — Anthropic Docs (platform.claude.com)</li>
+      <li><strong>T1</strong> — Anthropic Pricing</li>
+      <li><strong>T1</strong> — Anthropic Help Center</li>
+      <li><strong>T1</strong> — Anthropic RSP v3.3 (2026-05-26)</li>
+      <li><strong>T2</strong> — UK AISI 블로그 (Mythos Preview 평가)</li>
+      <li><strong>T2</strong> — Artificial Analysis (이해상충 표기)</li>
+      <li><strong>T2/T3</strong> — AWS 블로그</li>
+      <li><strong>T3</strong> — Reuters</li>
+      <li><strong>T3</strong> — The Verge</li>
+      <li><strong>T3</strong> — TechCrunch</li>
+      <li><strong>T3</strong> — CNBC</li>
+      <li><strong>T3</strong> — VentureBeat</li>
+      <li><strong>T3</strong> — Business Insider</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+<footer class="site">기준일 2026-06-10 · ChatGPT Pro Deep Research → Claude 교차검증 → Claude Design 시각화 · 비용 추정치는 budgetary estimate</footer>
+
+<script>
+/* ================= helpers ================= */
+const BADGES = {
+  t1:{cls:'ok',  label:'🟢 T1 검증'},
+  t2:{cls:'info',label:'🔵 T2 독립검증'},
+  pt:{cls:'warn',label:'🟡 부분확인'},
+  un:{cls:'risk',label:'🔴 확인불가/추정'}
+};
+function badgeHtml(b){ const d=BADGES[b]; return '<span class="tag '+d.cls+'">'+d.label+'</span>'; }
+function heat(level){ // 5..1
+  const names={5:'매우 높음',4:'높음',3:'중간',2:'낮음',1:'매우 낮음'};
+  return {h:'<span class="heat h'+level+'">'+names[level]+'</span>', v:level};
+}
+function tag(cls,txt){ return '<span class="tag '+cls+'">'+txt+'</span>'; }
+
+/* generic data table */
+function renderTable(targetId, cfg){
+  const host=document.getElementById(targetId);
+  const wrap=document.createElement('div'); wrap.className='tbl-wrap';
+  const bar=document.createElement('div'); bar.className='tbl-bar';
+  bar.innerHTML='<span class="t-title">'+cfg.title+'</span><span class="t-count" data-count></span><span class="t-spacer"></span>';
+  const inp=document.createElement('input');
+  inp.className='tbl-search'; inp.type='search'; inp.placeholder='행 검색…';
+  bar.appendChild(inp);
+  const scroll=document.createElement('div'); scroll.className='tbl-scroll';
+  const table=document.createElement('table'); table.className='dt';
+  const thead=document.createElement('thead'); const htr=document.createElement('tr');
+  cfg.cols.forEach((c,i)=>{
+    const th=document.createElement('th');
+    th.innerHTML=c.l+'<span class="arrow">▲</span>';
+    if(c.noSort){th.classList.add('no-sort');}
+    else{
+      th.addEventListener('click',()=>sortBy(i,th));
+    }
+    htr.appendChild(th);
+  });
+  thead.appendChild(htr); table.appendChild(thead);
+  const tbody=document.createElement('tbody');
+
+  cfg.rows.forEach(r=>{
+    const tr=document.createElement('tr');
+    if(r.cls) tr.className=r.cls;
+    if(r.b) tr.dataset.badge=r.b;
+    if(r.risk) tr.dataset.risk=r.risk;
+    r.c.forEach((cell,i)=>{
+      const td=document.createElement('td');
+      let h, v;
+      if(cell && typeof cell==='object'){ h=cell.h; v=cell.v!==undefined?cell.v:cell.h; if(cell.cls)td.className=cell.cls; }
+      else { h=cell; v=cell; }
+      if(cfg.cols[i].num) td.classList.add('n');
+      if(cfg.cols[i].center) td.classList.add('c');
+      td.innerHTML=h==null?'—':h;
+      td.dataset.v = v==null?'':v;
+      tr.appendChild(td);
+    });
+    tr._search=true; tr._badge=true; tr._poc=true;
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  scroll.appendChild(table);
+  wrap.appendChild(bar); wrap.appendChild(scroll);
+  host.appendChild(wrap);
+
+  function applyVis(){
+    let n=0;
+    [...tbody.rows].forEach(tr=>{
+      const show=tr._search&&tr._badge&&tr._poc;
+      tr.classList.toggle('hidden-row',!show);
+      if(show)n++;
+    });
+    bar.querySelector('[data-count]').textContent=n+' / '+cfg.rows.length+'행';
+  }
+  applyVis();
+  table._applyVis=applyVis;
+
+  inp.addEventListener('input',()=>{
+    const q=inp.value.trim().toLowerCase();
+    [...tbody.rows].forEach(tr=>{ tr._search=!q||tr.textContent.toLowerCase().includes(q); });
+    applyVis();
+  });
+
+  let sortState={i:-1,dir:1};
+  function sortBy(i,th){
+    const dir=(sortState.i===i)?-sortState.dir:1;
+    sortState={i,dir};
+    htr.querySelectorAll('th').forEach(t=>{t.classList.remove('sorted');t.querySelector('.arrow').textContent='▲';});
+    th.classList.add('sorted');
+    th.querySelector('.arrow').textContent=dir===1?'▲':'▼';
+    const rows=[...tbody.rows];
+    rows.sort((a,b)=>{
+      const av=a.cells[i].dataset.v, bv=b.cells[i].dataset.v;
+      const an=parseFloat(String(av).replace(/[$,%]/g,'')), bn=parseFloat(String(bv).replace(/[$,%]/g,''));
+      if(!isNaN(an)&&!isNaN(bn)) return (an-bn)*dir;
+      return String(av).localeCompare(String(bv),'ko')*dir;
+    });
+    rows.forEach(r=>tbody.appendChild(r));
+  }
+  return table;
+}
+
+/* ================= TAB 1 : model compare ================= */
+renderTable('tbl-model-compare',{
+  title:'Fable 5 vs Mythos 5',
+  cols:[{l:'항목'},{l:'Fable 5'},{l:'Mythos 5'},{l:'배지',noSort:true}],
+  rows:[
+    {b:'t1',c:['Safeguards','safety classifiers 적용','classifier 없음',badgeHtml('t1')]},
+    {b:'pt',c:['cyber/bio 접근','classifier 차단 → Opus 4.8 폴백','제한 없음 (승인 고객 책임 하)',badgeHtml('pt')+' <span style="font-size:11px;color:var(--txt3);">카테고리 명세 불일치</span>']},
+    {b:'t1',c:['공개 범위',tag('ok','GA — 일반 공개'),tag('warn','Limited'),badgeHtml('t1')]},
+    {b:'t1',c:['Trusted access','불필요','Project Glasswing 승인 필요',badgeHtml('t1')]},
+    {b:'t1',c:['Model ID','<code>claude-fable-5</code>','<code>claude-mythos-5</code>',badgeHtml('t1')]},
+    {b:'t1',c:['Retention','30일 최소 보존','30일 최소 보존',badgeHtml('t1')]},
+    {b:'t1',c:['ZDR (Zero Data Retention)',tag('risk','불가'),tag('risk','불가'),badgeHtml('t1')]},
+    {b:'t1',c:['대상 사용자','전체 API·플랫폼 고객','약 150개 조직 · 15개국 (2026-06-02 기준)',badgeHtml('t1')]}
+  ]
+});
+
+/* ================= TAB 2 : spec table ================= */
+(function(){
+  const Y='지원', D='—';
+  renderTable('tbl-spec',{
+    title:'스펙 비교 — Fable 5 / Mythos 5 / Opus 4.8 / Sonnet 4.6 / Haiku 4.5',
+    cols:[{l:'항목'},{l:'Fable 5'},{l:'Mythos 5'},{l:'Opus 4.8'},{l:'Sonnet 4.6'},{l:'Haiku 4.5'},{l:'배지',noSort:true}],
+    rows:[
+      {b:'t1',c:['Context window',{h:'<b>1M</b>',v:1000},{h:'<b>1M</b>',v:1000},{h:'1M',v:1000},{h:'1M',v:1000},{h:'200k',v:200},badgeHtml('t1')]},
+      {b:'t1',c:['Max output',{h:'<b>128k</b>',v:128},{h:'<b>128k</b>',v:128},{h:'128k <small>sync</small>',v:128},{h:'64k',v:64},{h:'64k',v:64},badgeHtml('t1')]},
+      {b:'un',c:['Knowledge cutoff',tag('risk','확인불가'),tag('risk','확인불가'),'Jan 2026','Aug 2025','Feb 2025',badgeHtml('un')+' <span style="font-size:11px;color:var(--txt3);">Fable/Mythos만</span>']},
+      {b:'t1',c:['Extended thinking','✓ adaptive 통합','✓ adaptive 통합','✓','✓','✓',badgeHtml('t1')]},
+      {b:'t1',c:['Adaptive thinking',tag('coral','항상 on — 비활성화 불가'),tag('coral','항상 on'),'선택','선택',D,badgeHtml('t1')+' <span style="font-size:11px;color:var(--txt3);">Fable/Mythos 기준</span>']},
+      {b:'pt',c:['Effort 파라미터',Y,Y,Y,Y,D,badgeHtml('pt')]},
+      {b:'pt',c:['Memory tool',Y,Y,Y,Y,D,badgeHtml('pt')]},
+      {b:'pt',c:['Task budgets',tag('coral','beta'),tag('coral','beta'),D,D,D,badgeHtml('pt')]},
+      {b:'pt',c:['Context editing',Y,Y,Y,Y,D,badgeHtml('pt')]},
+      {b:'pt',c:['Compaction',Y,Y,Y,D,D,badgeHtml('pt')]},
+      {b:'t1',c:['Prompt caching',Y,Y,Y,Y,Y,badgeHtml('t1')]},
+      {b:'t1',c:['Batch API (50% 할인)',Y,Y,Y,Y,Y,badgeHtml('t1')]},
+      {b:'t1',c:['Streaming',Y,Y,Y,Y,Y,badgeHtml('t1')]}
+    ]
+  });
+})();
+
+/* ================= TAB 3 : benchmark table ================= */
+(function(){
+  const n=(v)=>v==null?{h:'—',v:-1}:{h:'<b>'+v+'</b>',v:v};
+  const c=(v)=>v==null?{h:'—',v:-1}:{h:String(v),v:v};
+  renderTable('tbl-bench',{
+    title:'전체 벤치마크 — 공식 표 = Mythos/Fable 상한치',
+    cols:[{l:'벤치마크'},{l:'Fable계',num:true},{l:'Opus 4.8',num:true},{l:'GPT 5.5',num:true},{l:'Gemini 3.1 Pro',num:true},{l:'비고'},{l:'배지',noSort:true}],
+    rows:[
+      {b:'pt',c:['SWE-Bench Pro',n(80.3),c(69.2),c(58.6),c(54.2),'코딩 에이전트',badgeHtml('pt')]},
+      {b:'pt',c:['Terminal-Bench 2.1',n(88.0),c(82.7),c(83.4),c(null),'터미널 에이전트',badgeHtml('pt')]},
+      {b:'pt',c:['FrontierCode Diamond',n(29.3),c(13.4),c(5.7),c(null),'고난도 코딩',badgeHtml('pt')]},
+      {b:'pt',c:['OSWorld-Verified',n(85.0),c(83.4),c(78.7),c(null),'Mythos Preview 85.4',badgeHtml('pt')]},
+      {b:'pt',c:['HLE (no tools)',n(59.0),c(49.8),c(null),c(null),'with-tools 64.5 (비교 57.9)',badgeHtml('pt')]},
+      {b:'pt',c:['ExploitBench (Cap%)',n(78.0),c(40.0),c(34.0),c(null),'Mythos Preview 69.0 · cyber — Fable 폴백 가능',badgeHtml('pt')]},
+      {b:'pt',c:['GDPval-AA (Elo)',n(1932),c(1890),c(1769),c(1314),'별도 Elo 스케일',badgeHtml('pt')]},
+      {b:'pt',c:['GDP.pdf',n(29.8),c(22.5),c(24.9),c(16.7),'문서 작업',badgeHtml('pt')]},
+      {b:'pt',c:['Blueprint-Bench 2',n(38.6),c(14.5),c(36.2),c(26.5),'설계 도면 이해',badgeHtml('pt')]},
+      {b:'pt',c:['AutomationBench',n(17.4),c(15.5),c(12.9),c(9.6),'자동화 에이전트',badgeHtml('pt')]},
+      {b:'pt',c:['Legal Agent',n(13.3),c(10.4),c(2.1),c(0.0),'법무 에이전트',badgeHtml('pt')]},
+      {b:'pt',c:['BioMysteryBench (hard)',n(46.1),c(40.0),c(null),c(null),'human-solved 83.9 (비교 80.4) · bio — Fable 폴백 가능',badgeHtml('pt')]},
+      {b:'pt',c:['HealthBench Professional',n(66.0),c(56.9),c(51.8),c(null),'Mythos Preview 64.7',badgeHtml('pt')]}
+    ]
+  });
+})();
+
+/* ================= TAB 4 : pricing + cost ================= */
+renderTable('tbl-price',{
+  title:'가격표 (per MTok, USD)',
+  cols:[{l:'모델'},{l:'Input',num:true},{l:'Output',num:true},{l:'Cache write 5m',num:true},{l:'Cache write 1h',num:true},{l:'Cache hit',num:true},{l:'Batch in/out',num:true},{l:'비고'},{l:'배지',noSort:true}],
+  rows:[
+    {b:'t1',c:[{h:'<b>Fable 5</b>',v:'Fable'},{h:'<b>$10</b>',v:10},{h:'<b>$50</b>',v:50},{h:'$12.5',v:12.5},{h:'$20',v:20},{h:'$1',v:1},{h:'$5 / $25',v:5},'1M context 표준 단가 · Mythos Preview 대비 절반 이하',badgeHtml('t1')]},
+    {b:'t1',c:[{h:'<b>Mythos 5</b>',v:'Mythos'},{h:'<b>$10</b>',v:10},{h:'<b>$50</b>',v:50},{h:'$12.5',v:12.5},{h:'$20',v:20},{h:'$1',v:1},{h:'$5 / $25',v:5},'Fable 5와 동일 단가 · Glasswing only',badgeHtml('t1')]},
+    {b:'t1',c:['Opus 4.8',{h:'$5',v:5},{h:'$25',v:25},{h:'—',v:-1},{h:'—',v:-1},{h:'—',v:-1},{h:'—',v:-1},'Fable의 정확히 절반',badgeHtml('t1')]},
+    {b:'t1',c:['Sonnet 4.6',{h:'$3',v:3},{h:'$15',v:15},{h:'—',v:-1},{h:'—',v:-1},{h:'—',v:-1},{h:'—',v:-1},'',badgeHtml('t1')]},
+    {b:'t1',c:['Haiku 4.5',{h:'$1',v:1},{h:'$5',v:5},{h:'—',v:-1},{h:'—',v:-1},{h:'—',v:-1},{h:'—',v:-1},'200k context',badgeHtml('t1')]}
+  ]
+});
+
+renderTable('tbl-cost',{
+  title:'월간 비용 시나리오 10종 — budgetary estimate',
+  cols:[{l:'시나리오'},{l:'사용자',num:true},{l:'요청/월',num:true},{l:'토큰/월',num:true},{l:'Cache hit',num:true},{l:'Fallback',num:true},{l:'월 비용',num:true},{l:'배지',noSort:true}],
+  rows:[
+    {b:'un',c:['개인 고급 사용자',{h:'1명',v:1},{h:'~400',v:400},{h:'~120M',v:120},{h:'50%',v:50},{h:'~2%',v:2},{h:'<b>$245</b>',v:245},badgeHtml('un')]},
+    {b:'un',c:['개발자 5명 PoC',{h:'5명',v:5},{h:'~3,000',v:3000},{h:'~900M',v:900},{h:'60%',v:60},{h:'~3%',v:3},{h:'<b>$1,900</b>',v:1900},badgeHtml('un')]},
+    {b:'un',c:['엔터프라이즈 30명',{h:'30명',v:30},{h:'~25,000',v:25000},{h:'~9B',v:9000},{h:'65%',v:65},{h:'~4%',v:4},{h:'<b>$19,000</b>',v:19000},badgeHtml('un')]},
+    {b:'un',c:['Infra 자동화 파이프라인',{h:'시스템',v:0},{h:'~12,000',v:12000},{h:'~2.4B',v:2400},{h:'70%',v:70},{h:'~3%',v:3},{h:'<b>$4,800</b>',v:4800},badgeHtml('un')]},
+    {b:'un',cls:'hl-risk',c:['보안 분석팀',{h:'8명',v:8},{h:'~6,000',v:6000},{h:'~2.2B',v:2200},{h:'55%',v:55},{h:tag('risk','12%'),v:12},{h:'<b>$4,900</b>',v:4900},badgeHtml('un')]},
+    {b:'un',c:['문서 리서치 (장문)',{h:'6명',v:6},{h:'~2,000',v:2000},{h:'~4B',v:4000},{h:'40%',v:40},{h:'~2%',v:2},{h:'<b>$7,900</b>',v:7900},badgeHtml('un')]},
+    {b:'un',c:['코드 마이그레이션',{h:'10명',v:10},{h:'~8,000',v:8000},{h:'~5B',v:5000},{h:'60%',v:60},{h:'~2%',v:2},{h:'<b>$10,100</b>',v:10100},badgeHtml('un')]},
+    {b:'un',c:['비용 최적화 (batch 중심)',{h:'시스템',v:0},{h:'~20,000',v:20000},{h:'~2.8B',v:2800},{h:'75% + batch',v:75},{h:'~2%',v:2},{h:'<b>$2,900</b>',v:2900},badgeHtml('un')]},
+    {b:'un',c:['Change Mgmt 자동화',{h:'12명',v:12},{h:'~5,000',v:5000},{h:'~1.8B',v:1800},{h:'65%',v:65},{h:'~3%',v:3},{h:'<b>$3,700</b>',v:3700},badgeHtml('un')]},
+    {b:'un',c:['규제산업 문서분석',{h:'8명',v:8},{h:'~3,000',v:3000},{h:'~2.3B',v:2300},{h:'50%',v:50},{h:'~5%',v:5},{h:'<b>$4,700</b>',v:4700},badgeHtml('un')]}
+  ]
+});
+
+/* ================= TAB 5 : governance ================= */
+renderTable('tbl-channel',{
+  title:'채널별 retention 책임 경계',
+  cols:[{l:'채널'},{l:'Retention 통제 주체'},{l:'비고'},{l:'배지',noSort:true}],
+  rows:[
+    {b:'t1',c:['Anthropic API · Claude Platform on AWS',tag('coral','Anthropic controls'),'Anthropic이 30일 보존 직접 관리',badgeHtml('t1')]},
+    {b:'t1',c:['Amazon Bedrock',tag('info','AWS environment'),'고객 AWS 환경 내 처리 — 단, 30일 보존 정책은 동일 적용',badgeHtml('t1')]},
+    {b:'t1',c:['GCP Agent Platform (Vertex AI)',tag('info','GCP environment'),'고객 GCP 환경 내 처리 — 모델 정책 동일 적용',badgeHtml('t1')]},
+    {b:'t1',c:['Azure Microsoft Foundry',tag('info','Subscription별'),'ZDR 기존 설정 시 Fable 5용 <b>별도 subscription 필요</b>',badgeHtml('t1')]}
+  ]
+});
+
+renderTable('tbl-compliance',{
+  title:'컴플라이언스 체크리스트',
+  cols:[{l:'항목'},{l:'상태'},{l:'액션 라벨'},{l:'배지',noSort:true}],
+  rows:[
+    {b:'t1',c:['30-day retention','최소 30일 보존 — 모델 정책',tag('ok','공식확인'),badgeHtml('t1')]},
+    {b:'t1',c:['ZDR (Zero Data Retention)',tag('risk','불가 — 전 채널'),tag('ok','공식확인'),badgeHtml('t1')]},
+    {b:'t1',c:['Covered Model designation','Covered Models 정책 적용 대상',tag('ok','공식확인'),badgeHtml('t1')]},
+    {b:'t1',c:['Audit log','지원 — Enterprise only',tag('ok','공식확인'),badgeHtml('t1')]},
+    {b:'t1',c:['SSO / SCIM','지원',tag('ok','공식확인'),badgeHtml('t1')]},
+    {b:'t1',c:['Custom roles','지원',tag('ok','공식확인'),badgeHtml('t1')]},
+    {b:'t1',c:['Compliance API','지원',tag('ok','공식확인'),badgeHtml('t1')]},
+    {b:'t1',c:['SOC 2 · ISO 27001 · ISO 42001','인증 보유',tag('ok','공식확인'),badgeHtml('t1')]},
+    {b:'pt',c:['HIPAA / BAA','Covered Model 적용 여부 미확정',tag('warn','계약확인필요'),badgeHtml('pt')]},
+    {b:'pt',c:['GxP / FDA / EMA','규제산업 적용 가능성 미평가',tag('warn','보안심사필요'),badgeHtml('pt')]},
+    {b:'un',c:['ASL level',tag('risk','확인불가 — system card 문구 추출 실패'),tag('risk','확인불가'),badgeHtml('un')]},
+    {b:'pt',c:['학습(training) 사용 여부','계약 조항 확인 필요',tag('warn','계약확인필요'),badgeHtml('pt')]}
+  ]
+});
+
+/* ================= TAB 6 : scenarios ================= */
+(function(){
+  const vs=(t,cls)=>({h:'<span style="color:var(--'+(cls||'txt2')+');">'+t+'</span>',v:t});
+  const up=t=>vs(t||'우위','ok'), sim=t=>vs(t||'비슷','txt2'), dn=t=>vs(t||'열위','risk');
+  const sg=(lv,txt)=>({h:tag(lv==='높음'?'risk':lv==='중간'||lv==='중~높음'?'warn':'gray',txt||lv),v:lv});
+  renderTable('tbl-scenario',{
+    title:'IT 인프라 시나리오 적합도 (25)',
+    cols:[{l:'시나리오'},{l:'Fable 적합도',center:true},{l:'Opus 4.8 대비'},{l:'Sonnet 4.6 대비'},{l:'Safeguard 영향'},{l:'비용·보안 리스크'},{l:'배지',noSort:true}],
+    rows:[
+      {b:'un',c:['Terraform 코드 리뷰',heat(4),up(),up(),sg('낮음'),'낮음',badgeHtml('un')]},
+      {b:'un',c:['Azure 자동화 스크립트',heat(4),up(),sim(),sg('낮음'),'낮음',badgeHtml('un')]},
+      {b:'un',c:['K8s 운영 (매니페스트·트러블슈팅)',heat(4),up(),up(),sg('낮음'),'중간 (비용)',badgeHtml('un')]},
+      {b:'un',c:['네트워크 트러블슈팅',heat(3),sim(),up(),sg('중간'),'중간',badgeHtml('un')]},
+      {b:'un',c:['서버 마이그레이션 계획',heat(5),up(),up('큰 우위'),sg('낮음'),'중간 (비용)',badgeHtml('un')]},
+      {b:'un',c:['장애 RCA (근본원인분석)',heat(4),up(),up(),sg('낮음'),'낮음',badgeHtml('un')]},
+      {b:'un',c:['Change Mgmt 문서화',heat(4),sim(),up(),sg('낮음'),'낮음',badgeHtml('un')]},
+      {b:'un',cls:'hl-risk',c:['Secure coding review',heat(3),sim(),up(),sg('중~높음','중~높음 — 폴백'),'높음 (false positive 폴백)',badgeHtml('un')]},
+      {b:'un',cls:'hl-risk',c:['Vulnerability triage (CVE)',heat(2),dn('하락 가능'),sim(),sg('높음','높음 — 폴백'),'높음 (cyber 인접)',badgeHtml('un')]},
+      {b:'un',c:['대량 PDF 분석 (1M ctx)',heat(5),up(),up('압도적 우위'),sg('낮음'),'중간 (30일 보존)',badgeHtml('un')]},
+      {b:'un',c:['장기 리서치 (멀티세션)',heat(5),up(),up('압도적 우위'),sg('낮음'),'중간 (비용)',badgeHtml('un')]},
+      {b:'un',c:['Multi-agent orchestration',heat(4),up(),up(),sg('중간'),'높음 (토큰 비용)',badgeHtml('un')]},
+      {b:'un',c:['CI/CD 파이프라인 설계',heat(4),sim(),sim(),sg('낮음'),'낮음',badgeHtml('un')]},
+      {b:'un',c:['IaC 모듈 생성',heat(4),up(),sim(),sg('낮음'),'낮음',badgeHtml('un')]},
+      {b:'un',c:['모니터링·알람 룰 작성',heat(3),sim(),sim('Sonnet 우위'),sg('낮음'),'낮음',badgeHtml('un')]},
+      {b:'un',c:['대용량 로그 분석',heat(4),up(),up(),sg('중간'),'중간',badgeHtml('un')]},
+      {b:'un',c:['런북(Runbook) 작성',heat(3),sim(),sim(),sg('낮음'),'낮음',badgeHtml('un')]},
+      {b:'un',c:['DR 계획 수립',heat(4),up(),up(),sg('낮음'),'중간',badgeHtml('un')]},
+      {b:'un',c:['FinOps 비용 최적화',heat(4),sim(),up(),sg('낮음'),'낮음',badgeHtml('un')]},
+      {b:'un',c:['DB 쿼리 튜닝',heat(3),sim(),sim(),sg('낮음'),'낮음',badgeHtml('un')]},
+      {b:'un',c:['레거시 코드 현대화',heat(5),up(),up(),sg('낮음'),'중간 (비용)',badgeHtml('un')]},
+      {b:'un',c:['ITSM 티켓 분류·요약',heat(2),sim(),dn('과스펙'),sg('낮음'),'높음 (비용)',badgeHtml('un')]},
+      {b:'un',c:['컴플라이언스 문서 작성',heat(3),sim(),sim(),sg('낮음'),'중간 (30일 보존)',badgeHtml('un')]},
+      {b:'un',c:['온콜 인시던트 요약',heat(3),sim(),dn('지연·비용'),sg('낮음'),'중간',badgeHtml('un')]},
+      {b:'un',c:['사내 지식베이스 Q&A',heat(2),sim(),dn('과스펙'),sg('낮음'),'높음 (비용)',badgeHtml('un')]}
+    ]
+  });
+})();
+
+renderTable('tbl-transition',{
+  title:'전환 판단 매트릭스 (8)',
+  cols:[{l:'현재 모델'},{l:'업무 영역'},{l:'권고',center:true},{l:'비고'},{l:'배지',noSort:true}],
+  rows:[
+    {b:'un',c:['Opus 4.8 → Fable 5','장기 coding',tag('ok','PoC 후 전환'),'SWE-Bench Pro·FrontierCode 격차 큼 — PoC로 iteration 절감 검증 후 전환',badgeHtml('un')]},
+    {b:'un',cls:'hl-risk',c:['Opus 4.8 → Fable 5','보안 분석',tag('warn','특정 업무만'),'cyber 인접 false positive 폴백 — 폴백률 모니터링 전제',badgeHtml('un')]},
+    {b:'un',c:['Opus 4.8 → Fable 5','장기 리서치',tag('ok','즉시 시험'),'1M context + HLE 격차 — 즉시 파일럿 가치 있음',badgeHtml('un')]},
+    {b:'un',c:['Sonnet 4.6 → Fable 5','자동화',tag('warn','특정 업무만'),'AutomationBench 17.4 vs 12.9 — 고난도 자동화만 선별 전환',badgeHtml('un')]},
+    {b:'un',c:['Sonnet 4.6 → Fable 5','ITSM',tag('risk','비권장'),'과스펙 — 3.3× 단가 정당화 불가',badgeHtml('un')]},
+    {b:'un',c:['Haiku 4.5','고빈도 경량 작업',tag('gray','유지'),'10× 단가 차이 — 전환 사유 없음',badgeHtml('un')]},
+    {b:'un',c:['cyber/bio 핵심팀','심층 보안·생명과학 연구',tag('info','Mythos 5 Glasswing 신청'),'classifier 없는 Mythos 5 필요 — 승인 절차·기간 확인',badgeHtml('un')]},
+    {b:'un',c:['규제산업 (금융·제약·공공)','전 업무',tag('risk','보류'),'30일 보존 / ZDR 불가 수용성 심사 선행 필수',badgeHtml('un')]}
+  ]
+});
+
+/* ================= TAB 6 : PoC plan ================= */
+(function(){
+  const R={'낮음':tag('gray','낮음'),'중간':tag('warn','중간'),'높음':tag('risk','높음')};
+  const rows=[
+    ['T-01','Terraform 모듈 리뷰 정확도','IaC 리뷰 품질 vs Opus 4.8','낮음',''],
+    ['T-02','K8s 매니페스트 생성·검증','운영 표준 준수 여부','낮음',''],
+    ['T-03','Azure 자동화 스크립트 생성','CLI/Bicep 정확도','낮음',''],
+    ['T-04','네트워크 구성 트러블슈팅','진단 추론 품질','중간',''],
+    ['T-05','서버 마이그레이션 계획 초안','1M context 활용 — 전체 인벤토리 입력','낮음',''],
+    ['T-06','장애 RCA 리포트 생성','로그·타임라인 종합 능력','중간',''],
+    ['T-07','Change Mgmt 문서 자동화','CAB 양식 적합성','낮음',''],
+    ['T-08','레거시 코드 현대화','대규모 리팩토링 iteration 절감','낮음',''],
+    ['T-09','대량 PDF(500p+) 분석','1M context 실효성·정확도','낮음',''],
+    ['T-10','장기 리서치 멀티세션','memory tool·compaction 동작','중간',''],
+    ['T-11','Secure coding review (OWASP)','false positive 폴백 발생률 측정','높음','fallback'],
+    ['T-12','Vulnerability triage (CVE 분석)','cyber classifier 차단 경계 확인','높음','fallback'],
+    ['T-13','대용량 로그 이상 탐지','보안 인접 프롬프트 폴백 여부','중간',''],
+    ['T-14','런북 작성·검증','절차 정확도·환각률','낮음',''],
+    ['T-15','CI/CD 파이프라인 생성','YAML 정확도','낮음',''],
+    ['T-16','DR 시나리오 시뮬레이션','복구 절차 추론','중간',''],
+    ['T-17','FinOps 비용 분석','수치 정확도·tabular 추론','낮음',''],
+    ['T-18','DB 쿼리 튜닝','실행계획 해석','낮음',''],
+    ['T-19','Multi-agent orchestration 파일럿','task budgets beta·서브에이전트 안정성','중간',''],
+    ['T-20','ITSM 티켓 분류·요약','Sonnet 대비 비용효율 비교','낮음',''],
+    ['T-21','128k output 장문 생성 한계','max output 실측·중단 거동','중간',''],
+    ['T-22','Fallback observability','stop_reason·fallback_credit_token 텔레메트리 검증','높음','fallback+crit'],
+    ['T-23','Prompt caching 비용 검증','cache write/hit 단가 실측 ($12.5/$20/$1)','낮음',''],
+    ['T-24','Retention acceptance','30일 보존·ZDR 불가의 거버넌스 수용성 평가','중간','crit'],
+    ['T-25','Batch API 처리량 검증','50% 할인 단가·SLA 실측','낮음','']
+  ];
+  renderTable('tbl-poc',{
+    title:'PoC 테스트 플랜 — 25건',
+    cols:[{l:'ID'},{l:'테스트'},{l:'검증 목적'},{l:'리스크',center:true},{l:'태그',noSort:true},{l:'배지',noSort:true}],
+    rows:rows.map(r=>({
+      b:'un', risk:r[3],
+      cls:(r[4].indexOf('fallback')>-1)?'hl-risk':'',
+      c:[{h:'<span class="mono">'+r[0]+'</span>',v:r[0]},r[1],r[2],{h:R[r[3]],v:r[3]},
+         (r[4].indexOf('crit')>-1?tag('crit','critical control'):(r[4]?tag('risk','fallback risk'):'—')),
+         badgeHtml('un')]
+    }))
+  });
+  /* risk filter buttons */
+  const tbl=document.querySelector('#tbl-poc table');
+  document.querySelectorAll('#poc-filters .fbtn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('#poc-filters .fbtn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const want=btn.dataset.risk;
+      tbl.querySelectorAll('tbody tr').forEach(tr=>{ tr._poc=(want==='all'||tr.dataset.risk===want); });
+      tbl._applyVis();
+    });
+  });
+})();
+
+renderTable('tbl-scoring',{
+  title:'스코어링 모델 — 배점 11항목 (총 100점)',
+  cols:[{l:'평가 항목'},{l:'배점',num:true},{l:'평가 관점'},{l:'배지',noSort:true}],
+  rows:[
+    {b:'un',c:['업무 적합성',{h:'<b>15</b>',v:15},'대상 업무가 long-context·고난도인가',badgeHtml('un')]},
+    {b:'un',c:['품질 (벤치마크·실측)',{h:'<b>15</b>',v:15},'Opus/Sonnet 대비 품질 격차',badgeHtml('un')]},
+    {b:'un',c:['Agentic 역량',{h:'10',v:10},'multi-step·tool use·orchestration',badgeHtml('un')]},
+    {b:'un',c:['비용',{h:'10',v:10},'task completion cost 기준',badgeHtml('un')]},
+    {b:'un',c:['보안',{h:'10',v:10},'폴백 거동·classifier 영향',badgeHtml('un')]},
+    {b:'un',c:['컴플라이언스',{h:'10',v:10},'인증·audit·규제 정합성',badgeHtml('un')]},
+    {b:'un',c:['보존 수용성',{h:'10',v:10},'30일 retention·ZDR 불가 수용 가능 여부',badgeHtml('un')]},
+    {b:'un',c:['통합',{h:'5',v:5},'기존 게이트웨이·SDK 적합성',badgeHtml('un')]},
+    {b:'un',c:['운영',{h:'5',v:5},'관측성·rate limit·장애 대응',badgeHtml('un')]},
+    {b:'un',c:['Vendor',{h:'5',v:5},'멀티벤더 전략 정합성',badgeHtml('un')]},
+    {b:'un',c:['전략',{h:'5',v:5},'중장기 AI 로드맵 부합도',badgeHtml('un')]}
+  ]
+});
+
+/* ================= TAB 7 : ledger ================= */
+renderTable('tbl-gates',{
+  title:'검증 게이트 (15)',
+  cols:[{l:'항목'},{l:'결과'},{l:'출처 등급'},{l:'신뢰도',noSort:true}],
+  rows:[
+    {b:'t1',c:['모델명 <code>claude-fable-5</code>',tag('ok','확인'),'T1 — Anthropic docs',badgeHtml('t1')]},
+    {b:'t1',c:['모델명 <code>claude-mythos-5</code>',tag('ok','확인'),'T1 — Anthropic docs',badgeHtml('t1')]},
+    {b:'t1',c:['Fable 5 = Mythos 5 동일 underlying model',tag('ok','확인'),'T1 — 공식 발표',badgeHtml('t1')]},
+    {b:'pt',c:['Mythos-class 티어 체계',tag('warn','부분확인'),'T1+T3 — “4단 체계 공식 선언 미확인”',badgeHtml('pt')]},
+    {b:'t1',c:['출시일 2026-06-09',tag('ok','확인'),'T1 — 공식 발표 + 언론 교차',badgeHtml('t1')]},
+    {b:'t1',c:['가격 $10 / $50 per MTok',tag('ok','확인'),'T1 — Anthropic pricing',badgeHtml('t1')]},
+    {b:'t1',c:['1M context / 128k max output',tag('ok','확인'),'T1 — Anthropic docs',badgeHtml('t1')]},
+    {b:'t1',c:['30일 최소 보존 / ZDR 불가',tag('ok','확인'),'T1 — Covered Models 정책',badgeHtml('t1')]},
+    {b:'t1',c:['폴백 대상 Opus 4.8',tag('ok','확인'),'T1 — Anthropic docs',badgeHtml('t1')]},
+    {b:'pt',c:['폴백 카테고리 명세',tag('warn','불일치'),'T1/T3 — 출처 간 표현 상이 (TAB 1 경고)',badgeHtml('pt')]},
+    {b:'t1',c:['구독 6/22 무료 윈도우 → 6/23 크레딧 전환',tag('ok','확인'),'T1 help center + 언론 교차',badgeHtml('t1')]},
+    {b:'t2',c:['AISI — CTF 73% / TLO 3/10 완주·평균 22/32',tag('ok','독립확인'),'T2 — UK AISI 블로그',badgeHtml('t2')]},
+    {b:'t2',c:['AA — Intelligence Index 64.9 (1위)',tag('ok','독립확인'),'T2 — Artificial Analysis (이해상충 표기)',badgeHtml('t2')]},
+    {b:'un',c:['ASL level',tag('risk','확인불가'),'system card 문구 직접 추출 실패',badgeHtml('un')]},
+    {b:'un',c:['Knowledge cutoff (Fable/Mythos)',tag('risk','확인불가'),'공식 문서 미기재',badgeHtml('un')]}
+  ]
+});
+
+renderTable('tbl-uncertain',{
+  title:'불확실 주장 (6)',
+  cols:[{l:'주장'},{l:'불확실 사유'},{l:'배지',noSort:true}],
+  rows:[
+    {b:'pt',c:['폴백 카테고리 = cyber/bio/reasoning_extraction','TechCrunch·AWS 블로그와 표현 불일치 — API 원문 미확인',badgeHtml('pt')]},
+    {b:'pt',c:['Mythos-class 4단 티어 체계','강한 시사는 있으나 공식 선언 문구 미확인',badgeHtml('pt')]},
+    {b:'pt',c:['공식 벤치 표 = Mythos/Fable 중 상한치','각주 표현의 적용 범위(전 벤치 vs 일부) 불명확',badgeHtml('pt')]},
+    {b:'pt',c:['Glasswing 약 150개 조직 · 15개국','발표 시점 수치 — 현재값 미확인',badgeHtml('pt')]},
+    {b:'pt',c:['“Mythos Preview 대비 절반 이하” 가격','비교 기준(단가 vs 실효 비용) 미명시',badgeHtml('pt')]},
+    {b:'pt',c:['OSWorld Preview 85.4 > GA 85.0','GA에서 소폭 하락한 원인(classifier 영향 여부) 미확인',badgeHtml('pt')]}
+  ]
+});
+
+renderTable('tbl-followup',{
+  title:'추가 확인 필요 (8)',
+  cols:[{l:'항목'},{l:'우선순위',center:true},{l:'확인 방법'},{l:'배지',noSort:true}],
+  rows:[
+    {b:'pt',c:['platform.claude.com 폴백 카테고리 원문',{h:tag('risk','P1'),v:1},'API docs 원문 직접 대조',badgeHtml('pt')]},
+    {b:'un',c:['System card PDF의 ASL 문구',{h:tag('risk','P1'),v:1},'PDF 전문 추출 재시도',badgeHtml('un')]},
+    {b:'pt',c:['HIPAA/BAA Covered Model 적용 여부',{h:tag('risk','P1'),v:1},'영업·계약 채널 문의',badgeHtml('pt')]},
+    {b:'un',c:['채널별 quota / model ID 표',{h:tag('warn','P2'),v:2},'Bedrock·Vertex·Foundry 콘솔 확인',badgeHtml('un')]},
+    {b:'un',c:['Claude 제품별 매핑 (Cowork/M365/Slack/Chrome)',{h:tag('warn','P2'),v:2},'help center·릴리스 노트 추적',badgeHtml('un')]},
+    {b:'pt',c:['학습(training) 사용 여부 계약 조항',{h:tag('warn','P2'),v:2},'엔터프라이즈 계약서 검토',badgeHtml('pt')]},
+    {b:'un',c:['6/23 크레딧 전환 세부 요율',{h:tag('gray','P3'),v:3},'help center 후속 공지 모니터링',badgeHtml('un')]},
+    {b:'un',c:['Mythos 5 Glasswing 신청 절차·SLA',{h:tag('gray','P3'),v:3},'Glasswing 신청 페이지 확인',badgeHtml('un')]}
+  ]
+});
+
+renderTable('tbl-tiers',{
+  title:'출처 등급 정의 (T1 ~ T4)',
+  cols:[{l:'등급'},{l:'정의'},{l:'예시'},{l:'배지',noSort:true}],
+  rows:[
+    {b:'t1',c:[{h:'<b>T1</b>',v:1},'Anthropic 공식 1차 출처','news · docs · pricing · help center · RSP',badgeHtml('t1')]},
+    {b:'t2',c:[{h:'<b>T2</b>',v:2},'독립 평가기관','UK AISI · Artificial Analysis',badgeHtml('t2')]},
+    {b:'pt',c:[{h:'<b>T3</b>',v:3},'주요 언론 보도 (교차검증용)','Reuters · The Verge · TechCrunch · CNBC · VentureBeat · Business Insider',badgeHtml('pt')]},
+    {b:'un',c:[{h:'<b>T4</b>',v:4},'추정·분석적 판단','비용 시나리오 · 적합도 평가 · 스코어링',badgeHtml('un')]}
+  ]
+});
+
+/* ================= badge legend filter ================= */
+(function(){
+  let active=null;
+  const legend=document.getElementById('badge-legend');
+  const clearBtn=document.getElementById('badge-clear');
+  function apply(){
+    document.querySelectorAll('table.dt').forEach(tbl=>{
+      tbl.querySelectorAll('tbody tr').forEach(tr=>{
+        tr._badge=!active||tr.dataset.badge===active;
+      });
+      if(tbl._applyVis)tbl._applyVis();
+    });
+    legend.querySelectorAll('.badge').forEach(b=>b.classList.toggle('active',b.dataset.badge===active));
+    clearBtn.classList.toggle('show',!!active);
+  }
+  legend.querySelectorAll('.badge').forEach(b=>{
+    b.addEventListener('click',()=>{ active=(active===b.dataset.badge)?null:b.dataset.badge; apply(); });
+  });
+  clearBtn.addEventListener('click',()=>{active=null;apply();});
+})();
+
+/* ================= tabs + hash ================= */
+(function(){
+  const nav=document.getElementById('tabs-nav');
+  function activate(n,push){
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+n));
+    nav.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.tab===String(n)));
+    if(push!==false){ history.replaceState(null,'','#tab-'+n); }
+    if(window.__initChartsFor) window.__initChartsFor(String(n));
+    window.scrollTo({top:0});
+  }
+  nav.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab)));
+  window.addEventListener('hashchange',()=>{
+    const m=location.hash.match(/^#tab-(\d)$/); if(m)activate(m[1],false);
+  });
+  const m=location.hash.match(/^#tab-(\d)$/); if(m)activate(m[1],false);
+})();
+
+/* ================= D-day ================= */
+(function(){
+  const target=new Date(2026,5,23); // 2026-06-23 local
+  const days=Math.ceil((target-new Date())/864e5);
+  const txt=days>0?days:0;
+  document.getElementById('dday-n').textContent=txt;
+  document.getElementById('dday-n2').textContent=txt;
+  if(days<=0){
+    document.querySelectorAll('.dd-step')[0].classList.remove('on');
+    document.querySelectorAll('.dd-step')[1].classList.add('on');
+  }
+})();
+
+/* ================= charts ================= */
+(function(){
+  if(typeof Chart==='undefined')return;
+  Chart.defaults.color='#9aa7ba';
+  Chart.defaults.borderColor='#232b38';
+  Chart.defaults.font.family="'SF Mono','Cascadia Code',ui-monospace,Menlo,monospace";
+  Chart.defaults.font.size=11;
+  const C={fable:'#d97757',opus:'#4a9eff',gpt:'#8b97a8',gem:'#c792ea'};
+
+  function buildTab3(){
+  new Chart(document.getElementById('chart-bench'),{
+    type:'bar',
+    data:{
+      labels:['SWE-Bench Pro','Terminal-Bench 2.1','FrontierCode Diamond','OSWorld-Verified','HLE (no tools)','ExploitBench Cap%'],
+      datasets:[
+        {label:'Fable계 (상한치)',data:[80.3,88.0,29.3,85.0,59.0,78.0],backgroundColor:C.fable},
+        {label:'Opus 4.8',data:[69.2,82.7,13.4,83.4,49.8,40.0],backgroundColor:C.opus},
+        {label:'GPT 5.5',data:[58.6,83.4,5.7,78.7,null,34.0],backgroundColor:C.gpt},
+        {label:'Gemini 3.1 Pro',data:[54.2,null,null,null,null,null],backgroundColor:C.gem}
+      ]
+    },
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      scales:{x:{min:0,max:100,grid:{color:'#1c2330'}},y:{grid:{display:false}}},
+      plugins:{legend:{position:'top',labels:{boxWidth:12,boxHeight:12}}}
+    }
+  });
+
+  new Chart(document.getElementById('chart-gdpval'),{
+    type:'bar',
+    data:{
+      labels:['GDPval-AA'],
+      datasets:[
+        {label:'Fable계 1932',data:[1932],backgroundColor:C.fable},
+        {label:'Opus 4.8 1890',data:[1890],backgroundColor:C.opus},
+        {label:'GPT 5.5 1769',data:[1769],backgroundColor:C.gpt},
+        {label:'Gemini 3.1 Pro 1314',data:[1314],backgroundColor:C.gem}
+      ]
+    },
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      scales:{x:{min:1200,max:2000,grid:{color:'#1c2330'}},y:{grid:{display:false}}},
+      plugins:{legend:{position:'top',labels:{boxWidth:12,boxHeight:12}}}
+    }
+  });
+  }
+
+  function buildTab6(){
+  const orgs=[['개인 파워유저',86],['스타트업',81],['IT 운영',78],['보안팀',64],['플랫폼팀',80],['대기업 개발',82],['금융',66],['제약·헬스',61],['법무',58],['공공',62]];
+  new Chart(document.getElementById('chart-org'),{
+    type:'bar',
+    data:{
+      labels:orgs.map(o=>o[0]),
+      datasets:[{label:'종합 점수 (/100)',data:orgs.map(o=>o[1]),
+        backgroundColor:orgs.map(o=>o[1]>=70?'#3fb68b':(o[1]>=60?'#e8b339':'#e05252'))}]
+    },
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      scales:{x:{min:0,max:100,grid:{color:'#1c2330'}},y:{grid:{display:false}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+' / 100'}}}
+    }
+  });
+  }
+
+  /* lazy chart init — Chart.js cannot size a canvas inside display:none */
+  const built={};
+  window.__initChartsFor=function(n){
+    if(n==='3'&&!built[3]){built[3]=1;buildTab3();}
+    if(n==='6'&&!built[6]){built[6]=1;buildTab6();}
+  };
+  const cur=document.querySelector('.tab-panel.active');
+  if(cur)window.__initChartsFor(cur.id.replace('tab-',''));
+  window.addEventListener('beforeprint',()=>{
+    document.querySelectorAll('.tab-panel').forEach(p=>p.style.display='block');
+    ['3','6'].forEach(n=>window.__initChartsFor(n));
+  });
+  window.addEventListener('afterprint',()=>{
+    document.querySelectorAll('.tab-panel').forEach(p=>p.style.display='');
+  });
+})();
+</script>
+</body>
+</html>
+
