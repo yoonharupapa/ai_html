@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>초당 연봉 카운터</title>
+<meta name="description" content="연봉을 입력하면 1초에 얼마 버는지 실시간으로 보여주는 카운터">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23050a09'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%2341f0bd' font-family='monospace'%3E%E2%82%A9%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050a09;
+  --panel:#0b1512;
+  --line:#16302a;
+  --mint:#41f0bd;
+  --mint-mid:#1d9e75;
+  --mint-deep:#0f5b46;
+  --txt:#d9efe7;
+  --muted:#5f8377;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  min-height:100svh;
+  display:flex;flex-direction:column;
+  background:var(--bg);color:var(--txt);
+  font-family:"IBM Plex Sans KR",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:40;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.16) 2px 3px);
+}
+#panel,#extras,#corner{transition:opacity .6s ease}
+body.zen #panel,body.zen #extras,body.zen #corner{opacity:0;pointer-events:none}
+body.zen{cursor:none}
+
+#panel{width:min(960px,100%);margin:0 auto;padding:1.1rem 1.25rem 0}
+.brand{display:flex;align-items:baseline;gap:.55rem;margin-bottom:.9rem}
+.brand b{font-family:"Share Tech Mono",monospace;color:var(--mint);font-weight:400;font-size:.95rem;letter-spacing:.04em}
+.brand span{font-size:.78rem;color:var(--muted)}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;margin-bottom:.7rem}
+.f label{display:block;font-size:.74rem;color:var(--muted);margin-bottom:.3rem}
+.f input{
+  width:100%;background:var(--panel);border:1px solid var(--line);border-radius:9px;
+  color:var(--txt);font:inherit;font-size:.95rem;padding:.5rem .65rem;
+  color-scheme:dark;
+}
+.f input:focus-visible{outline:2px solid var(--mint-mid);outline-offset:1px;border-color:var(--mint-mid)}
+.btns{display:flex;flex-wrap:wrap;gap:.5rem}
+button{
+  font:inherit;font-size:.86rem;color:var(--txt);
+  background:transparent;border:1px solid var(--line);border-radius:9px;
+  padding:.5rem .85rem;cursor:pointer;
+}
+button:hover{border-color:var(--mint-mid);color:var(--mint)}
+button:focus-visible{outline:2px solid var(--mint-mid);outline-offset:1px}
+button:disabled{opacity:.35;cursor:default}
+button:disabled:hover{border-color:var(--line);color:var(--txt)}
+button.go{border-color:var(--mint-deep);color:var(--mint)}
+button.go:hover{background:rgba(29,158,117,.12)}
+
+main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.5rem 1rem}
+.cap{font-size:.8rem;letter-spacing:.35em;color:var(--muted);margin-bottom:.6rem}
+#money{
+  font-family:"Share Tech Mono",monospace;
+  font-size:clamp(2.8rem,12.5vw,10.5rem);
+  line-height:1.05;color:var(--mint);
+  font-variant-numeric:tabular-nums;
+  text-shadow:0 0 16px rgba(65,240,189,.5),0 0 70px rgba(65,240,189,.22);
+  word-break:keep-all;
+}
+.sub{margin-top:.9rem;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.sub b{color:var(--mint-mid);font-weight:500}
+
+#extras{width:min(720px,100%);margin:0 auto;padding:0 1.25rem 1.6rem}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin-bottom:1.1rem}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:.45rem .8rem;font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:baseline}
+.chip b{color:var(--txt);font-weight:500;font-variant-numeric:tabular-nums}
+.goal{margin-bottom:.45rem;display:flex;justify-content:space-between;align-items:baseline;font-size:.85rem}
+#mPct{color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:7px;background:var(--panel);border:1px solid var(--line);border-radius:99px;overflow:hidden}
+#mFill{height:100%;width:0%;background:var(--mint-mid);transition:width .3s linear}
+.small{margin-top:.6rem;font-size:.76rem;color:var(--muted);text-align:center}
+.small+.small{margin-top:.25rem}
+
+#corner{position:fixed;top:.9rem;right:.95rem;z-index:30}
+
+@media (prefers-reduced-motion:reduce){
+  #panel,#extras,#corner,#mFill{transition:none}
+}
+@media (max-width:560px){
+  .brand span{display:none}
+}
+</style>
+</head>
+<body>
+
+<header id="panel">
+  <div class="brand"><b>&#8361;/sec</b><span>초당 연봉 카운터 — 일하기 싫을 때 보는 화면</span></div>
+  <div class="fields">
+    <div class="f"><label for="salary">연봉 (세전, 만원)</label><input id="salary" type="number" inputmode="numeric" value="5000" min="100" max="1000000" step="100"></div>
+    <div class="f"><label for="hours">하루 근무시간</label><input id="hours" type="number" inputmode="numeric" value="8" min="1" max="24" step="1"></div>
+    <div class="f"><label for="clockin">출근 시각</label><input id="clockin" type="time" value="09:00"></div>
+  </div>
+  <div class="btns">
+    <button id="bNow" class="go">지금부터 시작</button>
+    <button id="bClock" class="go">출근시각부터 계산</button>
+    <button id="bPause" disabled>일시정지</button>
+    <button id="bReset">리셋</button>
+  </div>
+</header>
+
+<main>
+  <div class="cap">오늘 번 돈</div>
+  <div id="money" aria-live="off">&#8361;0.00</div>
+  <div class="sub">초당 <b id="persec">0.00</b>원 · 경과 <b id="elapsed">00:00:00</b></div>
+</main>
+
+<footer id="extras">
+  <div class="chips">
+    <div class="chip"><span>시급</span><b id="cHour">&#8361;0</b></div>
+    <div class="chip"><span id="cDayL">일당 8시간</span><b id="cDay">&#8361;0</b></div>
+    <div class="chip"><span>최저시급 대비</span><b id="cMin">0.0배</b></div>
+    <div class="chip"><span>화장실 10분</span><b id="cWc">+&#8361;0</b></div>
+  </div>
+  <div class="goal"><span id="mLabel">다음 목표: 삼각김밥 (&#8361;1,800)</span><span id="mPct">0%</span></div>
+  <div class="bar"><div id="mFill"></div></div>
+  <div class="small" id="chick">치킨 환산 (&#8361;23,000/마리): 0.0마리</div>
+  <div class="small">기준: 연봉 ÷ 12 ÷ 209시간(주 40h·주휴 포함) · 2026 최저시급 &#8361;10,320 · 입력값은 이 브라우저에만 저장됩니다</div>
+</footer>
+
+<div id="corner"><button id="bFull" aria-label="전체화면 전환">전체화면</button></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(i){return document.getElementById(i)};
+var MIN=10320, CHICKEN=23000, KEY="sps.v1";
+var MS=[
+ [1800,"삼각김밥"],
+ [4700,"아메리카노"],
+ [12000,"국밥 한 그릇"],
+ [23000,"치킨 한 마리"],
+ [50000,"5만원권 한 장"],
+ [64800,"스위치 게임 1개"],
+ [100000,"10만원 돌파"],
+ [150000,"호텔 뷔페 1인"]
+];
+var st={salary:5000,hours:8,clockin:"09:00",mode:null,anchor:0,base:0,paused:false,frozen:0};
+var perSec=0, rafId=0, idleT=0;
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);for(var k in st){if(o[k]!==undefined)st[k]=o[k]}}}catch(e){}}
+function fmt(n,d){d=d||0;return "\u20A9"+n.toLocaleString("ko-KR",{minimumFractionDigits:d,maximumFractionDigits:d})}
+
+function readInputs(){
+  st.salary=Math.min(1000000,Math.max(1,parseFloat($("salary").value)||5000));
+  st.hours=Math.min(24,Math.max(1,parseFloat($("hours").value)||8));
+  st.clockin=$("clockin").value||"09:00";
+}
+function rate(){
+  var hourly=st.salary*10000/12/(209*st.hours*5/40);
+  perSec=hourly/3600;
+  $("cHour").textContent=fmt(hourly);
+  $("cDayL").textContent="일당 "+st.hours+"시간";
+  $("cDay").textContent=fmt(hourly*st.hours);
+  $("cMin").textContent=(hourly/MIN).toFixed(1)+"배";
+  $("cWc").textContent="+"+fmt(perSec*600);
+  $("persec").textContent=perSec.toFixed(2);
+}
+function clockEpoch(){
+  var p=st.clockin.split(":");
+  var d=new Date();d.setHours(+p[0]||0,+p[1]||0,0,0);
+  return d.getTime();
+}
+function elapsedSec(){
+  if(!st.mode)return 0;
+  if(st.paused)return st.frozen;
+  if(st.mode==="clock")return Math.max(0,(Date.now()-clockEpoch())/1000);
+  return st.base+(Date.now()-st.anchor)/1000;
+}
+function hms(t){
+  t=Math.floor(t);
+  var h=Math.floor(t/3600),m=Math.floor(t/60)%60,s=t%60;
+  return (h<10?"0":"")+h+":"+(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+}
+function render(){
+  var e=elapsedSec(),m=perSec*e;
+  $("money").textContent=fmt(m,2);
+  $("elapsed").textContent=hms(e);
+  var next=null,i;
+  for(i=0;i<MS.length;i++){if(m<MS[i][0]){next=MS[i];break}}
+  if(next){
+    $("mLabel").textContent="다음 목표: "+next[1]+" ("+fmt(next[0])+")";
+    var p=Math.min(100,m/next[0]*100);
+    $("mPct").textContent=p.toFixed(0)+"%";
+    $("mFill").style.width=p+"%";
+  }else{
+    $("mLabel").textContent="오늘 목표 전부 달성";
+    $("mPct").textContent="100%";
+    $("mFill").style.width="100%";
+  }
+  $("chick").textContent="치킨 환산 (\u20A923,000/마리): "+(m/CHICKEN).toFixed(1)+"마리";
+  document.title=st.mode?fmt(m,0)+" 버는 중":"초당 연봉 카운터";
+}
+function loop(){
+  if(st.mode&&!st.paused){render();rafId=requestAnimationFrame(loop)}
+}
+function kick(){
+  cancelAnimationFrame(rafId);
+  if(st.mode&&!st.paused)rafId=requestAnimationFrame(loop);
+}
+function syncUI(){
+  $("bPause").disabled=!st.mode;
+  $("bPause").textContent=st.paused?"재개":"일시정지";
+}
+function armIdle(){
+  clearTimeout(idleT);
+  if(st.mode&&!st.paused){idleT=setTimeout(function(){document.body.classList.add("zen")},3500)}
+}
+function wake(){
+  document.body.classList.remove("zen");
+  armIdle();
+}
+
+$("bNow").onclick=function(){
+  readInputs();st.mode="now";st.anchor=Date.now();st.base=0;st.frozen=0;st.paused=false;
+  rate();save();syncUI();render();kick();armIdle();
+};
+$("bClock").onclick=function(){
+  readInputs();st.mode="clock";st.frozen=0;st.paused=false;
+  rate();save();syncUI();render();kick();armIdle();
+};
+$("bPause").onclick=function(){
+  if(!st.mode)return;
+  if(!st.paused){
+    st.frozen=elapsedSec();st.paused=true;cancelAnimationFrame(rafId);
+  }else{
+    if(st.mode==="now"){st.base=st.frozen;st.anchor=Date.now()}
+    st.paused=false;kick();
+  }
+  save();syncUI();render();wake();
+};
+$("bReset").onclick=function(){
+  st.mode=null;st.paused=false;st.base=0;st.frozen=0;
+  cancelAnimationFrame(rafId);save();syncUI();render();wake();
+};
+$("bFull").onclick=function(){
+  try{
+    if(document.fullscreenElement){document.exitFullscreen()}
+    else{document.documentElement.requestFullscreen()}
+  }catch(e){}
+};
+["salary","hours","clockin"].forEach(function(id){
+  $(id).addEventListener("input",function(){readInputs();rate();save();render()});
+});
+["mousemove","touchstart","keydown"].forEach(function(ev){
+  document.addEventListener(ev,wake,{passive:true});
+});
+document.addEventListener("visibilitychange",function(){
+  if(!document.hidden){render();kick()}
+});
+
+load();
+$("salary").value=st.salary;
+$("hours").value=st.hours;
+$("clockin").value=st.clockin;
+rate();syncUI();render();kick();armIdle();
+setInterval(function(){if(st.mode&&!st.paused)render()},1000);
+})();
+</script>
+</body>
+</html>
