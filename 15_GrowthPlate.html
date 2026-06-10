@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>성장판 종합 가이드 — 부모와 임상의를 위한 메디컬 에디토리얼</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ════════════ TOP BAR ════════════ -->
+<header class="topbar">
+  <div class="topbar__mark">
+    <svg class="topbar__glyph" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="11" y="2" width="6" height="9" rx="2" fill="#1E3A5F"/>
+      <rect x="9.5" y="11" width="9" height="5" rx="1.5" fill="#E0998C"/>
+      <rect x="11" y="16" width="6" height="10" rx="2" fill="#1E3A5F"/>
+    </svg>
+    GrowthPlate
+  </div>
+  <span class="topbar__kicker">성장판 종합 가이드</span>
+  <div class="topbar__spacer"></div>
+  <button class="topbar__toctoggle" id="tocToggle" aria-expanded="false">목차</button>
+  <div class="topbar__progress" id="progress"></div>
+</header>
+
+<div class="shell">
+
+  <!-- ════════════ TOC ════════════ -->
+  <nav class="toc" id="toc" aria-label="목차">
+    <p class="toc__title">목차 · Contents</p>
+    <ul class="toc__list">
+      <li class="toc__item"><a class="toc__link" href="#summary"><span class="toc__num">01</span><span>핵심 요약</span></a></li>
+      <li class="toc__item"><a class="toc__link" href="#concept"><span class="toc__num">02</span><span>성장판이란</span></a></li>
+      <li class="toc__item"><a class="toc__link" href="#evaluation"><span class="toc__num">03</span><span>평가와 골연령</span></a></li>
+      <li class="toc__item"><a class="toc__link" href="#injury"><span class="toc__num">04</span><span>손상 · 분류</span></a></li>
+      <li class="toc__item"><a class="toc__link" href="#treatment"><span class="toc__num">05</span><span>치료 의사결정</span></a></li>
+      <li class="toc__item"><a class="toc__link" href="#myths"><span class="toc__num">06</span><span>속설과 사실</span></a></li>
+      <li class="toc__item"><a class="toc__link" href="#checklist"><span class="toc__num">07</span><span>병원 방문 체크리스트</span></a></li>
+      <li class="toc__item"><a class="toc__link" href="#faq"><span class="toc__num">08</span><span>자주 묻는 질문</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- ════════════ CONTENT ════════════ -->
+  <main class="content">
+
+    <!-- ─── COVER ─── -->
+    <section class="cover">
+      <span class="cover__eyebrow">소아·청소년 정형외과 · 부모 교육 자료</span>
+      <h1>성장판, <em>아이의 키</em>가 자라는 가장 연약한 곳</h1>
+      <p class="cover__lede">
+        성장판은 어린이의 뼈에서 길이 성장이 일어나는 연골 조직입니다.
+        가장 빠르게 자라는 동시에 가장 다치기 쉬운 부위이기도 합니다.
+        이 가이드는 성장판의 구조부터 평가, 손상 분류, 치료 원칙, 그리고
+        흔한 오해까지를 차분하게 정리합니다.
+      </p>
+
+      <p class="cover__thesis"><span>핵심 명제</span>성장판 관리의 목표는 <strong>“더 크게”가 아니라, 가능한 성장을 놓치지 않는 것</strong>입니다.</p>
+
+      <div class="herostats reveal">
+        <div class="herostat">
+          <div class="herostat__num">약 80<span>%</span></div>
+          <div class="herostat__label">최종 키 변이를 설명하는 <strong>유전</strong>의 몫</div>
+        </div>
+        <div class="herostat">
+          <div class="herostat__num">15–30<span>%</span></div>
+          <div class="herostat__label">소아 골절 중 <strong>성장판을 침범</strong>하는 비율</div>
+        </div>
+        <div class="herostat">
+          <div class="herostat__num">에스트로겐</div>
+          <div class="herostat__label">남녀 모두 성장판 <strong>폐쇄를 이끄는</strong> 핵심 호르몬</div>
+        </div>
+      </div>
+
+      <div class="cover__meta">
+        <div class="cover__metaitem">
+          <span class="cover__metalabel">대상</span>
+          <span class="cover__metaval">보호자 · 임상 입문</span>
+        </div>
+        <div class="cover__metaitem">
+          <span class="cover__metalabel">구성</span>
+          <span class="cover__metaval">8개 파트</span>
+        </div>
+        <div class="cover__metaitem">
+          <span class="cover__metalabel">읽는 시간</span>
+          <span class="cover__metaval">약 15분</span>
+        </div>
+        <div class="cover__metaitem">
+          <span class="cover__metalabel">개정</span>
+          <span class="cover__metaval">2026.06</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PART 01 — 핵심 요약 ═══ -->
+    <section class="part" id="summary">
+      <div class="part__head">
+        <span class="part__num">01</span>
+        <span class="part__kicker">한눈에 보기 · Executive Summary</span>
+      </div>
+      <h2>먼저, 다섯 가지만 기억하세요</h2>
+      <p class="part__intro">
+        세부 내용으로 들어가기 전에, 성장판을 이해하는 데 가장 중요한 핵심을
+        먼저 정리합니다. 이 다섯 가지가 이후 모든 파트의 토대가 됩니다.
+      </p>
+
+      <div class="keygrid breakout reveal">
+        <div class="keycard">
+          <div class="keycard__idx">KEY 01</div>
+          <div class="keycard__head">길이 성장의 엔진</div>
+          <div class="keycard__body">성장판은 긴뼈의 양끝 가까이에 있는 연골판으로, <strong>뼈가 길어지는 거의 모든 성장</strong>이 이곳에서 일어납니다.</div>
+        </div>
+        <div class="keycard">
+          <div class="keycard__idx">KEY 02</div>
+          <div class="keycard__head">가장 약한 고리</div>
+          <div class="keycard__body">성장판은 주변 인대·힘줄보다 <strong>구조적으로 약합니다.</strong> 어른이라면 삔 정도로 끝날 충격이 아이에게는 골절이 됩니다.</div>
+        </div>
+        <div class="keycard">
+          <div class="keycard__idx">KEY 03</div>
+          <div class="keycard__head">언젠가 닫힌다</div>
+          <div class="keycard__body">사춘기를 지나며 성장판은 뼈로 바뀌어 <strong>닫힙니다(골단융합).</strong> 닫힌 뒤에는 길이 성장이 멈춥니다.</div>
+        </div>
+        <div class="keycard">
+          <div class="keycard__idx">KEY 04</div>
+          <div class="keycard__head">분류가 예후를 가른다</div>
+          <div class="keycard__body">성장판 손상은 <strong>Salter–Harris 분류 Ⅰ~Ⅴ</strong>로 나뉘며, 유형에 따라 치료와 성장 후유증 위험이 크게 달라집니다.</div>
+        </div>
+        <div class="keycard">
+          <div class="keycard__idx">KEY 05</div>
+          <div class="keycard__head">추적이 핵심</div>
+          <div class="keycard__body">손상 직후 정상으로 보여도 <strong>성장 장애는 수개월 뒤</strong> 나타날 수 있어, 일정 기간의 추적 관찰이 반드시 필요합니다.</div>
+        </div>
+      </div>
+
+      <div class="statrow breakout reveal" style="margin-top:16px">
+        <div class="stat">
+          <div class="stat__num">15<small>~30%</small></div>
+          <div class="stat__label">소아 골절 중 성장판을 침범하는 비율</div>
+        </div>
+        <div class="stat">
+          <div class="stat__num">Ⅱ<small>형</small></div>
+          <div class="stat__label">가장 흔한 유형 — 전체 성장판 골절의 약 절반 이상</div>
+        </div>
+        <div class="stat">
+          <div class="stat__num">2<small>배</small></div>
+          <div class="stat__label">여아보다 남아에게 더 흔하게 발생</div>
+        </div>
+        <div class="stat">
+          <div class="stat__num">6~12<small>개월</small></div>
+          <div class="stat__label">성장 장애 여부를 확인하는 표준 추적 기간</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ═══ PART 02 — 개념 ═══ -->
+    <section class="part" id="concept">
+      <div class="part__head">
+        <span class="part__num">02</span>
+        <span class="part__kicker">개념 · Anatomy</span>
+      </div>
+      <h2>성장판이란 무엇인가</h2>
+      <p class="part__intro">
+        성장판(成長板, growth plate / physis)은 어린이와 청소년의 긴뼈
+        양 끝에 존재하는 <em>유리연골판</em>입니다. 이곳의 연골세포가
+        끊임없이 분열·성숙·골화하면서 뼈가 길어집니다.
+      </p>
+
+      <div class="prose">
+        <p>
+          뼈를 위·아래로 나눠 보면, 관절에 가까운 둥근 끝부분이
+          <span class="term">골단(epiphysis)</span>, 가운데 긴 몸통이
+          <span class="term">골간(diaphysis)</span>, 그 사이의 넓어지는 부위가
+          <span class="term">골간단(metaphysis)</span>입니다. 성장판은 골단과
+          골간단 <strong>사이에 끼인 얇은 연골 띠</strong>로, 길이 성장이
+          오롯이 이 한 층에서 일어납니다.
+        </p>
+        <p>
+          성장판은 단일한 조직이 아니라, 위에서 아래로 기능이 다른
+          <strong>여러 개의 층(zone)</strong>이 차곡차곡 쌓인 구조입니다.
+          위쪽에서 연골세포가 만들어지고, 아래로 내려가며 줄지어 분열하고
+          부풀어 오른 뒤, 마지막에 단단한 뼈로 굳습니다. 컨베이어 벨트처럼
+          세포가 위에서 공급되고 아래에서 뼈로 전환되는 셈입니다.
+        </p>
+      </div>
+
+      <div class="figure breakout reveal" style="margin-top:34px">
+        <div class="anatomy">
+          <svg class="anatomy__svg" viewBox="0 0 240 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="긴뼈의 성장판 해부 모식도">
+            <!-- diaphysis / shaft -->
+            <path d="M70 350 L70 150 Q70 120 95 112 L145 112 Q170 120 170 150 L170 350 Z" fill="#F1ECE3" stroke="#D8D3C8" stroke-width="2"/>
+            <!-- metaphysis flare -->
+            <path d="M52 112 Q52 96 78 92 L162 92 Q188 96 188 112 L170 150 Q170 120 145 112 L95 112 Q70 120 70 150 Z" fill="#ECE6DB" stroke="#D8D3C8" stroke-width="2"/>
+            <!-- physis band (growth plate, cartilage = coral) -->
+            <rect x="50" y="74" width="140" height="18" rx="4" fill="url(#physGrad)"/>
+            <!-- epiphysis cap -->
+            <path d="M50 74 L50 60 Q50 24 120 24 Q190 24 190 60 L190 74 Z" fill="#E6F4F2" stroke="#AEDCD7" stroke-width="2"/>
+            <!-- labels / leader lines -->
+            <g stroke="#C9D6D9" stroke-width="1.4" stroke-dasharray="3 3">
+              <line x1="190" y1="46" x2="226" y2="46"/>
+              <line x1="190" y1="83" x2="226" y2="83"/>
+              <line x1="188" y1="118" x2="226" y2="118"/>
+              <line x1="170" y1="250" x2="226" y2="250"/>
+            </g>
+            <g font-family="Pretendard, sans-serif" font-size="13" font-weight="700">
+              <text x="222" y="50" text-anchor="end" fill="#7E8C92" font-size="11">골단</text>
+              <text x="222" y="87" text-anchor="end" fill="#C9745F">성장판</text>
+              <text x="222" y="122" text-anchor="end" fill="#7E8C92" font-size="11">골간단</text>
+              <text x="222" y="254" text-anchor="end" fill="#7E8C92" font-size="11">골간</text>
+            </g>
+            <defs>
+              <linearGradient id="physGrad" x1="0" y1="74" x2="0" y2="92" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#E0998C"/>
+                <stop offset="1" stop-color="#C9745F"/>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <div class="zonelist">
+            <div class="zone">
+              <span class="zone__dot" style="background:#AEDCD7"></span>
+              <div>
+                <div class="zone__name">골단 <span>Epiphysis</span></div>
+                <div class="zone__desc">관절에 가까운 둥근 끝부분. 관절면을 이룹니다.</div>
+              </div>
+            </div>
+            <div class="zone">
+              <span class="zone__dot" style="background:#C9745F"></span>
+              <div>
+                <div class="zone__name">성장판 <span>Physis</span></div>
+                <div class="zone__desc">골단과 골간단 사이의 <strong>얇은 연골 띠.</strong> 길이 성장이 일어나는 곳입니다.</div>
+              </div>
+            </div>
+            <div class="zone">
+              <span class="zone__dot" style="background:#D8C3A8"></span>
+              <div>
+                <div class="zone__name">골간단 <span>Metaphysis</span></div>
+                <div class="zone__desc">성장판 바로 아래, 점점 넓어지는 부위입니다.</div>
+              </div>
+            </div>
+            <div class="zone">
+              <span class="zone__dot" style="background:#C2B7A3"></span>
+              <div>
+                <div class="zone__name">골간 <span>Diaphysis</span></div>
+                <div class="zone__desc">뼈의 가운데 긴 몸통(축)에 해당합니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="figure__caption">
+          <span class="figure__fignum">Fig. 1</span>
+          <span><strong>긴뼈와 성장판의 구조.</strong> 길이 성장은 골단과 골간단 사이의 얇은 연골판에서 일어나며, 골절선은 약한 비대층을 따라 진행되는 경향이 있습니다.</span>
+        </div>
+      </div>
+
+      <div class="prose" style="margin-top:38px">
+        <h3>연골이 뼈가 되는 과정 — 다섯 개의 층</h3>
+        <p>
+          성장판을 위에서 아래로 잘라 보면, 위쪽 골단 쪽에서 만들어진
+          연골세포가 아래 골간단 쪽으로 내려가며 차례로 모습을 바꿉니다.
+          분열하고, 부풀고, 칼슘이 쌓이고, 마침내 혈관과 조골세포가 들어와
+          <strong>단단한 뼈로 전환</strong>됩니다. 이 한 방향의 흐름이
+          <span class="term">연골내골화(endochondral ossification)</span>이며,
+          뼈가 길어지는 실제 메커니즘입니다.
+        </p>
+      </div>
+
+      <div class="figure breakout reveal" style="margin-top:24px">
+        <div class="xsecfig">
+          <div class="xsecaxis"><span>골화 진행</span></div>
+          <div class="xsec">
+            <div class="xseclayer xseclayer--1">
+              <div class="xseclayer__band"><span class="xseclayer__num">1</span><span class="xseclayer__bname">휴지층<span>Resting zone</span></span></div>
+              <div class="xseclayer__info"><p class="xseclayer__desc">줄기세포가 대기하는 <strong>예비 저장고.</strong> 성장에 쓰일 연골세포의 원천입니다.</p></div>
+            </div>
+            <div class="xseclayer xseclayer--2">
+              <div class="xseclayer__band"><span class="xseclayer__num">2</span><span class="xseclayer__bname">증식층<span>Proliferative</span></span></div>
+              <div class="xseclayer__info"><p class="xseclayer__desc">연골세포가 <strong>기둥처럼 줄지어 빠르게 분열</strong>합니다. 실질적인 성장 동력입니다.</p></div>
+            </div>
+            <div class="xseclayer xseclayer--3">
+              <div class="xseclayer__band"><span class="xseclayer__num">3</span><span class="xseclayer__bname">비대층<span>Hypertrophic</span></span></div>
+              <div class="xseclayer__info"><p class="xseclayer__desc">세포가 <strong>크게 부풀며 성숙</strong>합니다. 구조적으로 가장 약해 골절선이 흔히 이곳을 지납니다.</p></div>
+            </div>
+            <div class="xseclayer xseclayer--4">
+              <div class="xseclayer__band"><span class="xseclayer__num">4</span><span class="xseclayer__bname">석회화층<span>Calcification</span></span></div>
+              <div class="xseclayer__info"><p class="xseclayer__desc">연골 기질에 <strong>칼슘이 침착</strong>되고 비대해진 연골세포는 사멸하기 시작합니다.</p></div>
+            </div>
+            <div class="xseclayer xseclayer--5">
+              <div class="xseclayer__band"><span class="xseclayer__num">5</span><span class="xseclayer__bname">골화층<span>Ossification</span></span></div>
+              <div class="xseclayer__info"><p class="xseclayer__desc"><strong>혈관과 조골세포가 침입</strong>해 석회화된 연골을 대체하며 새 뼈를 만듭니다.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="figure__caption">
+          <span class="figure__fignum">Fig. 2</span>
+          <span><strong>성장판의 다섯 층과 연골내골화.</strong> 위(연골)에서 아래(뼈)로 갈수록 세포는 분열 → 비대 → 석회화 → 골화의 한 방향 흐름을 따릅니다.</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <svg class="callout__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><path d="M12 8h.01"/></svg>
+        <div>
+          <div class="callout__title">왜 중요한가</div>
+          <div class="callout__body">성장판은 X선에서 <strong>검게 비어 보이는 틈</strong>으로 나타납니다. 이 틈을 골절로 오인하거나, 반대로 진짜 골절을 정상 성장판으로 놓치기 쉽기 때문에, 소아 영상 판독에는 별도의 경험이 필요합니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ═══ PART 03 — 평가 ═══ -->
+    <section class="part" id="evaluation">
+      <div class="part__head">
+        <span class="part__num">03</span>
+        <span class="part__kicker">평가 · Assessment</span>
+      </div>
+      <h2>성장은 어떻게 평가하는가</h2>
+      <p class="part__intro">
+        "우리 아이는 잘 크고 있나요?"라는 질문에 답하려면 키 숫자 하나가
+        아니라 <em>성장 속도</em>, <em>성장 곡선상의 위치</em>, 그리고
+        <em>골연령</em>이라는 세 가지를 함께 봐야 합니다.
+      </p>
+
+      <div class="prose">
+        <h3>골연령 — 뼈가 말하는 진짜 나이</h3>
+        <p>
+          <span class="term">골연령(bone age)</span>은 손과 손목의 X선을
+          표준 영상과 비교해 추정하는 '뼈의 성숙도'입니다. 같은 만 10세라도
+          뼈는 8세처럼 어릴 수도, 12세처럼 성숙했을 수도 있습니다. 골연령은
+          <strong>성장판이 얼마나 남았는지</strong>를 가늠하는 가장 직접적인
+          단서이며, 이를 바탕으로 최종 예측 키를 계산합니다.
+        </p>
+      </div>
+
+      <div class="flow breakout reveal" style="margin-top:30px">
+        <div class="flow__node flow__node--start">
+          <div class="flow__q">아이의 성장이 걱정될 때 — 어떻게 접근할까</div>
+        </div>
+        <div class="flow__connector"></div>
+        <div class="flow__node">
+          <div class="flow__label">STEP 1 · 측정</div>
+          <div class="flow__q">키·체중을 성장 곡선(백분위)에 표시한다</div>
+        </div>
+        <div class="flow__connector"></div>
+        <div class="flow__node">
+          <div class="flow__label">STEP 2 · 속도</div>
+          <div class="flow__q">1년간 성장 속도를 확인한다 — 또래 대비 너무 느린가?</div>
+        </div>
+        <div class="flow__connector"></div>
+        <div class="flow__branches">
+          <div class="flow__branch flow__branch--a">
+            <div class="flow__bcond">곡선을 따라 꾸준함</div>
+            <div class="flow__baction">백분위가 낮아도 <strong>일정하게 따라 오르면</strong> 대개 정상 변이. 정기 관찰을 이어갑니다.</div>
+          </div>
+          <div class="flow__branch flow__branch--b">
+            <div class="flow__bcond">곡선에서 이탈·정체</div>
+            <div class="flow__baction">백분위가 <strong>급격히 떨어지거나 멈추면</strong> 골연령 검사·혈액 검사 등 정밀 평가로 넘어갑니다.</div>
+          </div>
+        </div>
+        <div class="flow__connector"></div>
+        <div class="flow__node">
+          <div class="flow__label">STEP 3 · 골연령</div>
+          <div class="flow__q">손·손목 X선으로 골연령을 측정하고 예측 키를 계산한다</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <svg class="callout__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4"/><path d="m6.3 6.3 2.8 2.8"/><path d="M2 12h4"/><circle cx="12" cy="14" r="6"/></svg>
+        <div>
+          <div class="callout__title">핵심 지표</div>
+          <div class="callout__body">단발성 키 숫자보다 <strong>성장 속도(velocity)</strong>가 더 중요합니다. 사춘기 직전 또래보다 작아 보여도, 이후 급성장기에 따라잡는 경우가 많습니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ═══ PART 04 — 손상 / Salter-Harris ═══ -->
+    <section class="part" id="injury">
+      <div class="part__head">
+        <span class="part__num">04</span>
+        <span class="part__kicker">손상 · Salter–Harris 분류</span>
+      </div>
+      <h2>성장판 손상, 다섯 가지 유형</h2>
+      <p class="part__intro">
+        성장판 골절은 <em>골절선이 성장판·골단·골간단 중 어디를 지나는지</em>에
+        따라 다섯 유형으로 나눕니다. 1963년 제안된 이 Salter–Harris 분류는
+        오늘날까지 치료와 예후 판단의 기준입니다. 아래 다섯 카드로 유형별
+        골절 경로와 성장 예후를 한눈에 비교해 보세요.
+      </p>
+
+      <div class="callout" style="margin-top:0;margin-bottom:30px">
+        <svg class="callout__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+        <div>
+          <div class="callout__title">암기법 · SALTR</div>
+          <div class="callout__body"><strong>S</strong>lipped(Ⅰ·분리) · <strong>A</strong>bove(Ⅱ·골간단 위) · <strong>L</strong>ower(Ⅲ·골단 아래) · <strong>T</strong>hrough(Ⅳ·관통) · <strong>R</strong>ammed(Ⅴ·압박). 로마숫자가 커질수록 대체로 성장 장애 위험이 높아집니다.</div>
+        </div>
+      </div>
+
+      <div class="shgrid breakout reveal" aria-label="Salter-Harris 분류 카드">
+
+        <article class="shcard">
+          <div class="shcard__top">
+            <span class="shcard__roman">Ⅰ</span>
+            <div class="shcard__titles">
+              <div class="shcard__name">분리형</div>
+              <div class="shcard__sub">Type Ⅰ · Slipped</div>
+            </div>
+            <span class="shcard__freq">~6%</span>
+          </div>
+          <div class="shcard__specimen">
+            <svg class="shcard__diagram" viewBox="0 0 160 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="성장판만 가로지르는 골절선 도식">
+              <path d="M30 70 L30 56 Q30 22 80 22 Q130 22 130 56 L130 70 Z" fill="#E6F4F2" stroke="#AEDCD7" stroke-width="2"/>
+              <path d="M30 84 L130 84 L120 150 L116 230 L44 230 L40 150 Z" fill="#F1ECE3" stroke="#D8D3C8" stroke-width="2"/>
+              <rect x="30" y="70" width="100" height="14" rx="2" fill="#E0998C"/>
+              <path d="M26 77 L134 77" fill="none" stroke="#DC2626" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="shcard__body">
+            <p class="shcard__path">골절선이 <strong>성장판만</strong>을 가로질러, 골단이 골간단에서 미끄러지듯 분리됩니다.</p>
+          </div>
+          <div class="shcard__foot">
+            <div class="shcard__txrow"><span class="shcard__txlabel">치료</span><span class="shcard__tx"><b>도수정복 + 석고 고정</b>으로 대개 충분합니다.</span></div>
+            <div class="shcard__progrow"><span class="shcard__proglabel">성장 예후</span><span class="badge badge--strong"><span class="badge__dot"></span>양호</span></div>
+          </div>
+        </article>
+
+        <article class="shcard">
+          <div class="shcard__top">
+            <span class="shcard__roman">Ⅱ</span>
+            <div class="shcard__titles">
+              <div class="shcard__name">골간단형</div>
+              <div class="shcard__sub">Type Ⅱ · Above</div>
+            </div>
+            <span class="shcard__freq">~75%</span>
+          </div>
+          <div class="shcard__specimen">
+            <svg class="shcard__diagram" viewBox="0 0 160 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="성장판과 골간단을 지나는 골절선 도식">
+              <path d="M30 70 L30 56 Q30 22 80 22 Q130 22 130 56 L130 70 Z" fill="#E6F4F2" stroke="#AEDCD7" stroke-width="2"/>
+              <path d="M30 84 L130 84 L120 150 L116 230 L44 230 L40 150 Z" fill="#F1ECE3" stroke="#D8D3C8" stroke-width="2"/>
+              <rect x="30" y="70" width="100" height="14" rx="2" fill="#E0998C"/>
+              <path d="M26 77 L94 77 L122 134" fill="none" stroke="#DC2626" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="shcard__body">
+            <p class="shcard__path">골절선이 성장판을 지나다 <strong>골간단 쪽으로 꺾여</strong> 삼각형 뼈 조각을 남깁니다. 가장 흔합니다.</p>
+          </div>
+          <div class="shcard__foot">
+            <div class="shcard__txrow"><span class="shcard__txlabel">치료</span><span class="shcard__tx"><b>도수정복 + 석고 고정.</b> 대부분 비수술적으로 치료됩니다.</span></div>
+            <div class="shcard__progrow"><span class="shcard__proglabel">성장 예후</span><span class="badge badge--strong"><span class="badge__dot"></span>양호</span></div>
+          </div>
+        </article>
+
+        <article class="shcard">
+          <div class="shcard__top">
+            <span class="shcard__roman">Ⅲ</span>
+            <div class="shcard__titles">
+              <div class="shcard__name">골단형</div>
+              <div class="shcard__sub">Type Ⅲ · Lower</div>
+            </div>
+            <span class="shcard__freq">~8%</span>
+          </div>
+          <div class="shcard__specimen">
+            <svg class="shcard__diagram" viewBox="0 0 160 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="성장판과 골단(관절면)을 지나는 골절선 도식">
+              <path d="M30 70 L30 56 Q30 22 80 22 Q130 22 130 56 L130 70 Z" fill="#E6F4F2" stroke="#AEDCD7" stroke-width="2"/>
+              <path d="M30 84 L130 84 L120 150 L116 230 L44 230 L40 150 Z" fill="#F1ECE3" stroke="#D8D3C8" stroke-width="2"/>
+              <rect x="30" y="70" width="100" height="14" rx="2" fill="#E0998C"/>
+              <path d="M134 77 L74 77 L58 28" fill="none" stroke="#DC2626" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="shcard__body">
+            <p class="shcard__path">골절선이 성장판을 지나 <strong>골단(관절면)으로</strong> 빠져나가는 관절 내 골절입니다.</p>
+          </div>
+          <div class="shcard__foot">
+            <div class="shcard__txrow"><span class="shcard__txlabel">치료</span><span class="shcard__tx"><b>수술적 정복·내고정</b>이 필요한 경우가 많습니다.</span></div>
+            <div class="shcard__progrow"><span class="shcard__proglabel">성장 예후</span><span class="badge badge--partial"><span class="badge__dot"></span>주의</span></div>
+          </div>
+        </article>
+
+        <article class="shcard">
+          <div class="shcard__top">
+            <span class="shcard__roman">Ⅳ</span>
+            <div class="shcard__titles">
+              <div class="shcard__name">관통형</div>
+              <div class="shcard__sub">Type Ⅳ · Through</div>
+            </div>
+            <span class="shcard__freq">~10%</span>
+          </div>
+          <div class="shcard__specimen">
+            <svg class="shcard__diagram" viewBox="0 0 160 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="골단·성장판·골간단을 수직으로 관통하는 골절선 도식">
+              <path d="M30 70 L30 56 Q30 22 80 22 Q130 22 130 56 L130 70 Z" fill="#E6F4F2" stroke="#AEDCD7" stroke-width="2"/>
+              <path d="M30 84 L130 84 L120 150 L116 230 L44 230 L40 150 Z" fill="#F1ECE3" stroke="#D8D3C8" stroke-width="2"/>
+              <rect x="30" y="70" width="100" height="14" rx="2" fill="#E0998C"/>
+              <path d="M72 26 L72 84 L86 150" fill="none" stroke="#DC2626" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="shcard__body">
+            <p class="shcard__path">골절선이 <strong>골단·성장판·골간단을 수직으로 관통</strong>합니다. 정확한 정렬이 예후를 좌우합니다.</p>
+          </div>
+          <div class="shcard__foot">
+            <div class="shcard__txrow"><span class="shcard__txlabel">치료</span><span class="shcard__tx">거의 항상 <b>수술적 정복 + 내고정.</b></span></div>
+            <div class="shcard__progrow"><span class="shcard__proglabel">성장 예후</span><span class="badge badge--partial"><span class="badge__dot"></span>주의</span></div>
+          </div>
+        </article>
+
+        <article class="shcard">
+          <div class="shcard__top">
+            <span class="shcard__roman">Ⅴ</span>
+            <div class="shcard__titles">
+              <div class="shcard__name">압박형</div>
+              <div class="shcard__sub">Type Ⅴ · Rammed</div>
+            </div>
+            <span class="shcard__freq">~1%</span>
+          </div>
+          <div class="shcard__specimen">
+            <svg class="shcard__diagram" viewBox="0 0 160 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="성장판이 압좌되는 압박 손상 도식">
+              <path d="M30 70 L30 56 Q30 22 80 22 Q130 22 130 56 L130 70 Z" fill="#E6F4F2" stroke="#AEDCD7" stroke-width="2"/>
+              <path d="M30 84 L130 84 L120 150 L116 230 L44 230 L40 150 Z" fill="#F1ECE3" stroke="#D8D3C8" stroke-width="2"/>
+              <rect x="30" y="72" width="100" height="10" rx="2" fill="#C9745F"/>
+              <g stroke="#DC2626" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <path d="M58 36 L58 62"/><path d="M50 54 L58 64 L66 54"/>
+                <path d="M102 36 L102 62"/><path d="M94 54 L102 64 L110 54"/>
+              </g>
+            </svg>
+          </div>
+          <div class="shcard__body">
+            <p class="shcard__path">축 방향 충격으로 성장판이 <strong>으스러지듯 압박(압좌)</strong>됩니다. 초기 X선에서 거의 보이지 않습니다.</p>
+          </div>
+          <div class="shcard__foot">
+            <div class="shcard__txrow"><span class="shcard__txlabel">치료</span><span class="shcard__tx">보존적 관찰 후 <b>성장 장애에 대한 대응.</b></span></div>
+            <div class="shcard__progrow"><span class="shcard__proglabel">성장 예후</span><span class="badge badge--false"><span class="badge__dot"></span>높은 위험</span></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ═══ PART 05 — 치료 ═══ -->
+    <section class="part" id="treatment">
+      <div class="part__head">
+        <span class="part__num">05</span>
+        <span class="part__kicker">치료 · Management</span>
+      </div>
+      <h2>치료는 어떻게 결정되는가</h2>
+      <p class="part__intro">
+        치료의 두 가지 목표는 분명합니다. <em>관절면을 매끄럽게 되돌리고</em>,
+        <em>성장판을 정확히 맞춰 성장 장애를 막는 것</em>입니다. 유형과
+        어긋난 정도에 따라 비수술과 수술 사이에서 길이 갈립니다.
+      </p>
+
+      <div class="flow breakout reveal" style="margin-top:30px">
+        <div class="flow__node flow__node--start">
+          <div class="flow__q">성장판 골절이 확인되었다</div>
+        </div>
+        <div class="flow__connector"></div>
+        <div class="flow__node">
+          <div class="flow__label">분기 1 · 안정성</div>
+          <div class="flow__q">골절이 어긋났는가(전위), 관절면을 침범했는가?</div>
+        </div>
+        <div class="flow__connector"></div>
+        <div class="flow__branches">
+          <div class="flow__branch flow__branch--a">
+            <div class="flow__bcond">전위 적고 관절면 침범 없음 (주로 Ⅰ·Ⅱ형)</div>
+            <div class="flow__baction"><strong>비수술적 정복 + 석고 고정.</strong> 도수정복 후 깁스로 고정하고 영상으로 정렬을 확인합니다.</div>
+          </div>
+          <div class="flow__branch flow__branch--b">
+            <div class="flow__bcond">관절면 침범·정복 불안정 (주로 Ⅲ·Ⅳ형)</div>
+            <div class="flow__baction"><strong>수술적 정복 + 내고정.</strong> 관절면과 성장판을 해부학적으로 맞추고 핀·나사로 고정합니다.</div>
+          </div>
+        </div>
+        <div class="flow__connector"></div>
+        <div class="flow__node">
+          <div class="flow__label">분기 2 · 추적</div>
+          <div class="flow__q">치료 후 6~12개월간 성장 장애 여부를 추적한다</div>
+        </div>
+      </div>
+
+      <div class="callout callout--warn">
+        <svg class="callout__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        <div>
+          <div class="callout__title">반드시 알아둘 것</div>
+          <div class="callout__body">치료 직후 정렬이 완벽해도 <strong>성장판 일부가 뼈다리(bony bar)로 막히면</strong> 수개월 뒤 한쪽만 자라 휘거나(각변형), 다리 길이가 달라질 수 있습니다. 그래서 "다 나았다"는 판단은 추적 관찰이 끝난 뒤에야 가능합니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ═══ PART 06 — 속설 ═══ -->
+    <section class="part" id="myths">
+      <div class="part__head">
+        <span class="part__num">06</span>
+        <span class="part__kicker">속설 · Myth &amp; Fact</span>
+      </div>
+      <h2>키와 성장판에 관한 오해</h2>
+      <p class="part__intro">
+        성장만큼 속설이 많은 주제도 드뭅니다. 자주 듣는 이야기를
+        <em>근거 중심</em>으로 하나씩 짚고, 각 주장에 <strong>근거 판정 배지</strong>를
+        붙였습니다. 판정으로 필터링해 볼 수 있습니다.
+      </p>
+
+      <div class="mythfilter breakout" id="mythFilter" role="group" aria-label="근거 판정 필터">
+        <button class="mythfilter__btn is-active" data-filter="all">전체</button>
+        <button class="mythfilter__btn" data-filter="strong"><span class="badge__dot" style="background:var(--ev-strong)"></span>사실</button>
+        <button class="mythfilter__btn" data-filter="partial"><span class="badge__dot" style="background:var(--ev-partial)"></span>일부 사실</button>
+        <button class="mythfilter__btn" data-filter="weak"><span class="badge__dot" style="background:var(--ev-weak)"></span>근거 부족</button>
+        <button class="mythfilter__btn" data-filter="false"><span class="badge__dot" style="background:var(--ev-false)"></span>거짓 · 위험</button>
+      </div>
+
+      <div class="myth breakout reveal" id="mythList">
+        <article class="mythcard" data-verdict="false">
+          <div class="mythcard__claim">
+            <span class="mythcard__claimtext"><span class="q">“</span>성장판 닫히기 전에 주사 맞으면 무조건 큰다<span class="q">”</span></span>
+            <span class="badge badge--false"><span class="badge__dot"></span>거짓 · 위험</span>
+          </div>
+          <div class="mythcard__fact">
+            <div class="mythcard__factlabel">근거 기반 설명</div>
+            <p class="mythcard__facttext">성장호르몬 치료는 <strong>호르몬 결핍 등 명확한 의학적 적응증이 있을 때</strong>만 효과적입니다. 정상적으로 분비되는 아이에게 추가로 주사한다고 키가 보장되지는 않으며, “무조건 큰다”는 <strong>과잉진료 신호</strong>로 경계해야 합니다.</p>
+          </div>
+        </article>
+
+        <article class="mythcard" data-verdict="partial">
+          <div class="mythcard__claim">
+            <span class="mythcard__claimtext"><span class="q">“</span>농구·줄넘기 같은 운동이 키를 직접 늘린다<span class="q">”</span></span>
+            <span class="badge badge--partial"><span class="badge__dot"></span>일부 사실</span>
+          </div>
+          <div class="mythcard__fact">
+            <div class="mythcard__factlabel">근거 기반 설명</div>
+            <p class="mythcard__facttext">운동은 <strong>성장에 좋은 환경(수면·식욕·호르몬·뼈 건강)</strong>을 만듭니다. 다만 특정 점프 운동이 성장판을 ‘잡아 늘리지’는 않으며, 최종 키의 가장 큰 결정 요인은 여전히 <strong>유전</strong>입니다.</p>
+          </div>
+        </article>
+
+        <article class="mythcard" data-verdict="weak">
+          <div class="mythcard__claim">
+            <span class="mythcard__claimtext"><span class="q">“</span>커피·탄산음료를 마시면 키가 안 큰다<span class="q">”</span></span>
+            <span class="badge badge--weak"><span class="badge__dot"></span>근거 부족</span>
+          </div>
+          <div class="mythcard__fact">
+            <div class="mythcard__factlabel">근거 기반 설명</div>
+            <p class="mythcard__facttext">카페인 자체가 성장판을 닫는다는 직접적 근거는 부족합니다. 다만 <strong>당분이 많은 음료가 우유·식사를 대체</strong>해 영양 균형을 무너뜨리는 간접적 영향은 경계할 만합니다.</p>
+          </div>
+        </article>
+
+        <article class="mythcard" data-verdict="strong">
+          <div class="mythcard__claim">
+            <span class="mythcard__claimtext"><span class="q">“</span>잠을 충분히 자야 잘 큰다<span class="q">”</span></span>
+            <span class="badge badge--strong"><span class="badge__dot"></span>사실</span>
+          </div>
+          <div class="mythcard__fact">
+            <div class="mythcard__factlabel">근거 기반 설명</div>
+            <p class="mythcard__facttext">성장호르몬은 <strong>깊은 수면 중에 가장 많이 분비</strong>됩니다. 충분하고 규칙적인 수면은 성장에 실제로 도움이 되는, 근거가 비교적 분명한 습관입니다.</p>
+          </div>
+        </article>
+
+        <article class="mythcard" data-verdict="false">
+          <div class="mythcard__claim">
+            <span class="mythcard__claimtext"><span class="q">“</span>닫힌 성장판도 노력하면 다시 열려 키가 큰다<span class="q">”</span></span>
+            <span class="badge badge--false"><span class="badge__dot"></span>거짓 · 위험</span>
+          </div>
+          <div class="mythcard__fact">
+            <div class="mythcard__factlabel">근거 기반 설명</div>
+            <p class="mythcard__facttext">성장판이 완전히 닫히면 <strong>길이 성장은 멈춥니다.</strong> ‘닫힌 성장판 재개방’을 내세우는 시술·제품은 과학적 근거가 없으며, 닫힌 뒤의 키 변화는 대부분 자세 교정에 의한 일시적 효과입니다.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ═══ PART 07 — 체크리스트 ═══ -->
+    <section class="part" id="checklist">
+      <div class="part__head">
+        <span class="part__num">07</span>
+        <span class="part__kicker">체크리스트 · When to See a Doctor</span>
+      </div>
+      <h2>이럴 때는 진료를 받으세요</h2>
+      <p class="part__intro">
+        아래 항목 중 <em>하나라도 해당</em>하면 소아 정형외과 또는 소아청소년과
+        진료를 권합니다. 특히 외상 후 증상은 성장판 손상을 놓치지 않기 위해
+        가볍게 넘기지 않는 것이 좋습니다.
+      </p>
+
+      <div class="checkwrap breakout reveal">
+        <div class="checkwrap__head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 22a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"/><path d="M9 7h6"/><path d="M9 11h6"/></svg>
+          <div>
+            <h3>진료가 필요한 신호</h3>
+            <p>항목을 눌러 체크하며 확인해 보세요</p>
+          </div>
+        </div>
+        <ul class="checklist" id="checklist">
+          <li class="checkitem">
+            <span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="checkitem__text">관절 부위 외상 후 통증·부기가 가라앉지 않는다<span>접질린 뒤 며칠이 지나도 누르면 아프고 부어 있는 경우</span></span>
+          </li>
+          <li class="checkitem">
+            <span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="checkitem__text">다친 부위를 누르면 정확히 한 점이 아프다<span>성장판 부위의 국소 압통은 골절을 시사하는 신호일 수 있습니다</span></span>
+          </li>
+          <li class="checkitem">
+            <span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="checkitem__text">팔다리가 휘었거나 좌우 모양·길이가 다르다<span>각변형이나 길이 차이는 성장 장애의 결과일 수 있습니다</span></span>
+          </li>
+          <li class="checkitem">
+            <span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="checkitem__text">다친 뒤 다리를 절거나 관절을 잘 못 움직인다<span>체중을 싣지 못하거나 운동 범위가 제한되는 경우</span></span>
+          </li>
+          <li class="checkitem">
+            <span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="checkitem__text">성장 곡선에서 백분위가 급격히 떨어지거나 멈췄다<span>잘 자라던 아이의 성장 속도가 또래보다 눈에 띄게 느려진 경우</span></span>
+          </li>
+          <li class="checkitem">
+            <span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="checkitem__text">또래보다 사춘기·2차 성징이 지나치게 이르거나 늦다<span>성조숙·성장 지연은 성장판이 남은 기간에 영향을 줍니다</span></span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ═══ PART 08 — FAQ ═══ -->
+    <section class="part" id="faq">
+      <div class="part__head">
+        <span class="part__num">08</span>
+        <span class="part__kicker">자주 묻는 질문 · FAQ</span>
+      </div>
+      <h2>부모님이 가장 많이 묻는 질문</h2>
+      <p class="part__intro">
+        진료실에서 반복적으로 받는 질문을 모았습니다. 각 항목을 눌러
+        답변을 펼쳐 보세요.
+      </p>
+
+      <div class="faq" id="faq">
+        <div class="faqitem">
+          <button class="faqitem__q"><span class="faqitem__qtext">성장판은 정확히 언제 닫히나요?</span><span class="faqitem__icon"></span></button>
+          <div class="faqitem__a"><div class="faqitem__ainner">
+            <p>개인차가 크지만 일반적으로 <strong>여아는 만 14~16세, 남아는 만 16~18세경</strong>에 대부분의 성장판이 닫힙니다. 다만 실제 기준은 달력 나이가 아니라 <strong>골연령과 사춘기 진행 정도</strong>입니다. 손목 X선으로 측정한 골연령이 더 정확한 지표가 됩니다.</p>
+          </div></div>
+        </div>
+        <div class="faqitem">
+          <button class="faqitem__q"><span class="faqitem__qtext">성장판이 다치면 키가 안 크나요?</span><span class="faqitem__icon"></span></button>
+          <div class="faqitem__a"><div class="faqitem__ainner">
+            <p>대부분의 성장판 손상은 적절히 치료하면 <strong>성장에 큰 영향 없이 회복</strong>됩니다. 문제가 되는 것은 성장판 일부가 막혀 한쪽만 자라는 경우인데, 이는 주로 <strong>Ⅳ·Ⅴ형이나 정복이 잘 안 된 손상</strong>에서 발생합니다. 그래서 손상 후 6~12개월간 추적 관찰이 중요합니다.</p>
+          </div></div>
+        </div>
+        <div class="faqitem">
+          <button class="faqitem__q"><span class="faqitem__qtext">X선에서 성장판 골절이 안 보일 수도 있나요?</span><span class="faqitem__icon"></span></button>
+          <div class="faqitem__a"><div class="faqitem__ainner">
+            <p>네. 특히 <strong>Salter–Harris Ⅰ형과 Ⅴ형</strong>은 뼈 조각의 이동이 거의 없어 초기 X선에서 정상으로 보일 수 있습니다. 이때는 <strong>국소 압통 같은 임상 소견</strong>으로 골절을 의심하고, 필요하면 고정 후 재촬영하거나 MRI·CT를 추가합니다.</p>
+          </div></div>
+        </div>
+        <div class="faqitem">
+          <button class="faqitem__q"><span class="faqitem__qtext">성장판 검사는 몇 살에 받는 게 좋나요?</span><span class="faqitem__icon"></span></button>
+          <div class="faqitem__a"><div class="faqitem__ainner">
+            <p>정해진 나이는 없습니다. <strong>성장 속도가 또래보다 뚜렷이 느리거나, 사춘기가 너무 이르거나 늦을 때</strong>가 검사 시점입니다. 막연한 불안만으로 조기에 반복 촬영하기보다, 성장 곡선상의 변화를 먼저 확인하고 전문의와 상의하는 편이 좋습니다.</p>
+          </div></div>
+        </div>
+        <div class="faqitem">
+          <button class="faqitem__q"><span class="faqitem__qtext">키 크는 영양제나 한약이 효과가 있나요?</span><span class="faqitem__icon"></span></button>
+          <div class="faqitem__a"><div class="faqitem__ainner">
+            <p>균형 잡힌 식사로 <strong>단백질·칼슘·비타민 D가 충분하다면</strong>, 추가 보조제가 최종 키를 늘린다는 일관된 근거는 부족합니다. 특정 결핍이 있을 때 이를 교정하는 것은 도움이 되지만, '키 크는 약'으로 광고되는 제품은 신중하게 판단하시길 권합니다.</p>
+          </div></div>
+        </div>
+        <div class="faqitem">
+          <button class="faqitem__q"><span class="faqitem__qtext">부모 키로 아이 키를 예측할 수 있나요?</span><span class="faqitem__icon"></span></button>
+          <div class="faqitem__a"><div class="faqitem__ainner">
+            <p>부모 키를 이용한 <strong>중간부모키(target height)</strong> 계산으로 대략의 범위를 추정할 수 있습니다. 다만 이는 평균적 경향일 뿐, 실제로는 영양·수면·질환·골연령에 따라 <strong>±5cm가량의 폭</strong>이 있습니다. 정밀 예측에는 골연령 기반 계산이 더 정확합니다.</p>
+          </div></div>
+        </div>
+        <div class="faqitem">
+          <button class="faqitem__q"><span class="faqitem__qtext">성장판 손상은 다 수술해야 하나요?</span><span class="faqitem__icon"></span></button>
+          <div class="faqitem__a"><div class="faqitem__ainner">
+            <p>아닙니다. <strong>가장 흔한 Ⅰ·Ⅱ형은 대부분 비수술적 정복과 깁스 고정</strong>으로 치료합니다. 수술은 주로 <strong>관절면을 침범하거나(Ⅲ·Ⅳ형) 정복이 불안정한 경우</strong>에 관절과 성장판을 정확히 맞추기 위해 시행합니다.</p>
+          </div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="docfoot">
+      <div class="docfoot__brand">
+        GrowthPlate · 성장판 종합 가이드
+        <span>소아·청소년의 성장과 성장판 손상을 차분하게 정리한 보호자·임상 입문 교육 자료입니다.</span>
+      </div>
+      <div class="docfoot__disc">
+        본 자료는 일반적 정보 제공을 위한 것으로, 개별 진단·치료를 대신하지 않습니다. 증상이 있을 경우 반드시 의료진과 상담하시기 바랍니다.
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
