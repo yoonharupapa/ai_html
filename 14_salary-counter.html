@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>초당 연봉 카운터</title>
-<meta name="description" content="연봉을 입력하면 1초에 얼마 버는지 실시간으로 보여주는 카운터">
+<meta name="description" content="연봉을 입력하면 1초에 얼마 버는지 세전·세후 동시에 보여주는 카운터">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23050a09'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%2341f0bd' font-family='monospace'%3E%E2%82%A9%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,8 @@
   --line:#16302a;
   --mint:#41f0bd;
   --mint-mid:#1d9e75;
-  --mint-deep:#0f5b46;
+  --red:#ff5d52;
+  --red-deep:#b3352e;
   --txt:#d9efe7;
   --muted:#5f8377;
 }
@@ -59,32 +60,41 @@ button:hover{border-color:var(--mint-mid);color:var(--mint)}
 button:focus-visible{outline:2px solid var(--mint-mid);outline-offset:1px}
 button:disabled{opacity:.35;cursor:default}
 button:disabled:hover{border-color:var(--line);color:var(--txt)}
-button.go{border-color:var(--mint-deep);color:var(--mint)}
+button.go{border-color:var(--mint-mid);color:var(--mint)}
 button.go:hover{background:rgba(29,158,117,.12)}
 
-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.5rem 1rem}
-.cap{font-size:.8rem;letter-spacing:.35em;color:var(--muted);margin-bottom:.6rem}
-#money{
-  font-family:"Share Tech Mono",monospace;
-  font-size:clamp(2.8rem,12.5vw,10.5rem);
-  line-height:1.05;color:var(--mint);
-  font-variant-numeric:tabular-nums;
-  text-shadow:0 0 16px rgba(65,240,189,.5),0 0 70px rgba(65,240,189,.22);
-  word-break:keep-all;
-}
-.sub{margin-top:.9rem;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
+main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.4rem 1rem}
+.cap{font-size:.8rem;letter-spacing:.35em;color:var(--muted);margin-bottom:.75rem}
+.ticker{width:100%;max-width:900px}
+.tline{display:flex;align-items:baseline;gap:.6rem;justify-content:center;font-family:"Share Tech Mono",monospace;font-variant-numeric:tabular-nums;line-height:1.08;word-break:keep-all}
+.tlab{font-family:"IBM Plex Sans KR",sans-serif;letter-spacing:.1em;flex:0 0 auto}
+.gross{color:var(--mint);font-size:clamp(1.5rem,5.4vw,3.3rem)}
+.gross .tlab{color:var(--mint-mid);font-size:clamp(.72rem,2vw,1rem)}
+.net{color:var(--red);font-size:clamp(2.6rem,11vw,7rem);margin-top:.25rem;
+  text-shadow:0 0 16px rgba(255,93,82,.5),0 0 70px rgba(255,93,82,.22)}
+.net .tlab{color:var(--red-deep);font-size:clamp(.9rem,2.6vw,1.45rem)}
+.sub{margin-top:.95rem;font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .sub b{color:var(--mint-mid);font-weight:500}
+.sub b.rb{color:var(--red)}
 
-#extras{width:min(720px,100%);margin:0 auto;padding:0 1.25rem 1.6rem}
-.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin-bottom:1.1rem}
-.chip{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:.45rem .8rem;font-size:.78rem;color:var(--muted);display:flex;gap:.5rem;align-items:baseline}
+#extras{width:min(900px,100%);margin:0 auto;padding:0 1.25rem 1.6rem}
+.chips{display:flex;flex-wrap:nowrap;justify-content:center;gap:.45rem;margin-bottom:1.05rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:.45rem .72rem;font-size:.78rem;color:var(--muted);display:flex;gap:.45rem;align-items:baseline;white-space:nowrap;flex:0 0 auto}
 .chip b{color:var(--txt);font-weight:500;font-variant-numeric:tabular-nums}
+.chip b.rb{color:var(--red)}
+.dchips{display:flex;flex-wrap:nowrap;justify-content:center;gap:.4rem;margin-top:.7rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.dchips::-webkit-scrollbar{display:none}
+.dchip{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.35rem .6rem;font-size:.7rem;color:var(--muted);white-space:nowrap;flex:0 0 auto;display:flex;gap:.35rem;align-items:baseline}
+.dchip b{color:var(--txt);font-weight:500;font-variant-numeric:tabular-nums}
+.dchip.sum{border-color:var(--mint-mid)}
+.dchip.sum b{color:var(--mint)}
 .goal{margin-bottom:.45rem;display:flex;justify-content:space-between;align-items:baseline;font-size:.85rem}
 #mPct{color:var(--muted);font-variant-numeric:tabular-nums}
 .bar{height:7px;background:var(--panel);border:1px solid var(--line);border-radius:99px;overflow:hidden}
-#mFill{height:100%;width:0%;background:var(--mint-mid);transition:width .3s linear}
-.small{margin-top:.6rem;font-size:.76rem;color:var(--muted);text-align:center}
-.small+.small{margin-top:.25rem}
+#mFill{height:100%;width:0%;background:var(--red);transition:width .3s linear}
+.small{margin-top:.6rem;font-size:.75rem;color:var(--muted);text-align:center;line-height:1.55}
+.small+.small{margin-top:.3rem}
 
 #corner{position:fixed;top:.9rem;right:.95rem;z-index:30}
 
@@ -93,15 +103,18 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;justify-conten
 }
 @media (max-width:560px){
   .brand span{display:none}
+  .chips{flex-wrap:wrap;overflow-x:visible}
+  .dchips{flex-wrap:wrap;overflow-x:visible}
 }
 </style>
 </head>
 <body>
 
 <header id="panel">
-  <div class="brand"><b>&#8361;/sec</b><span>초당 연봉 카운터 — 일하기 싫을 때 보는 화면</span></div>
+  <div class="brand"><b>&#8361;/sec</b><span>초당 연봉 카운터 — 세전·세후 동시 표시</span></div>
   <div class="fields">
     <div class="f"><label for="salary">연봉 (세전, 만원)</label><input id="salary" type="number" inputmode="numeric" value="5000" min="100" max="1000000" step="100"></div>
+    <div class="f"><label for="family">부양가족 (본인 포함)</label><input id="family" type="number" inputmode="numeric" value="1" min="1" max="15" step="1"></div>
     <div class="f"><label for="hours">하루 근무시간</label><input id="hours" type="number" inputmode="numeric" value="8" min="1" max="24" step="1"></div>
     <div class="f"><label for="clockin">출근 시각</label><input id="clockin" type="time" value="09:00"></div>
   </div>
@@ -115,21 +128,26 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;justify-conten
 
 <main>
   <div class="cap">오늘 번 돈</div>
-  <div id="money" aria-live="off">&#8361;0.00</div>
-  <div class="sub">초당 <b id="persec">0.00</b>원 · 경과 <b id="elapsed">00:00:00</b></div>
+  <div class="ticker">
+    <div class="tline gross"><span class="tlab">세전</span><span class="tval" id="moneyG">&#8361;0.00</span></div>
+    <div class="tline net"><span class="tlab">세후</span><span class="tval" id="moneyN">&#8361;0.00</span></div>
+  </div>
+  <div class="sub">초당 세전 <b id="psG">0.00</b> · 세후 <b class="rb" id="psN">0.00</b>원 · 경과 <b id="elapsed">00:00:00</b></div>
 </main>
 
 <footer id="extras">
   <div class="chips">
-    <div class="chip"><span>시급</span><b id="cHour">&#8361;0</b></div>
-    <div class="chip"><span id="cDayL">일당 8시간</span><b id="cDay">&#8361;0</b></div>
-    <div class="chip"><span>최저시급 대비</span><b id="cMin">0.0배</b></div>
-    <div class="chip"><span>화장실 10분</span><b id="cWc">+&#8361;0</b></div>
+    <div class="chip"><span>세전 시급</span><b id="cHourG">&#8361;0</b></div>
+    <div class="chip"><span>세후 시급</span><b class="rb" id="cHourN">&#8361;0</b></div>
+    <div class="chip"><span>실수령률</span><b id="cRatio">0%</b></div>
+    <div class="chip"><span>월 실수령</span><b id="cNetMonth">&#8361;0</b></div>
+    <div class="chip"><span>화장실 10분(세후)</span><b id="cWc">+&#8361;0</b></div>
   </div>
-  <div class="goal"><span id="mLabel">다음 목표: 삼각김밥 (&#8361;1,800)</span><span id="mPct">0%</span></div>
+  <div class="goal"><span id="mLabel">다음 목표(세후): 삼각김밥 (&#8361;1,800)</span><span id="mPct">0%</span></div>
   <div class="bar"><div id="mFill"></div></div>
-  <div class="small" id="chick">치킨 환산 (&#8361;23,000/마리): 0.0마리</div>
-  <div class="small">기준: 연봉 ÷ 12 ÷ 209시간(주 40h·주휴 포함) · 2026 최저시급 &#8361;10,320 · 입력값은 이 브라우저에만 저장됩니다</div>
+  <div class="small" id="chick">치킨 환산(세후 &#8361;23,000/마리): 0.0마리</div>
+  <div class="dchips" id="bd"></div>
+  <div class="small">기준: 2026년 4대보험 요율(국민연금 4.75%·건강 3.595%·장기요양 13.14%·고용 0.9%) + 연말정산 결정세액 · 식대 월 20만 비과세, 부양가족 1인당 인적공제 150만 반영(자녀세액공제 등 그 외 공제는 미반영). 매달 통장 입금액(간이세액 원천징수)과는 차이가 있을 수 있습니다. 입력값은 이 브라우저에만 저장됩니다.</div>
 </footer>
 
 <div id="corner"><button id="bFull" aria-label="전체화면 전환">전체화면</button></div>
@@ -138,7 +156,7 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;justify-conten
 (function(){
 "use strict";
 var $=function(i){return document.getElementById(i)};
-var MIN=10320, CHICKEN=23000, KEY="sps.v1";
+var MIN=10320, CHICKEN=23000, KEY="sps.v2";
 var MS=[
  [1800,"삼각김밥"],
  [4700,"아메리카노"],
@@ -149,27 +167,88 @@ var MS=[
  [100000,"10만원 돌파"],
  [150000,"호텔 뷔페 1인"]
 ];
-var st={salary:5000,hours:8,clockin:"09:00",mode:null,anchor:0,base:0,paused:false,frozen:0};
-var perSec=0, rafId=0, idleT=0;
+var st={salary:5000,hours:8,clockin:"09:00",family:1,mode:null,anchor:0,base:0,paused:false,frozen:0};
+var perSecG=0, perSecN=0, netRatio=1, rafId=0, idleT=0;
 
 function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
 function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);for(var k in st){if(o[k]!==undefined)st[k]=o[k]}}}catch(e){}}
-function fmt(n,d){d=d||0;return "\u20A9"+n.toLocaleString("ko-KR",{minimumFractionDigits:d,maximumFractionDigits:d})}
+function fmt(n,d){d=d||0;return "\u20A9"+Math.round(n*(d?100:1))/(d?100:1)+"";}
+function won(n,d){d=d||0;return "\u20A9"+n.toLocaleString("ko-KR",{minimumFractionDigits:d,maximumFractionDigits:d})}
+
+function earnedIncomeDeduction(g){
+  var d;
+  if(g<=5000000)d=g*0.7;
+  else if(g<=15000000)d=3500000+(g-5000000)*0.4;
+  else if(g<=45000000)d=7500000+(g-15000000)*0.15;
+  else if(g<=100000000)d=12000000+(g-45000000)*0.05;
+  else d=14750000+(g-100000000)*0.02;
+  return Math.min(d,20000000);
+}
+function progressiveTax(b){
+  if(b<=0)return 0;
+  if(b<=14000000)return b*0.06;
+  if(b<=50000000)return b*0.15-1260000;
+  if(b<=88000000)return b*0.24-5760000;
+  if(b<=150000000)return b*0.35-15440000;
+  if(b<=300000000)return b*0.38-19940000;
+  if(b<=500000000)return b*0.40-25940000;
+  if(b<=1000000000)return b*0.42-35940000;
+  return b*0.45-65940000;
+}
+function laborTaxCreditLimit(g){
+  if(g<=33000000)return 740000;
+  if(g<=70000000)return Math.max(660000,740000-(g-33000000)*0.008);
+  if(g<=120000000)return Math.max(500000,660000-(g-70000000)*0.5);
+  return Math.max(200000,500000-(g-120000000)*0.5);
+}
+function netSalary(grossWon,family){
+  family=Math.max(1,family||1);
+  var NONTAX=2400000;
+  var taxable=Math.max(0,grossWon-NONTAX);
+  var bosu=taxable/12;
+  var npBase=Math.min(bosu,6370000);
+  var np=Math.round(npBase*0.0475);
+  var hi=Math.round(bosu*0.03595);
+  var ltc=Math.round(hi*0.1314);
+  var ei=Math.round(bosu*0.009);
+  var insA=(np+hi+ltc+ei)*12;
+  var glsd=earnedIncomeDeduction(taxable);
+  var earned=taxable-glsd;
+  var personal=1500000*family;
+  var pensionDed=np*12;
+  var specialDed=(hi+ltc+ei)*12;
+  var base=Math.max(0,earned-personal-pensionDed-specialDed);
+  var calc=progressiveTax(base);
+  var credit=Math.min(laborTaxCreditLimit(taxable),calc<=1300000?calc*0.55:715000+(calc-1300000)*0.30);
+  var inc=Math.max(0,Math.round(calc-credit));
+  var local=Math.round(inc*0.10);
+  var taxA=inc+local;
+  var netA=grossWon-insA-taxA;
+  return {gross:grossWon,net:netA,insA:insA,taxA:taxA,inc:inc,local:local,np:np*12,hi:hi*12,ltc:ltc*12,ei:ei*12,netRatio:grossWon>0?netA/grossWon:1};
+}
 
 function readInputs(){
   st.salary=Math.min(1000000,Math.max(1,parseFloat($("salary").value)||5000));
   st.hours=Math.min(24,Math.max(1,parseFloat($("hours").value)||8));
   st.clockin=$("clockin").value||"09:00";
+  st.family=Math.min(15,Math.max(1,Math.round(parseFloat($("family").value)||1)));
 }
 function rate(){
-  var hourly=st.salary*10000/12/(209*st.hours*5/40);
-  perSec=hourly/3600;
-  $("cHour").textContent=fmt(hourly);
-  $("cDayL").textContent="일당 "+st.hours+"시간";
-  $("cDay").textContent=fmt(hourly*st.hours);
-  $("cMin").textContent=(hourly/MIN).toFixed(1)+"배";
-  $("cWc").textContent="+"+fmt(perSec*600);
-  $("persec").textContent=perSec.toFixed(2);
+  var hourlyG=st.salary*10000/12/(209*st.hours*5/40);
+  perSecG=hourlyG/3600;
+  var t=netSalary(st.salary*10000,st.family);
+  netRatio=t.netRatio;
+  var hourlyN=hourlyG*netRatio;
+  perSecN=hourlyN/3600;
+  $("cHourG").textContent=won(Math.round(hourlyG));
+  $("cHourN").textContent=won(Math.round(hourlyN));
+  $("cRatio").textContent=(netRatio*100).toFixed(1)+"%";
+  $("cNetMonth").textContent=won(Math.round(t.net/12));
+  $("cWc").textContent="+"+won(Math.round(perSecN*600));
+  $("psG").textContent=perSecG.toFixed(2);
+  $("psN").textContent=perSecN.toFixed(2);
+  var dp=function(label,val,cls){return '<div class="dchip'+(cls?' '+cls:'')+'"><span>'+label+'</span><b>'+won(Math.round(val))+'</b></div>'};
+  $("bd").innerHTML=dp("국민연금",t.np/12)+dp("건강+요양",(t.hi+t.ltc)/12)+dp("고용",t.ei/12)+dp("소득세",t.inc/12)+dp("지방세",t.local/12)+dp("월 합",(t.insA+t.taxA)/12,"sum");
 }
 function clockEpoch(){
   var p=st.clockin.split(":");
@@ -188,14 +267,16 @@ function hms(t){
   return (h<10?"0":"")+h+":"+(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
 }
 function render(){
-  var e=elapsedSec(),m=perSec*e;
-  $("money").textContent=fmt(m,2);
+  var e=elapsedSec();
+  var mG=perSecG*e,mN=perSecN*e;
+  $("moneyG").textContent=won(mG,2);
+  $("moneyN").textContent=won(mN,2);
   $("elapsed").textContent=hms(e);
   var next=null,i;
-  for(i=0;i<MS.length;i++){if(m<MS[i][0]){next=MS[i];break}}
+  for(i=0;i<MS.length;i++){if(mN<MS[i][0]){next=MS[i];break}}
   if(next){
-    $("mLabel").textContent="다음 목표: "+next[1]+" ("+fmt(next[0])+")";
-    var p=Math.min(100,m/next[0]*100);
+    $("mLabel").textContent="다음 목표(세후): "+next[1]+" ("+won(next[0])+")";
+    var p=Math.min(100,mN/next[0]*100);
     $("mPct").textContent=p.toFixed(0)+"%";
     $("mFill").style.width=p+"%";
   }else{
@@ -203,8 +284,8 @@ function render(){
     $("mPct").textContent="100%";
     $("mFill").style.width="100%";
   }
-  $("chick").textContent="치킨 환산 (\u20A923,000/마리): "+(m/CHICKEN).toFixed(1)+"마리";
-  document.title=st.mode?fmt(m,0)+" 버는 중":"초당 연봉 카운터";
+  $("chick").textContent="치킨 환산(세후 \u20A923,000/마리): "+(mN/CHICKEN).toFixed(1)+"마리";
+  document.title=st.mode?won(Math.round(mN))+" (세후) 버는 중":"초당 연봉 카운터";
 }
 function loop(){
   if(st.mode&&!st.paused){render();rafId=requestAnimationFrame(loop)}
@@ -254,7 +335,7 @@ $("bFull").onclick=function(){
     else{document.documentElement.requestFullscreen()}
   }catch(e){}
 };
-["salary","hours","clockin"].forEach(function(id){
+["salary","hours","clockin","family"].forEach(function(id){
   $(id).addEventListener("input",function(){readInputs();rate();save();render()});
 });
 ["mousemove","touchstart","keydown"].forEach(function(ev){
@@ -268,6 +349,7 @@ load();
 $("salary").value=st.salary;
 $("hours").value=st.hours;
 $("clockin").value=st.clockin;
+$("family").value=st.family;
 rate();syncUI();render();kick();armIdle();
 setInterval(function(){if(st.mode&&!st.paused)render()},1000);
 })();
